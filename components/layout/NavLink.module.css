@@ -1,0 +1,32 @@
+.icoBox {
+  width: 50px;
+  height: 30px;
+  font-size: 2rem;
+  color: var(--nav-font-color);
+  background: var(--nav-ico-background);
+  border: 0.5px solid var(--nav-font-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5em;
+}
+
+.linkContainer {
+}
+
+.linkContainer a {
+  padding: 0.2em;
+  transition: background 250ms;
+  display: flex;
+  align-items: center;
+  color: var(--nav-font-color);
+  font-weight: bold;
+}
+
+.linkContainer a:hover {
+  background: violet;
+}
+
+.linkContainer a:active {
+  transform: scale(0.98);
+}

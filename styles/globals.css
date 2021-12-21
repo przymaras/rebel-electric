@@ -1,9 +1,30 @@
-html,
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap");
+
+@font-face {
+  font-family: "Capture";
+  src: url("/fnt/capsmall_clean.ttf");
+  font-weight: 800;
+  font-display: swap;
+}
+:root {
+  --background-color: #a89595;
+  --nav-ico-background: #ffffff;
+  --nav-font-color: #46474d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Open Sans Condensed, sans-serif;
+  font-size: 1.8rem;
 }
 
 a {
@@ -11,6 +32,7 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+.rebel-font {
+  font-family: Capture;
+  letter-spacing: 0.05em;
 }
