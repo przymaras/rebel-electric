@@ -6,6 +6,7 @@
     "/": ["home"],
     "rgx:/hangar*": ["hangar"],
     "rgx:/user*": ["user"],
-    "rgx:/knowledge*": ["knowledge"]
+    "rgx:/knowledge*": ["knowledge"],
+    "/contact": ["contact"]
   }
 }

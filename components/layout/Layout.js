@@ -1,10 +1,13 @@
-import NavBar from "./NavBar";
+import Header from "./Header";
+import Footer from "./Footer";
+import styles from "./Layout.module.css";
 
 function Layout(props) {
   return (
     <>
-      <NavBar />
-      {props.children}
+      <Header />
+      <div className={styles.container}>{props.children}</div>
+      <Footer />
     </>
   );
 }
