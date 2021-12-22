@@ -3,5 +3,7 @@
   "navKnowledgeBase": "KNOWLEDGE BASE",
   "navHangar": "HANGAR",
   "navAddNew": "ADD NEW",
-  "navLogin": "LOGIN"
+  "navLogin": "LOGIN",
+  "navContact": "CONTACT",
+  "navHome": "HOME"
 }

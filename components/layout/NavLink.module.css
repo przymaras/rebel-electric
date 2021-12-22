@@ -11,9 +11,6 @@
   margin-right: 0.5em;
 }
 
-.linkContainer {
-}
-
 .linkContainer a {
   padding: 0.2em;
   transition: background 250ms;
@@ -24,9 +21,48 @@
 }
 
 .linkContainer a:hover {
-  background: violet;
+  background: #ffffff;
 }
 
 .linkContainer a:active {
   transform: scale(0.98);
+}
+
+.loginContainer {
+  background: var(--accent-color);
+  align-self: start;
+}
+
+.loginIcoBox {
+  background: none;
+  border: none;
+}
+
+.loginContainer a:hover {
+  background: unset;
+}
+
+.loginContainer a:active {
+  transform: unset;
+}
+
+.loginContainer:hover {
+  outline: 2px solid var(--nav-font-color);
+}
+
+.loginContainer:active {
+  transform: scale(0.98);
+}
+
+@media (min-width: 1280px) {
+  .loginContainer {
+    display: flex;
+    justify-content: center;
+
+    /* margin: 1em; */
+  }
+
+  .loginIcoBox {
+    width: unset;
+  }
 }

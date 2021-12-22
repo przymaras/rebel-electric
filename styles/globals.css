@@ -7,9 +7,13 @@
   font-display: swap;
 }
 :root {
-  --background-color: #a89595;
+  --background-color: #c4c4c4cc;
   --nav-ico-background: #ffffff;
   --nav-font-color: #46474d;
+  --header-background: #acb0bd;
+  --nav-background: #808080;
+  --accent-color: #ffc246;
+  --desktop-width: 1300px;
 }
 
 * {
@@ -25,6 +29,8 @@ body {
   margin: 0;
   font-family: Open Sans Condensed, sans-serif;
   font-size: 1.8rem;
+  background: var(--background-color);
+  background-image: url("/img/bg.png");
 }
 
 a {

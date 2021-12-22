@@ -1,0 +1,46 @@
+.container {
+  background: var(--header-background);
+  width: 100%;
+}
+
+.footer {
+  color: var(--nav-font-color);
+  height: 70px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1em;
+}
+
+@media (min-width: 425px) {
+  .container {
+    background-image: url("/img/tnr-footer.svg");
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer {
+    height: 130px;
+    flex-grow: 1;
+    max-width: var(--desktop-width);
+  }
+  .img {
+    margin-left: unset;
+  }
+}
