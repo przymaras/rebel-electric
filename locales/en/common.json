@@ -1,9 +1,11 @@
 {
-  "description": "EN EN Rebel Electric to największa baza pojazdów elektrycznych w Polsce! Dodaj swój Ebike i przeglądaj konstrukcje innych.",
+  "404notFound": "404 | This page could not be found.",
+  "metaDescription": "EN EN Rebel Electric to największa baza pojazdów elektrycznych w Polsce! Dodaj swój Ebike i przeglądaj konstrukcje innych.",
   "navKnowledgeBase": "KNOWLEDGE BASE",
   "navHangar": "HANGAR",
   "navAddNew": "ADD NEW",
   "navLogin": "LOGIN",
   "navContact": "CONTACT",
-  "navHome": "HOME"
+  "navHome": "HOME",
+  "register": "REGISTER"
 }

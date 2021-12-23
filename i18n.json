@@ -5,7 +5,7 @@
     "*": ["common"],
     "/": ["home"],
     "rgx:/hangar*": ["hangar"],
-    "rgx:/user*": ["user"],
+    "rgx:/users*": ["user"],
     "rgx:/knowledge*": ["knowledge"],
     "/contact": ["contact"]
   }

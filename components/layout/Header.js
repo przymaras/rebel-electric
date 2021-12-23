@@ -15,7 +15,7 @@ function Header(props) {
   function closeNav() {
     setTimeout(() => {
       setIsVisibleNav(false);
-    }, 500);
+    }, 150);
   }
 
   useEffect(() => {

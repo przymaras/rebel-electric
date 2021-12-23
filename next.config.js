@@ -4,4 +4,7 @@ module.exports = {
   ...nextTranslate(),
   reactStrictMode: true,
   trailingSlash: true,
+  images: {
+    domains: ["rebel-electric.com"],
+  },
 };

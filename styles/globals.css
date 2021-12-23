@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
 
 @font-face {
   font-family: "Capture";
@@ -8,16 +8,20 @@
 }
 :root {
   --background-color: #c4c4c4cc;
+  --dark-background: #46474d;
   --nav-ico-background: #ffffff;
   --nav-font-color: #46474d;
   --header-background: #acb0bd;
   --nav-background: #808080;
   --accent-color: #ffc246;
+  --accent-color-font: #e79b00;
   --desktop-width: 1300px;
 }
 
 * {
   box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 html {
@@ -27,10 +31,11 @@ html {
 body {
   padding: 0;
   margin: 0;
-  font-family: Open Sans Condensed, sans-serif;
+  font-family: Roboto, sans-serif;
   font-size: 1.8rem;
   background: var(--background-color);
   background-image: url("/img/bg.png");
+  overflow-x: hidden;
 }
 
 a {
@@ -38,7 +43,19 @@ a {
   text-decoration: none;
 }
 
+p {
+  line-height: 1.6;
+  margin: 0;
+  letter-spacing: 0.015em;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
 .rebel-font {
-  font-family: Capture;
+  font-family: Capture, sans-serif;
   letter-spacing: 0.05em;
 }

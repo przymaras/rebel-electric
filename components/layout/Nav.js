@@ -35,7 +35,7 @@ function Nav(props) {
         />
 
         <NavLink
-          href="/user/login"
+          href="/users/login"
           icon={<IconAcademy />}
           name={t("common:navLogin")}
           login={true}
