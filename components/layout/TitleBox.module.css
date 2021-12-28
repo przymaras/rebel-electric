@@ -1,0 +1,33 @@
+.container {
+  padding: 0.5em;
+  width: 100vw;
+  background: var(--accent-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--nav-font-color);
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.container h1 {
+  font-size: 6rem;
+}
+
+.container div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.container svg {
+  margin-right: 10px;
+  font-size: 5rem;
+}
+
+.container p {
+  line-height: 1.2;
+}
