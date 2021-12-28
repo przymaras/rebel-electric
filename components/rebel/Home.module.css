@@ -39,12 +39,20 @@
   align-items: center;
 }
 
+.btnInfo:first-child {
+  margin-top: 1em;
+}
+
 @media (min-width: 1280px) {
   .btnInfo {
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%;
     margin: 1em 0;
+  }
+
+  .btnInfo:first-child {
+    margin-top: 2em;
   }
 
   .call {
