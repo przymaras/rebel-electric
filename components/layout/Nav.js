@@ -3,6 +3,7 @@ import useTranslation from "next-translate/useTranslation";
 import NavLink from "./NavLink";
 
 import { IconAcademy } from "../icons/IconAcademy";
+import { IconPowerOn } from "../icons/IconPowerOn";
 
 function Nav(props) {
   const { t } = useTranslation();
@@ -36,7 +37,7 @@ function Nav(props) {
 
         <NavLink
           href="/users/login"
-          icon={<IconAcademy />}
+          icon={<IconPowerOn />}
           name={t("common:navLogin")}
           login={true}
           closeNav={props.closeNav}
