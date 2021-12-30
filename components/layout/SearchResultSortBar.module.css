@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.container select {
+  font-size: 1.8rem;
+  padding: 0.2em;
+}

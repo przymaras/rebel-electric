@@ -3,7 +3,7 @@ export const IconNavBars = (props) => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 448 512"
     fill="currentColor"
-    className={`${props.cssClass} icon`}
+    className="icon"
     role="Img"
     style={{ display: "inline-block", height: "1em" }}
   >
