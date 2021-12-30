@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 55px 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  color: var(--nav-font-color);
+}
+
+.container p {
+  margin: 0;
+  font-size: 1.5rem;
+  padding: 0.15em 0;
+}
+
+.base {
+  background: var(--data-bar-gray-light);
+}
+
+.electrical {
+  background: var(--data-bar-yellow-light);
+}
+
+.battery {
+  background: var(--data-bar-green-light);
+}

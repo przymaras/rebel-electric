@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+
+.container > div {
+  margin-left: 5px;
+}
+
+.container > div:first-of-type {
+  margin-left: 0;
+}
