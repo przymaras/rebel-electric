@@ -1,19 +1,5 @@
-.selectCategory {
+.selectCategoryTitle {
   font-size: 2rem;
   margin: 1em 0;
   text-align: center;
-}
-
-.categorySwiper {
-  margin: 0.5em 0;
-}
-
-.categoryImg {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.categoryImg img {
-  object-fit: cover;
 }
