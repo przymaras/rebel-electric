@@ -26,6 +26,14 @@ function CategorySwiperStyles() {
         outline-offset: -6px;
       }
 
+      .swiper-slide:first-of-type,
+      .swiper-slide:last-of-type {
+        display: flex;
+        background-color: unset;
+        border: none;
+        outline: none;
+      }
+
       .swiper-slide-active p {
         background: var(--accent-color);
         width: 100%;
