@@ -36,7 +36,6 @@ function Hangar(props) {
 
       <InfoBox>
         <p>{t("hangar:select-category-info-1")}</p>
-        <p>{t("hangar:select-category-info-2")}</p>
       </InfoBox>
 
       <CategorySelector />
