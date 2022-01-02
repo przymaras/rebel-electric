@@ -5,18 +5,21 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import styles from "./CategorySwiper.module.css";
 import { useEffect, useRef } from "react";
+import { useWindowResize } from "../../hooks/useWindowResize";
 
 function CategorySwiper(props) {
   let timer;
   let initialSlide = 1;
   const swiperObject = useRef(() => {});
+  const [currentWidth, currentHeight] = useWindowResize();
+
   if (
     props.selectedIndexes[props.currentCatLvl] !== undefined &&
     props.selectedIndexes[props.currentCatLvl] !== -1
   ) {
     initialSlide = props.selectedIndexes[props.currentCatLvl] + 2;
   }
-
+  console.log(initialSlide);
   useEffect(() => {
     if (
       props.selectedIndexes[props.currentCatLvl] !== undefined &&
@@ -30,14 +33,24 @@ function CategorySwiper(props) {
   return (
     <div className={styles.container}>
       <Swiper
-        slidesPerView={2}
+        slidesPerView={currentWidth > 700 ? (currentWidth > 1024 ? 6 : 4) : 2}
         initialSlide={initialSlide}
         centeredSlides={true}
         spaceBetween={10}
         grabCursor={true}
         className={styles.categorySwiper}
+        // slideToClickedSlide={true}
+        // loop={true}
         onActiveIndexChange={(swiper) => {
-          if (
+          if (swiper.isBeginning) {
+            timer = setTimeout(() => {
+              swiper.slideTo(1, 400);
+            }, 100);
+          } else if (swiper.isEnd) {
+            timer = setTimeout(() => {
+              swiper.slideTo(props.cat.categories.length + 1, 400);
+            }, 100);
+          } else if (
             swiper.activeIndex > 0 &&
             swiper.activeIndex < props.cat.categories.length + 2
           ) {
@@ -62,21 +75,28 @@ function CategorySwiper(props) {
             }, 800);
           }
         }}
-        onReachBeginning={(swiper) =>
-          (timer = setTimeout(() => {
-            swiper.slideTo(1, 400);
-          }, 100))
-        }
-        onReachEnd={(swiper) =>
-          (timer = setTimeout(() => {
-            swiper.slideTo(props.cat.categories.length + 1, 400);
-          }, 100))
-        }
-        onClick={(swiper) =>
-          (timer = setTimeout(() => {
-            swiper.slideTo(swiper.clickedIndex, 400);
-          }, 100))
-        }
+        // onReachBeginning={(swiper) =>
+        //   (timer = setTimeout(() => {
+        //     swiper.slideTo(1, 400);
+        //   }, 100))
+        // }
+        // onReachEnd={(swiper) =>
+        //   (timer = setTimeout(() => {
+        //     swiper.slideTo(props.cat.categories.length + 1, 400);
+        //   }, 100))
+        // }
+        onClick={(swiper) => {
+          if (
+            swiper.clickedIndex !== 0 &&
+            swiper.clickedIndex !== swiper.slides.length - 1
+          ) {
+            timer = setTimeout(() => {
+              swiper.slideTo(swiper.clickedIndex, 400);
+              // console.log(swiper.realIndex);
+              // swiper.init();
+            }, 100);
+          }
+        }}
         onAfterInit={(swiper) => {
           clearTimeout(timer);
           swiperObject.current = swiper;
@@ -85,10 +105,11 @@ function CategorySwiper(props) {
         <SwiperSlide>
           <div className={styles.firstSlide}></div>
         </SwiperSlide>
+
         <SwiperSlide>
           <p>
             {props.currentCatLvl === 0
-              ? "Pokaż wszystkie na rebelelectric.com"
+              ? "Pokaż wszystkie (bez filtra kategorii)"
               : "Pokaż wszystkie z tej podkategorii"}
           </p>
         </SwiperSlide>
@@ -111,6 +132,7 @@ function CategorySwiper(props) {
             </SwiperSlide>
           );
         })}
+
         <SwiperSlide>
           <div className={styles.lastSlide}></div>
         </SwiperSlide>
