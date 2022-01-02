@@ -11,7 +11,7 @@ function Home(props) {
   const { t } = useTranslation();
   return (
     <>
-      <div className={styles.btnInfo}>
+      <div className={styles.sectionWrapper}>
         <div className={styles.logo}>
           <Image src={Logo} alt="Rebel Electric Logo" layout="fill" />
         </div>
@@ -28,7 +28,7 @@ function Home(props) {
           </p>
         </div>
       </div>
-      <div className={styles.btnInfo}>
+      <div className={styles.sectionWrapper}>
         <BtnLink
           href="/hangar"
           icon={<IconAcademy />}
@@ -41,7 +41,7 @@ function Home(props) {
       </div>
 
       <HomeRecentBox recentVehicles={props.recentVehicles} />
-      <div className={styles.btnInfo}>
+      <div className={styles.sectionWrapper}>
         <BtnLink
           href="/knowledge"
           icon={<IconAcademy />}
@@ -79,7 +79,7 @@ function Home(props) {
           </p>
         </div>
       </div>
-      <div className={styles.btnInfo}>
+      <div className={styles.sectionWrapper}>
         <BtnLink
           href="/users/add"
           icon={<IconAcademy />}

@@ -3,3 +3,46 @@
   margin: 1em 0;
   text-align: center;
 }
+
+.sectionWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sectionWrapper:first-child {
+  margin-top: 1em;
+}
+
+.vehiclesWrapper {
+  width: 100vw;
+}
+
+@media (min-width: 700px) {
+  .sectionWrapper {
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 1em 0;
+  }
+
+  .sectionWrapper:first-child {
+    margin-top: 2em;
+  }
+
+  .vehiclesWrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .vehiclesWrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 20px;
+  }
+}

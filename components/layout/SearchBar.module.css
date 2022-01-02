@@ -11,3 +11,12 @@
   height: 3em;
   text-indent: 1em;
 }
+
+@media (min-width: 1280px) {
+  .form {
+    width: 100%;
+  }
+}
+.form input {
+  width: 100%;
+}

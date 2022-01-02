@@ -29,37 +29,17 @@ function Hangar(props) {
         </div>
         <p>{t("hangar:header-info")}</p>
       </TitleBox>
+      <div className={styles.sectionWrapper}>
+        <h2 className={`rebel-font ${styles.selectCategoryTitle}`}>
+          {t("hangar:select-category")}
+        </h2>
 
-      <h2 className={`rebel-font ${styles.selectCategoryTitle}`}>
-        {t("hangar:select-category")}
-      </h2>
-
-      <InfoBox>
-        <p>{t("hangar:select-category-info-1")}</p>
-      </InfoBox>
+        <InfoBox>
+          <p>{t("hangar:select-category-info-1")}</p>
+        </InfoBox>
+      </div>
 
       <CategorySelector />
-
-      {/* <CategorySwiper cat={dummyVehiclesCat} />
-      <CategorySwiper cat={dummyEbikesTypes} />
-      <SwiperInDocumentStyles />
-
-      <CategoryContainer title="ZAWIESZENIE">
-        <CategoryBox />
-        <CategoryBox />
-      </CategoryContainer>
-
-      <CategoryContainer title="NAPĘD">
-        <CategoryBox />
-        <CategoryBox />
-        <CategoryBox />
-      </CategoryContainer>
-
-      <CategoryContainer title="MOC">
-        <CategoryBox />
-        <CategoryBox />
-        <CategoryBox />
-      </CategoryContainer> */}
 
       <SearchBar />
 
@@ -95,13 +75,21 @@ function Hangar(props) {
           }}
         />
       </DataBarsHeadingContainer>
-
-      <VehicleBox />
-      <VehicleBox />
-      <VehicleBox />
-      <VehicleBox />
-      <VehicleBox />
-      <VehicleBox />
+      <div className={styles.vehiclesWrapper}>
+        <VehicleBox />
+        <VehicleBox />
+        <VehicleBox />
+        <VehicleBox />
+        <VehicleBox />
+        <VehicleBox />
+        <VehicleBox />
+        <VehicleBox />
+        <VehicleBox />
+        <VehicleBox />
+        <VehicleBox />
+        <VehicleBox />
+        <VehicleBox />
+      </div>
     </>
   );
 }
