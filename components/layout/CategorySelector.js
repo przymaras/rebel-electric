@@ -293,7 +293,6 @@ const dummyVehiclesCat = {
               ],
             },
           },
-
           {
             id: "1",
             name: "FABRYCZNY",
