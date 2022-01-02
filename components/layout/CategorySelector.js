@@ -1,46 +1,90 @@
-import CategoryBox from "../layout/CategoryBox";
-import CategoryContainer from "../layout/CategoryContainer";
+import { useState } from "react";
 import CategorySwiper from "../layout/CategorySwiper";
-import SwiperInDocumentStyles from "../layout/SwiperInDocumentStyles";
+import CategorySwiperStyles from "./CategorySwiperStyles";
 
 function CategorySelector(props) {
+  const [selectedIndexes, setSelectedIndexes] = useState([-1]);
+
+  function renderSelectedSwipers(cat, selected) {
+    let currentCatLvl = -1;
+
+    function renderSwiper(cat, selected) {
+      currentCatLvl++;
+      const Swiper = (
+        <CategorySwiper
+          cat={cat}
+          name={cat.catTitle}
+          currentCatLvl={currentCatLvl}
+          selectedIndexes={selectedIndexes}
+          setSelectedIndexes={setSelectedIndexes}
+        />
+      );
+
+      if (
+        selected[currentCatLvl] !== undefined &&
+        cat.categories[selected[currentCatLvl]] !== undefined
+      ) {
+        if (cat.categories[selected[currentCatLvl]].child) {
+          if (selected[currentCatLvl + 1] === undefined)
+            setSelectedIndexes((p) => [...p, -1]);
+          return (
+            <>
+              {Swiper}
+              {renderSwiper(
+                cat.categories[selected[currentCatLvl]].child,
+                selected
+              )}
+            </>
+          );
+        } else {
+          return Swiper;
+        }
+      } else if (selected[currentCatLvl] === -1) {
+        return Swiper;
+      }
+    }
+    return renderSwiper(cat, selected);
+  }
+
+  function renderSelectedCategoriesNames(cat, selected) {
+    let currentIndex = -1;
+
+    function renderSelected(cat, selected) {
+      currentIndex++;
+      if (
+        selected[currentIndex] !== undefined &&
+        cat.categories[selected[currentIndex]] !== undefined
+      ) {
+        if (cat.categories[selected[currentIndex]].child) {
+          return (
+            <>
+              <p>
+                {cat.catTitle}: {cat.categories[selected[currentIndex]].name}
+              </p>
+              {renderSelected(
+                cat.categories[selected[currentIndex]].child,
+                selected
+              )}
+            </>
+          );
+        } else {
+          return (
+            <p>
+              {cat.catTitle}: {cat.categories[selected[currentIndex]].name}
+            </p>
+          );
+        }
+      }
+    }
+
+    return renderSelected(cat, selected);
+  }
+
   return (
     <>
-      <SwiperInDocumentStyles />
-      <CategorySwiper cat={dummyVehiclesCat} />
-      <CategorySwiper cat={dummyVehiclesCat.categories[0].child} />
-      <CategorySwiper
-        cat={dummyVehiclesCat.categories[0].child.categories[0].child}
-      />
-      <CategorySwiper
-        cat={
-          dummyVehiclesCat.categories[0].child.categories[0].child.categories[0]
-            .child
-        }
-      />
-      <CategorySwiper
-        cat={
-          dummyVehiclesCat.categories[0].child.categories[0].child.categories[0]
-            .child.categories[0].child
-        }
-      />
-
-      {/* <CategoryContainer title="ZAWIESZENIE">
-        <CategoryBox />
-        <CategoryBox />
-        </CategoryContainer>
-        
-        <CategoryContainer title="NAPĘD">
-        <CategoryBox />
-        <CategoryBox />
-        <CategoryBox />
-        </CategoryContainer>
-        
-        <CategoryContainer title="MOC">
-        <CategoryBox />
-        <CategoryBox />
-        <CategoryBox />
-    </CategoryContainer> */}
+      <CategorySwiperStyles />
+      {renderSelectedSwipers(dummyVehiclesCat, selectedIndexes)}
+      {renderSelectedCategoriesNames(dummyVehiclesCat, selectedIndexes)}
     </>
   );
 }
@@ -53,48 +97,49 @@ const dummyVehiclesCat = {
     {
       id: "1",
       name: "eBike",
-      image: "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+      image: "/img/categories/ebike/ebike-factory.svg",
       child: {
         catTitle: "WYKONANIE",
         categories: [
           {
             id: "2",
             name: "KONWERSJA",
-            image: "https://rebel-electric.com/new/bike_kind/4.png",
+            image: "/img/categories/ebike/ebike-conversion.svg",
             child: {
               catTitle: "ZAWIESZENIE",
               categories: [
                 {
                   id: "3",
                   name: "SZTYWNY TYŁ",
-                  image: "https://rebel-electric.com/new/bike_kind/3.png",
+                  image: "/img/categories/ebike/ebike-conversion-ht.svg",
                   child: {
                     catTitle: "NAPĘD",
                     categories: [
                       {
                         id: "3",
                         name: "HUB TYŁ",
-                        image: "https://rebel-electric.com/new/bike_kind/3.png",
+                        image:
+                          "/img/categories/ebike/ebike-conversion-ht-hub_r.svg",
                         child: {
                           catTitle: "MOC",
                           categories: [
                             {
                               id: "3",
-                              name: "NISKA MOC",
+                              name: "ŚREDNIA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/3.png",
+                                "/img/categories/ebike/ebike-conversion-ht-hub_r-mp.svg",
                             },
                             {
                               id: "1",
-                              name: "ŚREDNIA MOC",
+                              name: "DUŻA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+                                "/img/categories/ebike/ebike-conversion-ht-hub_r-hp.svg",
                             },
                             {
                               id: "4",
                               name: "CRUISER",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/4.png",
+                                "/img/categories/ebike/ebike-conversion-ht-hub_r-cruiser.svg",
                             },
                           ],
                         },
@@ -103,7 +148,7 @@ const dummyVehiclesCat = {
                         id: "1",
                         name: "HUB PRZÓD",
                         image:
-                          "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+                          "/img/categories/ebike/ebike-conversion-ht-hub_f.svg",
                         child: {
                           catTitle: "MOC",
                           categories: [
@@ -111,19 +156,19 @@ const dummyVehiclesCat = {
                               id: "3",
                               name: "NISKA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/3.png",
+                                "/img/categories/ebike/ebike-conversion-ht-hub_f-lp.svg",
                             },
                             {
                               id: "1",
                               name: "ŚREDNIA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+                                "/img/categories/ebike/ebike-conversion-ht-hub_f-mp.svg",
                             },
                             {
                               id: "4",
                               name: "CRUISER",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/4.png",
+                                "/img/categories/ebike/ebike-conversion-ht-hub_f-cruiser.svg",
                             },
                           ],
                         },
@@ -131,7 +176,8 @@ const dummyVehiclesCat = {
                       {
                         id: "4",
                         name: "MID",
-                        image: "https://rebel-electric.com/new/bike_kind/4.png",
+                        image:
+                          "/img/categories/ebike/ebike-conversion-ht-mid.svg",
                         child: {
                           catTitle: "MOC",
                           categories: [
@@ -139,13 +185,13 @@ const dummyVehiclesCat = {
                               id: "3",
                               name: "NISKA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/3.png",
+                                "/img/categories/ebike/ebike-conversion-ht-mid-lp.svg",
                             },
                             {
                               id: "1",
                               name: "ŚREDNIA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+                                "/img/categories/ebike/ebike-conversion-ht-mid-mp.svg",
                             },
                           ],
                         },
@@ -156,34 +202,35 @@ const dummyVehiclesCat = {
                 {
                   id: "1",
                   name: "AMORTYZOWANY",
-                  image: "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+                  image: "/img/categories/ebike/ebike-conversion-full.svg",
                   child: {
                     catTitle: "NAPĘD",
                     categories: [
                       {
                         id: "3",
                         name: "HUB TYŁ",
-                        image: "https://rebel-electric.com/new/bike_kind/3.png",
+                        image:
+                          "/img/categories/ebike/ebike-conversion-full-hub_r.svg",
                         child: {
                           catTitle: "MOC",
                           categories: [
                             {
                               id: "3",
-                              name: "NISKA MOC",
+                              name: "ŚREDNIA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/3.png",
+                                "/img/categories/ebike/ebike-conversion-full-hub_r-mp.svg",
                             },
                             {
                               id: "1",
-                              name: "ŚREDNIA MOC",
+                              name: "DUŻA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+                                "/img/categories/ebike/ebike-conversion-full-hub_r-hp.svg",
                             },
                             {
                               id: "4",
                               name: "SZALONA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/4.png",
+                                "/img/categories/ebike/ebike-conversion-full-hub_r-ip.svg",
                             },
                           ],
                         },
@@ -192,21 +239,21 @@ const dummyVehiclesCat = {
                         id: "1",
                         name: "HUB PRZÓD",
                         image:
-                          "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+                          "/img/categories/ebike/ebike-conversion-full-hub_f.svg",
                         child: {
                           catTitle: "MOC",
                           categories: [
                             {
-                              id: "3",
+                              id: "32",
                               name: "NISKA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/3.png",
+                                "/img/categories/ebike/ebike-conversion-full-hub_f-lp.svg",
                             },
                             {
-                              id: "1",
+                              id: "11",
                               name: "ŚREDNIA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+                                "/img/categories/ebike/ebike-conversion-full-hub_f-mp.svg",
                             },
                           ],
                         },
@@ -214,27 +261,28 @@ const dummyVehiclesCat = {
                       {
                         id: "4",
                         name: "MID",
-                        image: "https://rebel-electric.com/new/bike_kind/4.png",
+                        image:
+                          "/img/categories/ebike/ebike-conversion-full-mid.svg",
                         child: {
                           catTitle: "MOC",
                           categories: [
                             {
-                              id: "3",
-                              name: "NISKA MOC",
-                              image:
-                                "https://rebel-electric.com/new/bike_kind/3.png",
-                            },
-                            {
-                              id: "1",
+                              id: "6",
                               name: "ŚREDNIA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+                                "/img/categories/ebike/ebike-conversion-full-mid-mp.svg",
                             },
                             {
-                              id: "2",
+                              id: "7",
+                              name: "DUŻA MOC",
+                              image:
+                                "/img/categories/ebike/ebike-conversion-full-mid-hp.svg",
+                            },
+                            {
+                              id: "8",
                               name: "SZALONA MOC",
                               image:
-                                "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+                                "/img/categories/ebike/ebike-conversion-full-mid-ip.svg",
                             },
                           ],
                         },
@@ -248,17 +296,52 @@ const dummyVehiclesCat = {
           {
             id: "3",
             name: "MONSTERBIKE",
-            image: "https://rebel-electric.com/new/bike_kind/3.png",
+            image: "/img/categories/ebike/ebike-monster.svg",
+            child: {
+              catTitle: "TYP",
+              categories: [
+                {
+                  id: "6",
+                  name: "GÓRSKI",
+                  image: "/img/categories/ebike/ebike-monster-hill_c.svg",
+                },
+                {
+                  id: "7",
+                  name: "SPEED",
+                  image: "/img/categories/ebike/ebike-monster-speed.svg",
+                },
+                {
+                  id: "8",
+                  name: "LEKKI",
+                  image: "/img/categories/ebike/ebike-monster-light.svg",
+                },
+              ],
+            },
           },
           {
             id: "1",
             name: "FABRYCZNY",
-            image: "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
+            image: "/img/categories/ebike/ebike-factory.svg",
+            child: {
+              catTitle: "ZAWIESZENIE",
+              categories: [
+                {
+                  id: "6",
+                  name: "SZTYWNY TYŁ",
+                  image: "/img/categories/ebike/ebike-factory-ht.svg",
+                },
+                {
+                  id: "7",
+                  name: "AMORTYZOWANY",
+                  image: "/img/categories/ebike/ebike-factory-full.svg",
+                },
+              ],
+            },
           },
           {
             id: "4",
             name: "INNY",
-            image: "https://rebel-electric.com/new/bike_kind/4.png",
+            image: "/img/categories/other.svg",
           },
         ],
       },
@@ -266,43 +349,47 @@ const dummyVehiclesCat = {
     {
       id: "2",
       name: "eMoto",
-      image: "https://rebel-electric.com/new/bike_kind/4.png",
+      image: "/img/categories/emoto/emoto.svg",
+      child: {
+        catTitle: "WYKONANIE",
+        categories: [
+          {
+            id: "2",
+            name: "FABRYCZNY",
+            image: "/img/categories/emoto/emoto-factory.svg",
+          },
+          {
+            id: "3",
+            name: "KONWERSJA",
+            image: "/img/categories/emoto/emoto-conversion-mid.svg",
+            child: {
+              catTitle: "NAPĘD",
+              categories: [
+                {
+                  id: "2",
+                  name: "HUB TYŁ",
+                  image: "/img/categories/emoto/emoto-conversion-hub.svg",
+                },
+                {
+                  id: "3",
+                  name: "MID",
+                  image: "/img/categories/emoto/emoto-conversion-mid.svg",
+                },
+              ],
+            },
+          },
+        ],
+      },
     },
     {
       id: "3",
       name: "eCar",
-      image: "https://rebel-electric.com/new/bike_kind/3.png",
+      image: "/img/categories/other.svg",
     },
     {
       id: "4",
-      name: "oneWheel",
-      image: "https://rebel-electric.com/new/bike_kind/4.png",
-    },
-  ],
-};
-
-const dummyEbikesTypes = {
-  catTitle: "WYKONANIE",
-  categories: [
-    {
-      id: "1",
-      name: "FABRYCZNY",
-      image: "https://rebel-electric.com/new/bike_kind/2/2/1/3.png",
-    },
-    {
-      id: "2",
-      name: "KONWERSJA",
-      image: "https://rebel-electric.com/new/bike_kind/4.png",
-    },
-    {
-      id: "3",
-      name: "MONSTERBIKE",
-      image: "https://rebel-electric.com/new/bike_kind/3.png",
-    },
-    {
-      id: "4",
-      name: "INNY",
-      image: "https://rebel-electric.com/new/bike_kind/4.png",
+      name: "Inny",
+      image: "/img/categories/other.svg",
     },
   ],
 };

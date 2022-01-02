@@ -1,4 +1,4 @@
-function SwiperInDocumentStyles() {
+function CategorySwiperStyles() {
   return (
     <style global jsx>{`
       .swiper {
@@ -15,7 +15,6 @@ function SwiperInDocumentStyles() {
         font-weight: bold;
         letter-spacing: 1px;
         color: #46474d;
-        box-shadow: 0px 4px 4px #bbbbbb;
         background-size: contain;
         background-repeat: no-repeat;
         border: 3px solid black;
@@ -37,6 +36,7 @@ function SwiperInDocumentStyles() {
     //   .swiper {
     //     width: 240px;
     //     height: 180px;
+
     //   }
 
     //   .swiper-slide {
@@ -60,4 +60,4 @@ function SwiperInDocumentStyles() {
   );
 }
 
-export default SwiperInDocumentStyles;
+export default CategorySwiperStyles;
