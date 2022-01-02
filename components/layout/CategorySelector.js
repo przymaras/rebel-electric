@@ -293,31 +293,7 @@ const dummyVehiclesCat = {
               ],
             },
           },
-          {
-            id: "3",
-            name: "MONSTERBIKE",
-            image: "/img/categories/ebike/ebike-monster.svg",
-            child: {
-              catTitle: "TYP",
-              categories: [
-                {
-                  id: "6",
-                  name: "GÓRSKI",
-                  image: "/img/categories/ebike/ebike-monster-hill_c.svg",
-                },
-                {
-                  id: "7",
-                  name: "SPEED",
-                  image: "/img/categories/ebike/ebike-monster-speed.svg",
-                },
-                {
-                  id: "8",
-                  name: "LEKKI",
-                  image: "/img/categories/ebike/ebike-monster-light.svg",
-                },
-              ],
-            },
-          },
+
           {
             id: "1",
             name: "FABRYCZNY",
@@ -342,6 +318,31 @@ const dummyVehiclesCat = {
             id: "4",
             name: "INNY",
             image: "/img/categories/other.svg",
+          },
+        ],
+      },
+    },
+    {
+      id: "3",
+      name: "MONSTER eBIKE",
+      image: "/img/categories/ebike/ebike-monster.svg",
+      child: {
+        catTitle: "TYP",
+        categories: [
+          {
+            id: "6",
+            name: "GÓRSKI",
+            image: "/img/categories/ebike/ebike-monster-hill_c.svg",
+          },
+          {
+            id: "7",
+            name: "SPEED",
+            image: "/img/categories/ebike/ebike-monster-speed.svg",
+          },
+          {
+            id: "8",
+            name: "LEKKI",
+            image: "/img/categories/ebike/ebike-monster-light.svg",
           },
         ],
       },
@@ -381,6 +382,7 @@ const dummyVehiclesCat = {
         ],
       },
     },
+
     {
       id: "3",
       name: "eCar",
