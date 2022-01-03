@@ -2,7 +2,7 @@ function CategorySwiperStyles() {
   return (
     <style global jsx>{`
       .swiper {
-        width: 100vw;
+        width: 100%;
         height: calc(100vw / 1.33);
         max-height: 650px;
         margin-left: 0;
@@ -34,7 +34,21 @@ function CategorySwiperStyles() {
       }
 
       .swiper-horizontal:nth-child(2) {
-        padding: 0 0 0.5em 0;
+        padding: 0.5em 0 0.5em 0;
+      }
+
+      @media (min-width: 1280px) {
+        .swiper {
+          max-height: 600px;
+        }
+
+        .mySwiper {
+          max-height: 115px;
+        }
+
+        .mySwiper .swiper-slide {
+          max-height: 100px;
+        }
       }
     `}</style>
   );

@@ -15,9 +15,12 @@
   --nav-background: #808080;
   --accent-color: #ffc246;
   --accent-color-font: #e79b00;
-  --data-bar-gray-light: #acb0bc;
-  --data-bar-yellow-light: #f8e479;
-  --data-bar-green-light: #aff88b;
+  --data-gray: #acb0bd;
+  --data-gray-light: #d9dded;
+  --data-yellow: #fff200;
+  --data-yellow-light: #fffcc4;
+  --data-green: #4cff3a;
+  --data-green-light: #baffb3;
   --desktop-width: 1300px;
 }
 

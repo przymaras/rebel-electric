@@ -4,7 +4,11 @@ import styles from "./BtnLink.module.css";
 function BtnLink(props) {
   return (
     <Link href={props.href} passHref>
-      <a className={styles.a}>
+      <a
+        className={`${styles.a} ${
+          props.horizontal === true && styles.horizontal
+        }`}
+      >
         <div className={styles.icoBox}>{props.icon}</div>
         <p className={styles.p}>{props.text}</p>
       </a>

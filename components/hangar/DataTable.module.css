@@ -1,0 +1,65 @@
+.container {
+  width: 100%;
+  font-size: 1.6rem;
+}
+
+.headingRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.1em 1em;
+}
+
+.headingInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headingInfo p {
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.detailsRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: 0 10px;
+  padding: 0 1em;
+}
+
+.base {
+  background: var(--data-gray);
+}
+
+.baseLight {
+  background: var(--data-gray-light);
+}
+
+.electrical {
+  background: var(--data-yellow);
+}
+
+.electricalLight {
+  background: var(--data-yellow-light);
+}
+
+.battery {
+  background: var(--data-green);
+}
+
+.batteryLight {
+  background: var(--data-green-light);
+}
+
+@media (min-width: 600px) and (max-width: 1280px) {
+  .detailsRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 0 10px;
+    padding: 0 1em;
+  }
+}

@@ -1,0 +1,11 @@
+.container {
+  width: 100vw;
+}
+
+@media (min-width: 1280px) {
+  .container {
+    width: 800px;
+    height: 700px;
+    grid-area: swiper;
+  }
+}

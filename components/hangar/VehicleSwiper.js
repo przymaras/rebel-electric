@@ -15,76 +15,79 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/zoom";
-import Image from "next/image";
+
+import styles from "./VehicleSwiper.module.css";
 
 function VehicleSwiper(props) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <>
       <VehicleSwiperStyles />
-      <Swiper
-        style={{
-          "--swiper-navigation-color": "#fff",
-          "--swiper-pagination-color": "#fff",
-        }}
-        loop={false}
-        modules={[FreeMode, Navigation, Thumbs, Zoom]}
-        spaceBetween={10}
-        navigation={true}
-        thumbs={{ swiper: thumbsSwiper }}
-        className="mySwiper2"
-        zoom={true}
-      >
-        <SwiperSlide zoom={true}>
-          <img src="https://rebel-electric.com/new/full/2079" />
-        </SwiperSlide>
+      <div className={styles.container}>
+        <Swiper
+          style={{
+            "--swiper-navigation-color": "#fff",
+            "--swiper-pagination-color": "#fff",
+          }}
+          loop={false}
+          modules={[FreeMode, Navigation, Thumbs, Zoom]}
+          spaceBetween={10}
+          navigation={true}
+          thumbs={{ swiper: thumbsSwiper }}
+          className="mySwiper2"
+          zoom={true}
+        >
+          <SwiperSlide zoom={true}>
+            <img src="https://rebel-electric.com/new/full/2079" />
+          </SwiperSlide>
 
-        <SwiperSlide zoom={true}>
-          <img src="https://rebel-electric.com/new/full/2080" />
-        </SwiperSlide>
-        <SwiperSlide zoom={true}>
-          <img src="https://rebel-electric.com/new/full/2081" />
-        </SwiperSlide>
-        <SwiperSlide zoom={true}>
-          <img src="https://rebel-electric.com/new/full/2082" />
-        </SwiperSlide>
-        <SwiperSlide zoom={true}>
-          <img src="https://rebel-electric.com/new/full/2083" />
-        </SwiperSlide>
-        <SwiperSlide zoom={true}>
-          <img src="https://rebel-electric.com/new/full/2084" />
-        </SwiperSlide>
-      </Swiper>
-      <Swiper
-        onSwiper={setThumbsSwiper}
-        loop={false}
-        spaceBetween={10}
-        slidesPerView={4}
-        freeMode={true}
-        watchSlidesProgress={true}
-        className="mySwiper"
-        zoom={true}
-      >
-        <SwiperSlide>
-          <img src="https://rebel-electric.com/new/thumb/2079.jpg" />
-        </SwiperSlide>
+          <SwiperSlide zoom={true}>
+            <img src="https://rebel-electric.com/new/full/2080" />
+          </SwiperSlide>
+          <SwiperSlide zoom={true}>
+            <img src="https://rebel-electric.com/new/full/2081" />
+          </SwiperSlide>
+          <SwiperSlide zoom={true}>
+            <img src="https://rebel-electric.com/new/full/2082" />
+          </SwiperSlide>
+          <SwiperSlide zoom={true}>
+            <img src="https://rebel-electric.com/new/full/2083" />
+          </SwiperSlide>
+          <SwiperSlide zoom={true}>
+            <img src="https://rebel-electric.com/new/full/2084" />
+          </SwiperSlide>
+        </Swiper>
+        <Swiper
+          onSwiper={setThumbsSwiper}
+          loop={false}
+          spaceBetween={10}
+          slidesPerView={4}
+          freeMode={true}
+          watchSlidesProgress={true}
+          className="mySwiper"
+          zoom={true}
+        >
+          <SwiperSlide>
+            <img src="https://rebel-electric.com/new/thumb/2079.jpg" />
+          </SwiperSlide>
 
-        <SwiperSlide>
-          <img src="https://rebel-electric.com/new/thumb/2080.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://rebel-electric.com/new/thumb/2081.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://rebel-electric.com/new/thumb/2082.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://rebel-electric.com/new/thumb/2083.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://rebel-electric.com/new/thumb/2084.jpg" />
-        </SwiperSlide>
-      </Swiper>
+          <SwiperSlide>
+            <img src="https://rebel-electric.com/new/thumb/2080.jpg" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="https://rebel-electric.com/new/thumb/2081.jpg" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="https://rebel-electric.com/new/thumb/2082.jpg" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="https://rebel-electric.com/new/thumb/2083.jpg" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="https://rebel-electric.com/new/thumb/2084.jpg" />
+          </SwiperSlide>
+        </Swiper>
+      </div>
     </>
   );
 }
