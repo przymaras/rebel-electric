@@ -18,6 +18,22 @@
   width: 100vw;
 }
 
+.title svg {
+  margin-right: 10px;
+  font-size: 4rem;
+}
+
+.title p {
+  line-height: 1.2;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
 @media (min-width: 700px) {
   .sectionWrapper {
     flex-direction: row;

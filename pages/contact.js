@@ -1,4 +1,4 @@
-import Contact from "../components/rebel/Contact";
+import Contact from "../components/contact/Contact";
 
 function ContactPage(props) {
   return <Contact />;

@@ -1,11 +1,14 @@
 import useTranslation from "next-translate/useTranslation";
-import Logo from "../../public/img/rebel-electric-logo.svg";
 import Image from "next/image";
+
 import styles from "./Home.module.css";
+
 import BtnLink from "../layout/BtnLink";
 import { IconAcademy } from "../icons/IconAcademy";
 import InfoBox from "../layout/InfoBox";
-import HomeRecentBox from "./HomeRecentBox";
+import RecentBox from "./RecentBox";
+
+import Logo from "../../public/img/rebel-electric-logo.svg";
 
 function Home(props) {
   const { t } = useTranslation();
@@ -40,7 +43,7 @@ function Home(props) {
         </InfoBox>
       </div>
 
-      <HomeRecentBox recentVehicles={props.recentVehicles} />
+      <RecentBox recentVehicles={props.recentVehicles} />
       <div className={styles.sectionWrapper}>
         <BtnLink
           href="/knowledge"

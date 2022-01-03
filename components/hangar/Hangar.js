@@ -6,26 +6,26 @@ import styles from "./Hangar.module.css";
 import { IconAcademy } from "../icons/IconAcademy";
 import TitleBox from "../layout/TitleBox";
 import InfoBox from "../layout/InfoBox";
-import SearchBar from "../layout/SearchBar";
-import SearchResultSortBar from "../layout/SearchResultSortBar";
-import DataBar from "../layout/DataBar";
-import DataBarLabels from "../layout/DataBarLabels";
-import VehicleBox from "../layout/VehicleBox";
-import DataBarsHeadingContainer from "../layout/DataBarsHeadingContainer";
-import CategorySelector from "../layout/CategorySelector";
+import SearchBar from "./SearchBar";
+import SearchResultSortBar from "./SearchResultSortBar";
+import DataBar from "./DataBar";
+import DataBarLabels from "./DataBarLabels";
+import VehicleBox from "./VehicleBox";
+import DataBarsHeadingContainer from "./DataBarsHeadingContainer";
+import CategorySelector from "./CategorySelector";
 
 function Hangar(props) {
   const { t } = useTranslation();
-  const [selectedCategory, setSelectedCategory] = useState(
-    "NIE WYBRANO KATEGORII"
-  );
 
   return (
     <>
       <TitleBox>
-        <div>
+        <div className={styles.title}>
           <IconAcademy />
-          <h1 className="rebel-font"> {t("hangar:header")} </h1>
+          <h1 className="rebel-font" style={{ fontSize: "5rem" }}>
+            {" "}
+            {t("hangar:header")}{" "}
+          </h1>
         </div>
         <p>{t("hangar:header-info")}</p>
       </TitleBox>

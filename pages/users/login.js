@@ -1,4 +1,4 @@
-import Login from "../../components/rebel/Login";
+import Login from "../../components/users/Login";
 
 function LoginPage(props) {
   return <Login />;
