@@ -1,7 +1,7 @@
-import HangarAdd from "../../components/rebel/HangarAdd";
+import Add from "../../components/hangar/Add";
 
 function HangarAddPage(props) {
-  return <HangarAdd />;
+  return <Add />;
 }
 
 export default HangarAddPage;

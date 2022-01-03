@@ -1,4 +1,4 @@
-import Knowledge from "../../components/rebel/Knowledge";
+import Knowledge from "../../components/knowledge/Knowledge";
 
 function KnowledgePage(props) {
   return <Knowledge />;

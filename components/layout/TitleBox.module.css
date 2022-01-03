@@ -11,23 +11,3 @@
   font-size: 2rem;
   font-weight: bold;
 }
-
-.container h1 {
-  font-size: 5rem;
-}
-
-.container div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.container svg {
-  margin-right: 10px;
-  font-size: 4rem;
-}
-
-.container p {
-  line-height: 1.2;
-}

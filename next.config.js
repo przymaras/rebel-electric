@@ -7,4 +7,7 @@ module.exports = {
   images: {
     domains: ["rebel-electric.com"],
   },
+  experimental: {
+    scrollRestoration: true,
+  },
 };

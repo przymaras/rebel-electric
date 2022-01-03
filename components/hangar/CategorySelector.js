@@ -1,5 +1,7 @@
 import { useState } from "react";
-import CategorySwiper from "../layout/CategorySwiper";
+
+import CategorySwiper from "./CategorySwiper";
+
 import CategorySwiperStyles from "./CategorySwiperStyles";
 
 function CategorySelector(props) {

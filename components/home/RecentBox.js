@@ -1,8 +1,10 @@
-import HomeRecent from "./HomeRecent";
-import styles from "./HomeRecentBox.module.css";
 import useTranslation from "next-translate/useTranslation";
 
-function HomeRecentBox(props) {
+import Recent from "./Recent";
+
+import styles from "./RecentBox.module.css";
+
+function RecentBox(props) {
   const { t } = useTranslation();
 
   return (
@@ -13,7 +15,7 @@ function HomeRecentBox(props) {
       <div className={styles.container}>
         {props.recentVehicles.map((vehicle) => {
           return (
-            <HomeRecent
+            <Recent
               key={vehicle.id}
               src={vehicle.src}
               alt={vehicle.name}
@@ -26,4 +28,4 @@ function HomeRecentBox(props) {
   );
 }
 
-export default HomeRecentBox;
+export default RecentBox;

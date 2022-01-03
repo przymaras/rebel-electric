@@ -1,5 +1,7 @@
 import useTranslation from "next-translate/useTranslation";
+
 import { IconAcademy } from "../icons/IconAcademy";
+
 import styles from "./DataBarLabels.module.css";
 
 function DataBarLabels(props) {

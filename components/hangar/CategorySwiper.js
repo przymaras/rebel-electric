@@ -1,11 +1,12 @@
 import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useRef } from "react";
+
+import { useWindowResize } from "../../hooks/useWindowResize";
 
 import "swiper/css";
 import styles from "./CategorySwiper.module.css";
-import { useEffect, useRef } from "react";
-import { useWindowResize } from "../../hooks/useWindowResize";
 
 function CategorySwiper(props) {
   let timer;

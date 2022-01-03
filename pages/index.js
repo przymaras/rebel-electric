@@ -1,9 +1,7 @@
 import Head from "next/head";
-import Image from "next/image";
 import useTranslation from "next-translate/useTranslation";
-import { IconAcademy } from "../components/icons/IconAcademy";
 
-import Home from "../components/rebel/Home";
+import Home from "../components/home/Home";
 
 function HomePage(props) {
   const { t } = useTranslation();
@@ -24,17 +22,17 @@ export function getStaticProps() {
     {
       id: 1,
       name: "pojazdator one",
-      src: "https://rebel-electric.com/new/thumb/2079.jpg",
+      src: "https://rebel-electric.com/new/full/2079",
     },
     {
       id: 2,
       name: "pojazdator two",
-      src: "https://rebel-electric.com/new/thumb/2076.jpg",
+      src: "https://rebel-electric.com/new/full/2076",
     },
     {
       id: 3,
       name: "pojazdator three",
-      src: "https://rebel-electric.com/new/thumb/1517.jpg",
+      src: "https://rebel-electric.com/new/full/1517",
     },
   ];
   return {
