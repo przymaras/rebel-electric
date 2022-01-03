@@ -14,13 +14,13 @@
 }
 
 .base {
-  background: var(--data-bar-gray-light);
+  background: var(--data-gray-light);
 }
 
 .electrical {
-  background: var(--data-bar-yellow-light);
+  background: var(--data-yellow-light);
 }
 
 .battery {
-  background: var(--data-bar-green-light);
+  background: var(--data-green-light);
 }

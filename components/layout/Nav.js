@@ -8,7 +8,10 @@ import { IconPowerOn } from "../icons/IconPowerOn";
 function Nav(props) {
   const { t } = useTranslation();
   return (
-    <nav className={`${styles.nav} ${!props.isVisible && styles.hidden}`}>
+    <nav
+      onClick={props.closeNav}
+      className={`${styles.nav} ${!props.isVisible && styles.hidden}`}
+    >
       <div className={styles.container}>
         <NavLink
           href="/"

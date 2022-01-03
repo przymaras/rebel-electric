@@ -1,11 +1,14 @@
 import useTranslation from "next-translate/useTranslation";
-import Image from "next/image";
 
 import { IconAcademy } from "../icons/IconAcademy";
 import TitleBox from "../layout/TitleBox";
 import VehicleSwiper from "./VehicleSwiper";
 
 import styles from "./VehicleDetails.module.css";
+import VehicleVeiwsCatLikes from "./VehicleVeiwsCatLikes";
+import DataTables from "./DataTables";
+import Description from "./Description";
+import BtnLink from "../layout/BtnLink";
 
 function VehicleDetails(props) {
   const { t } = useTranslation();
@@ -26,36 +29,24 @@ function VehicleDetails(props) {
           </div>
         </div>
       </TitleBox>
-      <VehicleSwiper />
-      <div>
-        <div>
-          <Image
-            src="/img/fa-ico/eye-solid.svg"
-            alt="Views"
-            width={100}
-            height={50}
+      <div className={styles.container}>
+        <VehicleSwiper />
+        <VehicleVeiwsCatLikes />
+        <DataTables />
+        <Description />
+        <div className={styles.buttonsWrapper}>
+          <BtnLink
+            href="/users/add"
+            icon={<IconAcademy />}
+            text={"Zobacz profil właściciela"}
+            horizontal={true}
           />
-          <p>13</p>
-          <p>WYŚWIETLEŃ</p>
-        </div>
-        <div>
-          <Image
-            src="/img/categories/ebike/ebike-conversion-full-mid.svg"
-            alt="Category"
-            width={100}
-            height={50}
+          <BtnLink
+            href="/users/add"
+            icon={<IconAcademy />}
+            text={"Zobacz podobne pojazdy"}
+            horizontal={true}
           />
-          <p>HYBRYDA FULL MID</p>
-        </div>
-        <div>
-          <Image
-            src="/img/fa-ico/thumbs-up-solid.svg"
-            alt="Thumb up"
-            width={100}
-            height={50}
-          />
-          <p>1</p>
-          <p>POLUBIENIE</p>
         </div>
       </div>
     </>

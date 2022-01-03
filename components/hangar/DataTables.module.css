@@ -1,0 +1,10 @@
+.container {
+  width: 100vw;
+}
+
+@media (min-width: 1280px) {
+  .container {
+    width: 100%;
+    grid-area: data;
+  }
+}
