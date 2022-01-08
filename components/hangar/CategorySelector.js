@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 
 import CategorySwiper from "./CategorySwiper";
 
@@ -6,6 +7,14 @@ import CategorySwiperStyles from "./CategorySwiperStyles";
 
 function CategorySelector(props) {
   const [selectedIndexes, setSelectedIndexes] = useState([-1]);
+
+  useEffect(() => {
+    props.formikSetFieldValue("category", selectedIndexes);
+  }, [selectedIndexes, props.formikSetFieldValue]);
+
+  // useEffect(() => {
+  //   setSelectedIndexes(props.formikCategoryValue);
+  // }, [props.formikCategoryValue]);
 
   function renderSelectedSwipers(cat, selected) {
     let currentCatLvl = -1;
@@ -90,6 +99,11 @@ function CategorySelector(props) {
     </>
   );
 }
+
+CategorySelector.defaultProps = {
+  formikSetFieldValue: () => null,
+  formikCategoryValue: [],
+};
 
 export default CategorySelector;
 
@@ -385,12 +399,12 @@ const dummyVehiclesCat = {
     },
 
     {
-      id: "3",
+      id: "4",
       name: "eCar",
       image: "/img/categories/other.svg",
     },
     {
-      id: "4",
+      id: "5",
       name: "Inny",
       image: "/img/categories/other.svg",
     },

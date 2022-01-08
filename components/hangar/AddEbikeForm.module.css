@@ -1,0 +1,40 @@
+.container {
+}
+
+.container h2 {
+  font-size: 1.8rem;
+}
+
+.info {
+  margin-top: 2em;
+}
+
+.addPhotosTitle {
+  margin-top: 1em;
+  margin-bottom: 0.2em;
+}
+
+.file {
+  height: 100%;
+}
+
+@media (min-width: 800px) and (max-width: 1280px) {
+  .data {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .data > div {
+    max-width: 48%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .data {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}

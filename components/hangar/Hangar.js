@@ -1,5 +1,4 @@
 import useTranslation from "next-translate/useTranslation";
-import { useState } from "react";
 
 import styles from "./Hangar.module.css";
 
@@ -16,6 +15,7 @@ import CategorySelector from "./CategorySelector";
 
 function Hangar(props) {
   const { t } = useTranslation();
+  const vehicles = props.vehicles.vehicles;
 
   return (
     <>
@@ -43,7 +43,7 @@ function Hangar(props) {
 
       <SearchBar />
 
-      <SearchResultSortBar />
+      <SearchResultSortBar found={vehicles.length} />
 
       <DataBarLabels />
 
@@ -76,22 +76,16 @@ function Hangar(props) {
         />
       </DataBarsHeadingContainer>
       <div className={styles.vehiclesWrapper}>
-        <VehicleBox />
-        <VehicleBox />
-        <VehicleBox />
-        <VehicleBox />
-        <VehicleBox />
-        <VehicleBox />
-        <VehicleBox />
-        <VehicleBox />
-        <VehicleBox />
-        <VehicleBox />
-        <VehicleBox />
-        <VehicleBox />
-        <VehicleBox />
+        {vehicles.map((vehicle) => (
+          <VehicleBox key={vehicle._id} vehicle={vehicle} />
+        ))}
       </div>
     </>
   );
 }
+
+Hangar.defaultprops = {
+  vehicles: { vehicles: [] },
+};
 
 export default Hangar;
