@@ -385,12 +385,12 @@ const dummyVehiclesCat = {
     },
 
     {
-      id: "3",
+      id: "4",
       name: "eCar",
       image: "/img/categories/other.svg",
     },
     {
-      id: "4",
+      id: "5",
       name: "Inny",
       image: "/img/categories/other.svg",
     },
