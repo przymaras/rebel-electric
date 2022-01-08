@@ -1,5 +1,4 @@
 import useTranslation from "next-translate/useTranslation";
-import { useState } from "react";
 
 import styles from "./Hangar.module.css";
 
