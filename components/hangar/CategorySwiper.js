@@ -20,7 +20,6 @@ function CategorySwiper(props) {
   ) {
     initialSlide = props.selectedIndexes[props.currentCatLvl] + 2;
   }
-  console.log(initialSlide);
   useEffect(() => {
     if (
       props.selectedIndexes[props.currentCatLvl] !== undefined &&
