@@ -1,0 +1,42 @@
+.container {
+  width: 100%;
+  margin-top: 1em;
+}
+
+.heading {
+  padding: 0.5em 0;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.wrapper {
+  padding: 1em;
+}
+
+.base.container {
+  background: var(--data-gray-light);
+}
+
+.base .heading {
+  background: var(--data-gray);
+}
+
+.electrical.container {
+  background: var(--data-yellow-light);
+}
+
+.electrical .heading {
+  background: var(--data-yellow);
+}
+
+.battery.container {
+  background: var(--data-green-light);
+}
+
+.battery .heading {
+  background: var(--data-green);
+}
