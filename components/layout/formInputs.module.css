@@ -1,0 +1,92 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.submitBtn {
+  font-size: 3rem;
+  font-weight: 800;
+  background: var(--accent-color);
+  color: var(--nav-font-color);
+  min-width: 165px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 4px 4px #00000066;
+  transition: background 150ms, color 150ms;
+  margin: 1em 0;
+  align-self: center;
+  border: none;
+}
+
+.submitBtn:hover {
+  background: var(--nav-font-color);
+  color: var(--accent-color);
+  outline: 4px solid var(--accent-color);
+  outline-offset: -4px;
+}
+
+.submitBtn:hover .icoBox {
+  color: var(--accent-color);
+}
+
+.submitBtn:active {
+  transform: scale(0.95);
+  box-shadow: unset;
+}
+
+.label {
+  margin-top: 1em;
+  margin-bottom: 0.2em;
+  font-weight: 500;
+}
+
+.textInput {
+  background: #ffffff;
+  padding: 0.5em;
+  font-size: 1.8rem;
+  border: 3px solid black;
+}
+
+.textArea {
+  background: #ffffff;
+  padding: 0.5em;
+  font-size: 1.8rem;
+  border: 3px solid black;
+  min-height: 5em;
+}
+
+.select {
+  background: #ffffff;
+  padding: 0.5em;
+  font-size: 1.8rem;
+  border: 3px solid black;
+}
+
+.fieldset {
+  margin: 0;
+  margin-top: 1em;
+  border: 3px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.fieldset legend {
+  font-weight: 500;
+}
+
+.radio {
+  margin: 1em 0.5em 1em 1em;
+}
+
+.radioLabel {
+  white-space: nowrap;
+}
+
+.error {
+  color: tomato;
+}
