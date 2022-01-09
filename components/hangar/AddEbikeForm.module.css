@@ -9,6 +9,11 @@
   margin-top: 2em;
 }
 
+.addPhotosTitle {
+  margin-top: 1em;
+  margin-bottom: 0.2em;
+}
+
 @media (min-width: 800px) and (max-width: 1280px) {
   .data {
     display: flex;
