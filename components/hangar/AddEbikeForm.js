@@ -1,5 +1,6 @@
 import { Formik, Field, Form, ErrorMessage, useField } from "formik";
 import * as Yup from "yup";
+import { Persist } from "../tools/formik-persist";
 import {
   TextInput,
   TextArea,
@@ -53,10 +54,11 @@ function AddEbikeForm(props) {
           .min(1900, "Must be a year")
           .max(2100, "Must be a year"),
       })}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting, resetForm }) => {
         setTimeout(() => {
           console.log(JSON.stringify(values, null, 2));
           setSubmitting(false);
+          resetForm();
         }, 400);
       }}
     >
@@ -317,6 +319,7 @@ function AddEbikeForm(props) {
                 text="Dodaj"
                 errorMsg=" Uzupełnij wszystkie wymagane pola!"
               />
+              <Persist name="addEbikeForm" />
             </Form>
           </div>
         );
