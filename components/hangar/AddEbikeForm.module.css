@@ -14,6 +14,10 @@
   margin-bottom: 0.2em;
 }
 
+.file {
+  height: 100%;
+}
+
 @media (min-width: 800px) and (max-width: 1280px) {
   .data {
     display: flex;

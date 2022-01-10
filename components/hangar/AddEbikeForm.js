@@ -102,13 +102,14 @@ function AddEbikeForm(props) {
                   <h2 className={`${styles.addPhotosTitle} rebel-font`}>
                     Dodaj zdjęcia:
                   </h2>
-                  <div>
+                  <div className={styles.file}>
                     <FilePond
                       files={files}
                       allowReorder={true}
                       allowMultiple={true}
+                      maxFiles={10}
                       onupdatefiles={setFiles}
-                      labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+                      labelIdle="Przeciągnij zdjęcia na tę ramkę lub kliknij w nią, aby wyświetlić eksplorator plików."
                     />
                   </div>
                 </div>

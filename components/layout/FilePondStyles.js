@@ -7,6 +7,10 @@ function FilePondStyles() {
         border-radius: unset;
       }
 
+      .filepond--drop-label label {
+        font-size: 1.8rem;
+      }
+
       @media (min-width: 600px) {
         .filepond--item {
           width: calc(50% - 0.5em);
