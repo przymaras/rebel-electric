@@ -6,7 +6,7 @@ import { IconAcademy } from "../icons/IconAcademy";
 import TitleBox from "../layout/TitleBox";
 import InfoBox from "../layout/InfoBox";
 import CategorySelector from "./CategorySelector";
-import AddEbikeForm from "./AddEbikeForm";
+import AddEbikeFormikContext from "./AddEbikeFormikContext";
 
 function AddVehicle(props) {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ function AddVehicle(props) {
       </div>
 
       <CategorySelector />
-      <AddEbikeForm />
+      <AddEbikeFormikContext />
     </>
   );
 }
