@@ -29,11 +29,54 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 import styles from "./AddEbikeForm.module.css";
 
 import AddVehicleDataGroup from "./AddVehicleDataGroup";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FilePondStyles from "../layout/FilePondStyles";
+import { IKUpload } from "imagekitio-react";
+import { useDataFetcher } from "../../hooks/useDataFetcher";
+
+let firstRun = true;
 
 function AddEbikeForm(props) {
+  let ebikeform = { values: { filePond: [""] } };
+
+  if (typeof window !== "undefined") {
+    ebikeform = JSON.parse(localStorage.getItem("addEbikeForm"));
+  }
+
+  const [imgDetails, isImgDetailsAvailable] = useDataFetcher(
+    ebikeform.values.filePond[0]
+      ? `/api/img/${ebikeform.values.filePond[0]}`
+      : ""
+  );
+
   const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    if (isImgDetailsAvailable) {
+      setFiles([
+        {
+          // the server file reference
+          source: imgDetails.name,
+
+          // set type to limbo to tell FilePond this is a temp file
+          options: {
+            type: "local",
+          },
+        },
+      ]);
+      console.log(imgDetails);
+    }
+  }, [isImgDetailsAvailable, imgDetails]);
+
+  const filePondRef = useRef();
+
+  const onError = (err) => {
+    console.log("Error", err);
+  };
+
+  const onSuccess = (res) => {
+    console.log("Success", res);
+  };
 
   return (
     <>
@@ -65,7 +108,7 @@ function AddEbikeForm(props) {
           cellsModel: "",
           capacityWh: "",
           capacityAh: "",
-          filepond: "",
+          filePond: "",
         }}
         validationSchema={Yup.object({
           projectName: Yup.string()
@@ -80,7 +123,7 @@ function AddEbikeForm(props) {
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {
-            console.log(JSON.stringify(values, null, 2), files);
+            console.log(JSON.stringify(values, null, 2));
             setSubmitting(false);
             resetForm();
           }, 400);
@@ -102,14 +145,148 @@ function AddEbikeForm(props) {
                   <h2 className={`${styles.addPhotosTitle} rebel-font`}>
                     Dodaj zdjęcia:
                   </h2>
+                  <IKUpload
+                    // fileName="test-upload.png"
+                    onError={onError}
+                    onSuccess={onSuccess}
+                    publicKey="public_h821WuPXEZBS6QvIimCu4L2vFt8="
+                    urlEndpoint="https://ik.imagekit.io/rebelelectric/"
+                    authenticationEndpoint="/api/img"
+                  />
                   <div className={styles.file}>
                     <FilePond
+                      ref={filePondRef}
+                      name="filePond"
                       files={files}
                       allowReorder={true}
                       allowMultiple={true}
                       maxFiles={10}
                       onupdatefiles={setFiles}
                       labelIdle="Przeciągnij zdjęcia na tę ramkę lub kliknij w nią, aby wyświetlić eksplorator plików."
+                      // oninit={}
+                      onreorderfiles={() => {
+                        const filesIds = filePondRef.current
+                          .getFiles()
+                          .map((file) => file.serverId);
+                        formik.setFieldValue("filePond", filesIds);
+                      }}
+                      onprocessfiles={() => {
+                        const filesIds = filePondRef.current
+                          .getFiles()
+                          .map((file) => file.serverId);
+                        formik.setFieldValue("filePond", filesIds);
+                      }}
+                      server={{
+                        process: async (
+                          fieldName,
+                          file,
+                          metadata,
+                          load,
+                          error,
+                          progress,
+                          abort
+                        ) => {
+                          // fieldName is the name of the input field
+                          // file is the actual file object to send
+
+                          const res = await fetch("/api/img/");
+                          const imgAuth = await res.json();
+
+                          const formData = new FormData();
+                          formData.append("file", file);
+                          formData.append("fileName", file.name);
+                          formData.append("folder", "/tmp/");
+                          formData.append("signature", imgAuth.signature);
+                          formData.append("token", imgAuth.token);
+                          formData.append("expire", imgAuth.expire);
+                          formData.append(
+                            "publicKey",
+                            "public_h821WuPXEZBS6QvIimCu4L2vFt8="
+                          );
+
+                          const request = new XMLHttpRequest();
+                          request.open(
+                            "POST",
+                            "https://upload.imagekit.io/api/v1/files/upload"
+                          );
+
+                          // Should call the progress method to update the progress to 100% before calling load
+                          // Setting computable to false switches the loading indicator to infinite mode
+                          request.upload.onprogress = (e) => {
+                            progress(e.lengthComputable, e.loaded, e.total);
+                          };
+
+                          // Should call the load method when done and pass the returned server file id
+                          // this server file id is then used later on when reverting or restoring a file
+                          // so your server knows which file to return without exposing that info to the client
+                          request.onload = function () {
+                            if (request.status >= 200 && request.status < 300) {
+                              // the load method accepts either a string (id) or an object
+                              load(JSON.parse(request.responseText).fileId);
+                              console.log(JSON.parse(request.responseText));
+                              console.log(
+                                JSON.parse(request.responseText).fileId
+                              );
+                            } else {
+                              // Can call the error method if something is wrong, should exit after
+                              error("oh no");
+                            }
+                          };
+
+                          request.send(formData);
+
+                          // Should expose an abort method so the request can be cancelled
+                          return {
+                            abort: () => {
+                              // This function is entered if the user has tapped the cancel button
+                              request.abort();
+
+                              // Let FilePond know the request has been cancelled
+                              abort();
+                            },
+                          };
+                        },
+                        load: `https://ik.imagekit.io/rebelelectric/tmp/`,
+                        // restore: async (
+                        //   uniqueFileId,
+                        //   load,
+                        //   error,
+                        //   progress,
+                        //   abort,
+                        //   headers
+                        // ) => {
+                        //   // Should get the temporary file object from the server
+                        //   // ...
+                        //   const res = fetch(
+                        //     "https://ik.imagekit.io/rebelelectric/tmp/20210915_140642_3sD_615T0f.jpg"
+                        //   );
+                        //   const fileBlob = await res;
+                        //   console.log(fileBlob);
+                        //   // Can call the error method if something is wrong, should exit after
+                        //   error("oh my goodness");
+
+                        //   // Can call the header method to supply FilePond with early response header string
+                        //   // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders
+                        //   //headers(headersString);
+
+                        //   // Should call the progress method to update the progress to 100% before calling load
+                        //   // (computable, loadedSize, totalSize)
+                        //   progress(true, 0, 1024);
+
+                        //   // Should call the load method with a file object when done
+                        //   load(fileBlob);
+
+                        //   // Should expose an abort method so the request can be cancelled
+                        //   return {
+                        //     abort: () => {
+                        //       // User tapped abort, cancel our ongoing actions here
+
+                        //       // Let FilePond know the request has been cancelled
+                        //       abort();
+                        //     },
+                        //   };
+                        // },
+                      }}
                     />
                   </div>
                 </div>
