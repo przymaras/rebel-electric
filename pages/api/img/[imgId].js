@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
   imgId = imgId.split("-");
 
-  console.log(imgId);
+  // console.log(imgId);
 
   const getDetails = async (imagesIds) => {
     let imagesDetails = [];

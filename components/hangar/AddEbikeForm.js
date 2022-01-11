@@ -1,7 +1,8 @@
-import { Formik, Field, Form, ErrorMessage, useField } from "formik";
+import { useEffect, useRef, useState } from "react";
+import { useDataFetcher } from "../../hooks/useDataFetcher";
 
+import { Form } from "formik";
 import { Persist } from "../tools/formik-persist";
-import { FormikProps, connect } from "formik";
 import {
   TextInput,
   TextArea,
@@ -11,84 +12,56 @@ import {
   SubmitButton,
 } from "../layout/formInputs";
 
-// Import React FilePond
-import { FilePond, File, registerPlugin } from "react-filepond";
-
-// Import FilePond styles
-import "filepond/dist/filepond.min.css";
-
-// Import the Image EXIF Orientation and Image Preview plugins
-// Note: These need to be installed separately
-// `npm i filepond-plugin-image-preview filepond-plugin-image-exif-orientation --save`
+import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import "filepond/dist/filepond.min.css";
+import FilePondStyles from "../layout/FilePondStyles";
+import { getServerSettings } from "../tools/filepond-functions";
 
-// Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 import styles from "./AddEbikeForm.module.css";
 
 import AddVehicleDataGroup from "./AddVehicleDataGroup";
-import { useEffect, useRef, useState } from "react";
-import FilePondStyles from "../layout/FilePondStyles";
-import { IKUpload } from "imagekitio-react";
-import { useDataFetcher } from "../../hooks/useDataFetcher";
 
-let refreshRun = false;
+let isRefreshRender = false;
 
 function AddEbikeForm(props) {
   const filePondRef = useRef();
-  // const formRef = useRef();
-  const [files, setFiles] = useState([]);
-  const [imagesIds, setImagesIds] = useState("");
+
+  const [imageFiles, setImageFiles] = useState([]);
+  const [imagesToRestoreIDs, setImagesToRestoreIDs] = useState("");
 
   useEffect(() => {
-    if (!refreshRun) {
-      let isArray = Array.isArray(props.formik.values.filePond);
-      console.log(isArray, "isarayy");
-      if (isArray) {
-        setImagesIds(props.formik.values.filePond.join("-"));
-        console.log(props.formik.values.filePond.join("-"), "ue-1");
-      }
-      // firstRun = false;
+    if (!isRefreshRender) {
+      setImagesToRestoreIDs(props.formik.values.userImages.join("-"));
+      console.log(props.formik.values.userImages.join("-"), "ue-1");
     }
-  }, [props.formik.values.filePond]);
+  }, [props.formik.values.userImages]);
 
-  const [imgDetails, isImgDetailsAvailable] = useDataFetcher(
-    imagesIds ? `/api/img/${imagesIds}` : ""
-  );
+  const apiUrl = imagesToRestoreIDs ? `/api/img/${imagesToRestoreIDs}` : "";
+  const [imgsToRestoreDetails, isImgDetailsAvailable] = useDataFetcher(apiUrl);
 
   useEffect(() => {
     if (isImgDetailsAvailable) {
-      setFiles(
-        imgDetails.map((img) => {
+      setImageFiles(
+        imgsToRestoreDetails.map((img) => {
           return {
-            // the server file reference
             source: img.fileId,
-
-            // set type to limbo to tell FilePond this is a temp file
             options: {
-              type: "limbo",
+              type: "limbo", //limbo calls restore method in server settings
             },
           };
         })
       );
-      console.log(imgDetails, "ue-2");
+      console.log(imgsToRestoreDetails, "ue-2");
     }
-  }, [isImgDetailsAvailable, imgDetails]);
-
-  const onError = (err) => {
-    console.log("Error", err);
-  };
-
-  const onSuccess = (res) => {
-    console.log("Success", res);
-  };
+  }, [isImgDetailsAvailable, imgsToRestoreDetails]);
 
   return (
     <>
-      <FilePondStyles />
       <div className={styles.container}>
         <Form>
           <TextInput
@@ -103,176 +76,35 @@ function AddEbikeForm(props) {
             <h2 className={`${styles.addPhotosTitle} rebel-font`}>
               Dodaj zdjęcia:
             </h2>
-            <IKUpload
-              // fileName="test-upload.png"
-              onError={onError}
-              onSuccess={onSuccess}
-              publicKey="public_h821WuPXEZBS6QvIimCu4L2vFt8="
-              urlEndpoint="https://ik.imagekit.io/rebelelectric/"
-              authenticationEndpoint="/api/img"
-            />
             <div className={styles.file}>
+              <FilePondStyles />
               <FilePond
                 ref={filePondRef}
-                name="filePond"
-                files={files}
+                name="userImages"
+                files={imageFiles}
                 allowReorder={true}
                 allowMultiple={true}
                 maxFiles={10}
-                onupdatefiles={setFiles}
-                labelIdle="Przeciągnij zdjęcia na tę ramkę lub kliknij w nią, aby wyświetlić eksplorator plików."
-                // oninit={}
+                onupdatefiles={(files) => {
+                  setImageFiles(files);
+                  props.setRemoveImages(filePondRef.current.removeFiles);
+                }}
+                // labelIdle="Przeciągnij zdjęcia na tę ramkę lub kliknij w nią, aby wyświetlić eksplorator plików."
                 onreorderfiles={() => {
-                  refreshRun = true;
+                  isRefreshRender = true;
                   const filesIds = filePondRef.current
                     .getFiles()
                     .map((file) => file.serverId);
-                  props.formik.setFieldValue("filePond", filesIds);
+                  props.formik.setFieldValue("userImages", filesIds);
                 }}
                 onprocessfiles={() => {
-                  refreshRun = true;
+                  isRefreshRender = true;
                   const filesIds = filePondRef.current
                     .getFiles()
                     .map((file) => file.serverId);
-                  props.formik.setFieldValue("filePond", filesIds);
+                  props.formik.setFieldValue("userImages", filesIds);
                 }}
-                server={{
-                  process: async (
-                    fieldName,
-                    file,
-                    metadata,
-                    load,
-                    error,
-                    progress,
-                    abort
-                  ) => {
-                    // fieldName is the name of the input field
-                    // file is the actual file object to send
-
-                    const res = await fetch("/api/img/");
-                    const imgAuth = await res.json();
-
-                    const formData = new FormData();
-                    formData.append("file", file);
-                    formData.append("fileName", file.name);
-                    formData.append("folder", "/tmp/");
-                    formData.append("signature", imgAuth.signature);
-                    formData.append("token", imgAuth.token);
-                    formData.append("expire", imgAuth.expire);
-                    formData.append(
-                      "publicKey",
-                      "public_h821WuPXEZBS6QvIimCu4L2vFt8="
-                    );
-
-                    const request = new XMLHttpRequest();
-                    request.open(
-                      "POST",
-                      "https://upload.imagekit.io/api/v1/files/upload"
-                    );
-
-                    // Should call the progress method to update the progress to 100% before calling load
-                    // Setting computable to false switches the loading indicator to infinite mode
-                    request.upload.onprogress = (e) => {
-                      progress(e.lengthComputable, e.loaded, e.total);
-                    };
-
-                    // Should call the load method when done and pass the returned server file id
-                    // this server file id is then used later on when reverting or restoring a file
-                    // so your server knows which file to return without exposing that info to the client
-                    request.onload = function () {
-                      if (request.status >= 200 && request.status < 300) {
-                        // the load method accepts either a string (id) or an object
-                        load(JSON.parse(request.responseText).fileId);
-                        console.log(JSON.parse(request.responseText));
-                        console.log(JSON.parse(request.responseText).fileId);
-                      } else {
-                        // Can call the error method if something is wrong, should exit after
-                        error("oh no");
-                      }
-                    };
-
-                    request.send(formData);
-
-                    // Should expose an abort method so the request can be cancelled
-                    return {
-                      abort: () => {
-                        // This function is entered if the user has tapped the cancel button
-                        request.abort();
-
-                        // Let FilePond know the request has been cancelled
-                        abort();
-                      },
-                    };
-                  },
-                  load: `https://ik.imagekit.io/rebelelectric/tmp/`,
-                  restore: async (
-                    uniqueFileId,
-                    load,
-                    error,
-                    progress,
-                    abort,
-                    headers
-                  ) => {
-                    // Should get the temporary file object from the server
-                    // ...
-                    // const res = fetch(
-                    //   `https://ik.imagekit.io/rebelelectric${imgDetails.filePath}`
-                    // );
-                    // // const fileBlob = new Blob([await res.body], {
-                    // //   type: "image/jpeg",
-                    // // });
-
-                    // const data = await res;
-
-                    // console.log(data, "data");
-
-                    // const fileBlob = new Blob([data.body]);
-
-                    // console.log(fileBlob, "fileBlob");
-                    let fileBlob;
-
-                    const xhr = new XMLHttpRequest();
-                    xhr.open(
-                      "GET",
-                      `https://ik.imagekit.io/rebelelectric${
-                        imgDetails.find((img) => img.fileId === uniqueFileId)
-                          .filePath
-                      }`
-                    );
-                    xhr.responseType = "blob";
-                    xhr.onload = () => {
-                      if (xhr.status >= 200 && xhr.status < 300) {
-                        fileBlob = xhr.response;
-                        console.log(fileBlob);
-                        progress(true, 0, 1024);
-                        load(fileBlob);
-                      } else {
-                        // Can call the error method if something is wrong, should exit after
-                        error("oh no");
-                      }
-                    };
-                    xhr.send();
-
-                    // Can call the header method to supply FilePond with early response header string
-                    // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders
-                    //headers(headersString);
-
-                    // Should call the progress method to update the progress to 100% before calling load
-                    // (computable, loadedSize, totalSize)
-
-                    // Should call the load method with a file object when done
-
-                    // Should expose an abort method so the request can be cancelled
-                    return {
-                      abort: () => {
-                        // User tapped abort, cancel our ongoing actions here
-
-                        // Let FilePond know the request has been cancelled
-                        abort();
-                      },
-                    };
-                  },
-                }}
+                server={getServerSettings(imgsToRestoreDetails)}
               />
             </div>
           </div>
