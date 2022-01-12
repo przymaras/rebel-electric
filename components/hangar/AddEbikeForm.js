@@ -36,10 +36,10 @@ function AddEbikeForm(props) {
 
   useEffect(() => {
     if (!isRefreshRender) {
-      setImagesToRestoreIDs(props.formik.values.userImages.join("-"));
-      console.log(props.formik.values.userImages.join("-"), "ue-1");
+      setImagesToRestoreIDs(props.formik.values.vehicleImages.join("-"));
+      console.log(props.formik.values.vehicleImages.join("-"), "ue-1");
     }
-  }, [props.formik.values.userImages]);
+  }, [props.formik.values.vehicleImages]);
 
   const apiUrl = imagesToRestoreIDs ? `/api/img/${imagesToRestoreIDs}` : "";
   const [imgsToRestoreDetails, isImgDetailsAvailable] = useDataFetcher(apiUrl);
@@ -80,7 +80,7 @@ function AddEbikeForm(props) {
               <FilePondStyles />
               <FilePond
                 ref={filePondRef}
-                name="userImages"
+                name="vehicleImages"
                 files={imageFiles}
                 allowReorder={true}
                 allowMultiple={true}
@@ -95,14 +95,14 @@ function AddEbikeForm(props) {
                   const filesIds = filePondRef.current
                     .getFiles()
                     .map((file) => file.serverId);
-                  props.formik.setFieldValue("userImages", filesIds);
+                  props.formik.setFieldValue("vehicleImages", filesIds);
                 }}
                 onprocessfiles={() => {
                   isRefreshRender = true;
                   const filesIds = filePondRef.current
                     .getFiles()
                     .map((file) => file.serverId);
-                  props.formik.setFieldValue("userImages", filesIds);
+                  props.formik.setFieldValue("vehicleImages", filesIds);
                 }}
                 server={getServerSettings(imgsToRestoreDetails)}
               />

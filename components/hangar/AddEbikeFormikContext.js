@@ -40,7 +40,8 @@ function AddEbikeFormikContext(props) {
           cellsModel: "",
           capacityWh: "",
           capacityAh: "",
-          userImages: [""],
+          vehicleImages: [""],
+          category: [],
         }}
         validationSchema={Yup.object({
           projectName: Yup.string()
@@ -60,7 +61,7 @@ function AddEbikeFormikContext(props) {
             resetForm();
             removeImagesRef.current();
           }, 400);
-          removeImagesRef.current(); //fix me - when restored and deleted - there is one more xrh send and red frame left
+          removeImagesRef.current(); //fix me - when restored and deleted - there is one more xhr request send and red frame left
         }}
       >
         {(formik) => {
