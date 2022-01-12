@@ -2,6 +2,7 @@ import { Formik, Field, Form, ErrorMessage, useField } from "formik";
 import { useRef } from "react";
 import * as Yup from "yup";
 
+import CategorySelector from "./CategorySelector";
 import AddEbikeForm from "./AddEbikeForm";
 
 function AddEbikeFormikContext(props) {
@@ -41,7 +42,7 @@ function AddEbikeFormikContext(props) {
           capacityWh: "",
           capacityAh: "",
           vehicleImages: [""],
-          category: [],
+          category: [-1],
         }}
         validationSchema={Yup.object({
           projectName: Yup.string()
@@ -66,7 +67,13 @@ function AddEbikeFormikContext(props) {
       >
         {(formik) => {
           return (
-            <AddEbikeForm setRemoveImages={setRemoveImages} formik={formik} />
+            <>
+              <CategorySelector
+                formikCategoryValue={formik.values.category}
+                formikSetFieldValue={formik.setFieldValue}
+              />
+              <AddEbikeForm setRemoveImages={setRemoveImages} formik={formik} />
+            </>
           );
         }}
       </Formik>

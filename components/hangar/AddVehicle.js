@@ -5,7 +5,6 @@ import styles from "./Hangar.module.css";
 import { IconAcademy } from "../icons/IconAcademy";
 import TitleBox from "../layout/TitleBox";
 import InfoBox from "../layout/InfoBox";
-import CategorySelector from "./CategorySelector";
 import AddEbikeFormikContext from "./AddEbikeFormikContext";
 
 function AddVehicle(props) {
@@ -32,7 +31,6 @@ function AddVehicle(props) {
         </InfoBox>
       </div>
 
-      <CategorySelector />
       <AddEbikeFormikContext />
     </>
   );
