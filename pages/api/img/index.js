@@ -1,13 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import ImageKit from "imagekit";
+import { getAuthenticationParameters } from "../../../components/tools/imageKit-functions";
 
-const imagekit = new ImageKit({
-  publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
-  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
-  urlEndpoint: "https://ik.imagekit.io/rebelelectric/",
-});
-
-export default function handler(req, res) {
-  res.status(200).json(imagekit.getAuthenticationParameters());
+export default async function handler(req, res) {
+  res.status(200).json(await getAuthenticationParameters());
 }

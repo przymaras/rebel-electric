@@ -1,4 +1,5 @@
 import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
 
 import styles from "./Hangar.module.css";
 
@@ -9,6 +10,31 @@ import AddEbikeFormikContext from "./AddEbikeFormikContext";
 
 function AddVehicle(props) {
   const { t } = useTranslation();
+  const router = useRouter();
+
+  function onAddVehicle(enteredData) {
+    //POST request with body equal on data in JSON format
+    console.log(enteredData);
+    fetch("/api/vehicles/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(enteredData),
+    })
+      .then((response) => response.ok)
+      //Then with the data from the response in JSON...
+      .then((data) => {
+        console.log("Success:", data);
+        // router.push("/");
+        router.replace("/hangar");
+      })
+      //Then with the error genereted...
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
   return (
     <>
       <TitleBox>
@@ -31,7 +57,7 @@ function AddVehicle(props) {
         </InfoBox>
       </div>
 
-      <AddEbikeFormikContext />
+      <AddEbikeFormikContext onAddVehicle={onAddVehicle} />
     </>
   );
 }
