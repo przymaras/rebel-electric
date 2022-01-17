@@ -36,8 +36,8 @@ function AddEbikeForm(props) {
 
   useEffect(() => {
     if (!isRefreshRender) {
-      setImagesToRestoreIDs(props.formik.values.vehicleImages.join("-"));
-      console.log(props.formik.values.vehicleImages.join("-"), "ue-1");
+      setImagesToRestoreIDs(props.formik.values.vehicleImages.join("-|-"));
+      console.log(props.formik.values.vehicleImages.join("-|-"), "ue-1");
     }
   }, [props.formik.values.vehicleImages]);
 
@@ -49,7 +49,7 @@ function AddEbikeForm(props) {
       setImageFiles(
         imgsToRestoreDetails.map((img) => {
           return {
-            source: img.fileId,
+            source: img.name,
             options: {
               type: "limbo", //limbo calls restore method in server settings
             },

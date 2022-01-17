@@ -43,7 +43,7 @@ export const getServerSettings = (imgsToRestoreDetails) => {
       request.onload = function () {
         if (request.status >= 200 && request.status < 300) {
           // the load method accepts either a string (id) or an object
-          load(JSON.parse(request.responseText).fileId);
+          load(JSON.parse(request.responseText).name);
           // console.log(JSON.parse(request.responseText));
           // console.log(JSON.parse(request.responseText).fileId);
         } else {
@@ -65,7 +65,7 @@ export const getServerSettings = (imgsToRestoreDetails) => {
         },
       };
     },
-    restore: async (uniqueFileId, load, error, progress, abort, headers) => {
+    restore: async (uniqueFileName, load, error, progress, abort, headers) => {
       // FilePond uses the restore end point to restore temporary server files. This might be useful in a situation where the user closes the browser window but hadn't finished completing the form. Temporary files can be set with the files property.
 
       // Should get the temporary file object from the server
@@ -74,7 +74,7 @@ export const getServerSettings = (imgsToRestoreDetails) => {
       request.open(
         "GET",
         `https://ik.imagekit.io/rebelelectric${
-          imgsToRestoreDetails.find((img) => img.fileId === uniqueFileId)
+          imgsToRestoreDetails.find((img) => img.name === uniqueFileName)
             .filePath
         }`
       );

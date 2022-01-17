@@ -5,7 +5,9 @@ function SearchResultSortBar(props) {
   const { t } = useTranslation();
   return (
     <div className={styles.container}>
-      <p>{t("hangar:searched-label")}: 179</p>
+      <p>
+        {t("hangar:searched-label")}: {props.found}
+      </p>
       <select>
         <option>{t("hangar:sort-newest")}</option>
         <option>{t("hangar:sort-popularity")}</option>

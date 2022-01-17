@@ -58,6 +58,7 @@ function AddEbikeFormikContext(props) {
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {
             console.log(JSON.stringify(values, null, 2));
+            props.onAddVehicle(values);
             setSubmitting(false);
             resetForm();
             removeImagesRef.current();
