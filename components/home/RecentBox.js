@@ -14,7 +14,6 @@ function RecentBox(props) {
       </h2>
       <div className={styles.container}>
         {props.vehicles.map((vehicle) => {
-          console.log(vehicle.createdAt);
           return (
             <Recent
               key={vehicle._id}
