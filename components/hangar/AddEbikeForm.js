@@ -19,6 +19,7 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginFileRename from "filepond-plugin-file-rename";
 import FilePondPluginImageResize from "filepond-plugin-image-resize";
 import FilePondPluginImageTransform from "filepond-plugin-image-transform";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
 import FilePondStyles from "../layout/FilePondStyles";
@@ -29,7 +30,8 @@ registerPlugin(
   FilePondPluginImagePreview,
   FilePondPluginFileRename,
   FilePondPluginImageResize,
-  FilePondPluginImageTransform
+  FilePondPluginImageTransform,
+  FilePondPluginFileValidateType
 );
 
 import styles from "./AddEbikeForm.module.css";
@@ -95,6 +97,7 @@ function AddEbikeForm(props) {
                 allowReorder={true}
                 allowMultiple={true}
                 maxFiles={10}
+                acceptedFileTypes={["image/png", "image/jpeg"]}
                 imageResizeTargetWidth={2000}
                 imageResizeTargetHeight={2000}
                 imageResizeMode="contain"
