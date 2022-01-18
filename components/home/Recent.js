@@ -5,6 +5,8 @@ import Link from "next/link";
 import styles from "./Recent.module.css";
 
 function Recent(props) {
+  const [imageName, imageExtension] = props.src.split(".");
+  const underscoredName = props.name.split(" ").join("_");
   return (
     <div className={styles.container}>
       <Link href={`/hangar/vId`} passHref>
@@ -18,7 +20,7 @@ function Recent(props) {
             /> */}
 
             <img
-              src={`https://ik.imagekit.io/rebelelectric/tr:n-big_thumb/hangar/${props.src}`}
+              src={`https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb/hangar/${imageName}/${underscoredName}.${imageExtension}`}
               // src="d"
               alt="Cube Ams 100 TSDZ2"
               className={styles.img}
