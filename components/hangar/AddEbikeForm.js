@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDataFetcher } from "../../hooks/useDataFetcher";
+import { nanoid } from "nanoid";
 
 import { Form } from "formik";
 import { Persist } from "../tools/formik-persist";
@@ -15,12 +16,17 @@ import {
 import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginFileRename from "filepond-plugin-file-rename";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
 import FilePondStyles from "../layout/FilePondStyles";
 import { getServerSettings } from "../tools/filepond-functions";
 
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
+registerPlugin(
+  FilePondPluginImageExifOrientation,
+  FilePondPluginImagePreview,
+  FilePondPluginFileRename
+);
 
 import styles from "./AddEbikeForm.module.css";
 
@@ -85,6 +91,9 @@ function AddEbikeForm(props) {
                 allowReorder={true}
                 allowMultiple={true}
                 maxFiles={10}
+                fileRenameFunction={(file) => {
+                  return `hangar_${nanoid(5)}${file.extension}`;
+                }}
                 onupdatefiles={(files) => {
                   setImageFiles(files);
                   props.setRemoveImages(filePondRef.current.removeFiles);
