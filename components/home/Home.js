@@ -12,6 +12,8 @@ import Logo from "../../public/img/rebel-electric-logo.svg";
 
 function Home(props) {
   const { t } = useTranslation();
+  const recentVehicles = [...props.hangarData.vehicles].slice(0, 3);
+
   return (
     <>
       <div className={styles.sectionWrapper}>
@@ -43,7 +45,7 @@ function Home(props) {
         </InfoBox>
       </div>
 
-      <RecentBox recentVehicles={props.recentVehicles} />
+      <RecentBox vehicles={recentVehicles} />
       <div className={styles.sectionWrapper}>
         <BtnLink
           href="/knowledge"
@@ -96,5 +98,9 @@ function Home(props) {
     </>
   );
 }
+
+Home.defaultprops = {
+  hangarData: { vehicles: [] },
+};
 
 export default Home;
