@@ -25,7 +25,7 @@ function VehicleBox(props) {
             {/* {mainImageIsAvailable ? ( */}
 
             <img
-              src={`https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb/hangar/${imageName}/${underscoredName}.${imageExtension}`}
+              src={`https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true/hangar/${imageName}/${underscoredName}.${imageExtension}`}
               // src="d"
               alt="Cube Ams 100 TSDZ2"
               loading="lazy"
