@@ -17,6 +17,8 @@ import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginFileRename from "filepond-plugin-file-rename";
+import FilePondPluginImageResize from "filepond-plugin-image-resize";
+import FilePondPluginImageTransform from "filepond-plugin-image-transform";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
 import FilePondStyles from "../layout/FilePondStyles";
@@ -25,7 +27,9 @@ import { getServerSettings } from "../tools/filepond-functions";
 registerPlugin(
   FilePondPluginImageExifOrientation,
   FilePondPluginImagePreview,
-  FilePondPluginFileRename
+  FilePondPluginFileRename,
+  FilePondPluginImageResize,
+  FilePondPluginImageTransform
 );
 
 import styles from "./AddEbikeForm.module.css";
@@ -91,6 +95,9 @@ function AddEbikeForm(props) {
                 allowReorder={true}
                 allowMultiple={true}
                 maxFiles={10}
+                imageResizeTargetWidth={2000}
+                imageResizeTargetHeight={2000}
+                imageResizeMode="contain"
                 fileRenameFunction={(file) => {
                   return `hangar_${nanoid(5)}${file.extension}`;
                 }}
