@@ -13,13 +13,14 @@ function RecentBox(props) {
         {t("home:recently-added")}
       </h2>
       <div className={styles.container}>
-        {props.recentVehicles.map((vehicle) => {
+        {props.vehicles.map((vehicle) => {
+          console.log(vehicle.createdAt);
           return (
             <Recent
-              key={vehicle.id}
-              src={vehicle.src}
-              alt={vehicle.name}
-              name={vehicle.name}
+              key={vehicle._id}
+              src={vehicle.vehicleImages[0]}
+              alt={vehicle.projectName}
+              name={vehicle.projectName}
             />
           );
         })}

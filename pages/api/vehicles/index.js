@@ -5,8 +5,11 @@ import {
 } from "../../../components/tools/imageKit-functions";
 
 async function handler(req, res) {
+  const db = process.env.MONGODB_DB;
+  const dbhost = process.env.MONGODB_HOST;
   const dbUser = process.env.MONGODB_USER;
   const dbPass = process.env.MONGODB_PASS;
+  const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${db}?retryWrites=true&w=majority`;
 
   if (req.method === "POST") {
     try {
@@ -19,15 +22,13 @@ async function handler(req, res) {
 
       //verify somehow incoming data structure before submitting it to database !!!!!!!!!!!!!!!
 
-      //copy images from temp to actual folder becouse temp will be deleted soon
+      //copy images from temp to actual folder because temp will be deleted soon
       let images = data.vehicleImages;
       images = await getImageDetailsByName(images);
       images = await Promise.all(
         images.map(async (image) => await moveImage(image.filePath, "/hangar/"))
       );
-      const client = await MongoClient.connect(
-        `mongodb+srv://${dbUser}:${dbPass}@cluster0.wrcp7.mongodb.net/rebel-electric?retryWrites=true&w=majority`
-      );
+      const client = await MongoClient.connect(connectString);
       const db = client.db();
       const vehiclesCollection = db.collection("vehicles");
       const result = await vehiclesCollection.insertOne(data);
@@ -41,19 +42,17 @@ async function handler(req, res) {
       res.status(500).json({ message: err });
     }
   } else if (req.method === "GET") {
-    const client = await MongoClient.connect(
-      `mongodb+srv://${dbUser}:${dbPass}@cluster0.wrcp7.mongodb.net/rebel-electric?retryWrites=true&w=majority`
-    );
+    const client = await MongoClient.connect(connectString);
     const db = client.db();
     const vehiclesCollection = db.collection("vehicles");
-    const vehicles = await vehiclesCollection.find().toArray();
+    let vehicles = await vehiclesCollection
+      .find()
+      .sort({ createdAt: -1 }) //sort from newest to oldest
+      .toArray();
     client.close();
-
     // console.log(vehicles);
-
-    res
-      .status(200)
-      .json({ message: "Here goes list of all vehicles", vehicles });
+    const length = vehicles.length;
+    res.status(200).json({ message: "All vehicles", vehicles, lenght: length });
   }
 }
 

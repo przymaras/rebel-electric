@@ -12,34 +12,53 @@ function HomePage(props) {
         <meta name="description" content={t("common:metaDescription")} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Home recentVehicles={props.recentVehicles} />
+      <Home hangarData={props.hangarData} />
     </>
   );
 }
 
-export function getStaticProps() {
-  const recent = [
-    {
-      id: 1,
-      name: "pojazdator one",
-      src: "https://rebel-electric.com/new/full/2079",
-    },
-    {
-      id: 2,
-      name: "pojazdator two",
-      src: "https://rebel-electric.com/new/full/2076",
-    },
-    {
-      id: 3,
-      name: "pojazdator three",
-      src: "https://rebel-electric.com/new/full/1517",
-    },
-  ];
+export async function getServerSideProps() {
+  let hangarData = { vehicles: [] };
+  const url = `${process.env.API_URL}/vehicles/`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(res.ok);
+    hangarData = { ...data };
+  } catch (err) {
+    console.log(err);
+  }
+
   return {
     props: {
-      recentVehicles: recent,
+      hangarData,
     },
   };
 }
+
+// export function getStaticProps() {
+//   const recent = [
+//     {
+//       id: 1,
+//       name: "pojazdator one",
+//       src: "https://rebel-electric.com/new/full/2079",
+//     },
+//     {
+//       id: 2,
+//       name: "pojazdator two",
+//       src: "https://rebel-electric.com/new/full/2076",
+//     },
+//     {
+//       id: 3,
+//       name: "pojazdator three",
+//       src: "https://rebel-electric.com/new/full/1517",
+//     },
+//   ];
+//   return {
+//     props: {
+//       recentVehicles: recent,
+//     },
+//   };
+// }
 
 export default HomePage;
