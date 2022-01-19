@@ -13,7 +13,7 @@ function VehicleBox(props) {
   // );
   // console.log(props.vehicle.vehicleImages[0]);
   const [imageName, imageExtension] = props.vehicle.vehicleImages[0].split(".");
-  const underscoredName = props.vehicle.projectName.split(" ").join("_");
+  const underscoredProjectName = props.vehicle.projectName.split(" ").join("_");
   return (
     <Link href={`/hangar/vId`} passHref>
       <a>
@@ -25,7 +25,7 @@ function VehicleBox(props) {
             {/* {mainImageIsAvailable ? ( */}
 
             <img
-              src={`https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true/hangar/${imageName}/${underscoredName}.${imageExtension}`}
+              src={`https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true,di-rebel.jpg/hangar/${imageName}/${underscoredProjectName}.${imageExtension}`}
               // src="d"
               alt="Cube Ams 100 TSDZ2"
               loading="lazy"

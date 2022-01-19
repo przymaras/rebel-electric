@@ -97,6 +97,7 @@ function AddEbikeForm(props) {
                 allowReorder={true}
                 allowMultiple={true}
                 maxFiles={10}
+                imagePreviewMaxFileSize="10MB"
                 acceptedFileTypes={["image/png", "image/jpeg"]}
                 imageResizeTargetWidth={2000}
                 imageResizeTargetHeight={2000}
