@@ -1,43 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import Image from "next/image";
+
+import { getBigThumbSrc } from "../tools/common-functions";
 
 import DataBar from "./DataBar";
 
 import styles from "./VehicleBox.module.css";
-// import { useDataFetcher } from "../../hooks/useDataFetcher";
 
 function VehicleBox(props) {
-  // const [mainImage, mainImageIsAvailable] = useDataFetcher(
-  //   `http://localhost:3000/api/img/${props.vehicle.vehicleImages[0]}`
-  // );
-  // console.log(props.vehicle.vehicleImages[0]);
-  const [imageName, imageExtension] = props.vehicle.vehicleImages[0].split(".");
-  const underscoredProjectName = props.vehicle.projectName.split(" ").join("_");
+  const imageName = props.vehicle.vehicleImages[0];
+  const projectName = props.vehicle.projectName;
+  const vehicleId = props.vehicle._id;
   return (
-    <Link href={`/hangar/vId`} passHref>
+    <Link href={`/hangar/${vehicleId}`} passHref>
       <a>
         <div className={styles.container}>
           <h2 className={`${styles.title} rebel-font`}>
             {props.vehicle.projectName}
           </h2>
           <div className={styles.categoryImg}>
-            {/* {mainImageIsAvailable ? ( */}
-
             <img
-              src={`https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true,di-rebel.jpg/hangar/${imageName}/${underscoredProjectName}.${imageExtension}`}
-              // src="d"
-              alt="Cube Ams 100 TSDZ2"
+              src={getBigThumbSrc(imageName, projectName)}
+              alt={projectName}
               loading="lazy"
             />
-            {/* ) : (
-              <img
-                src="/img/rebel-electric-logo.svg"
-                alt="Rebel vehicle"
-                loading="lazy"
-                style={{ background: "#acb0bd", objectFit: "contain" }}
-              />
-            )} */}
           </div>
 
           <DataBar
