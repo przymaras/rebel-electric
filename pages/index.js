@@ -32,7 +32,15 @@ export async function getStaticProps() {
     const db = client.db();
     const vehiclesCollection = db.collection("vehicles");
     vehicles = await vehiclesCollection
-      .find()
+      .aggregate([
+        {
+          $project: {
+            projectName: 1,
+            vehicleImages: 1,
+            createdAt: 1,
+          },
+        },
+      ])
       .sort({ createdAt: -1 }) //sort from newest to oldest
       .limit(3)
       .toArray();
@@ -46,7 +54,6 @@ export async function getStaticProps() {
       vehicles: vehicles.map((vehicle) => ({
         ...vehicle,
         _id: vehicle._id.toString(),
-        ownerId: vehicle.ownerId.toString(),
       })),
     },
     revalidate: 20,
