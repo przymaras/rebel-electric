@@ -20,7 +20,7 @@ function Recent(props) {
             /> */}
 
             <img
-              src={`https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true/hangar/${imageName}/${underscoredName}.${imageExtension}`}
+              src={`https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true,di-rebel.jpg/hangar/${imageName}/${underscoredName}.${imageExtension}`}
               // src="d"
               alt="Cube Ams 100 TSDZ2"
               className={styles.img}
