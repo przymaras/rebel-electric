@@ -12,7 +12,7 @@ import Logo from "../../public/img/rebel-electric-logo.svg";
 
 function Home(props) {
   const { t } = useTranslation();
-  const recentVehicles = [...props.hangarData.vehicles].slice(0, 3);
+  const recentVehicles = props.vehicles;
 
   return (
     <>
@@ -100,7 +100,7 @@ function Home(props) {
 }
 
 Home.defaultprops = {
-  hangarData: { vehicles: [] },
+  vehicles: { vehicles: [] },
 };
 
 export default Home;

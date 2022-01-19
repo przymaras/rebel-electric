@@ -1,5 +1,6 @@
 import Head from "next/head";
 import useTranslation from "next-translate/useTranslation";
+import { MongoClient } from "mongodb";
 
 import Home from "../components/home/Home";
 
@@ -12,53 +13,44 @@ function HomePage(props) {
         <meta name="description" content={t("common:metaDescription")} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Home hangarData={props.hangarData} />
+      <Home vehicles={props.vehicles} />
     </>
   );
 }
 
-export async function getServerSideProps() {
-  let hangarData = { vehicles: [] };
-  const url = `${process.env.API_URL}/vehicles/`;
+export async function getStaticProps() {
+  const dbName = process.env.MONGODB_DB;
+  const dbhost = process.env.MONGODB_HOST;
+  const dbUser = process.env.MONGODB_USER;
+  const dbPass = process.env.MONGODB_PASS;
+  const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
+
+  let vehicles = { vehicles: [] };
+
   try {
-    const res = await fetch(url);
-    const data = await res.json();
-    console.log(res.ok);
-    hangarData = { ...data };
+    const client = await MongoClient.connect(connectString);
+    const db = client.db();
+    const vehiclesCollection = db.collection("vehicles");
+    vehicles = await vehiclesCollection
+      .find()
+      .sort({ createdAt: -1 }) //sort from newest to oldest
+      .limit(3)
+      .toArray();
+    client.close();
   } catch (err) {
     console.log(err);
   }
 
   return {
     props: {
-      hangarData,
+      vehicles: vehicles.map((vehicle) => ({
+        ...vehicle,
+        _id: vehicle._id.toString(),
+        ownerId: vehicle.ownerId.toString(),
+      })),
     },
+    revalidate: 20,
   };
 }
-
-// export function getStaticProps() {
-//   const recent = [
-//     {
-//       id: 1,
-//       name: "pojazdator one",
-//       src: "https://rebel-electric.com/new/full/2079",
-//     },
-//     {
-//       id: 2,
-//       name: "pojazdator two",
-//       src: "https://rebel-electric.com/new/full/2076",
-//     },
-//     {
-//       id: 3,
-//       name: "pojazdator three",
-//       src: "https://rebel-electric.com/new/full/1517",
-//     },
-//   ];
-//   return {
-//     props: {
-//       recentVehicles: recent,
-//     },
-//   };
-// }
 
 export default HomePage;
