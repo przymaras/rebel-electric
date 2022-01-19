@@ -2,11 +2,10 @@ import { useRouter } from "next/router";
 import { MongoClient, ObjectId } from "mongodb";
 
 import VehicleDetails from "../../components/hangar/VehicleDetails";
-import { ifData } from "../../components/tools/common-functions";
 
 function HangarVehiclePage(props) {
   const router = useRouter();
-  const { vehicleId } = router.query;
+  // const { vehicleId } = router.query;
   return <VehicleDetails vehicleData={props.vehicleData} />;
 }
 

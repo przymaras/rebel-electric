@@ -15,7 +15,7 @@ import CategorySelector from "./CategorySelector";
 
 function Hangar(props) {
   const { t } = useTranslation();
-  const vehicles = props.hangarData.vehicles;
+  const vehicles = props.vehicles;
 
   return (
     <>
@@ -85,7 +85,7 @@ function Hangar(props) {
 }
 
 Hangar.defaultprops = {
-  hangarData: { vehicles: [] },
+  vehicles: { vehicles: [] },
 };
 
 export default Hangar;
