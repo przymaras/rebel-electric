@@ -1,27 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Link from "next/link";
+import { getBigThumbSrc } from "../tools/common-functions";
 
 import styles from "./Recent.module.css";
 
 function Recent(props) {
-  const [imageName, imageExtension] = props.src.split(".");
-  const underscoredName = props.name.split(" ").join("_");
+  const imageName = props.src;
+  const projectName = props.name;
+  const id = props.id;
   return (
     <div className={styles.container}>
-      <Link href={`/hangar/vId`} passHref>
+      <Link href={`/hangar/${id}`} passHref>
         <a>
           <div className={styles.recentImgContainer}>
-            {/* <Image
-              src={props.src}
-              alt={props.alt}
-              layout="fill"
-              className={styles.img}
-            /> */}
-
             <img
-              src={`https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true,di-rebel.jpg/hangar/${imageName}/${underscoredName}.${imageExtension}`}
-              // src="d"
+              // src={`https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true,di-rebel.jpg/hangar/${imageName}/${underscoredName}.${imageExtension}`}
+              src={getBigThumbSrc(imageName, projectName)}
               alt="Cube Ams 100 TSDZ2"
               className={styles.img}
             />

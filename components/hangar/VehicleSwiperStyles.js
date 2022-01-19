@@ -1,4 +1,4 @@
-function CategorySwiperStyles() {
+function VehicleSwiperStyles() {
   return (
     <style global jsx>{`
       .swiper {
@@ -54,4 +54,4 @@ function CategorySwiperStyles() {
   );
 }
 
-export default CategorySwiperStyles;
+export default VehicleSwiperStyles;

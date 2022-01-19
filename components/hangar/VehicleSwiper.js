@@ -8,18 +8,22 @@ import { useState } from "react";
 import VehicleSwiperStyles from "./VehicleSwiperStyles";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Navigation, Thumbs, Zoom } from "swiper";
+import { FreeMode, Navigation, Thumbs, Zoom, Lazy } from "swiper";
 
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/zoom";
+import "swiper/css/lazy";
 
 import styles from "./VehicleSwiper.module.css";
 
+import { getFullSrc, getSmallThumbSrc } from "../tools/common-functions";
+
 function VehicleSwiper(props) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
   return (
     <>
       <VehicleSwiperStyles />
@@ -30,32 +34,26 @@ function VehicleSwiper(props) {
             "--swiper-pagination-color": "#fff",
           }}
           loop={false}
-          modules={[FreeMode, Navigation, Thumbs, Zoom]}
-          spaceBetween={10}
+          modules={[FreeMode, Navigation, Thumbs, Zoom, Lazy]}
           navigation={true}
           thumbs={{ swiper: thumbsSwiper }}
           className="mySwiper2"
           zoom={true}
+          lazy={{
+            loadPrevNext: true,
+          }}
         >
-          <SwiperSlide zoom={true}>
-            <img src="https://rebel-electric.com/new/full/2079" />
-          </SwiperSlide>
-
-          <SwiperSlide zoom={true}>
-            <img src="https://rebel-electric.com/new/full/2080" />
-          </SwiperSlide>
-          <SwiperSlide zoom={true}>
-            <img src="https://rebel-electric.com/new/full/2081" />
-          </SwiperSlide>
-          <SwiperSlide zoom={true}>
-            <img src="https://rebel-electric.com/new/full/2082" />
-          </SwiperSlide>
-          <SwiperSlide zoom={true}>
-            <img src="https://rebel-electric.com/new/full/2083" />
-          </SwiperSlide>
-          <SwiperSlide zoom={true}>
-            <img src="https://rebel-electric.com/new/full/2084" />
-          </SwiperSlide>
+          {props.images.map((image, index) => (
+            <SwiperSlide key={index} zoom={true}>
+              <img
+                src="/img/rebel.jpg"
+                data-src={getFullSrc(image, `${props.projectName} ${index}`)}
+                alt={`${props.projectName} ${index}`}
+                className="swiper-lazy"
+              />
+              <div className="swiper-lazy-preloader"></div>
+            </SwiperSlide>
+          ))}
         </Swiper>
         <Swiper
           onSwiper={setThumbsSwiper}
@@ -65,27 +63,15 @@ function VehicleSwiper(props) {
           freeMode={true}
           watchSlidesProgress={true}
           className="mySwiper"
-          zoom={true}
         >
-          <SwiperSlide>
-            <img src="https://rebel-electric.com/new/thumb/2079.jpg" />
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <img src="https://rebel-electric.com/new/thumb/2080.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://rebel-electric.com/new/thumb/2081.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://rebel-electric.com/new/thumb/2082.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://rebel-electric.com/new/thumb/2083.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://rebel-electric.com/new/thumb/2084.jpg" />
-          </SwiperSlide>
+          {props.images.map((image, index) => (
+            <SwiperSlide key={index}>
+              <img
+                src={getSmallThumbSrc(image, `${props.projectName} ${index}`)}
+                alt={`${props.projectName} ${index}`}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </>

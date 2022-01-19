@@ -17,6 +17,7 @@ function RecentBox(props) {
           return (
             <Recent
               key={vehicle._id}
+              id={vehicle._id}
               src={vehicle.vehicleImages[0]}
               alt={vehicle.projectName}
               name={vehicle.projectName}

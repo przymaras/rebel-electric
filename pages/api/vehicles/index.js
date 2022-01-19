@@ -1,21 +1,25 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import {
   getImageDetailsByName,
   moveImage,
 } from "../../../components/tools/imageKit-functions";
 
 async function handler(req, res) {
-  const db = process.env.MONGODB_DB;
+  const dbName = process.env.MONGODB_DB;
   const dbhost = process.env.MONGODB_HOST;
   const dbUser = process.env.MONGODB_USER;
   const dbPass = process.env.MONGODB_PASS;
-  const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${db}?retryWrites=true&w=majority`;
+  const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
   if (req.method === "POST") {
     try {
       let data = req.body;
       const now = new Date();
-      data = { ...data, createdAt: now.toISOString() };
+      data = {
+        ...data,
+        createdAt: now.toISOString(),
+        ownerId: ObjectId("61e6b8ba4be8810e0ae949c8"), //temporary add default user (me)
+      };
       //   const { title, image, address, description } = data;
 
       //add user authentication verification

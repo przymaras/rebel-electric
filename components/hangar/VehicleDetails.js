@@ -9,28 +9,32 @@ import VehicleVeiwsCatLikes from "./VehicleVeiwsCatLikes";
 import DataTables from "./DataTables";
 import Description from "./Description";
 import BtnLink from "../layout/BtnLink";
+import { ifData } from "../tools/common-functions";
 
 function VehicleDetails(props) {
   const { t } = useTranslation();
+  const vData = props.vehicleData;
 
   return (
     <>
       <TitleBox>
         <div className={styles.title}>
           <h1 className="rebel-font" style={{ fontSize: "3rem" }}>
-            {" "}
-            CUBE AMS 100 TSDZ2{" "}
+            {ifData(vData, "projectName", "unknown")}
           </h1>
           <div className={styles.userWrapper}>
             <IconAcademy />
-            <p>Użytkownik 2839</p>
+            <p>{ifData(vData, "userName", "unknown")}</p>
             <IconAcademy />
-            <p>Poznań</p>
+            <p>{ifData(vData, "city", "unknown")}</p>
           </div>
         </div>
       </TitleBox>
       <div className={styles.container}>
-        <VehicleSwiper />
+        <VehicleSwiper
+          images={ifData(vData, "vehicleImages", [])}
+          projectName={ifData(vData, "projectName", "Vehicle")}
+        />
         <VehicleVeiwsCatLikes />
         <DataTables />
         <Description />
