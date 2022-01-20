@@ -74,10 +74,12 @@ function AddEbikeForm(props) {
 
   function updateFormikImagesFieldValue() {
     isRefreshRender = true;
-    const filesIds = filePondRef.current
-      .getFiles()
-      .map((file) => file.serverId);
-    props.formik.setFieldValue("vehicleImages", filesIds);
+    if (!props.formik.isSubmitting) {
+      const filesIds = filePondRef.current
+        .getFiles()
+        .map((file) => file.serverId);
+      props.formik.setFieldValue("vehicleImages", filesIds);
+    }
   }
 
   return (

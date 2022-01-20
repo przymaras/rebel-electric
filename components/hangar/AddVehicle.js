@@ -26,7 +26,6 @@ function AddVehicle(props) {
       //Then with the data from the response in JSON...
       .then((data) => {
         console.log("Success:", data);
-        // router.push("/");
         router.replace("/hangar");
       })
       //Then with the error genereted...
