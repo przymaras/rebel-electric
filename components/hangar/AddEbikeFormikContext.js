@@ -56,7 +56,7 @@ function AddEbikeFormikContext(props) {
             .max(2100, "Must be a year"),
           vehicleImages: Yup.array().test({
             message: "Add at least one image",
-            test: (arr) => arr.length >= 1,
+            test: (arr) => arr.length >= 1 && arr[0] !== null,
           }),
           category: Yup.array().test({
             message: "Select category",

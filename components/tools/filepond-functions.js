@@ -17,12 +17,14 @@ export const getServerSettings = (imgsToRestoreDetails) => {
       const res = await fetch("/api/img/");
       const imgAuth = await res.json();
 
+      const date = new Date().toISOString().slice(0, 7);
+
       // https://docs.imagekit.io/api-reference/upload-file-api/client-side-file-upload
       // all parameters are describec in imagekit's docs
       const formData = new FormData();
       formData.append("file", file);
       formData.append("fileName", file.name);
-      formData.append("folder", "/tmp/");
+      formData.append("folder", `/tmp/${date}/`);
       formData.append("signature", imgAuth.signature);
       formData.append("token", imgAuth.token);
       formData.append("expire", imgAuth.expire);
