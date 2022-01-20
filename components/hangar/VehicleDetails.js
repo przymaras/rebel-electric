@@ -6,7 +6,7 @@ import VehicleSwiper from "./VehicleSwiper";
 
 import styles from "./VehicleDetails.module.css";
 import VehicleVeiwsCatLikes from "./VehicleVeiwsCatLikes";
-import DataTables from "./DataTables";
+import DataTablesEbike from "./DataTablesEbike";
 import Description from "./Description";
 import BtnLink from "../layout/BtnLink";
 import { ifData } from "../tools/common-functions";
@@ -35,9 +35,12 @@ function VehicleDetails(props) {
           images={ifData(vData, "vehicleImages", [])}
           projectName={ifData(vData, "projectName", "Vehicle")}
         />
-        <VehicleVeiwsCatLikes />
-        <DataTables />
-        <Description />
+        <VehicleVeiwsCatLikes
+          likes={ifData(vData, "likesCount", 0)}
+          views={ifData(vData, "viewsCount", 0)}
+        />
+        <DataTablesEbike vehicleData={vData} />
+        <Description description={ifData(vData, "description", "")} />
         <div className={styles.buttonsWrapper}>
           <BtnLink
             href="/users/add"
