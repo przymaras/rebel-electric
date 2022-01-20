@@ -14,7 +14,7 @@ function AddVehicle(props) {
 
   function onAddVehicle(enteredData) {
     //POST request with body equal on data in JSON format
-    console.log(enteredData);
+    // console.log(enteredData);
     fetch("/api/vehicles/", {
       method: "POST",
       headers: {

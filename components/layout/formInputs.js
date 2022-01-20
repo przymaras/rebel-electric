@@ -98,14 +98,16 @@ export const Fieldset = ({ legend, ...props }) => {
 };
 
 export const SubmitButton = ({ formik, text, errorMsg, ...props }) => {
+  const isDisabled = formik.isSubmitting;
   return (
     <div className={styles.container}>
-      <button className={styles.submitBtn} type="submit">
+      <button className={styles.submitBtn} type="submit" disabled={isDisabled}>
         {text}
       </button>
       {!formik.isValid && formik.submitCount > 0 && (
         <p className={styles.error}>{errorMsg}</p>
       )}
+      {formik.isSubmitting && <p>Wysyłam!</p>}
     </div>
   );
 };

@@ -38,6 +38,20 @@
   box-shadow: unset;
 }
 
+.submitBtn:disabled {
+  background: gray;
+  box-shadow: unset;
+  color: lightgrey;
+  cursor: not-allowed;
+}
+
+.submitBtn:disabled:hover {
+  background: gray;
+  box-shadow: unset;
+  outline: unset;
+  color: lightgrey;
+}
+
 .label {
   margin-top: 1em;
   margin-bottom: 0.2em;

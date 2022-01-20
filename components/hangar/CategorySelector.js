@@ -24,6 +24,15 @@ function CategorySelector(props) {
 
     function renderSwiper(cat, selected) {
       currentCatLvl++;
+      let errorMsg;
+      if (props.formik) {
+        errorMsg = (
+          <ErrorMessage name="category">
+            {(msg) => <div className={styles.error}>{msg}</div>}
+          </ErrorMessage>
+        );
+      }
+
       const Swiper = (
         <>
           <CategorySwiper
@@ -33,9 +42,7 @@ function CategorySelector(props) {
             selectedIndexes={selectedIndexes}
             setSelectedIndexes={setSelectedIndexes}
           />
-          <ErrorMessage name="category">
-            {(msg) => <div className={styles.error}>{msg}</div>}
-          </ErrorMessage>
+          {errorMsg}
         </>
       );
 
@@ -110,6 +117,7 @@ function CategorySelector(props) {
 }
 
 CategorySelector.defaultProps = {
+  formik: undefined,
   formikSetFieldValue: () => null,
   formikCategoryValue: [],
 };
