@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDataFetcher } from "../../hooks/useDataFetcher";
 import { nanoid } from "nanoid";
 
-import { Form } from "formik";
+import { ErrorMessage, Form } from "formik";
 import { Persist } from "../tools/formik-persist";
 import {
   TextInput,
@@ -72,6 +72,14 @@ function AddEbikeForm(props) {
     }
   }, [isImgDetailsAvailable, imgsToRestoreDetails]);
 
+  function updateFormikImagesFieldValue() {
+    isRefreshRender = true;
+    const filesIds = filePondRef.current
+      .getFiles()
+      .map((file) => file.serverId);
+    props.formik.setFieldValue("vehicleImages", filesIds);
+  }
+
   return (
     <>
       <div className={styles.container}>
@@ -88,6 +96,10 @@ function AddEbikeForm(props) {
             <h2 className={`${styles.addPhotosTitle} rebel-font`}>
               Dodaj zdjęcia:
             </h2>
+            <p>
+              Przynajmniej jedno zdjęcie jest wymagane, dodaj maksymalnie
+              dziesięć.
+            </p>
             <div className={styles.file}>
               <FilePondStyles />
               <FilePond
@@ -110,23 +122,15 @@ function AddEbikeForm(props) {
                   props.setRemoveImages(filePondRef.current.removeFiles);
                 }}
                 // labelIdle="Przeciągnij zdjęcia na tę ramkę lub kliknij w nią, aby wyświetlić eksplorator plików."
-                onreorderfiles={() => {
-                  isRefreshRender = true;
-                  const filesIds = filePondRef.current
-                    .getFiles()
-                    .map((file) => file.serverId);
-                  props.formik.setFieldValue("vehicleImages", filesIds);
-                }}
-                onprocessfiles={() => {
-                  isRefreshRender = true;
-                  const filesIds = filePondRef.current
-                    .getFiles()
-                    .map((file) => file.serverId);
-                  props.formik.setFieldValue("vehicleImages", filesIds);
-                }}
+                onreorderfiles={updateFormikImagesFieldValue}
+                onprocessfiles={updateFormikImagesFieldValue}
+                onremovefile={updateFormikImagesFieldValue}
                 server={getServerSettings(imgsToRestoreDetails)}
               />
             </div>
+            <ErrorMessage name="vehicleImages">
+              {(msg) => <div className={styles.error}>{msg}</div>}
+            </ErrorMessage>
           </div>
           <TextInput
             label="Dodaj prezentację video!"

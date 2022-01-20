@@ -1,5 +1,8 @@
+import { ErrorMessage } from "formik";
 import { useState } from "react";
 import { useEffect } from "react";
+
+import styles from "./CategorySelector.module.css";
 
 import CategorySwiper from "./CategorySwiper";
 
@@ -22,13 +25,18 @@ function CategorySelector(props) {
     function renderSwiper(cat, selected) {
       currentCatLvl++;
       const Swiper = (
-        <CategorySwiper
-          cat={cat}
-          name={cat.catTitle}
-          currentCatLvl={currentCatLvl}
-          selectedIndexes={selectedIndexes}
-          setSelectedIndexes={setSelectedIndexes}
-        />
+        <>
+          <CategorySwiper
+            cat={cat}
+            name={cat.catTitle}
+            currentCatLvl={currentCatLvl}
+            selectedIndexes={selectedIndexes}
+            setSelectedIndexes={setSelectedIndexes}
+          />
+          <ErrorMessage name="category">
+            {(msg) => <div className={styles.error}>{msg}</div>}
+          </ErrorMessage>
+        </>
       );
 
       if (
@@ -41,6 +49,7 @@ function CategorySelector(props) {
           return (
             <>
               {Swiper}
+
               {renderSwiper(
                 cat.categories[selected[currentCatLvl]].child,
                 selected
