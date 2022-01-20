@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 
 import styles from "./VehicleVeiwsCatLikes.module.css";
@@ -7,7 +8,7 @@ function VehicleVeiwsCatLikes(props) {
     <div className={styles.container}>
       <div className={styles.views}>
         <img src="/img/fa-ico/eye-solid.svg" alt="Views" />
-        <p>13</p>
+        <p>{props.views}</p>
         <p>WYŚWIETLEŃ</p>
       </div>
       <div className={styles.category}>
@@ -19,7 +20,7 @@ function VehicleVeiwsCatLikes(props) {
       </div>
       <div className={styles.likes}>
         <img src="/img/fa-ico/thumbs-up-solid.svg" alt="Thumb up" />
-        <p>1</p>
+        <p>{props.likes}</p>
         <p>POLUBIENIE</p>
       </div>
     </div>

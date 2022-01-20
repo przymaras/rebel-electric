@@ -1,4 +1,10 @@
 .container {
+  width: 100%;
+}
+
+.wrapper {
+  width: 100%;
+  align-self: stretch;
   max-width: 590px;
   background: #ffffff;
 
@@ -47,6 +53,8 @@
 @media (min-width: 1280px) {
   .container {
     grid-area: desc;
+  }
+  .wrapper {
     max-width: unset;
   }
 }

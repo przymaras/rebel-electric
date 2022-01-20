@@ -28,54 +28,32 @@ function DataTable(props) {
       <div className={`${styles.headingRow}  ${cssStyle}`}>
         <IconAcademy />
         <p>
-          <strong>Baza</strong>
+          <strong>{props.title}</strong>
         </p>
         <div className={styles.headingInfo}>
-          <p>V maks.</p>
+          <p>{props.col1Title}</p>
           <p>
-            <strong>38 km/h</strong>
+            <strong>{props.col1Value}</strong>
           </p>
         </div>
         <div className={styles.headingInfo}>
-          <p>Masa</p>
+          <p>{props.col2Title}</p>
           <p>
-            <strong>25kg</strong>
+            <strong>{props.col2Value}</strong>
           </p>
         </div>
         <div className={styles.headingInfo}>
-          <p>Zasięg</p>
+          <p>{props.col3Title}</p>
           <p>
-            <strong>100 km</strong>
+            <strong>{props.col3Value}</strong>
           </p>
         </div>
       </div>
       <div className={`${styles.detailsRow}  ${cssStyleLight}`}>
-        <p>
-          Marka: <strong>Cube</strong>
-        </p>
-        <p>
-          Model: <strong>AMS 100</strong>
-        </p>
-        <p>
-          Rok produkcji bazy: <strong>2010</strong>
-        </p>
-        <p>
-          Rozmiar kół: <strong>26</strong>
-        </p>
+        {props.row1}
       </div>
       <div className={`${styles.detailsRow}  ${cssStyleLight}`}>
-        <p>
-          Hamulce: <strong>tarcze hydrauliczne</strong>
-        </p>
-        <p>
-          Prąd maksymalny na wyjściu: <strong>17A</strong>
-        </p>
-        <p>
-          Sposób montazu baterii: <strong>Skrzynka z aluminium</strong>
-        </p>
-        <p>
-          Typ akumulatora: <strong>Ogniwa Li-Ion 18650</strong>
-        </p>
+        {props.row2}
       </div>
     </div>
   );
