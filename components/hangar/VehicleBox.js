@@ -8,7 +8,9 @@ import DataBar from "./DataBar";
 import styles from "./VehicleBox.module.css";
 
 function VehicleBox(props) {
-  const imageName = props.vehicle.vehicleImages[0];
+  const imageName = props.vehicle.vehicleImages[0]
+    ? props.vehicle.vehicleImages[0]
+    : "none.jpg";
   const projectName = props.vehicle.projectName;
   const vehicleId = props.vehicle._id;
   return (

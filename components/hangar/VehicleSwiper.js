@@ -69,6 +69,7 @@ function VehicleSwiper(props) {
               <img
                 src={getSmallThumbSrc(image, `${props.projectName} ${index}`)}
                 alt={`${props.projectName} ${index}`}
+                className={styles.thumb}
               />
             </SwiperSlide>
           ))}
