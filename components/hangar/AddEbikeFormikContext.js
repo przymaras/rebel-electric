@@ -41,7 +41,7 @@ function AddEbikeFormikContext(props) {
           cellsModel: "",
           capacityWh: "",
           capacityAh: "",
-          vehicleImages: [""],
+          vehicleImages: [],
           category: [-1],
         }}
         validationSchema={Yup.object({
@@ -54,6 +54,14 @@ function AddEbikeFormikContext(props) {
             .typeError("Must be a year")
             .min(1900, "Must be a year")
             .max(2100, "Must be a year"),
+          vehicleImages: Yup.array().test({
+            message: "Add at least one image",
+            test: (arr) => arr.length >= 1,
+          }),
+          category: Yup.array().test({
+            message: "Select category",
+            test: (arr) => arr[0] !== -1,
+          }),
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {

@@ -18,6 +18,10 @@
   height: 100%;
 }
 
+.error {
+  color: tomato;
+}
+
 @media (min-width: 800px) and (max-width: 1280px) {
   .data {
     display: flex;
