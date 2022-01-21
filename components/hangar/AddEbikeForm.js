@@ -82,6 +82,17 @@ function AddEbikeForm(props) {
     }
   }
 
+  function removeFileHandler(err, file) {
+    isRefreshRender = true;
+    if (!props.formik.isSubmitting) {
+      const filesIds = filePondRef.current
+        .getFiles()
+        .map((file) => file.serverId);
+      // props.formik.setFieldValue("vehicleImages", filesIds);
+      props.formik.values.vehicleImages = filesIds; // fix it later. I'm mutating state directly because filepond goes mad when removing file and updating state of formik - I don't know why.. Maybe because of rerender forced by formik, while filepond's remove proomise isn't resolved?
+    }
+  }
+
   return (
     <>
       <div className={styles.container}>
@@ -126,7 +137,7 @@ function AddEbikeForm(props) {
                 // labelIdle="Przeciągnij zdjęcia na tę ramkę lub kliknij w nią, aby wyświetlić eksplorator plików."
                 onreorderfiles={updateFormikImagesFieldValue}
                 onprocessfiles={updateFormikImagesFieldValue}
-                onremovefile={updateFormikImagesFieldValue}
+                onremovefile={removeFileHandler}
                 server={getServerSettings(imgsToRestoreDetails)}
               />
             </div>
