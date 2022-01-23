@@ -22,36 +22,36 @@
   margin: 1em 0;
   align-self: center;
   border: none;
-}
 
-.submitBtn:hover {
-  background: $nav-font-color;
-  color: $accent-color;
-  outline: 4px solid $accent-color;
-  outline-offset: -4px;
-}
+  &:hover {
+    background: $nav-font-color;
+    color: $accent-color;
+    outline: 4px solid $accent-color;
+    outline-offset: -4px;
 
-.submitBtn:hover .icoBox {
-  color: $accent-color;
-}
+    .icoBox {
+      color: $accent-color;
+    }
+  }
 
-.submitBtn:active {
-  transform: scale(0.95);
-  box-shadow: unset;
-}
+  &:active {
+    transform: scale(0.95);
+    box-shadow: unset;
+  }
 
-.submitBtn:disabled {
-  background: gray;
-  box-shadow: unset;
-  color: lightgrey;
-  cursor: not-allowed;
-}
+  &:disabled {
+    background: gray;
+    box-shadow: unset;
+    color: lightgrey;
+    cursor: not-allowed;
 
-.submitBtn:disabled:hover {
-  background: gray;
-  box-shadow: unset;
-  outline: unset;
-  color: lightgrey;
+    &:hover {
+      background: gray;
+      box-shadow: unset;
+      outline: unset;
+      color: lightgrey;
+    }
+  }
 }
 
 .label {
@@ -89,10 +89,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-}
 
-.fieldset legend {
-  font-weight: 500;
+  legend {
+    font-weight: 500;
+  }
 }
 
 .radio {

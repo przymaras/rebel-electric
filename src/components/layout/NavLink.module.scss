@@ -13,26 +13,45 @@
   margin-right: 10px;
 }
 
-.linkContainer a {
-  padding: 0.2em;
-  transition: background 250ms;
-  display: flex;
-  align-items: center;
-  color: $nav-font-color;
-  font-weight: bold;
-}
+.linkContainer {
+  a {
+    padding: 0.2em;
+    transition: background 250ms;
+    display: flex;
+    align-items: center;
+    color: $nav-font-color;
+    font-weight: bold;
 
-.linkContainer a:hover {
-  background: #ffffff;
-}
+    &:hover {
+      background: #ffffff;
+    }
 
-.linkContainer a:active {
-  transform: scale(0.98);
+    &:active {
+      transform: scale(0.98);
+    }
+  }
 }
 
 .loginContainer {
   background: $accent-color;
   align-self: start;
+
+  a {
+    &:hover {
+      background: unset;
+    }
+
+    &:active {
+      transform: unset;
+    }
+  }
+
+  &:hover {
+    outline: 2px solid $nav-font-color;
+  }
+  &:active {
+    transform: scale(0.98);
+  }
 }
 
 .loginIcoBox {
@@ -41,28 +60,10 @@
   font-size: 3rem;
 }
 
-.loginContainer a:hover {
-  background: unset;
-}
-
-.loginContainer a:active {
-  transform: unset;
-}
-
-.loginContainer:hover {
-  outline: 2px solid $nav-font-color;
-}
-
-.loginContainer:active {
-  transform: scale(0.98);
-}
-
 @media (min-width: $desktop-width) {
   .loginContainer {
     display: flex;
     justify-content: center;
-
-    /* margin: 1em; */
   }
 
   .loginIcoBox {

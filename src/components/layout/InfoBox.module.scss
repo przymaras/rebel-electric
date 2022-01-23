@@ -4,11 +4,11 @@
   max-width: 590px;
 
   --b: 3px; /* thickness of the border */
-  --c: $nav-font-color; /* color of the border */
+  --c: #46474d; /* color of the border */
   --w: 20px; /* width of border */
 
   border: var(--b) solid transparent; /* space for the border */
-  --g: #0000 90deg, var(--c) 0;
+  --g: #000000 90deg, var(--c) 0;
   background: conic-gradient(from 90deg at top var(--b) left var(--b), var(--g))
       0 0,
     conic-gradient(from 180deg at top var(--b) right var(--b), var(--g)) 100% 0,
@@ -28,10 +28,12 @@
   box-shadow: 0 4px 4px #00000066;
   text-align: center;
   font-weight: 700;
-}
 
-.content p:nth-child(1n + 2) {
-  margin-top: 0.5em;
+  p {
+    &:nth-child(1n + 2) {
+      margin-top: 0.5em;
+    }
+  }
 }
 
 @media (min-width: $desktop-width) {

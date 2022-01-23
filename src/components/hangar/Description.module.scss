@@ -26,26 +26,27 @@
   align-items: center;
   padding: 0 1em;
   font-weight: 800;
+
+  &:before {
+    background-image: url("/img/d_arr_l.png");
+    content: "";
+    width: 8px;
+    height: 37px;
+    left: -8px;
+    position: absolute;
+  }
+
+  &:after {
+    background-image: url("/img/d_arr_r.png");
+    content: "";
+    width: 10px;
+    height: 37px;
+    top: 0;
+    right: -10px;
+    position: absolute;
+  }
 }
 
-.title:before {
-  background-image: url("/img/d_arr_l.png");
-  content: "";
-  width: 8px;
-  height: 37px;
-  left: -8px;
-  position: absolute;
-}
-
-.title:after {
-  background-image: url("/img/d_arr_r.png");
-  content: "";
-  width: 10px;
-  height: 37px;
-  top: 0;
-  right: -10px;
-  position: absolute;
-}
 .content {
   padding: 1em;
   box-shadow: 0 4px 4px #00000066;

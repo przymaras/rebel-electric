@@ -14,8 +14,12 @@
   margin-top: 0.5em;
 }
 
-.buttonsWrapper a:nth-child(2) {
-  margin-top: 3em;
+.buttonsWrapper {
+  a {
+    &:nth-child(2) {
+      margin-top: 3em;
+    }
+  }
 }
 
 @media (min-width: $desktop-width) {
