@@ -3,9 +3,9 @@ import { GetStaticProps } from "next";
 import useTranslation from "next-translate/useTranslation";
 import { Document, MongoClient } from "mongodb";
 
-import { Vehicle } from "../models/hangar";
+import { Vehicle } from "../src/models/hangar";
 
-import Home from "../components/home/Home";
+import Home from "../src/components/home/Home";
 
 const HomePage: React.FC<{ vehicles: Vehicle[] }> = (props) => {
   const { t } = useTranslation();

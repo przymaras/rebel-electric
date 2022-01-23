@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { Document, MongoClient, ObjectId } from "mongodb";
 import { GetStaticProps, GetStaticPaths } from "next";
-import { Vehicle } from "../../models/hangar";
+import { Vehicle } from "../../src/models/hangar";
 
-import VehicleDetails from "../../components/hangar/VehicleDetails";
+import VehicleDetails from "../../src/components/hangar/VehicleDetails";
 
 const HangarVehiclePage: React.FC<{ vehicleData: Vehicle }> = (props) => {
   const router = useRouter();

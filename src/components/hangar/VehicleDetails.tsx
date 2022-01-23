@@ -1,5 +1,5 @@
 import useTranslation from "next-translate/useTranslation";
-import { ifData } from "../tools/common-functions";
+import { ifData } from "../../utils/common-functions";
 import { Vehicle } from "../../models/hangar";
 
 import styles from "./VehicleDetails.module.css";

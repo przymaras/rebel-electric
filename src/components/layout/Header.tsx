@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Nav from "./Nav";
 import styles from "./Header.module.css";
-import Logo from "../../public/img/rebel-electric-logo.svg";
+import Logo from "../../../public/img/rebel-electric-logo.svg";
 import { IconNavBars } from "../icons/IconNavBars";
 import { useEffect, useState } from "react";
 

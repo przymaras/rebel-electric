@@ -1,4 +1,4 @@
-import AddVehicle from "../../components/hangar/AddVehicle";
+import AddVehicle from "../../src/components/hangar/AddVehicle";
 
 const HangarAddPage: React.FC = () => {
   return <AddVehicle />;

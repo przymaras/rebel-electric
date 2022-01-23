@@ -10,7 +10,7 @@ import { IconAcademy } from "../icons/IconAcademy";
 import InfoBox from "../layout/InfoBox";
 import RecentBox from "./RecentBox";
 
-import Logo from "../../public/img/rebel-electric-logo.svg";
+import Logo from "../../../public/img/rebel-electric-logo.svg";
 
 const Home: React.FC<{ vehicles: Vehicle[] }> = (props) => {
   const { t } = useTranslation();

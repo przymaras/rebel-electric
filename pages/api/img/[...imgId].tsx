@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getImageDetailsByName } from "../../../components/tools/imageKit-functions";
+import { getImageDetailsByName } from "../../../src/utils/imageKit-functions";
 
 export default async function handler(
   req: NextApiRequest,
