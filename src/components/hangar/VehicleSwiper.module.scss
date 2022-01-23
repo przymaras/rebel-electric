@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .container {
   width: 100vw;
 }
@@ -6,7 +8,7 @@
   cursor: pointer;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: $desktop-width) {
   .container {
     width: 800px;
     height: 700px;

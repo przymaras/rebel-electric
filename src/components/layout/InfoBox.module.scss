@@ -34,7 +34,7 @@
   margin-top: 0.5em;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: $desktop-width) {
   .container {
     margin: unset;
   }

@@ -56,7 +56,7 @@
   background: $data-green-light;
 }
 
-@media (min-width: 600px) and (max-width: 1280px) {
+@media (min-width: 600px) and (max-width: $desktop-width) {
   .detailsRow {
     display: grid;
     grid-template-columns: 1fr 1fr;
