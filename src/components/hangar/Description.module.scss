@@ -52,7 +52,7 @@
   font-weight: 700;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: $desktop-width) {
   .container {
     grid-area: desc;
   }

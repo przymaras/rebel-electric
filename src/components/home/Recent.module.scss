@@ -37,7 +37,7 @@
   z-index: 1;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: $desktop-width) {
   .recentImgContainer {
     width: 380px;
     height: 214px;

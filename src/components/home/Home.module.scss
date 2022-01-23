@@ -45,7 +45,7 @@
   margin-top: 1em;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: $desktop-width) {
   .sectionWrapper {
     flex-direction: row;
     justify-content: space-evenly;
