@@ -35,7 +35,7 @@ const CategorySwiperStyles: React.FC = () => {
       }
 
       .swiper-slide-active p {
-        background: var(--accent-color);
+        background: #ffc246;
         width: 100%;
       }
     `}</style>

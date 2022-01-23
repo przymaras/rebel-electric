@@ -1,7 +1,9 @@
+@import "../../variables.scss";
+
 .icoBox {
   height: 50px;
   font-size: 5rem;
-  color: var(--nav-font-color);
+  color: $nav-font-color;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,8 +12,8 @@
 }
 
 .a {
-  background: var(--accent-color);
-  color: var(--nav-font-color);
+  background: $accent-color;
+  color: $nav-font-color;
   min-width: 165px;
   height: 120px;
   display: flex;
@@ -25,14 +27,14 @@
   align-self: center;
 }
 .a:hover {
-  background: var(--nav-font-color);
-  color: var(--accent-color);
-  outline: 4px solid var(--accent-color);
+  background: $nav-font-color;
+  color: $accent-color;
+  outline: 4px solid $accent-color;
   outline-offset: -4px;
 }
 
 .a:hover .icoBox {
-  color: var(--accent-color);
+  color: $accent-color;
 }
 
 .a:active {

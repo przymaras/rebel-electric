@@ -1,9 +1,11 @@
+@import "../../variables.scss";
+
 .recentImgContainer {
   position: relative;
   width: 90vw;
   height: 50.625vw;
-  border: 3px solid var(--header-background);
-  background: var(--header-background);
+  border: 3px solid $header-background;
+  background: $header-background;
   box-shadow: 0 4px 4px #00000066;
 }
 
@@ -15,8 +17,8 @@
 }
 
 .recentName {
-  background: var(--accent-color);
-  color: var(--dark-background);
+  background: $accent-color;
+  color: $dark-background;
   padding: 0.5em 0.5em 0.1em 0.5em;
   margin-top: -8px;
   width: 90%;

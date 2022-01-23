@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .container {
   width: 100%;
   font-size: 1.6rem;
@@ -31,27 +33,27 @@
 }
 
 .base {
-  background: var(--data-gray);
+  background: $data-gray;
 }
 
 .baseLight {
-  background: var(--data-gray-light);
+  background: $data-gray-light;
 }
 
 .electrical {
-  background: var(--data-yellow);
+  background: $data-yellow;
 }
 
 .electricalLight {
-  background: var(--data-yellow-light);
+  background: $data-yellow-light;
 }
 
 .battery {
-  background: var(--data-green);
+  background: $data-green;
 }
 
 .batteryLight {
-  background: var(--data-green-light);
+  background: $data-green-light;
 }
 
 @media (min-width: 600px) and (max-width: 1280px) {

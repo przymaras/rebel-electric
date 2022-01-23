@@ -1,10 +1,12 @@
+@import "../../variables.scss";
+
 .icoBox {
   width: 50px;
   height: 30px;
   font-size: 2rem;
-  color: var(--nav-font-color);
-  background: var(--nav-ico-background);
-  border: 0.5px solid var(--nav-font-color);
+  color: $nav-font-color;
+  background: $nav-ico-background;
+  border: 0.5px solid $nav-font-color;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +18,7 @@
   transition: background 250ms;
   display: flex;
   align-items: center;
-  color: var(--nav-font-color);
+  color: $nav-font-color;
   font-weight: bold;
 }
 
@@ -29,7 +31,7 @@
 }
 
 .loginContainer {
-  background: var(--accent-color);
+  background: $accent-color;
   align-self: start;
 }
 
@@ -48,7 +50,7 @@
 }
 
 .loginContainer:hover {
-  outline: 2px solid var(--nav-font-color);
+  outline: 2px solid $nav-font-color;
 }
 
 .loginContainer:active {

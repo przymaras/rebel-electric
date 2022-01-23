@@ -1,8 +1,10 @@
+@import "../../variables.scss";
+
 .container {
   max-width: 590px;
 
   --b: 3px; /* thickness of the border */
-  --c: var(--nav-font-color); /* color of the border */
+  --c: $nav-font-color; /* color of the border */
   --w: 20px; /* width of border */
 
   border: var(--b) solid transparent; /* space for the border */

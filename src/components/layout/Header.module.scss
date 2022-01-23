@@ -1,11 +1,13 @@
+@import "../../variables.scss";
+
 .container {
-  background: var(--header-background);
+  background: $header-background;
   width: 100%;
   top: 0;
 }
 
 .header {
-  color: var(--nav-font-color);
+  color: $nav-font-color;
   height: 70px;
   display: flex;
   justify-content: space-between;
@@ -20,7 +22,7 @@
 }
 
 .btn {
-  color: var(--nav-font-color);
+  color: $nav-font-color;
   margin-left: 0.5em;
   font-size: 4rem;
   padding: 0;
@@ -53,7 +55,7 @@
   .header {
     height: 100px;
     flex-grow: 1;
-    max-width: var(--desktop-width);
+    max-width: $desktop-width;
   }
   .btn {
     display: none;

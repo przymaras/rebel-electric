@@ -30,7 +30,7 @@ const VehicleSwiperStyles: React.FC = () => {
 
       .mySwiper .swiper-slide-thumb-active {
         opacity: 1;
-        outline: 2px solid var(--accent-color);
+        outline: 2px solid #ffc246;
         outline-offset: -2px;
       }
 

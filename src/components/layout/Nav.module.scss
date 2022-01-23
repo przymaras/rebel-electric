@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .nav {
   font-size: 2.5rem;
   font-weight: bold;
@@ -6,7 +8,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: var(--background-color);
+  background: $background-color;
   z-index: 998;
 }
 
@@ -18,7 +20,7 @@
   bottom: 0;
   left: 0;
   width: 300px;
-  background: var(--nav-background);
+  background: $nav-background;
   z-index: 999;
 }
 
