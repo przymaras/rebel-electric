@@ -17,7 +17,7 @@ import "swiper/css/thumbs";
 import "swiper/css/zoom";
 import "swiper/css/lazy";
 
-import styles from "./VehicleSwiper.module.css";
+import styles from "./VehicleSwiper.module.scss";
 
 import { getFullSrc, getSmallThumbSrc } from "../../utils/common-functions";
 

@@ -2,7 +2,7 @@ import useTranslation from "next-translate/useTranslation";
 import { ifData } from "../../utils/common-functions";
 import { Vehicle } from "../../models/hangar";
 
-import styles from "./VehicleDetails.module.css";
+import styles from "./VehicleDetails.module.scss";
 
 import { IconAcademy } from "../icons/IconAcademy";
 import TitleBox from "../layout/TitleBox";

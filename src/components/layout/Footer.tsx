@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./Footer.module.css";
+import styles from "./Footer.module.scss";
 import Logo from "../../../public/img/rebel-electric-logo.svg";
 
 const Footer: React.FC = () => {

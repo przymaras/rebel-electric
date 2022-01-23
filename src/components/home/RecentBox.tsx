@@ -1,6 +1,6 @@
 import useTranslation from "next-translate/useTranslation";
 
-import styles from "./RecentBox.module.css";
+import styles from "./RecentBox.module.scss";
 
 import { Vehicle } from "../../models/hangar";
 

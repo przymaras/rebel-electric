@@ -1,5 +1,5 @@
 import { IconAcademy } from "../icons/IconAcademy";
-import styles from "./DataBar.module.css";
+import styles from "./DataBar.module.scss";
 
 interface DataBarProps {
   style: string;

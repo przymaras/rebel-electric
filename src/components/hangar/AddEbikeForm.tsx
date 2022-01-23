@@ -34,7 +34,7 @@ registerPlugin(
   FilePondPluginFileValidateType
 );
 
-import styles from "./AddEbikeForm.module.css";
+import styles from "./AddEbikeForm.module.scss";
 
 import AddVehicleDataGroup from "./AddVehicleDataGroup";
 

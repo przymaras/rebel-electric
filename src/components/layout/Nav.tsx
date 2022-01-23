@@ -1,4 +1,4 @@
-import styles from "./Nav.module.css";
+import styles from "./Nav.module.scss";
 import useTranslation from "next-translate/useTranslation";
 import NavLink from "./NavLink";
 

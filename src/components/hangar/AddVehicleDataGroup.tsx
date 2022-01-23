@@ -1,5 +1,5 @@
 import { IconAcademy } from "../icons/IconAcademy";
-import styles from "./AddVehicleDataGroup.module.css";
+import styles from "./AddVehicleDataGroup.module.scss";
 
 interface AddVehicleDataGroupProps {
   style: string;

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Vehicle } from "../../models/hangar";
 import { getBigThumbSrc } from "../../utils/common-functions";
 
-import styles from "./Recent.module.css";
+import styles from "./Recent.module.scss";
 
 const Recent: React.FC<{ vehicle: Vehicle }> = (props) => {
   const imageName = props.vehicle.vehicleImages[0];
