@@ -25,21 +25,22 @@
   transition: background 150ms, color 150ms;
   margin: 1em 0;
   align-self: center;
-}
-.a:hover {
-  background: $nav-font-color;
-  color: $accent-color;
-  outline: 4px solid $accent-color;
-  outline-offset: -4px;
-}
 
-.a:hover .icoBox {
-  color: $accent-color;
-}
+  &:hover {
+    background: $nav-font-color;
+    color: $accent-color;
+    outline: 4px solid $accent-color;
+    outline-offset: -4px;
 
-.a:active {
-  transform: scale(0.95);
-  box-shadow: unset;
+    .icoBox {
+      color: $accent-color;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: unset;
+  }
 }
 
 .p {
@@ -52,8 +53,8 @@
   padding: 0 1.5em;
   text-align: center;
   height: 150px;
-}
 
-.horizontal .p {
-  margin: 0 0 0 1em;
+  .p {
+    margin: 0 0 0 1em;
+  }
 }

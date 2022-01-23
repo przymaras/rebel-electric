@@ -6,19 +6,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.form input {
-  width: 90%;
-  height: 3em;
-  text-indent: 1em;
+  input {
+    width: 90%;
+    height: 3em;
+    text-indent: 1em;
+  }
 }
 
 @media (min-width: $desktop-width) {
   .form {
     width: 100%;
+    input {
+      width: 100%;
+    }
   }
-}
-.form input {
-  width: 100%;
 }

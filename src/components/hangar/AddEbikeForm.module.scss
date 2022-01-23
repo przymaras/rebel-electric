@@ -1,10 +1,9 @@
 @import "../../variables.scss";
 
 .container {
-}
-
-.container h2 {
-  font-size: 1.8rem;
+  h2 {
+    font-size: 1.8rem;
+  }
 }
 
 .info {
@@ -30,10 +29,10 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-  }
 
-  .data > div {
-    max-width: 48%;
+    > div {
+      max-width: 48%;
+    }
   }
 }
 

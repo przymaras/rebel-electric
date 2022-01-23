@@ -24,10 +24,10 @@
   width: 90%;
   text-align: center;
   text-transform: uppercase;
-}
 
-.recentName:last-child {
-  margin-bottom: 0;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .container {

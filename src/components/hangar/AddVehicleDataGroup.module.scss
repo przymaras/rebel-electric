@@ -3,6 +3,36 @@
 .container {
   width: 100%;
   margin-top: 1em;
+
+  &.base {
+    background: $data-gray-light;
+  }
+
+  &.electrical {
+    background: $data-yellow-light;
+  }
+
+  &.battery {
+    background: $data-green-light;
+  }
+}
+
+.base {
+  .heading {
+    background: $data-gray;
+  }
+}
+
+.electrical {
+  .heading {
+    background: $data-yellow;
+  }
+}
+
+.battery {
+  .heading {
+    background: $data-green;
+  }
 }
 
 .heading {
@@ -17,28 +47,4 @@
 
 .wrapper {
   padding: 1em;
-}
-
-.base.container {
-  background: $data-gray-light;
-}
-
-.base .heading {
-  background: $data-gray;
-}
-
-.electrical.container {
-  background: $data-yellow-light;
-}
-
-.electrical .heading {
-  background: $data-yellow;
-}
-
-.battery.container {
-  background: $data-green-light;
-}
-
-.battery .heading {
-  background: $data-green;
 }
