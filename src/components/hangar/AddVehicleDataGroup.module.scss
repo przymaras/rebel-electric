@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .container {
   width: 100%;
   margin-top: 1em;
@@ -18,25 +20,25 @@
 }
 
 .base.container {
-  background: var(--data-gray-light);
+  background: $data-gray-light;
 }
 
 .base .heading {
-  background: var(--data-gray);
+  background: $data-gray;
 }
 
 .electrical.container {
-  background: var(--data-yellow-light);
+  background: $data-yellow-light;
 }
 
 .electrical .heading {
-  background: var(--data-yellow);
+  background: $data-yellow;
 }
 
 .battery.container {
-  background: var(--data-green-light);
+  background: $data-green-light;
 }
 
 .battery .heading {
-  background: var(--data-green);
+  background: $data-green;
 }

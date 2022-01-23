@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .logo {
   width: 90vw;
   height: 38.9vw;
@@ -14,14 +16,14 @@
 
 .p em {
   display: block;
-  color: var(--accent-color-font);
+  color: $accent-color-font;
   font-size: 2.4rem;
   font-style: normal;
   font-weight: 800;
 }
 
 .call {
-  background: var(--background-color);
+  background: $background-color;
   margin: 0 -1em;
   padding: 1em;
   text-align: center;

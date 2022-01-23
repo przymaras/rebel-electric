@@ -1,5 +1,7 @@
+@import "../../variables.scss";
+
 .container {
-  max-width: var(--desktop-width);
+  max-width: $desktop-width;
   margin: auto;
   padding: 0 1em 1em 1em;
   display: flex;

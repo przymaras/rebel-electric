@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .container {
   text-align: center;
   width: 100vw;
@@ -54,7 +56,7 @@
 
 .catName {
   padding: 0.2em 1em 0 1em;
-  background: var(--header-background);
+  background: $header-background;
   width: 100%;
   position: absolute;
   bottom: -1em;

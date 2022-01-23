@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .container {
   width: 100%;
 }
@@ -15,7 +17,7 @@
 }
 
 .title {
-  background: var(--header-background);
+  background: $header-background;
   position: absolute;
   top: -28px;
   left: -5px;

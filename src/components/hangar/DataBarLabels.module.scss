@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .container {
   display: flex;
   justify-content: space-evenly;
@@ -9,7 +11,7 @@
   display: flex;
   align-items: center;
   font-size: 1.5rem;
-  color: var(--nav-font-color);
+  color: $nav-font-color;
   margin: 0.2em 0;
 }
 

@@ -1,10 +1,12 @@
+@import "../../variables.scss";
+
 .container {
   width: 100%;
   display: grid;
   grid-template-columns: 55px 1fr 1fr 1fr;
   align-items: center;
   justify-items: center;
-  color: var(--nav-font-color);
+  color: $nav-font-color;
 }
 
 .container p {
@@ -14,13 +16,13 @@
 }
 
 .base {
-  background: var(--data-gray-light);
+  background: $data-gray-light;
 }
 
 .electrical {
-  background: var(--data-yellow-light);
+  background: $data-yellow-light;
 }
 
 .battery {
-  background: var(--data-green-light);
+  background: $data-green-light;
 }
