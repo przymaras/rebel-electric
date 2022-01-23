@@ -3,7 +3,7 @@ import { useDataFetcher } from "../../hooks/useDataFetcher";
 import { nanoid } from "nanoid";
 
 import { ErrorMessage, Form, FormikProps } from "formik";
-import { Persist } from "../tools/formik-persist";
+import { Persist } from "../../utils/formik-persist";
 import {
   TextInput,
   TextArea,
@@ -23,7 +23,7 @@ import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
 import FilePondStyles from "../layout/FilePondStyles";
-import { getServerSettings } from "../tools/filepond-functions";
+import { getServerSettings } from "../../utils/filepond-functions";
 
 registerPlugin(
   FilePondPluginImageExifOrientation,

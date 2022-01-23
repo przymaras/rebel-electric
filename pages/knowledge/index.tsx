@@ -1,4 +1,4 @@
-import Knowledge from "../../components/knowledge/Knowledge";
+import Knowledge from "../../src/components/knowledge/Knowledge";
 
 const KnowledgePage: React.FC = () => {
   return <Knowledge />;

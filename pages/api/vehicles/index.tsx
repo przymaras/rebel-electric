@@ -3,7 +3,7 @@ import { MongoClient, ObjectId } from "mongodb";
 import {
   getImageDetailsByName,
   moveImage,
-} from "../../../components/tools/imageKit-functions";
+} from "../../../src/utils/imageKit-functions";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const dbName = process.env.MONGODB_DB;

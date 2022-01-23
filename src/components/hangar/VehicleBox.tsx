@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
-import { getBigThumbSrc } from "../tools/common-functions";
+import { getBigThumbSrc } from "../../utils/common-functions";
 
 import styles from "./VehicleBox.module.css";
 

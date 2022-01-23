@@ -19,7 +19,7 @@ import "swiper/css/lazy";
 
 import styles from "./VehicleSwiper.module.css";
 
-import { getFullSrc, getSmallThumbSrc } from "../tools/common-functions";
+import { getFullSrc, getSmallThumbSrc } from "../../utils/common-functions";
 
 interface VehicleSwiperProps {
   images: string[];

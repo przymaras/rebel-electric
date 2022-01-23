@@ -1,4 +1,4 @@
-import Contact from "../components/contact/Contact";
+import Contact from "../src/components/contact/Contact";
 
 const ContactPage: React.FC = () => {
   return <Contact />;

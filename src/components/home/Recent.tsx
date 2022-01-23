@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Vehicle } from "../../models/hangar";
-import { getBigThumbSrc } from "../tools/common-functions";
+import { getBigThumbSrc } from "../../utils/common-functions";
 
 import styles from "./Recent.module.css";
 

@@ -1,8 +1,8 @@
 import { Document, MongoClient } from "mongodb";
 import { GetStaticProps } from "next";
-import { Vehicle } from "../../models/hangar";
+import { Vehicle } from "../../src/models/hangar";
 
-import Hangar from "../../components/hangar/Hangar";
+import Hangar from "../../src/components/hangar/Hangar";
 
 const HangarPage: React.FC<{ vehicles: Vehicle[] }> = (props) => {
   return <Hangar vehicles={props.vehicles} />;
