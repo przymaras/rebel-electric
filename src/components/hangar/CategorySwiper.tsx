@@ -7,7 +7,7 @@ import { SetStateAction, Dispatch, useEffect, useRef } from "react";
 import { useWindowResize } from "../../hooks/useWindowResize";
 
 import "swiper/css";
-import styles from "./CategorySwiper.module.css";
+import styles from "./CategorySwiper.module.scss";
 import { CategoriesObj } from "../../models/hangar";
 
 interface CategorySwiperProps {

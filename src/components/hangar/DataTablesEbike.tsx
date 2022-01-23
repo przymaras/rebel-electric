@@ -1,7 +1,7 @@
 import { ifData } from "../../utils/common-functions";
 import { Vehicle } from "../../models/hangar";
 
-import styles from "./DataTables.module.css";
+import styles from "./DataTables.module.scss";
 
 import DataTable from "./DataTable";
 

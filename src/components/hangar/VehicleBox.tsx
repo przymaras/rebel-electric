@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { getBigThumbSrc } from "../../utils/common-functions";
 
-import styles from "./VehicleBox.module.css";
+import styles from "./VehicleBox.module.scss";
 
 import DataBar from "./DataBar";
 import { Vehicle } from "../../models/hangar";

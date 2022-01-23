@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import styles from "./VehicleVeiwsCatLikes.module.css";
+import styles from "./VehicleVeiwsCatLikes.module.scss";
 
 interface VehicleVeiwsCatLikesProps {
   views: string;

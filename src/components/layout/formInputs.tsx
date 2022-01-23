@@ -1,6 +1,6 @@
 import { useField, FormikProps, FieldProps } from "formik";
 
-import styles from "./formInputs.module.css";
+import styles from "./formInputs.module.scss";
 
 interface InputProps {
   id?: string;

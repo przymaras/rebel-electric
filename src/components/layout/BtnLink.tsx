@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "./BtnLink.module.css";
+import styles from "./BtnLink.module.scss";
 
 interface BtnLinkProps {
   href: string;

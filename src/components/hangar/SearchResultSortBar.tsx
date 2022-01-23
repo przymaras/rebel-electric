@@ -1,5 +1,5 @@
 import useTranslation from "next-translate/useTranslation";
-import styles from "./SearchResultSortBar.module.css";
+import styles from "./SearchResultSortBar.module.scss";
 
 interface SearchResultSortBarProps {
   found: number;

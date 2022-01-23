@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { CategoriesObj } from "../../models/hangar";
 
-import styles from "./CategorySelector.module.css";
+import styles from "./CategorySelector.module.scss";
 
 import CategorySwiper from "./CategorySwiper";
 

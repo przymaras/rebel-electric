@@ -1,4 +1,4 @@
-import styles from "./SearchBar.module.css";
+import styles from "./SearchBar.module.scss";
 import useTranslation from "next-translate/useTranslation";
 
 const SearchBar: React.FC = () => {

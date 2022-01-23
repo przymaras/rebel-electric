@@ -1,5 +1,5 @@
 import { IconAcademy } from "../icons/IconAcademy";
-import styles from "./DataTable.module.css";
+import styles from "./DataTable.module.scss";
 
 interface DataTableProps {
   style: string;
