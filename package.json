@@ -30,6 +30,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.6",
     "@types/react": "^17.0.38",
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7",
