@@ -22,6 +22,7 @@
   padding: 0.5em 0.5em 0.1em 0.5em;
   margin-top: -8px;
   width: 90%;
+  max-width: 90vw;
   text-align: center;
   text-transform: uppercase;
 
@@ -41,5 +42,9 @@
   .recentImgContainer {
     width: 380px;
     height: 214px;
+  }
+  .recentName {
+    max-width: 380px;
+    max-height: 82.5px;
   }
 }

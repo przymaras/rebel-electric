@@ -22,9 +22,11 @@ const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
     <Link href={`/hangar/${vehicleId}`} passHref>
       <a>
         <div className={styles.container}>
-          <h2 className={`${styles.title} rebel-font`}>
-            {props.vehicle.projectName}
-          </h2>
+          <div className={styles.titleContainer}>
+            <h2 className={`${styles.title} rebel-font`}>
+              {props.vehicle.projectName}
+            </h2>
+          </div>
           <div className={styles.categoryImg}>
             <img
               src={getBigThumbSrc(imageName, projectName)}
