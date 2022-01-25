@@ -52,7 +52,7 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
         }}
         validationSchema={Yup.object({
           projectName: Yup.string()
-            .max(15, "Must be 15 characters or less")
+            .max(30, "Must be max. 30 characters long")
             .required("Required"),
           video: Yup.string().url("Must be valid URL"),
           description: Yup.string(),

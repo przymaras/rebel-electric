@@ -24,6 +24,11 @@
   }
 }
 
+.titleContainer {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+}
 .title {
   color: $accent-color;
   text-align: center;
