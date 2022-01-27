@@ -19,34 +19,43 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
       <DataTable
         style="base"
         title="Baza"
-        col1Title="V maks."
-        col1Value={`${ifData(vData, "vmax", "---")} km/h`}
-        col2Title="Masa"
-        col2Value={`${ifData(vData, "mass", "---")} kg`}
-        col3Title="Zasięg"
-        col3Value={`${ifData(vData, "range", "---")} km`}
+        // col1Title="V maks."
+        // col1Value={`${ifData(vData, "vmax", "---")} km/h`}
+        // col2Title="Masa"
+        // col2Value={`${ifData(vData, "mass", "---")} kg`}
+        // col3Title="Zasięg"
+        // col3Value={`${ifData(vData, "range", "---")} km`}
         row1={
           <>
             <p>
-              Marka: <strong>{ifData(vData, "manufacturer", "unknown")}</strong>
+              Koszt:{" "}
+              <strong>{`${ifData(vData, "totalCost", "unknown")} zł`}</strong>
             </p>
             <p>
-              Model: <strong>{ifData(vData, "model", "unknown")}</strong>
-            </p>
-            <p>
-              Rok produkcji bazy:{" "}
-              <strong>{ifData(vData, "year", "unknown")}</strong>
+              Baza: <strong>{ifData(vData, "bikeBase", "unknown")}</strong>
             </p>
             <p>
               Rozmiar kół:{" "}
               <strong>{ifData(vData, "wheelSize", "unknown")}</strong>
+            </p>
+            <p>
+              Hamulce: <strong>{ifData(vData, "brakes", "unknown")}</strong>
             </p>
           </>
         }
         row2={
           <>
             <p>
-              Hamulce: <strong>{ifData(vData, "brakes", "unknown")}</strong>
+              V maks.: <strong>{`${ifData(vData, "vmax", "---")} km/h`}</strong>
+            </p>
+            <p>
+              Masa: <strong>{`${ifData(vData, "mass", "---")} kg`}</strong>
+            </p>
+            <p>
+              Zasięg: <strong>{`${ifData(vData, "range", "---")} km`}</strong>
+            </p>
+            <p>
+              Zużycie energii: <strong>{`przeliczyć Wh/km`}</strong>
             </p>
           </>
         }
@@ -54,25 +63,28 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
       <DataTable
         style="electrical"
         title="Elektryka"
-        col1Title="Moc maks."
-        col1Value={`${power} W`}
-        col2Title="Napięcie"
-        col2Value={`${ifData(vData, "ctrlVoltage", "---")} V`}
-        col3Title="Prąd"
-        col3Value={`${ifData(vData, "ctrlCurrent", "---")} A`}
+        // col1Title="Moc maks."
+        // col1Value={`${power} W`}
+        // col2Title="Napięcie"
+        // col2Value={`${ifData(vData, "ctrlVoltage", "---")} V`}
+        // col3Title="Prąd"
+        // col3Value={`${ifData(vData, "ctrlCurrent", "---")} A`}
         row1={
           <>
             <p>
-              Sterownik:{" "}
-              <strong>{ifData(vData, "controller", "unknown")}</strong>
+              Producent sterownika:{" "}
+              <strong>{ifData(vData, "ctrlManuf", "unknown")}</strong>
             </p>
             <p>
-              Napięcie nominalne sterownika:{" "}
-              <strong>{ifData(vData, "ctrlVoltage", "unknown")}</strong>
+              Model sterownika:{" "}
+              <strong>{ifData(vData, "ctrlModel", "unknown")}</strong>
             </p>
             <p>
               Prąd maksymalny sterownika:{" "}
-              <strong>{ifData(vData, "ctrlCurrent", "unknown")}</strong>
+              <strong>{`${ifData(vData, "ctrlCurrent", "---")} A`}</strong>
+            </p>
+            <p>
+              Moc maksymalna: <strong>{`obliczyć W`}</strong>
             </p>
           </>
         }
@@ -83,7 +95,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Marka silnika:{" "}
-              <strong> {ifData(vData, "motor", "unknown")}</strong>
+              <strong> {ifData(vData, "motorManuf", "unknown")}</strong>
             </p>
             <p>
               Model silnika:{" "}
@@ -95,16 +107,12 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
       <DataTable
         style="battery"
         title="Bateria"
-        col1Title="Poj. Wh"
-        col1Value={`${ifData(vData, "capacityWh", "---")} Wh`}
-        col2Title="Poj. Ah"
-        col2Value={`${ifData(vData, "capacityAh", "---")} Ah`}
-        col3Title="Konfiguracja"
-        col3Value={`${ifData(vData, "batSeries", "---")}s${ifData(
-          vData,
-          "batParallels",
-          "---"
-        )}p`}
+        // col1Title="Napięcie"
+        // col1Value={`${ifData(vData, "batVoltage", "---")} V`}
+        // col2Title="Poj. Wh"
+        // col2Value={`${ifData(vData, "capacityWh", "---")} Wh`}
+        // col3Title="Poj. Ah"
+        // col3Value={`${ifData(vData, "capacityAh", "---")} Ah`}
         row1={
           <>
             <p>
@@ -117,35 +125,27 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Napięcie nominalne:{" "}
-              <strong>{ifData(vData, "batVoltage", "unknown")}</strong>
-            </p>
-            <p>
-              Konfiguracja pakietu:{" "}
-              <strong>{`${ifData(vData, "batSeries", "---")}s${ifData(
-                vData,
-                "batParallels",
-                "---"
-              )}p`}</strong>
+              <strong>{`${ifData(vData, "batVoltage", "unknown")} V`}</strong>
             </p>
           </>
         }
         row2={
           <>
             <p>
-              Marka ogniwa:{" "}
-              <strong>{ifData(vData, "cellsManuf", "unknown")}</strong>
+              Pojemność:{" "}
+              <strong>{`${ifData(vData, "capacity", "unknown")} ${ifData(
+                vData,
+                "capacityUnit",
+                "unknown"
+              )}`}</strong>
             </p>
             <p>
-              Pojemność Wh:{" "}
-              <strong>{ifData(vData, "capacityWh", "unknown")}</strong>
-            </p>
-            <p>
-              Model ogniwa:{" "}
-              <strong>{ifData(vData, "cellsModel", "unknown")}</strong>
-            </p>
-            <p>
-              Pojemność Ah:{" "}
-              <strong>{ifData(vData, "capacityAh", "unknown")}</strong>
+              Pojemność:{" "}
+              <strong>{`${ifData(
+                vData,
+                "capacityAh",
+                "przeliczyć"
+              )} Ah`}</strong>
             </p>
           </>
         }

@@ -8,9 +8,9 @@ interface ImageObj {
 export const getServerSettings = (imgsToRestoreDetails: ImageObj[]) => {
   return {
     process: async (
-      // fieldName, // fieldName is the name of the input field
+      fieldName: any, // fieldName is the name of the input field
       file: any, // file is the actual file object to send
-      //metadata,
+      metadata: any,
       load: any,
       error: any,
       progress: any,
@@ -77,8 +77,8 @@ export const getServerSettings = (imgsToRestoreDetails: ImageObj[]) => {
       load: any,
       error: any,
       progress: any,
-      abort: any
-      //headers
+      abort: any,
+      headers: any
     ) => {
       // FilePond uses the restore end point to restore temporary server files. This might be useful in a situation where the user closes the browser window but hadn't finished completing the form. Temporary files can be set with the files property.
 

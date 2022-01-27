@@ -179,85 +179,37 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
           </p>
           <div className={styles.data}>
             <AddVehicleDataGroup style="base" name="baza">
-              <Select label="Marka" name="manufacturer">
-                <option value="">Marka</option>
-                <option value="manufacturer1">Marka1</option>
-                <option value="manufacturer2">Marka2</option>
-              </Select>
-
-              <Select label="Model" name="model">
-                <option value="">Model</option>
-                <option value="model1">Model1</option>
-                <option value="model2">Model2</option>
-              </Select>
-
               <TextInput
-                label="Rok produkcji bazy"
-                name="year"
+                label="Baza: (marka / model / rok ) "
+                name="bikeBase"
                 type="text"
                 placeholder=""
-                description=""
+                description="np: Kona Stinky 2005r"
               />
 
-              <Fieldset legend="Rozmiar kół">
-                <RadioInput
-                  label="20''"
-                  type="radio"
-                  name="wheelSize"
-                  value="20"
-                />
-                <RadioInput
-                  label="24''"
-                  type="radio"
-                  name="wheelSize"
-                  value="24"
-                />
-                <RadioInput
-                  label="26''"
-                  type="radio"
-                  name="wheelSize"
-                  value="26"
-                />
-                <RadioInput
-                  label="27,5''"
-                  type="radio"
-                  name="wheelSize"
-                  value="27.5"
-                />
-                <RadioInput
-                  label="28/29''"
-                  type="radio"
-                  name="wheelSize"
-                  value="28"
-                />
-                <RadioInput
-                  label="18'' moto"
-                  type="radio"
-                  name="wheelSize"
-                  value="18"
-                />
-                <RadioInput
-                  label="19'' moto"
-                  type="radio"
-                  name="wheelSize"
-                  value="19"
-                />
-                <RadioInput
-                  label="Inne"
-                  type="radio"
-                  name="wheelSize"
-                  value="other"
-                />
-              </Fieldset>
+              <Select label="Rozmiar kół" name="wheelSize">
+                <option value="">Rozmiar kół</option>
+                <option value="20">{"20''"}</option>
+                <option value="24">{"24''"}</option>
+                <option value="26">{"26''"}</option>
+                <option value="27.5">{"27.5''"}</option>
+                <option value="28/29">{"28/29''"}</option>
+                <option value="18moto">{"18'' moto"}</option>
+                <option value="19moto">{"19'' moto"}</option>
+                <option value="other">{"Inne"}</option>
+              </Select>
 
               <Select label="Rodzaj hamulców" name="brakes">
-                <option value="">Rodzaj hamulców</option>
-                <option value="brakes1">Rodzaj hamulców1</option>
-                <option value="brakes2">Rodzaj hamulców2</option>
+                <option value="">Wybierz rodzaj</option>
+                <option value="discHydraulic">Tarczowe mechaniczne</option>
+                <option value="discMechanic">Tarczowe hydrauliczne</option>
+                <option value="vBrake">V-brake</option>
+                <option value="uBrake">U-brake</option>
+                <option value="other">Inne</option>
               </Select>
 
               <TextInput
-                label="Masa [kg]"
+                label="Masa po konwersji na eBike [kg]"
                 name="mass"
                 type="text"
                 placeholder=""
@@ -273,37 +225,42 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
               />
 
               <TextInput
-                label="Zasięg roweru [km]"
+                label="Średni zasięg na jednym ładowaniu: [km]"
                 name="range"
                 type="text"
                 placeholder=""
                 description=""
               />
+              <TextInput
+                label="Szacunkowy koszt projektu"
+                name="totalCost"
+                type="text"
+                placeholder=""
+                description="(ile wydałeś na ten pojazd)"
+              />
             </AddVehicleDataGroup>
             <AddVehicleDataGroup style="electrical" name="elektryka">
-              <Select label="Sterownik" name="controller">
-                <option value="">Wybierz sterownik</option>
+              <Select label="Producent sterownika" name="ctrlManuf">
+                <option value="">Wybierz producenta</option>
+                <option value="ctrlManuf1">Producent1</option>
+                <option value="ctrlManuf2">Producent2</option>
+              </Select>
+
+              <Select label="Model steronika" name="ctrlModel">
+                <option value="">Wybierz model</option>
                 <option value="controller1">Sterownik1</option>
                 <option value="controller2">Sterownik2</option>
               </Select>
 
               <TextInput
-                label="Napięcie nominalne sterownika [V]"
-                name="ctrlVoltage"
-                type="text"
-                placeholder=""
-                description=""
-              />
-
-              <TextInput
-                label="Prąd maksymalny pobierany z baterii [A]"
+                label="Prąd maksymalny pobierany z baterii przez sterownik [A]"
                 name="ctrlCurrent"
                 type="text"
                 placeholder=""
                 description=""
               />
 
-              <Select label="Marka silnika" name="motor">
+              <Select label="Marka silnika" name="motorManuf">
                 <option value="">Wybierz markę</option>
                 <option value="motor1">Silnik1</option>
                 <option value="motor2">Silnik2</option>
@@ -337,49 +294,28 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 description=""
               />
 
-              <TextInput
-                label="Il. połączeń szeregowych / S"
-                name="batSeries"
-                type="text"
-                placeholder=""
-                description=""
-              />
+              <Fieldset legend="Pojemność baterii">
+                <TextInput
+                  label="Podaj pojemność baterii i wybierz jednostkę, w której ją wpisałeś"
+                  name="capacity"
+                  type="text"
+                  placeholder=""
+                  description="(druga wartość zostanie wyliczona automatycznie)"
+                />
 
-              <TextInput
-                label="Il. połączeń równoległych / P"
-                name="batParallels"
-                type="text"
-                placeholder=""
-                description=""
-              />
-
-              <Select label="Marka ogniw" name="cellsManuf">
-                <option value="">Wybierz markę</option>
-                <option value="cellsManuf1">Marka1</option>
-                <option value="cellsManuf2">Marka2</option>
-              </Select>
-
-              <Select label="Model ogniw" name="cellsModel">
-                <option value="">Wybierz model</option>
-                <option value="cellsModel1">Model1</option>
-                <option value="cellsModel2">Model2</option>
-              </Select>
-
-              <TextInput
-                label="Pojemność w watogodzinach [Wh]"
-                name="capacityWh"
-                type="text"
-                placeholder=""
-                description=""
-              />
-
-              <TextInput
-                label="Pojemność w amperogodzinach [Ah]"
-                name="capacityAh"
-                type="text"
-                placeholder=""
-                description=""
-              />
+                <RadioInput
+                  label="[Ah]]"
+                  type="radio"
+                  name="capacityUnit"
+                  value="Ah"
+                />
+                <RadioInput
+                  label="[Wh]"
+                  type="radio"
+                  name="capacityUnit"
+                  value="Wh"
+                />
+              </Fieldset>
             </AddVehicleDataGroup>
           </div>
 

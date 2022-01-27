@@ -9,8 +9,12 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0.1em 1em;
+  gap: 10px;
+  strong {
+    letter-spacing: 2px;
+  }
 }
 
 .headingInfo {
@@ -24,12 +28,24 @@
   }
 }
 
+.details {
+  padding: 0.5em 0;
+}
+
 .detailsRow {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto;
+  // justify-items: center;
   gap: 0 10px;
   padding: 0 1em;
+  p {
+    letter-spacing: 1px;
+  }
+
+  strong {
+    margin-left: 0.5em;
+  }
 }
 
 .base {

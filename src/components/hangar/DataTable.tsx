@@ -4,12 +4,12 @@ import styles from "./DataTable.module.scss";
 interface DataTableProps {
   style: string;
   title: string;
-  col1Title: string;
-  col1Value: string;
-  col2Title: string;
-  col2Value: string;
-  col3Title: string;
-  col3Value: string;
+  // col1Title: string;
+  // col1Value: string;
+  // col2Title: string;
+  // col2Value: string;
+  // col3Title: string;
+  // col3Value: string;
   row1: React.ReactNode;
   row2: React.ReactNode;
 }
@@ -37,13 +37,13 @@ const DataTable: React.FC<DataTableProps> = (props) => {
       break;
   }
   return (
-    <div className={styles.container}>
-      <div className={`${styles.headingRow}  ${cssStyle}`}>
+    <div className={`${styles.container}  ${cssStyleLight}`}>
+      <div className={`${styles.headingRow}  ${cssStyle} rebel-font`}>
         <IconAcademy />
         <p>
           <strong>{props.title}</strong>
         </p>
-        <div className={styles.headingInfo}>
+        {/* <div className={styles.headingInfo}>
           <p>{props.col1Title}</p>
           <p>
             <strong>{props.col1Value}</strong>
@@ -60,13 +60,15 @@ const DataTable: React.FC<DataTableProps> = (props) => {
           <p>
             <strong>{props.col3Value}</strong>
           </p>
+        </div> */}
+      </div>
+      <div className={styles.details}>
+        <div className={`${styles.detailsRow}  ${cssStyleLight}`}>
+          {props.row1}
         </div>
-      </div>
-      <div className={`${styles.detailsRow}  ${cssStyleLight}`}>
-        {props.row1}
-      </div>
-      <div className={`${styles.detailsRow}  ${cssStyleLight}`}>
-        {props.row2}
+        <div className={`${styles.detailsRow}  ${cssStyleLight}`}>
+          {props.row2}
+        </div>
       </div>
     </div>
   );
