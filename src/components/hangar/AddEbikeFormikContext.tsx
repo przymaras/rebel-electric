@@ -64,7 +64,7 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
           video: Yup.string().url("Must be valid URL"),
           description: Yup.string().max(
             500,
-            "Must be max. 500 characters long"
+            "Must be max. 1000 characters long"
           ),
           bikeBase: Yup.string().max(30, "Must be max. 30 characters long"),
           wheelOther: Yup.string().when("wheelSize", {
