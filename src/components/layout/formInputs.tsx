@@ -8,6 +8,7 @@ interface InputProps {
   label: string;
   description?: string;
   rebelHeading?: boolean;
+  hidden?: boolean;
   type?: string;
   placeholder?: string;
   value?: string;
@@ -17,6 +18,7 @@ export const TextInput: React.FC<InputProps> = ({
   label,
   description,
   rebelHeading,
+  hidden,
   ...props
 }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -25,20 +27,32 @@ export const TextInput: React.FC<InputProps> = ({
   return (
     <div className={styles.container}>
       {rebelHeading === true ? (
-        <label className={styles.label} htmlFor={props.id || props.name}>
+        <label
+          className={`${styles.label} ${hidden ? styles.hidden : ""}`}
+          htmlFor={props.id || props.name}
+        >
           <h2 className="rebel-font">{label}</h2>
         </label>
       ) : (
-        <label className={styles.label} htmlFor={props.id || props.name}>
+        <label
+          className={`${styles.label} ${hidden ? styles.hidden : ""}`}
+          htmlFor={props.id || props.name}
+        >
           {label}
         </label>
       )}
 
-      <input className={styles.textInput} {...field} {...props} />
+      <input
+        className={`${styles.textInput} ${hidden ? styles.hidden : ""}`}
+        {...field}
+        {...props}
+      />
       {meta.touched && meta.error ? (
         <div className={styles.error}>{meta.error}</div>
       ) : null}
-      {description ? <p>{description}</p> : null}
+      {description ? (
+        <p className={`${hidden ? styles.hidden : ""}`}>{description}</p>
+      ) : null}
     </div>
   );
 };

@@ -27,18 +27,26 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
           description: "",
           bikeBase: "",
           wheelSize: "",
+          wheelOther: "",
           brakes: "",
+          brakesOther: "",
           mass: "",
           vmax: "",
           range: "",
           totalCost: "",
           ctrlManuf: "",
+          ctrlManufOther: "",
           ctrlModel: "",
+          ctrlModelOther: "",
           ctrlCurrent: "",
           motorManuf: "",
+          motorManufOther: "",
           motorModel: "",
+          motorModelOther: "",
           batteryType: "",
+          batteryTypeOther: "",
           cellsType: "",
+          cellsTypeOther: "",
           batVoltage: "",
           capacity: "",
           capacityUnit: "",
@@ -58,6 +66,38 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
           category: Yup.array().test({
             message: "Select category",
             test: (arr) => arr![0] !== -1,
+          }),
+          wheelOther: Yup.string().when("wheelSize", {
+            is: "other",
+            then: Yup.string().required("Required"),
+          }),
+          brakesOther: Yup.string().when("brakes", {
+            is: "other",
+            then: Yup.string().required("Required"),
+          }),
+          ctrlManufOther: Yup.string().when("ctrlManuf", {
+            is: "other",
+            then: Yup.string().required("Required"),
+          }),
+          ctrlModelOther: Yup.string().when("ctrlModel", {
+            is: "other",
+            then: Yup.string().required("Required"),
+          }),
+          motorManufOther: Yup.string().when("motorManuf", {
+            is: "other",
+            then: Yup.string().required("Required"),
+          }),
+          motorModelOther: Yup.string().when("motorModel", {
+            is: "other",
+            then: Yup.string().required("Required"),
+          }),
+          batteryTypeOther: Yup.string().when("batteryType", {
+            is: "other",
+            then: Yup.string().required("Required"),
+          }),
+          cellsTypeOther: Yup.string().when("cellsType", {
+            is: "other",
+            then: Yup.string().required("Required"),
           }),
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {

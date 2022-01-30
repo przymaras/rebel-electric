@@ -196,8 +196,17 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 <option value="28/29">{"28/29''"}</option>
                 <option value="18moto">{"18'' moto"}</option>
                 <option value="19moto">{"19'' moto"}</option>
-                <option value="other">{"Inne"}</option>
+                <option value="other">{"Inny"}</option>
               </Select>
+
+              <TextInput
+                label="Podaj rozmiar kół: "
+                name="wheelOther"
+                type="text"
+                placeholder=""
+                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                hidden={props.formik.values.wheelSize !== "other"}
+              />
 
               <Select label="Rodzaj hamulców" name="brakes">
                 <option value="">Wybierz rodzaj</option>
@@ -205,8 +214,17 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 <option value="discMechanic">Tarczowe hydrauliczne</option>
                 <option value="vBrake">V-brake</option>
                 <option value="uBrake">U-brake</option>
-                <option value="other">Inne</option>
+                <option value="other">Inny</option>
               </Select>
+
+              <TextInput
+                label="Podaj rodzaj hamulców: "
+                name="brakesOther"
+                type="text"
+                placeholder=""
+                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                hidden={props.formik.values.brakes !== "other"}
+              />
 
               <TextInput
                 label="Masa po konwersji na eBike [kg]"
@@ -244,13 +262,33 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 <option value="">Wybierz producenta</option>
                 <option value="ctrlManuf1">Producent1</option>
                 <option value="ctrlManuf2">Producent2</option>
+                <option value="other">Inny</option>
               </Select>
+
+              <TextInput
+                label="Podaj producenta sterownika: "
+                name="ctrlManufOther"
+                type="text"
+                placeholder=""
+                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                hidden={props.formik.values.ctrlManuf !== "other"}
+              />
 
               <Select label="Model steronika" name="ctrlModel">
                 <option value="">Wybierz model</option>
                 <option value="controller1">Sterownik1</option>
                 <option value="controller2">Sterownik2</option>
+                <option value="other">Inny</option>
               </Select>
+
+              <TextInput
+                label="Podaj model sterownika: "
+                name="ctrlModelOther"
+                type="text"
+                placeholder=""
+                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                hidden={props.formik.values.ctrlModel !== "other"}
+              />
 
               <TextInput
                 label="Prąd maksymalny pobierany z baterii przez sterownik [A]"
@@ -264,13 +302,33 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 <option value="">Wybierz markę</option>
                 <option value="motor1">Silnik1</option>
                 <option value="motor2">Silnik2</option>
+                <option value="other">Inny</option>
               </Select>
+
+              <TextInput
+                label="Podaj markę silnika: "
+                name="motorManufOther"
+                type="text"
+                placeholder=""
+                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                hidden={props.formik.values.motorManuf !== "other"}
+              />
 
               <Select label="Model silnika" name="motorModel">
                 <option value="">Wybierz model</option>
                 <option value="motorModel1">Model1</option>
                 <option value="motorModel2">Model2</option>
+                <option value="other">Inny</option>
               </Select>
+
+              <TextInput
+                label="Podaj model silnika: "
+                name="motorModelOther"
+                type="text"
+                placeholder=""
+                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                hidden={props.formik.values.motorModel !== "other"}
+              />
             </AddVehicleDataGroup>
 
             <AddVehicleDataGroup style="battery" name="bateria">
@@ -278,13 +336,33 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 <option value="">Wybierz typ</option>
                 <option value="batteryType1">Typ1</option>
                 <option value="batteryType2">Typ2</option>
+                <option value="other">Inny</option>
               </Select>
+
+              <TextInput
+                label="Podaj sposób montażu: "
+                name="batteryTypeOther"
+                type="text"
+                placeholder=""
+                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                hidden={props.formik.values.batteryType !== "other"}
+              />
 
               <Select label="Typ ogniw" name="cellsType">
                 <option value="">Wybierz typ</option>
                 <option value="cellsType1">Typ1</option>
                 <option value="cellsType2">Typ2</option>
+                <option value="other">Inny</option>
               </Select>
+
+              <TextInput
+                label="Podaj typ ogniw: "
+                name="cellsTypeOther"
+                type="text"
+                placeholder=""
+                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                hidden={props.formik.values.cellsType !== "other"}
+              />
 
               <TextInput
                 label="Napięcie nominalne [V]"
