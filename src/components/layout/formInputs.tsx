@@ -1,11 +1,11 @@
-import { useField, FormikProps, FieldProps } from "formik";
+import { useField, FormikProps } from "formik";
 
 import styles from "./formInputs.module.scss";
 
 interface InputProps {
   id?: string;
   name: string;
-  label: string;
+  label?: string;
   description?: string;
   rebelHeading?: boolean;
   hidden?: boolean;
@@ -26,21 +26,22 @@ export const TextInput: React.FC<InputProps> = ({
   const [field, meta] = useField(props);
   return (
     <div className={styles.container}>
-      {rebelHeading === true ? (
-        <label
-          className={`${styles.label} ${hidden ? styles.hidden : ""}`}
-          htmlFor={props.id || props.name}
-        >
-          <h2 className="rebel-font">{label}</h2>
-        </label>
-      ) : (
-        <label
-          className={`${styles.label} ${hidden ? styles.hidden : ""}`}
-          htmlFor={props.id || props.name}
-        >
-          {label}
-        </label>
-      )}
+      {label &&
+        (rebelHeading === true ? (
+          <label
+            className={`${styles.label} ${hidden ? styles.hidden : ""}`}
+            htmlFor={props.id || props.name}
+          >
+            <h2 className="rebel-font">{label}</h2>
+          </label>
+        ) : (
+          <label
+            className={`${styles.label} ${hidden ? styles.hidden : ""}`}
+            htmlFor={props.id || props.name}
+          >
+            {label}
+          </label>
+        ))}
 
       <input
         className={`${styles.textInput} ${hidden ? styles.hidden : ""}`}
@@ -120,10 +121,11 @@ export const RadioInput: React.FC<InputProps> = ({ label, ...props }) => {
   );
 };
 
-export const Fieldset: React.FC<{ legend: string }> = ({
+export const Fieldset: React.FC<InputProps & { legend: string }> = ({
   legend,
   ...props
 }) => {
+  const [field, meta] = useField(props.name);
   return (
     <div>
       <fieldset className={styles.fieldset}>
@@ -131,6 +133,9 @@ export const Fieldset: React.FC<{ legend: string }> = ({
 
         {props.children}
       </fieldset>
+      {meta.touched && meta.error ? (
+        <div className={styles.error}>{meta.error}</div>
+      ) : null}
     </div>
   );
 };

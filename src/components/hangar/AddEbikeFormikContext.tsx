@@ -31,9 +31,13 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
           brakes: "",
           brakesOther: "",
           mass: "",
+          massUnit: "",
           vmax: "",
+          vmaxUnit: "",
           range: "",
+          rangeUnit: "",
           totalCost: "",
+          totalCostCurrency: "",
           ctrlManuf: "",
           ctrlManufOther: "",
           ctrlModel: "",
@@ -58,7 +62,86 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
             .max(30, "Must be max. 30 characters long")
             .required("Required"),
           video: Yup.string().url("Must be valid URL"),
-          description: Yup.string(),
+          description: Yup.string().max(
+            500,
+            "Must be max. 500 characters long"
+          ),
+          bikeBase: Yup.string().max(30, "Must be max. 30 characters long"),
+          wheelOther: Yup.string().when("wheelSize", {
+            is: "other",
+            then: Yup.string()
+              .max(30, "Must be max. 30 characters long")
+              .required("Required"),
+          }),
+          brakesOther: Yup.string().when("brakes", {
+            is: "other",
+            then: Yup.string()
+              .max(30, "Must be max. 30 characters long")
+              .required("Required"),
+          }),
+          mass: Yup.number().typeError("Must be a number"),
+          vmax: Yup.number().typeError("Must be a number"),
+          range: Yup.number().typeError("Must be a number"),
+          totalCost: Yup.number().typeError("Must be a number"),
+          ctrlCurrent: Yup.number().typeError("Must be a number"),
+          batVoltage: Yup.number().typeError("Must be a number"),
+          capacity: Yup.number().typeError("Must be a number"),
+          ctrlManufOther: Yup.string().when("ctrlManuf", {
+            is: "other",
+            then: Yup.string()
+              .max(30, "Must be max. 30 characters long")
+              .required("Required"),
+          }),
+          ctrlModelOther: Yup.string().when("ctrlModel", {
+            is: "other",
+            then: Yup.string()
+              .max(30, "Must be max. 30 characters long")
+              .required("Required"),
+          }),
+          motorManufOther: Yup.string().when("motorManuf", {
+            is: "other",
+            then: Yup.string()
+              .max(30, "Must be max. 30 characters long")
+              .required("Required"),
+          }),
+          motorModelOther: Yup.string().when("motorModel", {
+            is: "other",
+            then: Yup.string()
+              .max(30, "Must be max. 30 characters long")
+              .required("Required"),
+          }),
+          batteryTypeOther: Yup.string().when("batteryType", {
+            is: "other",
+            then: Yup.string()
+              .max(30, "Must be max. 30 characters long")
+              .required("Required"),
+          }),
+          cellsTypeOther: Yup.string().when("cellsType", {
+            is: "other",
+            then: Yup.string()
+              .max(30, "Must be max. 30 characters long")
+              .required("Required"),
+          }),
+          massUnit: Yup.string().when("mass", {
+            is: (value: string) => value,
+            then: Yup.string().required("Unit required"),
+          }),
+          vmaxUnit: Yup.string().when("vmax", {
+            is: (value: string) => value,
+            then: Yup.string().required("Unit required"),
+          }),
+          rangeUnit: Yup.string().when("range", {
+            is: (value: string) => value,
+            then: Yup.string().required("Unit required"),
+          }),
+          capacityUnit: Yup.string().when("capacity", {
+            is: (value: string) => value,
+            then: Yup.string().required("Unit required"),
+          }),
+          totalCostCurrency: Yup.string().when("totalCost", {
+            is: (value: string) => value,
+            then: Yup.string().required("Currency required"),
+          }),
           vehicleImages: Yup.array().test({
             message: "Add at least one image",
             test: (arr) => arr!.length >= 1 && arr![0] !== null,
@@ -66,38 +149,6 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
           category: Yup.array().test({
             message: "Select category",
             test: (arr) => arr![0] !== -1,
-          }),
-          wheelOther: Yup.string().when("wheelSize", {
-            is: "other",
-            then: Yup.string().required("Required"),
-          }),
-          brakesOther: Yup.string().when("brakes", {
-            is: "other",
-            then: Yup.string().required("Required"),
-          }),
-          ctrlManufOther: Yup.string().when("ctrlManuf", {
-            is: "other",
-            then: Yup.string().required("Required"),
-          }),
-          ctrlModelOther: Yup.string().when("ctrlModel", {
-            is: "other",
-            then: Yup.string().required("Required"),
-          }),
-          motorManufOther: Yup.string().when("motorManuf", {
-            is: "other",
-            then: Yup.string().required("Required"),
-          }),
-          motorModelOther: Yup.string().when("motorModel", {
-            is: "other",
-            then: Yup.string().required("Required"),
-          }),
-          batteryTypeOther: Yup.string().when("batteryType", {
-            is: "other",
-            then: Yup.string().required("Required"),
-          }),
-          cellsTypeOther: Yup.string().when("cellsType", {
-            is: "other",
-            then: Yup.string().required("Required"),
           }),
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {

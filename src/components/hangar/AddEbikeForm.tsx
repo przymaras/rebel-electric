@@ -226,36 +226,112 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 hidden={props.formik.values.brakes !== "other"}
               />
 
-              <TextInput
-                label="Masa po konwersji na eBike [kg]"
-                name="mass"
-                type="text"
-                placeholder=""
-                description=""
-              />
+              <Fieldset name="massUnit" legend="Masa po konwersji na eBike">
+                <TextInput
+                  label="Podaj masę pojazdu i wybierz jednostkę, w której ją wpisałeś"
+                  name="mass"
+                  type="text"
+                  placeholder=""
+                  description=""
+                />
 
-              <TextInput
-                label="Prędkość maksymalna [km/h]"
-                name="vmax"
-                type="text"
-                placeholder=""
-                description=""
-              />
+                <RadioInput
+                  label="kg"
+                  type="radio"
+                  name="massUnit"
+                  value="kg"
+                />
+                <RadioInput
+                  label="lbs"
+                  type="radio"
+                  name="massUnit"
+                  value="lbs"
+                />
+              </Fieldset>
 
-              <TextInput
-                label="Średni zasięg na jednym ładowaniu: [km]"
-                name="range"
-                type="text"
-                placeholder=""
-                description=""
-              />
-              <TextInput
-                label="Szacunkowy koszt projektu"
-                name="totalCost"
-                type="text"
-                placeholder=""
-                description="(ile wydałeś na ten pojazd)"
-              />
+              <Fieldset name="vmaxUnit" legend="Prędkość maksymalna">
+                <TextInput
+                  label="Podaj prędkość maksymalną i wybierz jednostkę, w której ją wpisałeś"
+                  name="vmax"
+                  type="text"
+                  placeholder=""
+                  description=""
+                />
+
+                <RadioInput
+                  label="km/h"
+                  type="radio"
+                  name="vmaxUnit"
+                  value="kph"
+                />
+                <RadioInput
+                  label="mil/h"
+                  type="radio"
+                  name="vmaxUnit"
+                  value="mph"
+                />
+              </Fieldset>
+
+              <Fieldset name="rangeUnit" legend="Średni zasięg:">
+                <TextInput
+                  label="Podaj zasięg na jednym ładowaniu i wybierz jednostkę, w której go wpisałeś"
+                  name="range"
+                  type="text"
+                  placeholder=""
+                  description=""
+                />
+
+                <RadioInput
+                  label="km"
+                  type="radio"
+                  name="rangeUnit"
+                  value="km"
+                />
+                <RadioInput
+                  label="mil"
+                  type="radio"
+                  name="rangeUnit"
+                  value="mi"
+                />
+              </Fieldset>
+
+              <Fieldset
+                name="totalCostCurrency"
+                legend="Szacunkowy koszt projektu:"
+              >
+                <TextInput
+                  label="Podaj koszt i wybierz walutę, w której go wpisałeś"
+                  name="totalCost"
+                  type="text"
+                  placeholder=""
+                  description=""
+                />
+
+                <RadioInput
+                  label="PLN"
+                  type="radio"
+                  name="totalCostCurrency"
+                  value="PLN"
+                />
+                <RadioInput
+                  label="USD"
+                  type="radio"
+                  name="totalCostCurrency"
+                  value="USD"
+                />
+                <RadioInput
+                  label="EUR"
+                  type="radio"
+                  name="totalCostCurrency"
+                  value="EUR"
+                />
+                <RadioInput
+                  label="GBP"
+                  type="radio"
+                  name="totalCostCurrency"
+                  value="GBP"
+                />
+              </Fieldset>
             </AddVehicleDataGroup>
             <AddVehicleDataGroup style="electrical" name="elektryka">
               <Select label="Producent sterownika" name="ctrlManuf">
@@ -372,7 +448,7 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 description=""
               />
 
-              <Fieldset legend="Pojemność baterii">
+              <Fieldset name="capacityUnit" legend="Pojemność baterii">
                 <TextInput
                   label="Podaj pojemność baterii i wybierz jednostkę, w której ją wpisałeś"
                   name="capacity"
@@ -382,13 +458,13 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 />
 
                 <RadioInput
-                  label="[Ah]]"
+                  label="Ah"
                   type="radio"
                   name="capacityUnit"
                   value="Ah"
                 />
                 <RadioInput
-                  label="[Wh]"
+                  label="Wh"
                   type="radio"
                   name="capacityUnit"
                   value="Wh"
