@@ -2,6 +2,27 @@ export const ifData = (object: any, key: string, alt: any) => {
   return object ? (object[key] ? object[key] : alt) : alt;
 };
 
+export const ifDataOther = (
+  object: any,
+  key: string,
+  keyOther: string,
+  alt: any
+) => {
+  let value = alt;
+
+  if (object) {
+    if (object[key]) {
+      if (object[key] === "other" && object[keyOther]) {
+        value = object[keyOther];
+      } else {
+        value = object[key];
+      }
+    }
+  }
+
+  return value;
+};
+
 type ImgProjNameFn = (imgName: string, projName: string) => string;
 
 export const getBigThumbSrc: ImgProjNameFn = (imgName, projName) => {

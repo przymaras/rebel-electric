@@ -1,4 +1,4 @@
-import { ifData } from "../../utils/common-functions";
+import { ifData, ifDataOther } from "../../utils/common-functions";
 import { Vehicle } from "../../models/hangar";
 
 import styles from "./DataTables.module.scss";
@@ -11,9 +11,38 @@ interface DataTablesProps {
 
 const DataTables: React.FC<DataTablesProps> = (props) => {
   const vData = props.vehicleData;
+
   let power =
-    ifData(vData, "ctrlVoltage", "---") * ifData(vData, "ctrlCurrent", "---");
+    parseInt(ifData(vData, "batVoltage", "---")) *
+    parseInt(ifData(vData, "ctrlCurrent", "---"));
+
   power = power ? power : 0;
+
+  const capacityUnit = ifData(vData, "capacityUnit", "---");
+  const capacity = parseInt(ifData(vData, "capacity", "---"));
+  const voltage = parseInt(ifData(vData, "batVoltage", "---"));
+  let capacityWh: number = 0;
+  let capacityAh: number = 0;
+
+  if (capacityUnit === "Wh") {
+    capacityWh = capacity;
+    if (voltage) {
+      capacityAh = capacity / voltage;
+    }
+  } else if (capacityUnit === "Ah") {
+    capacityAh = capacity;
+    if (voltage) {
+      capacityWh = capacity * voltage;
+    }
+  }
+
+  const range = parseInt(ifData(vData, "range", "---"));
+  let energyConsumption: number = 0;
+
+  if (capacityWh && range) {
+    energyConsumption = capacityWh / range;
+  }
+
   return (
     <div className={styles.container}>
       <DataTable
@@ -32,13 +61,23 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Rozmiar kół:
-              <strong>{ifData(vData, "wheelSize", "unknown")}</strong>
+              <strong>
+                {ifDataOther(vData, "wheelSize", "wheelOther", "unknown")}
+              </strong>
             </p>
             <p>
-              Hamulce: <strong>{ifData(vData, "brakes", "unknown")}</strong>
+              Hamulce:
+              <strong>
+                {ifDataOther(vData, "brakes", "brakesOther", "unknown")}
+              </strong>
             </p>
             <p>
-              V maks.: <strong>{`${ifData(vData, "vmax", "---")} km/h`}</strong>
+              V maks.:
+              <strong>{`${ifData(vData, "vmax", "---")} ${ifData(
+                vData,
+                "vmaxUnit",
+                "unit"
+              )}`}</strong>
             </p>
           </>
         }
@@ -46,18 +85,35 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
           <>
             <p>
               Masa po konwersji:
-              <strong>{`${ifData(vData, "mass", "---")} kg`}</strong>
+              <strong>{`${ifData(vData, "mass", "---")}  ${ifData(
+                vData,
+                "massUnit",
+                "unit"
+              )}`}</strong>
             </p>
             <p>
               Średni zasięg:{" "}
-              <strong>{`${ifData(vData, "range", "---")} km`}</strong>
+              <strong>{`${ifData(vData, "range", "---")}  ${ifData(
+                vData,
+                "rangeUnit",
+                "unit"
+              )}`}</strong>
             </p>
             <p>
-              Zużycie energii: <strong>{`przeliczyć Wh/km`}</strong>
+              Zużycie energii:{" "}
+              <strong>{`${energyConsumption.toFixed(2)} Wh/${ifData(
+                vData,
+                "rangeUnit",
+                "---"
+              )}`}</strong>
             </p>
             <p>
               Koszt:
-              <strong>{`${ifData(vData, "totalCost", "unknown")} zł`}</strong>
+              <strong>{`${ifData(vData, "totalCost", "unknown")}  ${ifData(
+                vData,
+                "totalCostCurrency",
+                "unit"
+              )}`}</strong>
             </p>
           </>
         }
@@ -75,18 +131,22 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
           <>
             <p>
               Producent sterownika:
-              <strong>{ifData(vData, "ctrlManuf", "unknown")}</strong>
+              <strong>
+                {ifDataOther(vData, "ctrlManuf", "ctrlManufOther", "unknown")}
+              </strong>
             </p>
             <p>
               Model sterownika:
-              <strong>{ifData(vData, "ctrlModel", "unknown")}</strong>
+              <strong>
+                {ifDataOther(vData, "ctrlModel", "ctrlModelOther", "unknown")}
+              </strong>
             </p>
             <p>
               Prąd maksymalny sterownika:
               <strong>{`${ifData(vData, "ctrlCurrent", "---")} A`}</strong>
             </p>
             <p>
-              Moc maksymalna: <strong>{`obliczyć W`}</strong>
+              Moc maksymalna: <strong>{`${power} W`}</strong>
             </p>
           </>
         }
@@ -97,11 +157,15 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Marka silnika:
-              <strong> {ifData(vData, "motorManuf", "unknown")}</strong>
+              <strong>
+                {ifDataOther(vData, "motorManuf", "motorManufOther", "unknown")}
+              </strong>
             </p>
             <p>
               Model silnika:
-              <strong> {ifData(vData, "motorModel", "unknown")}</strong>
+              <strong>
+                {ifDataOther(vData, "motorModel", "motorModelOther", "unknown")}
+              </strong>
             </p>
           </>
         }
@@ -119,11 +183,20 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
           <>
             <p>
               Sposób montazu baterii:
-              <strong>{ifData(vData, "batteryType", "unknown")}</strong>
+              <strong>
+                {ifDataOther(
+                  vData,
+                  "batteryType",
+                  "batteryTypeOther",
+                  "unknown"
+                )}
+              </strong>
             </p>
             <p>
               Typ akumulatora:
-              <strong>{ifData(vData, "cellsType", "unknown")}</strong>
+              <strong>
+                {ifDataOther(vData, "cellsType", "cellsTypeOther", "unknown")}
+              </strong>
             </p>
             <p>
               Napięcie nominalne:
@@ -134,20 +207,12 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
         row2={
           <>
             <p>
-              Pojemność:
-              <strong>{`${ifData(vData, "capacity", "unknown")} ${ifData(
-                vData,
-                "capacityUnit",
-                "unknown"
-              )}`}</strong>
+              Pojemność [Wh]:
+              <strong>{capacityWh.toFixed(1)}</strong>
             </p>
             <p>
-              Pojemność:
-              <strong>{`${ifData(
-                vData,
-                "capacityAh",
-                "przeliczyć"
-              )} Ah`}</strong>
+              Pojemność [Ah]:
+              <strong>{capacityAh.toFixed(1)}</strong>
             </p>
           </>
         }
