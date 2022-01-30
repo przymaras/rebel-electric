@@ -28,34 +28,36 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
         row1={
           <>
             <p>
-              Koszt:{" "}
-              <strong>{`${ifData(vData, "totalCost", "unknown")} zł`}</strong>
-            </p>
-            <p>
               Baza: <strong>{ifData(vData, "bikeBase", "unknown")}</strong>
             </p>
             <p>
-              Rozmiar kół:{" "}
+              Rozmiar kół:
               <strong>{ifData(vData, "wheelSize", "unknown")}</strong>
             </p>
             <p>
               Hamulce: <strong>{ifData(vData, "brakes", "unknown")}</strong>
+            </p>
+            <p>
+              V maks.: <strong>{`${ifData(vData, "vmax", "---")} km/h`}</strong>
             </p>
           </>
         }
         row2={
           <>
             <p>
-              V maks.: <strong>{`${ifData(vData, "vmax", "---")} km/h`}</strong>
+              Masa po konwersji:
+              <strong>{`${ifData(vData, "mass", "---")} kg`}</strong>
             </p>
             <p>
-              Masa: <strong>{`${ifData(vData, "mass", "---")} kg`}</strong>
-            </p>
-            <p>
-              Zasięg: <strong>{`${ifData(vData, "range", "---")} km`}</strong>
+              Średni zasięg:{" "}
+              <strong>{`${ifData(vData, "range", "---")} km`}</strong>
             </p>
             <p>
               Zużycie energii: <strong>{`przeliczyć Wh/km`}</strong>
+            </p>
+            <p>
+              Koszt:
+              <strong>{`${ifData(vData, "totalCost", "unknown")} zł`}</strong>
             </p>
           </>
         }
@@ -72,15 +74,15 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
         row1={
           <>
             <p>
-              Producent sterownika:{" "}
+              Producent sterownika:
               <strong>{ifData(vData, "ctrlManuf", "unknown")}</strong>
             </p>
             <p>
-              Model sterownika:{" "}
+              Model sterownika:
               <strong>{ifData(vData, "ctrlModel", "unknown")}</strong>
             </p>
             <p>
-              Prąd maksymalny sterownika:{" "}
+              Prąd maksymalny sterownika:
               <strong>{`${ifData(vData, "ctrlCurrent", "---")} A`}</strong>
             </p>
             <p>
@@ -94,11 +96,11 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
               Rodzaj silnika: <strong>pobrać z kategorii</strong>
             </p>
             <p>
-              Marka silnika:{" "}
+              Marka silnika:
               <strong> {ifData(vData, "motorManuf", "unknown")}</strong>
             </p>
             <p>
-              Model silnika:{" "}
+              Model silnika:
               <strong> {ifData(vData, "motorModel", "unknown")}</strong>
             </p>
           </>
@@ -116,15 +118,15 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
         row1={
           <>
             <p>
-              Sposób montazu baterii:{" "}
+              Sposób montazu baterii:
               <strong>{ifData(vData, "batteryType", "unknown")}</strong>
             </p>
             <p>
-              Typ akumulatora:{" "}
+              Typ akumulatora:
               <strong>{ifData(vData, "cellsType", "unknown")}</strong>
             </p>
             <p>
-              Napięcie nominalne:{" "}
+              Napięcie nominalne:
               <strong>{`${ifData(vData, "batVoltage", "unknown")} V`}</strong>
             </p>
           </>
@@ -132,7 +134,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
         row2={
           <>
             <p>
-              Pojemność:{" "}
+              Pojemność:
               <strong>{`${ifData(vData, "capacity", "unknown")} ${ifData(
                 vData,
                 "capacityUnit",
@@ -140,7 +142,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
               )}`}</strong>
             </p>
             <p>
-              Pojemność:{" "}
+              Pojemność:
               <strong>{`${ifData(
                 vData,
                 "capacityAh",
