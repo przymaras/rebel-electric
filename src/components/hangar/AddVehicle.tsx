@@ -1,5 +1,6 @@
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
+import { ControllersObj } from "../../../src/models/hangar";
 
 import styles from "./Hangar.module.scss";
 
@@ -9,7 +10,7 @@ import InfoBox from "../layout/InfoBox";
 import AddEbikeFormikContext from "./AddEbikeFormikContext";
 import { AddEbikeValues } from "../../models/hangar";
 
-const AddVehicle: React.FC = (props) => {
+const AddVehicle: React.FC<{ controllersData: ControllersObj[] }> = (props) => {
   const { t } = useTranslation();
   const router = useRouter();
 
@@ -57,7 +58,10 @@ const AddVehicle: React.FC = (props) => {
         </InfoBox>
       </div>
 
-      <AddEbikeFormikContext onAddVehicle={onAddVehicle} />
+      <AddEbikeFormikContext
+        onAddVehicle={onAddVehicle}
+        controllersData={props.controllersData}
+      />
     </>
   );
 };
