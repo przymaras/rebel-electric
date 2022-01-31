@@ -1,4 +1,4 @@
-import { ifData, ifDataOther } from "../../utils/common-functions";
+import { ifData, ifDataOther, roundNum } from "../../utils/common-functions";
 import { Vehicle } from "../../models/hangar";
 
 import styles from "./DataTables.module.scss";
@@ -16,23 +16,23 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
     parseInt(ifData(vData, "batVoltage", "---")) *
     parseInt(ifData(vData, "ctrlCurrent", "---"));
 
-  power = power ? power : 0;
+  power = power ? roundNum(power) : 0;
 
   const capacityUnit = ifData(vData, "capacityUnit", "---");
-  const capacity = parseInt(ifData(vData, "capacity", "---"));
-  const voltage = parseInt(ifData(vData, "batVoltage", "---"));
+  const capacity = roundNum(parseInt(ifData(vData, "capacity", "---")));
+  const voltage = roundNum(parseInt(ifData(vData, "batVoltage", "---")));
   let capacityWh: number = 0;
   let capacityAh: number = 0;
 
   if (capacityUnit === "Wh") {
     capacityWh = capacity;
     if (voltage) {
-      capacityAh = capacity / voltage;
+      capacityAh = roundNum(capacity / voltage);
     }
   } else if (capacityUnit === "Ah") {
     capacityAh = capacity;
     if (voltage) {
-      capacityWh = capacity * voltage;
+      capacityWh = roundNum(capacity * voltage);
     }
   }
 
@@ -40,7 +40,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
   let energyConsumption: number = 0;
 
   if (capacityWh && range) {
-    energyConsumption = capacityWh / range;
+    energyConsumption = roundNum(capacityWh / range);
   }
 
   return (
@@ -73,7 +73,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               V maks.:
-              <strong>{`${ifData(vData, "vmax", "---")} ${ifData(
+              <strong>{`${roundNum(ifData(vData, "vmax", "---"))} ${ifData(
                 vData,
                 "vmaxUnit",
                 "unit"
@@ -85,7 +85,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
           <>
             <p>
               Masa po konwersji:
-              <strong>{`${ifData(vData, "mass", "---")}  ${ifData(
+              <strong>{`${roundNum(ifData(vData, "mass", "---"))}  ${ifData(
                 vData,
                 "massUnit",
                 "unit"
@@ -93,7 +93,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Średni zasięg:{" "}
-              <strong>{`${ifData(vData, "range", "---")}  ${ifData(
+              <strong>{`${roundNum(ifData(vData, "range", "---"))}  ${ifData(
                 vData,
                 "rangeUnit",
                 "unit"
@@ -101,7 +101,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Zużycie energii:{" "}
-              <strong>{`${energyConsumption.toFixed(2)} Wh/${ifData(
+              <strong>{`${energyConsumption} Wh/${ifData(
                 vData,
                 "rangeUnit",
                 "---"
@@ -109,11 +109,9 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Koszt:
-              <strong>{`${ifData(vData, "totalCost", "unknown")}  ${ifData(
-                vData,
-                "totalCostCurrency",
-                "unit"
-              )}`}</strong>
+              <strong>{`${roundNum(
+                ifData(vData, "totalCost", "unknown")
+              )}  ${ifData(vData, "totalCostCurrency", "unit")}`}</strong>
             </p>
           </>
         }
@@ -143,10 +141,12 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Prąd maksymalny sterownika:
-              <strong>{`${ifData(vData, "ctrlCurrent", "---")} A`}</strong>
+              <strong>{`${roundNum(
+                ifData(vData, "ctrlCurrent", "---")
+              )} A`}</strong>
             </p>
             <p>
-              Moc maksymalna: <strong>{`${power} W`}</strong>
+              Moc maksymalna: <strong>{`${roundNum(power)} W`}</strong>
             </p>
           </>
         }
@@ -200,7 +200,9 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Napięcie nominalne:
-              <strong>{`${ifData(vData, "batVoltage", "unknown")} V`}</strong>
+              <strong>{`${roundNum(
+                ifData(vData, "batVoltage", "unknown")
+              )} V`}</strong>
             </p>
           </>
         }
@@ -208,11 +210,11 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
           <>
             <p>
               Pojemność [Wh]:
-              <strong>{capacityWh.toFixed(1)}</strong>
+              <strong>{capacityWh}</strong>
             </p>
             <p>
               Pojemność [Ah]:
-              <strong>{capacityAh.toFixed(1)}</strong>
+              <strong>{capacityAh}</strong>
             </p>
           </>
         }
