@@ -34,6 +34,8 @@ registerPlugin(
   FilePondPluginFileValidateType
 );
 
+import { ControllersObj } from "../../../src/models/hangar";
+
 import styles from "./AddEbikeForm.module.scss";
 
 import AddVehicleDataGroup from "./AddVehicleDataGroup";
@@ -43,6 +45,7 @@ let isRefreshRender = false;
 interface AddEbikeFormProps {
   formik: FormikProps<any>;
   setRemoveImages: (f: Function) => void;
+  controllersData: ControllersObj[];
 }
 
 const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
@@ -336,8 +339,16 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
             <AddVehicleDataGroup style="electrical" name="elektryka">
               <Select label="Producent sterownika" name="ctrlManuf">
                 <option value="">Wybierz producenta</option>
-                <option value="ctrlManuf1">Producent1</option>
-                <option value="ctrlManuf2">Producent2</option>
+                {props.controllersData &&
+                  props.controllersData.map((controller: ControllersObj) => {
+                    return (
+                      <option key={controller._id} value={controller._id}>
+                        {controller.manufacturer}
+                      </option>
+                    );
+                  })}
+                {/* <option value="ctrlManuf1">Producent1</option>
+                <option value="ctrlManuf2">Producent2</option> */}
                 <option value="other">Inny</option>
               </Select>
 

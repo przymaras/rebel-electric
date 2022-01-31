@@ -2,6 +2,8 @@ import { Formik, Field, Form, ErrorMessage, useField } from "formik";
 import { useRef } from "react";
 import * as Yup from "yup";
 
+import { ControllersObj } from "../../../src/models/hangar";
+
 import { AddEbikeValues } from "../../models/hangar";
 
 import CategorySelector from "./CategorySelector";
@@ -9,6 +11,7 @@ import AddEbikeForm from "./AddEbikeForm";
 
 interface AddEbikeFormikContextProps {
   onAddVehicle: (enteredData: AddEbikeValues) => void;
+  controllersData: ControllersObj[];
 }
 
 const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
@@ -79,13 +82,55 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
               .max(30, "Must be max. 30 characters long")
               .required("Required"),
           }),
-          mass: Yup.number().typeError("Must be a number"),
-          vmax: Yup.number().typeError("Must be a number"),
-          range: Yup.number().typeError("Must be a number"),
-          totalCost: Yup.number().typeError("Must be a number"),
-          ctrlCurrent: Yup.number().typeError("Must be a number"),
-          batVoltage: Yup.number().typeError("Must be a number"),
-          capacity: Yup.number().typeError("Must be a number"),
+          mass: Yup.number()
+            .typeError("Must be a number")
+            .test(
+              "maxDigits",
+              "number field must have 10 digits or less",
+              (number) => String(number).length <= 10
+            ),
+          vmax: Yup.number()
+            .typeError("Must be a number")
+            .test(
+              "maxDigits",
+              "number field must have 10 digits or less",
+              (number) => String(number).length <= 10
+            ),
+          range: Yup.number()
+            .typeError("Must be a number")
+            .test(
+              "maxDigits",
+              "number field must have 10 digits or less",
+              (number) => String(number).length <= 10
+            ),
+          totalCost: Yup.number()
+            .typeError("Must be a number")
+            .test(
+              "maxDigits",
+              "number field must have 10 digits or less",
+              (number) => String(number).length <= 10
+            ),
+          ctrlCurrent: Yup.number()
+            .typeError("Must be a number")
+            .test(
+              "maxDigits",
+              "number field must have 10 digits or less",
+              (number) => String(number).length <= 10
+            ),
+          batVoltage: Yup.number()
+            .typeError("Must be a number")
+            .test(
+              "maxDigits",
+              "number field must have 10 digits or less",
+              (number) => String(number).length <= 10
+            ),
+          capacity: Yup.number()
+            .typeError("Must be a number")
+            .test(
+              "maxDigits",
+              "number field must have 10 digits or less",
+              (number) => String(number).length <= 10
+            ),
           ctrlManufOther: Yup.string().when("ctrlManuf", {
             is: "other",
             then: Yup.string()
@@ -169,7 +214,11 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
                 formikCategoryValue={formik.values.category}
                 formikSetFieldValue={formik.setFieldValue}
               />
-              <AddEbikeForm setRemoveImages={setRemoveImages} formik={formik} />
+              <AddEbikeForm
+                setRemoveImages={setRemoveImages}
+                formik={formik}
+                controllersData={props.controllersData}
+              />
             </>
           );
         }}

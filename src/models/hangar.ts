@@ -34,3 +34,20 @@ export interface CategoriesObj {
   catTitle: string;
   categories: any[];
 }
+
+interface ControllerModelObj {
+  _id: string;
+  model: string;
+  validated: boolean;
+  url: string;
+  categories: string[];
+}
+
+export interface ControllersObj {
+  _id: string;
+  manufacturer: string;
+  url: string;
+  validated: boolean;
+  categories: string[];
+  models: ControllerModelObj[];
+}
