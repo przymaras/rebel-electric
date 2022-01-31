@@ -23,6 +23,8 @@ export const ifDataOther = (
   return value;
 };
 
+export const roundNum = (number: number) => Math.round(number * 100) / 100;
+
 type ImgProjNameFn = (imgName: string, projName: string) => string;
 
 export const getBigThumbSrc: ImgProjNameFn = (imgName, projName) => {
