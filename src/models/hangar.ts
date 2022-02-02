@@ -21,7 +21,7 @@ export interface AddEbikeValues {
   ctrlCurrent: string;
   motorManuf: string;
   motorModel: string;
-  batteryType: string;
+  batteryCase: string;
   cellsType: string;
   batVoltage: string;
   capacity: string;
@@ -35,7 +35,7 @@ export interface CategoriesObj {
   categories: any[];
 }
 
-interface ControllerModelObj {
+interface ItemModelObj {
   _id: string;
   model: string;
   validated: boolean;
@@ -43,11 +43,11 @@ interface ControllerModelObj {
   categories: string[];
 }
 
-export interface ControllersObj {
+export interface ItemManufacturerObj {
   _id: string;
   manufacturer: string;
   url: string;
   validated: boolean;
   categories: string[];
-  models: ControllerModelObj[];
+  models: ItemModelObj[];
 }

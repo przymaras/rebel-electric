@@ -2,7 +2,7 @@ import { Formik, Field, Form, ErrorMessage, useField } from "formik";
 import { useRef } from "react";
 import * as Yup from "yup";
 
-import { ControllersObj } from "../../../src/models/hangar";
+import { ItemManufacturerObj } from "../../../src/models/hangar";
 
 import { AddEbikeValues } from "../../models/hangar";
 
@@ -11,7 +11,8 @@ import AddEbikeForm from "./AddEbikeForm";
 
 interface AddEbikeFormikContextProps {
   onAddVehicle: (enteredData: AddEbikeValues) => void;
-  controllersData: ControllersObj[];
+  controllersData: ItemManufacturerObj[];
+  motorsData: ItemManufacturerObj[];
 }
 
 const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
@@ -50,8 +51,8 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
           motorManufOther: "",
           motorModel: "",
           motorModelOther: "",
-          batteryType: "",
-          batteryTypeOther: "",
+          batteryCase: "",
+          batteryCaseOther: "",
           cellsType: "",
           cellsTypeOther: "",
           batVoltage: "",
@@ -155,7 +156,7 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
               .max(30, "Must be max. 30 characters long")
               .required("Required"),
           }),
-          batteryTypeOther: Yup.string().when("batteryType", {
+          batteryCaseOther: Yup.string().when("batteryCase", {
             is: "other",
             then: Yup.string()
               .max(30, "Must be max. 30 characters long")
@@ -218,6 +219,7 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
                 setRemoveImages={setRemoveImages}
                 formik={formik}
                 controllersData={props.controllersData}
+                motorsData={props.motorsData}
               />
             </>
           );

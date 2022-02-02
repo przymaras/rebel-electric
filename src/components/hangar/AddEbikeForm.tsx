@@ -34,7 +34,7 @@ registerPlugin(
   FilePondPluginFileValidateType
 );
 
-import { ControllersObj } from "../../../src/models/hangar";
+import { ItemManufacturerObj } from "../../../src/models/hangar";
 
 import styles from "./AddEbikeForm.module.scss";
 
@@ -45,7 +45,8 @@ let isRefreshRender = false;
 interface AddEbikeFormProps {
   formik: FormikProps<any>;
   setRemoveImages: (f: Function) => void;
-  controllersData: ControllersObj[];
+  controllersData: ItemManufacturerObj[];
+  motorsData: ItemManufacturerObj[];
 }
 
 const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
@@ -340,13 +341,15 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
               <Select label="Producent sterownika" name="ctrlManuf">
                 <option value="">Wybierz producenta</option>
                 {props.controllersData &&
-                  props.controllersData.map((controller: ControllersObj) => {
-                    return (
-                      <option key={controller._id} value={controller._id}>
-                        {controller.manufacturer}
-                      </option>
-                    );
-                  })}
+                  props.controllersData.map(
+                    (controller: ItemManufacturerObj) => {
+                      return (
+                        <option key={controller._id} value={controller._id}>
+                          {controller.manufacturer}
+                        </option>
+                      );
+                    }
+                  )}
                 {/* <option value="ctrlManuf1">Producent1</option>
                 <option value="ctrlManuf2">Producent2</option> */}
                 <option value="other">Inny</option>
@@ -361,10 +364,27 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 hidden={props.formik.values.ctrlManuf !== "other"}
               />
 
-              <Select label="Model steronika" name="ctrlModel">
+              <Select
+                label="Model sterownika"
+                name="ctrlModel"
+                disabled={!props.formik.values.ctrlManuf}
+              >
                 <option value="">Wybierz model</option>
-                <option value="controller1">Sterownik1</option>
-                <option value="controller2">Sterownik2</option>
+                {props.controllersData &&
+                  props.controllersData
+                    .find(
+                      (controller) =>
+                        controller._id === props.formik.values.ctrlManuf
+                    )
+                    ?.models.map((ctrlModel) => {
+                      return (
+                        <option key={ctrlModel._id} value={ctrlModel._id}>
+                          {ctrlModel.model}
+                        </option>
+                      );
+                    })}
+                {/* <option value="controller1">Sterownik1</option>
+                <option value="controller2">Sterownik2</option> */}
                 <option value="other">Inny</option>
               </Select>
 
@@ -387,8 +407,16 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
 
               <Select label="Marka silnika" name="motorManuf">
                 <option value="">Wybierz markę</option>
-                <option value="motor1">Silnik1</option>
-                <option value="motor2">Silnik2</option>
+                {props.motorsData &&
+                  props.motorsData.map((motor: ItemManufacturerObj) => {
+                    return (
+                      <option key={motor._id} value={motor._id}>
+                        {motor.manufacturer}
+                      </option>
+                    );
+                  })}
+                {/* <option value="motor1">Silnik1</option>
+                <option value="motor2">Silnik2</option> */}
                 <option value="other">Inny</option>
               </Select>
 
@@ -401,10 +429,26 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 hidden={props.formik.values.motorManuf !== "other"}
               />
 
-              <Select label="Model silnika" name="motorModel">
+              <Select
+                label="Model silnika"
+                name="motorModel"
+                disabled={!props.formik.values.motorManuf}
+              >
                 <option value="">Wybierz model</option>
-                <option value="motorModel1">Model1</option>
-                <option value="motorModel2">Model2</option>
+                {props.motorsData &&
+                  props.motorsData
+                    .find(
+                      (motor) => motor._id === props.formik.values.motorManuf
+                    )
+                    ?.models.map((motorModel) => {
+                      return (
+                        <option key={motorModel._id} value={motorModel._id}>
+                          {motorModel.model}
+                        </option>
+                      );
+                    })}
+                {/* <option value="motorModel1">Model1</option>
+                <option value="motorModel2">Model2</option> */}
                 <option value="other">Inny</option>
               </Select>
 
@@ -419,26 +463,35 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
             </AddVehicleDataGroup>
 
             <AddVehicleDataGroup style="battery" name="bateria">
-              <Select label="Sposób montażu baterii" name="batteryType">
+              <Select label="Sposób montażu baterii" name="batteryCase">
                 <option value="">Wybierz typ</option>
-                <option value="batteryType1">Typ1</option>
-                <option value="batteryType2">Typ2</option>
+                <option value="textileBag">Torba</option>
+                <option value="resinCase">Skrzynka z żywicy</option>
+                <option value="woddenCase">Skrzynka z drewna</option>
+                <option value="aluCase">Skrzynka z aluminium</option>
+                <option value="3dPrintCase">Skrzynka z druku 3D</option>
+                <option value="waterBottleCase">Bateria bidonowa</option>
+                <option value="backpack">Plecak</option>
                 <option value="other">Inny</option>
               </Select>
 
               <TextInput
                 label="Podaj sposób montażu: "
-                name="batteryTypeOther"
+                name="batteryCaseOther"
                 type="text"
                 placeholder=""
                 description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
-                hidden={props.formik.values.batteryType !== "other"}
+                hidden={props.formik.values.batteryCase !== "other"}
               />
 
               <Select label="Typ ogniw" name="cellsType">
                 <option value="">Wybierz typ</option>
-                <option value="cellsType1">Typ1</option>
-                <option value="cellsType2">Typ2</option>
+                <option value="liIon">Li-ion</option>
+                <option value="liPo">Li-Po</option>
+                <option value="liFePo4">LiFePo4</option>
+                <option value="leadAcid">Ołowiowe - elektrolitowe</option>
+                <option value="leadGel">Ołowiowe - Żelowe</option>
+                <option value="leadAgm">Ołowiowe - AGM</option>
                 <option value="other">Inny</option>
               </Select>
 

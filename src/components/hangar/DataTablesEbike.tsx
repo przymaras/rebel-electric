@@ -186,8 +186,8 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
               <strong>
                 {ifDataOther(
                   vData,
-                  "batteryType",
-                  "batteryTypeOther",
+                  "batteryCase",
+                  "batteryCaseOther",
                   "unknown"
                 )}
               </strong>
