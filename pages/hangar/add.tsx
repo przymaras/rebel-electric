@@ -1,13 +1,19 @@
 import { Document, MongoClient } from "mongodb";
 import { GetStaticProps } from "next";
-import { ControllersObj } from "../../src/models/hangar";
+import { ItemManufacturerObj } from "../../src/models/hangar";
 
 import AddVehicle from "../../src/components/hangar/AddVehicle";
 
-const HangarAddPage: React.FC<{ controllersData: ControllersObj[] }> = (
-  props
-) => {
-  return <AddVehicle controllersData={props.controllersData} />;
+const HangarAddPage: React.FC<{
+  controllersData: ItemManufacturerObj[];
+  motorsData: ItemManufacturerObj[];
+}> = (props) => {
+  return (
+    <AddVehicle
+      controllersData={props.controllersData}
+      motorsData={props.motorsData}
+    />
+  );
 };
 
 export const getStaticProps: GetStaticProps<{
@@ -20,6 +26,7 @@ export const getStaticProps: GetStaticProps<{
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
   let controllersArray: Document[] = [];
+  let motorsArray: Document[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
@@ -27,11 +34,25 @@ export const getStaticProps: GetStaticProps<{
     const controllersCollection = db.collection("controllers");
     controllersArray = await controllersCollection
       .aggregate([
-        {
-          $project: {
-            ownerId: 0,
-          },
-        },
+        // {
+        //   $project: {
+        //     ownerId: 0,
+        //   },
+        // },
+      ])
+
+      .sort({ createdAt: -1 }) //sort from newest to oldest
+      // .limit(3)
+      .toArray();
+
+    const motorsCollection = db.collection("motors");
+    motorsArray = await motorsCollection
+      .aggregate([
+        // {
+        //   $project: {
+        //     ownerId: 0,
+        //   },
+        // },
       ])
 
       .sort({ createdAt: -1 }) //sort from newest to oldest
@@ -48,6 +69,14 @@ export const getStaticProps: GetStaticProps<{
         ...controller,
         _id: controller._id.toString(),
         models: controller.models.map((model: Document) => ({
+          ...model,
+          _id: model._id.toString(),
+        })),
+      })),
+      motorsData: motorsArray.map((motor) => ({
+        ...motor,
+        _id: motor._id.toString(),
+        models: motor.models.map((model: Document) => ({
           ...model,
           _id: model._id.toString(),
         })),

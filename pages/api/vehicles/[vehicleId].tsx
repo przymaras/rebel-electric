@@ -64,7 +64,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             ctrlCurrent: 1,
             motor: 1,
             motorModel: 1,
-            batteryType: 1,
+            batteryCase: 1,
             cellsType: 1,
             batVoltage: 1,
             batSeries: 1,

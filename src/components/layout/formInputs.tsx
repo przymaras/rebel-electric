@@ -12,6 +12,7 @@ interface InputProps {
   type?: string;
   placeholder?: string;
   value?: string;
+  disabled?: boolean;
 }
 
 export const TextInput: React.FC<InputProps> = ({
@@ -87,7 +88,7 @@ export const TextArea: React.FC<InputProps> = ({
   );
 };
 
-export const Select: React.FC<InputProps> = ({ label, ...props }) => {
+export const Select: React.FC<InputProps> = ({ label, disabled, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and alse replace ErrorMessage entirely.
   const [field, meta] = useField(props);
@@ -96,7 +97,12 @@ export const Select: React.FC<InputProps> = ({ label, ...props }) => {
       <label className={styles.label} htmlFor={props.id || props.name}>
         {label}
       </label>
-      <select className={styles.select} {...field} {...props} />
+      <select
+        className={styles.select}
+        {...field}
+        {...props}
+        disabled={disabled}
+      />
       {meta.touched && meta.error ? (
         <div className={styles.error}>{meta.error}</div>
       ) : null}
