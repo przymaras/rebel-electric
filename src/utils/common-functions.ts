@@ -1,29 +1,33 @@
-export const ifData = (object: any, key: string, alt: any) => {
-  return object ? (object[key] ? object[key] : alt) : alt;
-};
-
-export const ifDataOther = (
-  object: any,
-  key: string,
-  keyOther: string,
-  alt: any
+export const dataOrOther = (
+  value: string | undefined,
+  valueOther: string | undefined,
+  t: Function
 ) => {
-  let value = alt;
+  let returnValue: string | undefined = value
+    ? value
+    : (t("hangar:unknown") as string);
 
-  if (object) {
-    if (object[key]) {
-      if (object[key] === "other" && object[keyOther]) {
-        value = object[keyOther];
-      } else {
-        value = object[key];
-      }
-    }
-  }
+  if (value === "other") returnValue = valueOther;
 
-  return value;
+  return returnValue;
 };
 
-export const roundNum = (number: number) => Math.round(number * 100) / 100;
+export const translateOrOther = (
+  value: string | undefined,
+  valueOther: string | undefined,
+  t: Function
+) => {
+  let returnValue = t(`hangar:${value ? value : "unknown"}`);
+
+  if (value === "other") returnValue = valueOther;
+
+  return returnValue;
+};
+
+export const roundNum = (number: number | string | undefined) => {
+  let value = Math.round(Number(number) * 100) / 100;
+  return value ? value : undefined;
+};
 
 type ImgProjNameFn = (imgName: string, projName: string) => string;
 

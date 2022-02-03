@@ -1,4 +1,9 @@
-import { ifData, ifDataOther, roundNum } from "../../utils/common-functions";
+import useTranslation from "next-translate/useTranslation";
+import {
+  dataOrOther,
+  translateOrOther,
+  roundNum,
+} from "../../utils/common-functions";
 import { Vehicle } from "../../models/hangar";
 
 import styles from "./DataTables.module.scss";
@@ -6,38 +11,39 @@ import styles from "./DataTables.module.scss";
 import DataTable from "./DataTable";
 
 interface DataTablesProps {
-  vehicleData: Vehicle;
+  vehicleData?: Vehicle;
 }
 
 const DataTables: React.FC<DataTablesProps> = (props) => {
+  const { t } = useTranslation();
+  const unknownText = t("hangar:unknown");
   const vData = props.vehicleData;
 
-  let power =
-    parseInt(ifData(vData, "batVoltage", "---")) *
-    parseInt(ifData(vData, "ctrlCurrent", "---"));
+  let power: number | undefined =
+    parseInt(vData?.batVoltage ?? "") * parseInt(vData?.ctrlCurrent ?? "");
 
-  power = power ? roundNum(power) : 0;
+  power = power ? roundNum(power) : undefined;
 
-  const capacityUnit = ifData(vData, "capacityUnit", "---");
-  const capacity = roundNum(parseInt(ifData(vData, "capacity", "---")));
-  const voltage = roundNum(parseInt(ifData(vData, "batVoltage", "---")));
-  let capacityWh: number = 0;
-  let capacityAh: number = 0;
+  const capacityUnit = vData?.capacityUnit;
+  const capacity = roundNum(vData?.capacity);
+  const voltage = roundNum(vData?.batVoltage);
+  let capacityWh: number | undefined;
+  let capacityAh: number | undefined;
 
   if (capacityUnit === "Wh") {
     capacityWh = capacity;
     if (voltage) {
-      capacityAh = roundNum(capacity / voltage);
+      capacityAh = roundNum(capacity ?? 0 / voltage);
     }
   } else if (capacityUnit === "Ah") {
     capacityAh = capacity;
     if (voltage) {
-      capacityWh = roundNum(capacity * voltage);
+      capacityWh = roundNum(capacity ?? 0 * voltage);
     }
   }
 
-  const range = parseInt(ifData(vData, "range", "---"));
-  let energyConsumption: number = 0;
+  const range = parseInt(vData?.range ?? "---");
+  let energyConsumption: number | undefined;
 
   if (capacityWh && range) {
     energyConsumption = roundNum(capacityWh / range);
@@ -57,27 +63,25 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
         row1={
           <>
             <p>
-              Baza: <strong>{ifData(vData, "bikeBase", "unknown")}</strong>
+              Baza: <strong>{vData?.bikeBase ?? unknownText}</strong>
             </p>
             <p>
               Rozmiar kół:
               <strong>
-                {ifDataOther(vData, "wheelSize", "wheelOther", "unknown")}
+                {translateOrOther(vData?.wheelSize, vData?.wheelOther, t)}
               </strong>
             </p>
             <p>
               Hamulce:
               <strong>
-                {ifDataOther(vData, "brakes", "brakesOther", "unknown")}
+                {translateOrOther(vData?.brakes, vData?.brakesOther, t)}
               </strong>
             </p>
             <p>
               V maks.:
-              <strong>{`${roundNum(ifData(vData, "vmax", "---"))} ${ifData(
-                vData,
-                "vmaxUnit",
-                "unit"
-              )}`}</strong>
+              <strong>{`${roundNum(vData?.vmax) ?? unknownText} ${
+                vData?.vmaxUnit ?? ""
+              }`}</strong>
             </p>
           </>
         }
@@ -85,33 +89,27 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
           <>
             <p>
               Masa po konwersji:
-              <strong>{`${roundNum(ifData(vData, "mass", "---"))}  ${ifData(
-                vData,
-                "massUnit",
-                "unit"
-              )}`}</strong>
+              <strong>{`${roundNum(vData?.mass) ?? "---"}  ${
+                vData?.massUnit ?? ""
+              }`}</strong>
             </p>
             <p>
-              Średni zasięg:{" "}
-              <strong>{`${roundNum(ifData(vData, "range", "---"))}  ${ifData(
-                vData,
-                "rangeUnit",
-                "unit"
-              )}`}</strong>
+              Średni zasięg:
+              <strong>{`${roundNum(vData?.range) ?? "---"}  ${
+                vData?.rangeUnit ?? ""
+              }`}</strong>
             </p>
             <p>
-              Zużycie energii:{" "}
-              <strong>{`${energyConsumption} Wh/${ifData(
-                vData,
-                "rangeUnit",
-                "---"
-              )}`}</strong>
+              Zużycie energii:
+              <strong>{`${energyConsumption ?? "---"} Wh/${
+                vData?.rangeUnit ?? "---"
+              }`}</strong>
             </p>
             <p>
               Koszt:
-              <strong>{`${roundNum(
-                ifData(vData, "totalCost", "unknown")
-              )}  ${ifData(vData, "totalCostCurrency", "unit")}`}</strong>
+              <strong>{`${roundNum(vData?.totalCost) ?? unknownText}  ${
+                vData?.totalCostCurrency ?? ""
+              }`}</strong>
             </p>
           </>
         }
@@ -130,23 +128,21 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             <p>
               Producent sterownika:
               <strong>
-                {ifDataOther(vData, "ctrlManuf", "ctrlManufOther", "unknown")}
+                {dataOrOther(vData?.ctrlManuf, vData?.ctrlManufOther, t)}
               </strong>
             </p>
             <p>
               Model sterownika:
               <strong>
-                {ifDataOther(vData, "ctrlModel", "ctrlModelOther", "unknown")}
+                {dataOrOther(vData?.ctrlModel, vData?.ctrlModelOther, t)}
               </strong>
             </p>
             <p>
               Prąd maksymalny sterownika:
-              <strong>{`${roundNum(
-                ifData(vData, "ctrlCurrent", "---")
-              )} A`}</strong>
+              <strong>{`${roundNum(vData?.ctrlCurrent) ?? "---"} A`}</strong>
             </p>
             <p>
-              Moc maksymalna: <strong>{`${roundNum(power)} W`}</strong>
+              Moc maksymalna: <strong>{`${roundNum(power) ?? "---"} W`}</strong>
             </p>
           </>
         }
@@ -158,13 +154,13 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             <p>
               Marka silnika:
               <strong>
-                {ifDataOther(vData, "motorManuf", "motorManufOther", "unknown")}
+                {dataOrOther(vData?.motorManuf, vData?.motorManufOther, t)}
               </strong>
             </p>
             <p>
               Model silnika:
               <strong>
-                {ifDataOther(vData, "motorModel", "motorModelOther", "unknown")}
+                {dataOrOther(vData?.motorModel, vData?.motorModelOther, t)}
               </strong>
             </p>
           </>
@@ -184,25 +180,24 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             <p>
               Sposób montazu baterii:
               <strong>
-                {ifDataOther(
-                  vData,
-                  "batteryCase",
-                  "batteryCaseOther",
-                  "unknown"
+                {translateOrOther(
+                  vData?.batteryCase,
+                  vData?.batteryCaseOther,
+                  t
                 )}
               </strong>
             </p>
             <p>
               Typ akumulatora:
               <strong>
-                {ifDataOther(vData, "cellsType", "cellsTypeOther", "unknown")}
+                {translateOrOther(vData?.cellsType, vData?.cellsTypeOther, t)}
               </strong>
             </p>
             <p>
               Napięcie nominalne:
-              <strong>{`${roundNum(
-                ifData(vData, "batVoltage", "unknown")
-              )} V`}</strong>
+              <strong>{`${
+                roundNum(vData?.batVoltage) ?? unknownText
+              } V`}</strong>
             </p>
           </>
         }
@@ -210,11 +205,11 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
           <>
             <p>
               Pojemność [Wh]:
-              <strong>{capacityWh}</strong>
+              <strong>{capacityWh ?? "---"}</strong>
             </p>
             <p>
               Pojemność [Ah]:
-              <strong>{capacityAh}</strong>
+              <strong>{capacityAh ?? "---"}</strong>
             </p>
           </>
         }

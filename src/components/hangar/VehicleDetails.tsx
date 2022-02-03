@@ -1,5 +1,4 @@
 import useTranslation from "next-translate/useTranslation";
-import { ifData } from "../../utils/common-functions";
 import { Vehicle } from "../../models/hangar";
 
 import styles from "./VehicleDetails.module.scss";
@@ -13,39 +12,39 @@ import Description from "./Description";
 import BtnLink from "../layout/BtnLink";
 
 interface VehicleDetailsProps {
-  vehicleData: Vehicle;
+  vehicleData?: Vehicle;
 }
 
 const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
   const { t } = useTranslation();
   const vData = props.vehicleData;
-
+  const unknownText = t("hangar:unknown");
   return (
     <>
       <TitleBox>
         <div className={styles.title}>
           <h1 className="rebel-font" style={{ fontSize: "3rem" }}>
-            {ifData(vData, "projectName", "unknown")}
+            {vData?.projectName ?? unknownText}
           </h1>
           <div className={styles.userWrapper}>
             <IconAcademy />
-            <p>{ifData(vData, "userName", "unknown")}</p>
+            <p>{vData?.userName ?? unknownText}</p>
             <IconAcademy />
-            <p>{ifData(vData, "city", "unknown")}</p>
+            <p>{vData?.city ?? unknownText}</p>
           </div>
         </div>
       </TitleBox>
       <div className={styles.container}>
         <VehicleSwiper
-          images={ifData(vData, "vehicleImages", [])}
-          projectName={ifData(vData, "projectName", "Vehicle")}
+          images={vData?.vehicleImages ?? []}
+          projectName={vData?.projectName ?? unknownText}
         />
         <VehicleVeiwsCatLikes
-          likes={ifData(vData, "likesCount", 0)}
-          views={ifData(vData, "viewsCount", 0)}
+          likes={vData?.likesCount ?? "0"}
+          views={vData?.viewsCount ?? "0"}
         />
         <DataTablesEbike vehicleData={vData} />
-        <Description description={ifData(vData, "description", "")} />
+        <Description description={vData?.description ?? ""} />
         <div className={styles.buttonsWrapper}>
           <BtnLink
             href="/users/add"
