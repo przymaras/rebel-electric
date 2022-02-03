@@ -343,11 +343,12 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 {props.controllersData &&
                   props.controllersData.map(
                     (controller: ItemManufacturerObj) => {
-                      return (
+                      const option = (
                         <option key={controller._id} value={controller._id}>
                           {controller.manufacturer}
                         </option>
                       );
+                      return controller.validated ? option : null;
                     }
                   )}
                 {/* <option value="ctrlManuf1">Producent1</option>
@@ -377,11 +378,12 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                         controller._id === props.formik.values.ctrlManuf
                     )
                     ?.models.map((ctrlModel) => {
-                      return (
+                      const option = (
                         <option key={ctrlModel._id} value={ctrlModel._id}>
                           {ctrlModel.model}
                         </option>
                       );
+                      return ctrlModel.validated ? option : null;
                     })}
                 {/* <option value="controller1">Sterownik1</option>
                 <option value="controller2">Sterownik2</option> */}
