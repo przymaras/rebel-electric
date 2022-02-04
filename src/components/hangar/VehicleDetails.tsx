@@ -1,5 +1,6 @@
 import useTranslation from "next-translate/useTranslation";
 import { Vehicle } from "../../models/hangar";
+import { ItemManufacturerObj } from "../../../src/models/hangar";
 
 import styles from "./VehicleDetails.module.scss";
 
@@ -13,12 +14,18 @@ import BtnLink from "../layout/BtnLink";
 
 interface VehicleDetailsProps {
   vehicleData?: Vehicle;
+  controllersData?: ItemManufacturerObj[];
+  motorsData?: ItemManufacturerObj[];
 }
 
 const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
   const { t } = useTranslation();
-  const vData = props.vehicleData;
   const unknownText = t("hangar:unknown");
+
+  const vData = props.vehicleData;
+  const cData = props.controllersData;
+  const mData = props.motorsData;
+
   return (
     <>
       <TitleBox>
@@ -43,7 +50,11 @@ const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
           likes={vData?.likesCount ?? "0"}
           views={vData?.viewsCount ?? "0"}
         />
-        <DataTablesEbike vehicleData={vData} />
+        <DataTablesEbike
+          vehicleData={vData}
+          motorsData={mData}
+          controllersData={cData}
+        />
         <Description description={vData?.description ?? ""} />
         <div className={styles.buttonsWrapper}>
           <BtnLink

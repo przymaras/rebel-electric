@@ -2,13 +2,24 @@ import { useRouter } from "next/router";
 import { Document, MongoClient, ObjectId } from "mongodb";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { Vehicle } from "../../src/models/hangar";
+import { ItemManufacturerObj } from "../../src/models/hangar";
 
 import VehicleDetails from "../../src/components/hangar/VehicleDetails";
 
-const HangarVehiclePage: React.FC<{ vehicleData: Vehicle }> = (props) => {
+const HangarVehiclePage: React.FC<{
+  vehicleData: Vehicle;
+  controllersData: ItemManufacturerObj[];
+  motorsData: ItemManufacturerObj[];
+}> = (props) => {
   const router = useRouter();
   // const { vehicleId } = router.query;
-  return <VehicleDetails vehicleData={props.vehicleData} />;
+  return (
+    <VehicleDetails
+      vehicleData={props.vehicleData}
+      controllersData={props.controllersData}
+      motorsData={props.motorsData}
+    />
+  );
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -17,7 +28,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const dbUser = process.env.MONGODB_USER;
   const dbPass = process.env.MONGODB_PASS;
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
+
   let vehiclesArray: Document[] = [];
+
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
@@ -27,6 +40,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       .sort({ createdAt: -1 })
       .limit(5)
       .toArray();
+
     client.close();
     console.log(vehiclesArray);
   } catch (err) {
@@ -52,6 +66,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const vehicleId = context.params!.vehicleId;
 
   let vehiclesArray: Document[] = [{ _id: 0 }];
+  let controllersArray: Document[] = [];
+  let motorsArray: Document[] = [];
+
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
@@ -132,6 +149,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
         },
       ])
       .toArray();
+
+    const controllersCollection = db.collection("controllers");
+    controllersArray = await controllersCollection.aggregate([]).toArray();
+
+    const motorsCollection = db.collection("motors");
+    motorsArray = await motorsCollection.aggregate([]).toArray();
+
     client.close();
   } catch (err) {
     console.log(err);
@@ -146,6 +170,22 @@ export const getStaticProps: GetStaticProps = async (context) => {
           ? vehiclesArray[0].ownerId.toString()
           : "",
       },
+      controllersData: controllersArray.map((controller) => ({
+        ...controller,
+        _id: controller._id.toString(),
+        models: controller.models.map((model: Document) => ({
+          ...model,
+          _id: model._id.toString(),
+        })),
+      })),
+      motorsData: motorsArray.map((motor) => ({
+        ...motor,
+        _id: motor._id.toString(),
+        models: motor.models.map((model: Document) => ({
+          ...model,
+          _id: model._id.toString(),
+        })),
+      })),
     },
     revalidate: 60,
   };
