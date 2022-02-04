@@ -5,6 +5,7 @@ import {
   roundNum,
 } from "../../utils/common-functions";
 import { Vehicle } from "../../models/hangar";
+import { ItemManufacturerObj } from "../../models/hangar";
 
 import styles from "./DataTables.module.scss";
 
@@ -12,12 +13,18 @@ import DataTable from "./DataTable";
 
 interface DataTablesProps {
   vehicleData?: Vehicle;
+  controllersData?: ItemManufacturerObj[];
+  motorsData?: ItemManufacturerObj[];
 }
 
 const DataTables: React.FC<DataTablesProps> = (props) => {
   const { t } = useTranslation();
   const unknownText = t("hangar:unknown");
   const vData = props.vehicleData;
+  const cData = props.controllersData;
+  const mData = props.motorsData;
+
+  //TODO: Refactor definitions below to functions
 
   let power: number | undefined =
     parseInt(vData?.batVoltage ?? "") * parseInt(vData?.ctrlCurrent ?? "");
@@ -48,6 +55,35 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
   if (capacityWh && range) {
     energyConsumption = roundNum(capacityWh / range);
   }
+
+  const getItemManufName = (
+    itemManufId: string,
+    iData: ItemManufacturerObj[] | undefined
+  ) => {
+    let itemManufName = itemManufId;
+    if (itemManufId !== "other") {
+      itemManufName =
+        iData?.find((manufacturer) => manufacturer._id === itemManufId)
+          ?.manufacturer ?? "";
+    }
+    return itemManufName;
+  };
+
+  const getItemModelName = (
+    itemManufId: string,
+    itemModelId: string,
+    iData: ItemManufacturerObj[] | undefined
+  ) => {
+    let itemModelName = itemModelId;
+
+    if (itemModelId !== "other") {
+      itemModelName =
+        iData
+          ?.find((manufacturer) => manufacturer._id === itemManufId)
+          ?.models.find((model) => model._id === itemModelId)?.model ?? "";
+    }
+    return itemModelName;
+  };
 
   return (
     <div className={styles.container}>
@@ -128,13 +164,25 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             <p>
               Producent sterownika:
               <strong>
-                {dataOrOther(vData?.ctrlManuf, vData?.ctrlManufOther, t)}
+                {dataOrOther(
+                  getItemManufName(vData?.ctrlManuf ?? "", cData),
+                  vData?.ctrlManufOther,
+                  t
+                )}
               </strong>
             </p>
             <p>
               Model sterownika:
               <strong>
-                {dataOrOther(vData?.ctrlModel, vData?.ctrlModelOther, t)}
+                {dataOrOther(
+                  getItemModelName(
+                    vData?.ctrlManuf ?? "",
+                    vData?.ctrlModel ?? "",
+                    cData
+                  ),
+                  vData?.ctrlModelOther,
+                  t
+                )}
               </strong>
             </p>
             <p>
@@ -154,13 +202,25 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             <p>
               Marka silnika:
               <strong>
-                {dataOrOther(vData?.motorManuf, vData?.motorManufOther, t)}
+                {dataOrOther(
+                  getItemManufName(vData?.motorManuf ?? "", mData),
+                  vData?.motorManufOther,
+                  t
+                )}
               </strong>
             </p>
             <p>
               Model silnika:
               <strong>
-                {dataOrOther(vData?.motorModel, vData?.motorModelOther, t)}
+                {dataOrOther(
+                  getItemModelName(
+                    vData?.motorManuf ?? "",
+                    vData?.motorModel ?? "",
+                    mData
+                  ),
+                  vData?.motorModelOther,
+                  t
+                )}
               </strong>
             </p>
           </>

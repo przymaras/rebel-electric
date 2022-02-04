@@ -31,33 +31,13 @@ export const getStaticProps: GetStaticProps<{
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
-    const controllersCollection = db.collection("controllers");
-    controllersArray = await controllersCollection
-      .aggregate([
-        // {
-        //   $project: {
-        //     ownerId: 0,
-        //   },
-        // },
-      ])
 
-      .sort({ createdAt: -1 }) //sort from newest to oldest
-      // .limit(3)
-      .toArray();
+    const controllersCollection = db.collection("controllers");
+    controllersArray = await controllersCollection.aggregate([]).toArray();
 
     const motorsCollection = db.collection("motors");
-    motorsArray = await motorsCollection
-      .aggregate([
-        // {
-        //   $project: {
-        //     ownerId: 0,
-        //   },
-        // },
-      ])
+    motorsArray = await motorsCollection.aggregate([]).toArray();
 
-      .sort({ createdAt: -1 }) //sort from newest to oldest
-      // .limit(3)
-      .toArray();
     client.close();
   } catch (err) {
     console.log(err);
