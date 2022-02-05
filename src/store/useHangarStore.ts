@@ -12,7 +12,7 @@ interface HangarCategoryState {
   resetHangarCategory: () => void;
 }
 
-type HangarStoreState = HangarCategoryState & AddVehicleCategoryState;
+export type HangarStoreState = HangarCategoryState & AddVehicleCategoryState;
 
 const createAddVehicleCategorySlice: (
   set: SetState<HangarStoreState>,

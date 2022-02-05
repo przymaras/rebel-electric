@@ -1,39 +1,40 @@
 import { ErrorMessage, FormikHelpers, FormikProps } from "formik";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useEffect } from "react";
 import { CategoriesObj } from "../../models/hangar";
 
-import styles from "./CategorySelector.module.scss";
+import { useHangarStore } from "../../store/useHangarStore";
+import { HangarStoreState } from "../../store/useHangarStore";
 
 import CategorySwiper from "./CategorySwiper";
 
 import CategorySwiperStyles from "./CategorySwiperStyles";
 
 interface CategorySelectorProps {
-  formik?: FormikProps<any>;
-  formikCategoryValue?: number[];
-  formikSetFieldValue: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean
-  ) => void;
-  selectedCategory: number[];
-  setSelectedCategory: (newCategory: number[]) => void;
+  addVehicle?: boolean;
 }
 
 const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
-  const selectedCategory = props.selectedCategory;
-  const setSelectedCategory = props.setSelectedCategory;
-  // const [selectedCategory, setSelectedCategory] = useState([-1]);
+  const categorySelector = useCallback<(state: HangarStoreState) => number[]>(
+    (state) => {
+      if (props.addVehicle === true) return state.addVehicleCategory;
+      else return state.hangarCategory;
+    },
+    [props.addVehicle]
+  );
 
-  useEffect(() => {
-    props.formikSetFieldValue("category", selectedCategory);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory, props.formikSetFieldValue]);
+  const setCategorySelector = useCallback<
+    (state: HangarStoreState) => (cat: number[]) => void
+  >(
+    (state) => {
+      if (props.addVehicle === true) return state.setAddVehicleCategory;
+      else return state.setHangarCategory;
+    },
+    [props.addVehicle]
+  );
 
-  // useEffect(() => {
-  //   setSelectedIndexes(props.formikCategoryValue);
-  // }, [props.formikCategoryValue]);
+  const selectedCategory = useHangarStore(categorySelector);
+  const setSelectedCategory = useHangarStore(setCategorySelector);
 
   function renderSelectedSwipers(cat: CategoriesObj, selected: number[]) {
     let currentCatLvl = -1;
@@ -43,14 +44,6 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
       selected: number[]
     ) => React.ReactNode = (cat, selected) => {
       currentCatLvl++;
-      let errorMsg;
-      if (props.formik) {
-        errorMsg = (
-          <ErrorMessage name="category">
-            {(msg) => <div className={styles.error}>{msg}</div>}
-          </ErrorMessage>
-        );
-      }
 
       const Swiper = (
         <>
@@ -61,7 +54,6 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
           />
-          {errorMsg}
         </>
       );
 
@@ -71,7 +63,6 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
       ) {
         if (cat.categories[selected[currentCatLvl]].child) {
           if (selected[currentCatLvl + 1] === undefined)
-            // setSelectedCategory((p) => [...p, -1]);
             setSelectedCategory([...selectedCategory, -1]);
           return (
             <>
@@ -140,12 +131,6 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
       {renderSelectedCategoriesNames(dummyVehiclesCat, selectedCategory)}
     </>
   );
-};
-
-CategorySelector.defaultProps = {
-  formik: undefined,
-  formikSetFieldValue: () => null,
-  formikCategoryValue: [],
 };
 
 export default CategorySelector;

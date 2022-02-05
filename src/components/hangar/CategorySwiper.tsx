@@ -32,6 +32,7 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
   ) {
     initialSlide = selectedCategory[props.currentCatLvl] + 2;
   }
+
   useEffect(() => {
     if (
       selectedCategory[props.currentCatLvl] !== undefined &&
@@ -53,6 +54,7 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
         className={styles.categorySwiper}
         // slideToClickedSlide={true}
         // loop={true}
+
         onActiveIndexChange={(swiper) => {
           if (swiper.isBeginning) {
             timer = setTimeout(() => {
@@ -68,7 +70,6 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
           ) {
             clearTimeout(timer); // allow user to swipe more than once without reload subcategories
             timer = setTimeout(() => {
-              //props.setSelectedIndexes((prevIndexes) => {
               setSelectedCategory(
                 (() => {
                   const newArray = [...selectedCategory];

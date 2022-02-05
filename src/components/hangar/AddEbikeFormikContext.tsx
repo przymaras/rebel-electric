@@ -6,8 +6,6 @@ import { ItemManufacturerObj } from "../../../src/models/hangar";
 
 import { AddEbikeValues } from "../../models/hangar";
 
-import { useHangarStore } from "../../store/useHangarStore";
-
 import CategorySelector from "./CategorySelector";
 import AddEbikeForm from "./AddEbikeForm";
 
@@ -18,11 +16,6 @@ interface AddEbikeFormikContextProps {
 }
 
 const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
-  const selectedCategory = useHangarStore((state) => state.addVehicleCategory);
-  const setSelectedCategory = useHangarStore(
-    (state) => state.setAddVehicleCategory
-  );
-
   const removeImagesRef = useRef<Function>(() => {});
 
   function setRemoveImages(fn: Function) {
@@ -217,13 +210,10 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
         {(formik) => {
           return (
             <>
-              <CategorySelector
-                formik={formik}
-                formikCategoryValue={formik.values.category}
-                formikSetFieldValue={formik.setFieldValue}
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-              />
+              <CategorySelector addVehicle={true} />
+              <ErrorMessage name="category">
+                {(msg) => <div style={{ color: "tomato" }}>{msg}</div>}
+              </ErrorMessage>
               <AddEbikeForm
                 setRemoveImages={setRemoveImages}
                 formik={formik}

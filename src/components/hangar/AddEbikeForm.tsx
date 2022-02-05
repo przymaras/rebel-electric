@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, createRef, LegacyRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDataFetcher } from "../../hooks/useDataFetcher";
 import { nanoid } from "nanoid";
 
@@ -35,6 +35,8 @@ registerPlugin(
 );
 
 import { ItemManufacturerObj } from "../../../src/models/hangar";
+import { useHangarStore } from "../../store/useHangarStore";
+import { HangarStoreState } from "../../store/useHangarStore";
 
 import styles from "./AddEbikeForm.module.scss";
 
@@ -49,14 +51,18 @@ interface AddEbikeFormProps {
   motorsData: ItemManufacturerObj[];
 }
 
+const categorySelector: (state: HangarStoreState) => number[] = (state) =>
+  state.addVehicleCategory;
+
 const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
+  const selectedCategory = useHangarStore(categorySelector);
   const filePondRef = useRef<FilePond>(null);
 
   const [imageFiles, setImageFiles] = useState<any[]>([]);
   const [imagesToRestoreIDs, setImagesToRestoreIDs] = useState("");
 
   useEffect(() => {
-    if (!isRefreshRender) {
+    if (!isRefreshRender && props.formik.values?.vehicleImages?.length > 0) {
       setImagesToRestoreIDs(props.formik.values.vehicleImages.join("/"));
       console.log(props.formik.values.vehicleImages.join("/"), "ue-1");
     }
@@ -80,6 +86,11 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
       console.log(imgsToRestoreDetails, "ue-2");
     }
   }, [isImgDetailsAvailable, imgsToRestoreDetails]);
+
+  useEffect(() => {
+    props.formik.setFieldValue("category", selectedCategory);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
 
   function updateFormikImagesFieldValue() {
     isRefreshRender = true;
