@@ -98,7 +98,7 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
         .current!.getFiles()
         .map((file) => file.serverId);
       // props.formik.setFieldValue("vehicleImages", filesIds);
-      props.formik.values.vehicleImages = filesIds; // fix it later. I'm mutating state directly because filepond goes mad when removing file and updating state of formik - I don't know why.. Maybe because of rerender forced by formik, while filepond's remove proomise isn't resolved?
+      props.formik.values.vehicleImages = filesIds; // FIXME: I'm mutating state directly because filepond goes mad when removing file and updating state of formik - I don't know why.. Maybe because of rerender forced by formik, while filepond's remove proomise isn't resolved?
     }
   }
 
@@ -106,6 +106,7 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
     <>
       <div className={styles.container}>
         <Form>
+          {/*TODO: Add info about number of actually typed characters */}
           <TextInput
             label="Nazwa Projektu:"
             name="projectName"
@@ -162,7 +163,7 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
             description=""
             rebelHeading={true}
           />
-
+          {/*TODO: Add info about number of actually typed characters */}
           <TextArea
             label="Dodaj opis:"
             name="description"
