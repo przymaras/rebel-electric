@@ -14,6 +14,8 @@ import DataBarsHeadingContainer from "./DataBarsHeadingContainer";
 import CategorySelector from "./CategorySelector";
 import { Vehicle } from "../../models/hangar";
 
+import { useHangarStore } from "../../store/useHangarStore";
+
 interface HangarProps {
   vehicles: Vehicle[];
 }
@@ -21,6 +23,11 @@ interface HangarProps {
 const Hangar: React.FC<HangarProps> = (props) => {
   const { t } = useTranslation();
   const vehicles = props.vehicles;
+
+  const selectedCategory = useHangarStore((state) => state.hangarCategory);
+  const setSelectedCategory = useHangarStore(
+    (state) => state.setHangarCategory
+  );
 
   return (
     <>
@@ -44,7 +51,11 @@ const Hangar: React.FC<HangarProps> = (props) => {
         </InfoBox>
       </div>
 
-      <CategorySelector formikSetFieldValue={() => {}} />
+      <CategorySelector
+        formikSetFieldValue={() => {}}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
 
       <SearchBar />
 

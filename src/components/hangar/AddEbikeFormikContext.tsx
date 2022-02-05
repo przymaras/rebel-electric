@@ -6,6 +6,8 @@ import { ItemManufacturerObj } from "../../../src/models/hangar";
 
 import { AddEbikeValues } from "../../models/hangar";
 
+import { useHangarStore } from "../../store/useHangarStore";
+
 import CategorySelector from "./CategorySelector";
 import AddEbikeForm from "./AddEbikeForm";
 
@@ -16,6 +18,11 @@ interface AddEbikeFormikContextProps {
 }
 
 const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
+  const selectedCategory = useHangarStore((state) => state.addVehicleCategory);
+  const setSelectedCategory = useHangarStore(
+    (state) => state.setAddVehicleCategory
+  );
+
   const removeImagesRef = useRef<Function>(() => {});
 
   function setRemoveImages(fn: Function) {
@@ -204,7 +211,7 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
             setSubmitting(true);
             removeImagesRef.current();
           }, 400);
-          removeImagesRef.current(); //fix me - when restored and deleted - there is one more xhr request send and red frame left
+          removeImagesRef.current(); //FIXME: - when restored and deleted - there is one more xhr request send and red frame left
         }}
       >
         {(formik) => {
@@ -214,6 +221,8 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
                 formik={formik}
                 formikCategoryValue={formik.values.category}
                 formikSetFieldValue={formik.setFieldValue}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
               />
               <AddEbikeForm
                 setRemoveImages={setRemoveImages}

@@ -2,6 +2,7 @@ import * as React from "react";
 import { FormikProps, connect } from "formik";
 import debounce from "lodash.debounce";
 import isEqual from "react-fast-compare";
+import { useHangarStore } from "../store/useHangarStore";
 
 export interface PersistProps {
   name: string;
@@ -43,7 +44,13 @@ class PersistImpl extends React.Component<
       ? window.sessionStorage.getItem(this.props.name)
       : window.localStorage.getItem(this.props.name);
     if (maybeState && maybeState !== null) {
-      this.props.formik.setFormikState(JSON.parse(maybeState));
+      const restoredFormikState = JSON.parse(maybeState);
+      this.props.formik.setFormikState(restoredFormikState);
+      useHangarStore
+        .getState()
+        .setAddVehicleCategory(
+          (restoredFormikState?.values?.category as number[]) ?? [-1]
+        );
     }
   }
 

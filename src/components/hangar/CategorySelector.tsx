@@ -17,15 +17,19 @@ interface CategorySelectorProps {
     value: any,
     shouldValidate?: boolean
   ) => void;
+  selectedCategory: number[];
+  setSelectedCategory: (newCategory: number[]) => void;
 }
 
 const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
-  const [selectedIndexes, setSelectedIndexes] = useState([-1]);
+  const selectedCategory = props.selectedCategory;
+  const setSelectedCategory = props.setSelectedCategory;
+  // const [selectedCategory, setSelectedCategory] = useState([-1]);
 
   useEffect(() => {
-    props.formikSetFieldValue("category", selectedIndexes);
+    props.formikSetFieldValue("category", selectedCategory);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedIndexes, props.formikSetFieldValue]);
+  }, [selectedCategory, props.formikSetFieldValue]);
 
   // useEffect(() => {
   //   setSelectedIndexes(props.formikCategoryValue);
@@ -54,8 +58,8 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
             cat={cat}
             // name={cat.catTitle}
             currentCatLvl={currentCatLvl}
-            selectedIndexes={selectedIndexes}
-            setSelectedIndexes={setSelectedIndexes}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
           />
           {errorMsg}
         </>
@@ -67,7 +71,8 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
       ) {
         if (cat.categories[selected[currentCatLvl]].child) {
           if (selected[currentCatLvl + 1] === undefined)
-            setSelectedIndexes((p) => [...p, -1]);
+            // setSelectedCategory((p) => [...p, -1]);
+            setSelectedCategory([...selectedCategory, -1]);
           return (
             <>
               {Swiper}
@@ -131,8 +136,8 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
   return (
     <>
       <CategorySwiperStyles />
-      {renderSelectedSwipers(dummyVehiclesCat, selectedIndexes)}
-      {renderSelectedCategoriesNames(dummyVehiclesCat, selectedIndexes)}
+      {renderSelectedSwipers(dummyVehiclesCat, selectedCategory)}
+      {renderSelectedCategoriesNames(dummyVehiclesCat, selectedCategory)}
     </>
   );
 };

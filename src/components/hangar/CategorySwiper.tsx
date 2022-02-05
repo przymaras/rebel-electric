@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperClass from "swiper";
-import { SetStateAction, Dispatch, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { useWindowResize } from "../../hooks/useWindowResize";
 
@@ -11,28 +11,31 @@ import styles from "./CategorySwiper.module.scss";
 import { CategoriesObj } from "../../models/hangar";
 
 interface CategorySwiperProps {
-  selectedIndexes: number[];
+  selectedCategory: number[];
   currentCatLvl: number;
   cat: CategoriesObj;
-  setSelectedIndexes: Dispatch<SetStateAction<number[]>>;
+  setSelectedCategory: (newCategory: number[]) => void;
 }
 
 const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
+  const selectedCategory = props.selectedCategory;
+  const setSelectedCategory = props.setSelectedCategory;
+
   let timer: any;
   let initialSlide = 1;
   const swiperObject = useRef<SwiperClass>();
   const [currentWidth, currentHeight] = useWindowResize();
 
   if (
-    props.selectedIndexes[props.currentCatLvl] !== undefined &&
-    props.selectedIndexes[props.currentCatLvl] !== -1
+    selectedCategory[props.currentCatLvl] !== undefined &&
+    selectedCategory[props.currentCatLvl] !== -1
   ) {
-    initialSlide = props.selectedIndexes[props.currentCatLvl] + 2;
+    initialSlide = selectedCategory[props.currentCatLvl] + 2;
   }
   useEffect(() => {
     if (
-      props.selectedIndexes[props.currentCatLvl] !== undefined &&
-      props.selectedIndexes[props.currentCatLvl] === -1
+      selectedCategory[props.currentCatLvl] !== undefined &&
+      selectedCategory[props.currentCatLvl] === -1
     ) {
       swiperObject.current!.slideTo(1, 400);
     }
@@ -65,22 +68,25 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
           ) {
             clearTimeout(timer); // allow user to swipe more than once without reload subcategories
             timer = setTimeout(() => {
-              props.setSelectedIndexes((prevIndexes) => {
-                const newArray = [...prevIndexes];
-                let newIndex =
-                  swiper.activeIndex - 2 < 0 ? -1 : swiper.activeIndex - 2;
+              //props.setSelectedIndexes((prevIndexes) => {
+              setSelectedCategory(
+                (() => {
+                  const newArray = [...selectedCategory];
+                  let newIndex =
+                    swiper.activeIndex - 2 < 0 ? -1 : swiper.activeIndex - 2;
 
-                if (newIndex > props.cat.categories.length - 1) {
-                  newIndex = props.cat.categories.length - 1;
-                } //sometimes fast repetitions of onReachEnd caused index value to overflow
+                  if (newIndex > props.cat.categories.length - 1) {
+                    newIndex = props.cat.categories.length - 1;
+                  } //sometimes fast repetitions of onReachEnd caused index value to overflow
 
-                if (!newIndex) {
-                  newIndex = 0;
-                } //sometimes fast repetitions of onReachBeginning caused index value to be NaN
-                newArray.splice(props.currentCatLvl, 1, newIndex);
-                newArray.splice(props.currentCatLvl + 1);
-                return newArray;
-              });
+                  if (!newIndex) {
+                    newIndex = 0;
+                  } //sometimes fast repetitions of onReachBeginning caused index value to be NaN
+                  newArray.splice(props.currentCatLvl, 1, newIndex);
+                  newArray.splice(props.currentCatLvl + 1);
+                  return newArray;
+                })()
+              );
             }, 800);
           }
         }}
