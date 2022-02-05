@@ -44,7 +44,7 @@ const Hangar: React.FC<HangarProps> = (props) => {
         </InfoBox>
       </div>
 
-      <CategorySelector formikSetFieldValue={() => {}} />
+      <CategorySelector />
 
       <SearchBar />
 

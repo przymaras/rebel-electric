@@ -28,7 +28,8 @@
     "react-filepond": "^7.1.1",
     "sass": "^1.49.0",
     "swiper": "^7.4.1",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "zustand": "^3.6.9"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.6",

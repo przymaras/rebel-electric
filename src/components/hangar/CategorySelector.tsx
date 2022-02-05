@@ -1,77 +1,115 @@
 import { ErrorMessage, FormikHelpers, FormikProps } from "formik";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useEffect } from "react";
 import { CategoriesObj } from "../../models/hangar";
 
-import styles from "./CategorySelector.module.scss";
+import { useStore } from "../../store/useStore";
+import { StoreState } from "../../store/useStore";
 
 import CategorySwiper from "./CategorySwiper";
 
 import CategorySwiperStyles from "./CategorySwiperStyles";
 
 interface CategorySelectorProps {
-  formik?: FormikProps<any>;
-  formikCategoryValue?: number[];
-  formikSetFieldValue: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean
-  ) => void;
+  addVehicle?: boolean;
 }
 
 const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
-  const [selectedIndexes, setSelectedIndexes] = useState([-1]);
+  const categorySelector = useCallback<(state: StoreState) => number[]>(
+    (state) => {
+      if (props.addVehicle === true) return state.addVehicleCategory;
+      else return state.hangarCategory;
+    },
+    [props.addVehicle]
+  );
+
+  const setCategorySelector = useCallback<
+    (state: StoreState) => (cat: number[]) => void
+  >(
+    (state) => {
+      if (props.addVehicle === true) return state.setAddVehicleCategory;
+      else return state.setHangarCategory;
+    },
+    [props.addVehicle]
+  );
+
+  const selectedCategory = useStore(categorySelector);
+  const setSelectedCategory = useStore(setCategorySelector);
 
   useEffect(() => {
-    props.formikSetFieldValue("category", selectedIndexes);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedIndexes, props.formikSetFieldValue]);
+    useStore.getState().setNewCategoryChosen(true);
+  }, [selectedCategory]);
 
-  // useEffect(() => {
-  //   setSelectedIndexes(props.formikCategoryValue);
-  // }, [props.formikCategoryValue]);
-
+  /**
+   * Here we are rendering recursively category swipers.
+   * Each time we are checking if selected category at current level has child category,
+   * if yes - then we are rendering category at current level and one child category level.
+   * "selected" is an array that may looks like this [0, 0 ,1, 1, -1]
+   * we read this as:
+   * [0, selected first category at category level 0
+   *  0, selected first category at category level 1
+   *  1, selected second category at category level 2
+   *  1, selected second category at category level 3
+   * -1], no category is selected at category level 4
+   *  We dont know if there will be more child categories
+   *  Not every categories has child subcategories
+   */
   function renderSelectedSwipers(cat: CategoriesObj, selected: number[]) {
+    /**
+     * Category level means how deeply nested we are right now in category tree (multi dimensional array of objects)
+     * starting from -1 so first increment gives 0 and points to first item in "selected" array
+     */
     let currentCatLvl = -1;
 
     const renderSwiper: (
       cat: CategoriesObj,
       selected: number[]
     ) => React.ReactNode = (cat, selected) => {
+      //increment category level / first is from -1 to 0
       currentCatLvl++;
-      let errorMsg;
-      if (props.formik) {
-        errorMsg = (
-          <ErrorMessage name="category">
-            {(msg) => <div className={styles.error}>{msg}</div>}
-          </ErrorMessage>
-        );
-      }
 
       const Swiper = (
+        //this is actual swiper to render
         <>
           <CategorySwiper
             cat={cat}
             // name={cat.catTitle}
             currentCatLvl={currentCatLvl}
-            selectedIndexes={selectedIndexes}
-            setSelectedIndexes={setSelectedIndexes}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
           />
-          {errorMsg}
         </>
       );
 
+      const thereIsCategoryToRenderAtCurrentLevel =
+        cat.categories[selected[currentCatLvl]];
+
+      const thisIsFirstRenderWithoutSelectedCategory =
+        selected[currentCatLvl] === -1;
+
       if (
-        selected[currentCatLvl] !== undefined &&
-        cat.categories[selected[currentCatLvl]] !== undefined
+        thereIsCategoryToRenderAtCurrentLevel ||
+        thisIsFirstRenderWithoutSelectedCategory
       ) {
-        if (cat.categories[selected[currentCatLvl]].child) {
-          if (selected[currentCatLvl + 1] === undefined)
-            setSelectedIndexes((p) => [...p, -1]);
+        // try to render this category level
+        // or first category level if this is first render without any selections
+        const thereAreChildCategories =
+          cat.categories[selected[currentCatLvl]]?.child;
+        if (thereAreChildCategories) {
+          // enter recursive mode
+          const thereIsFreePlaceForThisSubCategoriesInArray =
+            selected[currentCatLvl + 1] === undefined;
+          if (thereIsFreePlaceForThisSubCategoriesInArray)
+            // check if this is first time when we are going through category array
+            // if yes put -1 at next category level so, next time "renderSwiper" method
+            // will know about this child category and will go one step further
+            setSelectedCategory([...selectedCategory, -1]);
           return (
             <>
+              {/*render swiper at current category level*/}
               {Swiper}
 
+              {/*enter recursive mode but this time as "cat" argument we pass child array*/}
               {renderSwiper(
                 cat.categories[selected[currentCatLvl]].child,
                 selected
@@ -79,10 +117,10 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
             </>
           );
         } else {
+          //if there are no child categories or we have no category selected yet at current level
+          // then render just current category level
           return Swiper;
         }
-      } else if (selected[currentCatLvl] === -1) {
-        return Swiper;
       }
     };
     return renderSwiper(cat, selected);
@@ -131,16 +169,10 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
   return (
     <>
       <CategorySwiperStyles />
-      {renderSelectedSwipers(dummyVehiclesCat, selectedIndexes)}
-      {renderSelectedCategoriesNames(dummyVehiclesCat, selectedIndexes)}
+      {renderSelectedSwipers(dummyVehiclesCat, selectedCategory)}
+      {renderSelectedCategoriesNames(dummyVehiclesCat, selectedCategory)}
     </>
   );
-};
-
-CategorySelector.defaultProps = {
-  formik: undefined,
-  formikSetFieldValue: () => null,
-  formikCategoryValue: [],
 };
 
 export default CategorySelector;

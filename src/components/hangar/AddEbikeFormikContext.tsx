@@ -193,8 +193,8 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
             test: (arr) => arr!.length >= 1 && arr![0] !== null,
           }),
           category: Yup.array().test({
-            message: "Select category",
-            test: (arr) => arr![0] !== -1,
+            message: "Select category to the end of category tree",
+            test: (arr) => !arr?.includes(-1),
           }),
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -204,17 +204,16 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
             setSubmitting(true);
             removeImagesRef.current();
           }, 400);
-          removeImagesRef.current(); //fix me - when restored and deleted - there is one more xhr request send and red frame left
+          removeImagesRef.current(); //FIXME: - when restored and deleted - there is one more xhr request send and red frame left
         }}
       >
         {(formik) => {
           return (
             <>
-              <CategorySelector
-                formik={formik}
-                formikCategoryValue={formik.values.category}
-                formikSetFieldValue={formik.setFieldValue}
-              />
+              <CategorySelector addVehicle={true} />
+              <ErrorMessage name="category">
+                {(msg) => <div style={{ color: "tomato" }}>{msg}</div>}
+              </ErrorMessage>
               <AddEbikeForm
                 setRemoveImages={setRemoveImages}
                 formik={formik}
