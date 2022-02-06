@@ -83,6 +83,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
             currentCatLvl={currentCatLvl}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
+            addVehicle={props.addVehicle}
           />
         </>
       );
