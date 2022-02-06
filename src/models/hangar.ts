@@ -73,9 +73,17 @@ export interface AddEbikeValues {
   category: number[];
 }
 
-export interface CategoriesObj {
+export interface VehicleCategory {
+  id: string;
+  name: string;
+  image: string;
+  child?: VehiclesCategories;
+}
+
+export interface VehiclesCategories {
   catTitle: string;
-  categories: any[];
+  powerRelated?: boolean;
+  categories: VehicleCategory[];
 }
 
 interface ItemModelObj {

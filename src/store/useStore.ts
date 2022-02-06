@@ -10,9 +10,17 @@ import {
   createHangarCategorySlice,
 } from "./createHangarCategorySlice";
 
-export type StoreState = HangarCategoryState & AddVehicleCategoryState;
+import {
+  VehiclesCategoriesState,
+  createVehiclesCategoriesSlice,
+} from "./createVehiclesCategoriesSlice";
+
+export type StoreState = HangarCategoryState &
+  AddVehicleCategoryState &
+  VehiclesCategoriesState;
 
 export const useStore = create<StoreState>((set, get) => ({
   ...createAddVehicleCategorySlice(set, get),
   ...createHangarCategorySlice(set, get),
+  ...createVehiclesCategoriesSlice(set, get),
 }));
