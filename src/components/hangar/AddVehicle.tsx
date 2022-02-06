@@ -4,11 +4,13 @@ import { ItemManufacturerObj } from "../../../src/models/hangar";
 
 import styles from "./Hangar.module.scss";
 
+import { AddEbikeValues } from "../../models/hangar";
+
 import { IconAcademy } from "../icons/IconAcademy";
 import TitleBox from "../layout/TitleBox";
 import InfoBox from "../layout/InfoBox";
+import CategorySelector from "./CategorySelector";
 import AddEbikeFormikContext from "./AddEbikeFormikContext";
-import { AddEbikeValues } from "../../models/hangar";
 
 const AddVehicle: React.FC<{
   controllersData: ItemManufacturerObj[];
@@ -60,6 +62,8 @@ const AddVehicle: React.FC<{
           <p>{t("hangar:select-category-info-1")}</p>
         </InfoBox>
       </div>
+
+      <CategorySelector addVehicle={true} />
 
       <AddEbikeFormikContext
         onAddVehicle={onAddVehicle}
