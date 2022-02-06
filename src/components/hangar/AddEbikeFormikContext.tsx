@@ -193,8 +193,8 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
             test: (arr) => arr!.length >= 1 && arr![0] !== null,
           }),
           category: Yup.array().test({
-            message: "Select category",
-            test: (arr) => arr![0] !== -1,
+            message: "Select category to the end of category tree",
+            test: (arr) => !arr?.includes(-1),
           }),
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
