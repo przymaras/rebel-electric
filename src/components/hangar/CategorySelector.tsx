@@ -3,6 +3,8 @@ import { useCallback, useState } from "react";
 import { useEffect } from "react";
 import { VehiclesCategories } from "../../models/hangar";
 
+import styles from "./CategorySelector.module.scss";
+
 import { useStore } from "../../store/useStore";
 import { StoreState } from "../../store/useStore";
 
@@ -155,12 +157,15 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
         selected[currentIndex] !== undefined &&
         cat.categories[selected[currentIndex]] !== undefined
       ) {
-        if (cat.categories[selected[currentIndex]].child) {
+        if (
+          cat.categories[selected[currentIndex]].child &&
+          !cat.categories[selected[currentIndex]]?.child?.powerRelated
+        ) {
           return (
             <>
-              <p>
-                {cat.catTitle}: {cat.categories[selected[currentIndex]].name}
-              </p>
+              {/* <p> */}
+              {/* {cat.catTitle}:  */}
+              {cat.categories[selected[currentIndex]].name} / {/* </p> */}
               {renderSelected(
                 cat.categories[selected[currentIndex]].child!,
                 selected
@@ -169,9 +174,10 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
           );
         } else {
           return (
-            <p>
-              {cat.catTitle}: {cat.categories[selected[currentIndex]].name}
-            </p>
+            // <p>
+            // {cat.catTitle}:
+            cat.categories[selected[currentIndex]].name
+            /* </p> */
           );
         }
       }
@@ -184,7 +190,19 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
     <>
       <CategorySwiperStyles />
       {renderSelectedSwipers(vehiclesCategories, selectedCategory)}
-      {renderSelectedCategoriesNames(vehiclesCategories, selectedCategory)}
+      {!selectedCategory.includes(-1) && (
+        <div>
+          <p className={styles.selectedCategory}>
+            Twój pojazd trafi do kategorii:{" "}
+            <strong>
+              {renderSelectedCategoriesNames(
+                vehiclesCategories,
+                selectedCategory
+              )}
+            </strong>
+          </p>
+        </div>
+      )}
     </>
   );
 };
