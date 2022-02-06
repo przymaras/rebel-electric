@@ -191,7 +191,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
     <>
       <CategorySwiperStyles />
       {renderSelectedSwipers(vehiclesCategories, selectedCategory)}
-      {!selectedCategory.includes(-1) && (
+      {!selectedCategory.includes(-1) && (props.addVehicle ?? false) && (
         <div>
           <p className={styles.selectedCategory}>
             Twój pojazd trafi do kategorii:{" "}
