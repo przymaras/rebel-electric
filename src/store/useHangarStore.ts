@@ -2,8 +2,10 @@ import create, { GetState, SetState } from "zustand";
 
 interface AddVehicleCategoryState {
   addVehicleCategory: number[];
+  newCategoryChosen: boolean;
   setAddVehicleCategory: (newCategory: number[]) => void;
   resetAddVehicleCategory: () => void;
+  setNewCategoryChosen: (newValue: boolean) => void;
 }
 
 interface HangarCategoryState {
@@ -19,9 +21,11 @@ const createAddVehicleCategorySlice: (
   get: GetState<HangarStoreState>
 ) => AddVehicleCategoryState = (set, get) => ({
   addVehicleCategory: [-1],
+  newCategoryChosen: false,
   setAddVehicleCategory: (newCategory) =>
     set({ addVehicleCategory: newCategory }),
   resetAddVehicleCategory: () => set({ addVehicleCategory: [-1] }),
+  setNewCategoryChosen: (newValue) => set({ newCategoryChosen: newValue }),
 });
 
 const createHangarCategorySlice: (

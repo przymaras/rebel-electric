@@ -51,11 +51,12 @@ interface AddEbikeFormProps {
   motorsData: ItemManufacturerObj[];
 }
 
-const categorySelector: (state: HangarStoreState) => number[] = (state) =>
-  state.addVehicleCategory;
+const newCategoryChosenSelector: (state: HangarStoreState) => boolean = (
+  state
+) => state.newCategoryChosen;
 
 const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
-  const selectedCategory = useHangarStore(categorySelector);
+  const newCategoryChosen = useHangarStore(newCategoryChosenSelector);
   const filePondRef = useRef<FilePond>(null);
 
   const [imageFiles, setImageFiles] = useState<any[]>([]);
@@ -88,9 +89,14 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
   }, [isImgDetailsAvailable, imgsToRestoreDetails]);
 
   useEffect(() => {
-    props.formik.setFieldValue("category", selectedCategory);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory]);
+    if (newCategoryChosen) {
+      props.formik.setFieldValue(
+        "category",
+        useHangarStore.getState().addVehicleCategory
+      );
+      useHangarStore.getState().setNewCategoryChosen(false);
+    }
+  }, [props.formik, newCategoryChosen]);
 
   function updateFormikImagesFieldValue() {
     isRefreshRender = true;

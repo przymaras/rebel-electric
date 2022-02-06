@@ -36,6 +36,10 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
   const selectedCategory = useHangarStore(categorySelector);
   const setSelectedCategory = useHangarStore(setCategorySelector);
 
+  useEffect(() => {
+    useHangarStore.getState().setNewCategoryChosen(true);
+  }, [selectedCategory]);
+
   /**
    * Here we are rendering recursively category swipers.
    * Each time we are checking if selected category at current level has child category,
