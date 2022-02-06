@@ -51,11 +51,13 @@
   padding: 1em;
   box-shadow: 0 4px 4px #00000066;
   font-weight: 700;
+  white-space: pre-line;
 }
 
 @media (min-width: $desktop-width) {
   .container {
     grid-area: desc;
+    max-width: 800px;
   }
   .wrapper {
     max-width: unset;
