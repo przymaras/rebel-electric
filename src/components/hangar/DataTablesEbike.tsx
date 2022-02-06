@@ -15,6 +15,7 @@ interface DataTablesProps {
   vehicleData?: Vehicle;
   controllersData?: ItemManufacturerObj[];
   motorsData?: ItemManufacturerObj[];
+  motorType: string;
 }
 
 const DataTables: React.FC<DataTablesProps> = (props) => {
@@ -190,14 +191,14 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
               <strong>{`${roundNum(vData?.ctrlCurrent) ?? "---"} A`}</strong>
             </p>
             <p>
-              Moc maksymalna: <strong>{`${roundNum(power) ?? "---"} W`}</strong>
+              Moc maksymalna:<strong>{`${roundNum(power) ?? "---"} W`}</strong>
             </p>
           </>
         }
         row2={
           <>
             <p>
-              Rodzaj silnika: <strong>pobrać z kategorii</strong>
+              Rodzaj silnika:<strong>{props.motorType}</strong>
             </p>
             <p>
               Marka silnika:

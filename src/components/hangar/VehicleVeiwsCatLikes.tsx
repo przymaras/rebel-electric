@@ -4,6 +4,8 @@ import styles from "./VehicleVeiwsCatLikes.module.scss";
 
 interface VehicleVeiwsCatLikesProps {
   views: string;
+  category: string;
+  categoryImg: string;
   likes: string;
 }
 
@@ -16,11 +18,8 @@ const VehicleVeiwsCatLikes: React.FC<VehicleVeiwsCatLikesProps> = (props) => {
         <p>WYŚWIETLEŃ</p>
       </div>
       <div className={styles.category}>
-        <img
-          src="/img/categories/ebike/ebike-conversion-full-mid.svg"
-          alt="Category"
-        />
-        <p>HYBRYDA FULL MID</p>
+        <img src={props.categoryImg} alt="Category" />
+        <p>{props.category}</p>
       </div>
       <div className={styles.likes}>
         <img src="/img/fa-ico/thumbs-up-solid.svg" alt="Thumb up" />
