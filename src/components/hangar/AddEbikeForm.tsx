@@ -51,7 +51,7 @@ interface AddEbikeFormProps {
   motorsData: ItemManufacturerObj[];
 }
 
-const newCategoryChosenSelector: (state: StoreState) => boolean = (state) =>
+const newCategoryChosenSelector = (state: StoreState) =>
   state.newCategoryChosen;
 
 const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {

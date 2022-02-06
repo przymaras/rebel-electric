@@ -8,12 +8,12 @@ import { useWindowResize } from "../../hooks/useWindowResize";
 
 import "swiper/css";
 import styles from "./CategorySwiper.module.scss";
-import { CategoriesObj } from "../../models/hangar";
+import { VehiclesCategories } from "../../models/hangar";
 
 interface CategorySwiperProps {
   selectedCategory: number[];
   currentCatLvl: number;
-  cat: CategoriesObj;
+  cat: VehiclesCategories;
   setSelectedCategory: (newCategory: number[]) => void;
 }
 
@@ -88,7 +88,7 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
                   return newArray;
                 })()
               );
-            }, 800);
+            }, 400);
           }
         }}
         // onReachBeginning={(swiper) =>
