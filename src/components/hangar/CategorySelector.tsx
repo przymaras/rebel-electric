@@ -3,8 +3,8 @@ import { useCallback, useState } from "react";
 import { useEffect } from "react";
 import { CategoriesObj } from "../../models/hangar";
 
-import { useHangarStore } from "../../store/useHangarStore";
-import { HangarStoreState } from "../../store/useHangarStore";
+import { useStore } from "../../store/useStore";
+import { StoreState } from "../../store/useStore";
 
 import CategorySwiper from "./CategorySwiper";
 
@@ -15,7 +15,7 @@ interface CategorySelectorProps {
 }
 
 const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
-  const categorySelector = useCallback<(state: HangarStoreState) => number[]>(
+  const categorySelector = useCallback<(state: StoreState) => number[]>(
     (state) => {
       if (props.addVehicle === true) return state.addVehicleCategory;
       else return state.hangarCategory;
@@ -24,7 +24,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
   );
 
   const setCategorySelector = useCallback<
-    (state: HangarStoreState) => (cat: number[]) => void
+    (state: StoreState) => (cat: number[]) => void
   >(
     (state) => {
       if (props.addVehicle === true) return state.setAddVehicleCategory;
@@ -33,11 +33,11 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
     [props.addVehicle]
   );
 
-  const selectedCategory = useHangarStore(categorySelector);
-  const setSelectedCategory = useHangarStore(setCategorySelector);
+  const selectedCategory = useStore(categorySelector);
+  const setSelectedCategory = useStore(setCategorySelector);
 
   useEffect(() => {
-    useHangarStore.getState().setNewCategoryChosen(true);
+    useStore.getState().setNewCategoryChosen(true);
   }, [selectedCategory]);
 
   /**

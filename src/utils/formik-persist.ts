@@ -2,7 +2,7 @@ import * as React from "react";
 import { FormikProps, connect } from "formik";
 import debounce from "lodash.debounce";
 import isEqual from "react-fast-compare";
-import { useHangarStore } from "../store/useHangarStore";
+import { useStore } from "../store/useStore";
 
 export interface PersistProps {
   name: string;
@@ -46,7 +46,7 @@ class PersistImpl extends React.Component<
     if (maybeState && maybeState !== null) {
       const restoredFormikState = JSON.parse(maybeState);
       this.props.formik.setFormikState(restoredFormikState);
-      useHangarStore
+      useStore
         .getState()
         .setAddVehicleCategory(
           (restoredFormikState?.values?.category as number[]) ?? [-1]

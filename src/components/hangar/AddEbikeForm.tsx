@@ -35,8 +35,8 @@ registerPlugin(
 );
 
 import { ItemManufacturerObj } from "../../../src/models/hangar";
-import { useHangarStore } from "../../store/useHangarStore";
-import { HangarStoreState } from "../../store/useHangarStore";
+import { useStore } from "../../store/useStore";
+import { StoreState } from "../../store/useStore";
 
 import styles from "./AddEbikeForm.module.scss";
 
@@ -51,12 +51,11 @@ interface AddEbikeFormProps {
   motorsData: ItemManufacturerObj[];
 }
 
-const newCategoryChosenSelector: (state: HangarStoreState) => boolean = (
-  state
-) => state.newCategoryChosen;
+const newCategoryChosenSelector: (state: StoreState) => boolean = (state) =>
+  state.newCategoryChosen;
 
 const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
-  const newCategoryChosen = useHangarStore(newCategoryChosenSelector);
+  const newCategoryChosen = useStore(newCategoryChosenSelector);
   const filePondRef = useRef<FilePond>(null);
 
   const [imageFiles, setImageFiles] = useState<any[]>([]);
@@ -92,9 +91,9 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
     if (newCategoryChosen) {
       props.formik.setFieldValue(
         "category",
-        useHangarStore.getState().addVehicleCategory
+        useStore.getState().addVehicleCategory
       );
-      useHangarStore.getState().setNewCategoryChosen(false);
+      useStore.getState().setNewCategoryChosen(false);
     }
   }, [props.formik, newCategoryChosen]);
 
