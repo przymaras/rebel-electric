@@ -41,12 +41,12 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
   if (capacityUnit === "Wh") {
     capacityWh = capacity;
     if (voltage) {
-      capacityAh = roundNum(capacity ?? 0 / voltage);
+      capacityAh = roundNum((capacity ?? 0) / voltage);
     }
   } else if (capacityUnit === "Ah") {
     capacityAh = capacity;
     if (voltage) {
-      capacityWh = roundNum(capacity ?? 0 * voltage);
+      capacityWh = roundNum((capacity ?? 0) * voltage);
     }
   }
 
@@ -116,9 +116,9 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               V maks.:
-              <strong>{`${roundNum(vData?.vmax) ?? unknownText} ${
-                vData?.vmaxUnit ?? ""
-              }`}</strong>
+              <strong>{`${roundNum(vData?.vmax) ?? unknownText} ${t(
+                `hangar:${vData?.vmaxUnit ?? "empty"}`
+              )}`}</strong>
             </p>
           </>
         }
