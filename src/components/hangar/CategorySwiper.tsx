@@ -13,6 +13,7 @@ import { VehiclesCategories } from "../../models/hangar";
 interface CategorySwiperProps {
   selectedCategory: number[];
   currentCatLvl: number;
+  addVehicle?: boolean;
   cat: VehiclesCategories;
   setSelectedCategory: (newCategory: number[]) => void;
 }
@@ -42,6 +43,17 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.cat.categories]); //set last category (without child) to slide no 1  when parent category has changed
+
+  let firstSlideText = "";
+  if (props?.addVehicle && props.currentCatLvl === 0) {
+    firstSlideText = "Wybierz kategorię główną";
+  } else if (props?.addVehicle && props.currentCatLvl !== 0) {
+    firstSlideText = "Wybierz podkategorię";
+  } else if (!props?.addVehicle && props.currentCatLvl === 0) {
+    firstSlideText = "Pokaż wszystkie (bez filtra kategorii)";
+  } else if (!props?.addVehicle && props.currentCatLvl !== 0) {
+    firstSlideText = "Pokaż wszystkie z tej podkategorii";
+  }
 
   return (
     <div className={styles.container}>
@@ -123,11 +135,7 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
         </SwiperSlide>
 
         <SwiperSlide>
-          <p>
-            {props.currentCatLvl === 0
-              ? "Pokaż wszystkie (bez filtra kategorii)"
-              : "Pokaż wszystkie z tej podkategorii"}
-          </p>
+          <p>{firstSlideText}</p>
         </SwiperSlide>
         {props.cat.categories.map((category) => {
           return (
