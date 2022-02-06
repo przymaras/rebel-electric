@@ -6,7 +6,6 @@ import { ItemManufacturerObj } from "../../../src/models/hangar";
 
 import { AddEbikeValues } from "../../models/hangar";
 
-import CategorySelector from "./CategorySelector";
 import AddEbikeForm from "./AddEbikeForm";
 
 interface AddEbikeFormikContextProps {
@@ -210,7 +209,6 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
         {(formik) => {
           return (
             <>
-              <CategorySelector addVehicle={true} />
               <ErrorMessage name="category">
                 {(msg) => <div style={{ color: "tomato" }}>{msg}</div>}
               </ErrorMessage>
