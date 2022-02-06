@@ -18,3 +18,10 @@
     margin-right: 0.2em;
   }
 }
+
+@media (min-width: $desktop-width) {
+  .container {
+    width: 100%;
+    max-width: 600px;
+  }
+}

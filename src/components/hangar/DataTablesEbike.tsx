@@ -25,7 +25,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
   const cData = props.controllersData;
   const mData = props.motorsData;
 
-  //TODO: Refactor definitions below to functions
+  //TODO: Refactor definitions below to functions here and in VehicleBox
 
   let power: number | undefined =
     parseInt(vData?.batVoltage ?? "") * parseInt(vData?.ctrlCurrent ?? "");
@@ -136,12 +136,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
                 vData?.rangeUnit ?? ""
               }`}</strong>
             </p>
-            <p>
-              Zużycie energii:
-              <strong>{`${energyConsumption ?? "---"} Wh/${
-                vData?.rangeUnit ?? "---"
-              }`}</strong>
-            </p>
+
             <p>
               Koszt:
               <strong>{`${roundNum(vData?.totalCost) ?? unknownText}  ${
@@ -192,6 +187,12 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Moc maksymalna:<strong>{`${roundNum(power) ?? "---"} W`}</strong>
+            </p>
+            <p>
+              Zużycie energii:
+              <strong>{`${energyConsumption ?? "---"} Wh/${
+                vData?.rangeUnit ?? "---"
+              }`}</strong>
             </p>
           </>
         }
