@@ -63,20 +63,20 @@ const Hangar: React.FC<HangarProps> = (props) => {
         <DataBar
           style="electrical"
           col1={t("hangar:label-pmax")}
-          col2={t("hangar:label-voltage")}
-          col3={t("hangar:label-imax")}
+          col2={t("hangar:label-imax")}
+          col3={t("hangar:label-enCons")}
         />
 
         <DataBar
           style="battery"
           col1={t("hangar:label-capwh")}
           col2={t("hangar:label-capah")}
-          col3={t("hangar:label-ibatmax")}
+          col3={t("hangar:label-voltage")}
         />
       </DataBarsHeadingContainer>
       <div className={styles.vehiclesWrapper}>
         {vehicles.map((vehicle) => (
-          <VehicleBox key={vehicle._id} vehicle={vehicle} />
+          <VehicleBox key={vehicle._id} vehicleData={vehicle} />
         ))}
       </div>
     </>
