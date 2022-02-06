@@ -95,11 +95,21 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
         // or first category level if this is first render without any selections
         const thereAreChildCategories =
           cat.categories[selected[currentCatLvl]]?.child;
-        if (thereAreChildCategories) {
+
+        const childCategoryIsNotPowerRelated =
+          !cat.categories[selected[currentCatLvl]]?.child?.powerRelated;
+
+        const isNotInAddVEhicleMode = !props.addVehicle ?? true;
+
+        if (
+          thereAreChildCategories &&
+          (childCategoryIsNotPowerRelated || isNotInAddVEhicleMode)
+        ) {
           // enter recursive mode
-          const thereIsFreePlaceForThisSubCategoriesInArray =
+          const thisIsFirstTimeGoingThroughCategoryArray =
             selected[currentCatLvl + 1] === undefined;
-          if (thereIsFreePlaceForThisSubCategoriesInArray)
+
+          if (thisIsFirstTimeGoingThroughCategoryArray)
             // check if this is first time when we are going through category array
             // if yes put -1 at next category level so, next time "renderSwiper" method
             // will know about this child category and will go one step further
@@ -208,6 +218,7 @@ const dummyVehiclesCat = {
                           "/img/categories/ebike/ebike-conversion-ht-hub_r.svg",
                         child: {
                           catTitle: "MOC",
+                          powerRelated: true,
                           categories: [
                             {
                               id: "3",
@@ -237,6 +248,7 @@ const dummyVehiclesCat = {
                           "/img/categories/ebike/ebike-conversion-ht-hub_f.svg",
                         child: {
                           catTitle: "MOC",
+                          powerRelated: true,
                           categories: [
                             {
                               id: "3",
@@ -266,6 +278,7 @@ const dummyVehiclesCat = {
                           "/img/categories/ebike/ebike-conversion-ht-mid.svg",
                         child: {
                           catTitle: "MOC",
+                          powerRelated: true,
                           categories: [
                             {
                               id: "3",
@@ -299,6 +312,7 @@ const dummyVehiclesCat = {
                           "/img/categories/ebike/ebike-conversion-full-hub_r.svg",
                         child: {
                           catTitle: "MOC",
+                          powerRelated: true,
                           categories: [
                             {
                               id: "3",
@@ -328,6 +342,7 @@ const dummyVehiclesCat = {
                           "/img/categories/ebike/ebike-conversion-full-hub_f.svg",
                         child: {
                           catTitle: "MOC",
+                          powerRelated: true,
                           categories: [
                             {
                               id: "32",
@@ -351,6 +366,7 @@ const dummyVehiclesCat = {
                           "/img/categories/ebike/ebike-conversion-full-mid.svg",
                         child: {
                           catTitle: "MOC",
+                          powerRelated: true,
                           categories: [
                             {
                               id: "6",
