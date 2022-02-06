@@ -15,7 +15,7 @@ export const createVehiclesCategoriesSlice: (
   setVehiclesCategories: (newValue) => ({ vehiclesCategories: newValue }),
 });
 
-const categories = {
+const categories: VehiclesCategories = {
   catTitle: "RODZAJ POJAZDU",
   categories: [
     {
