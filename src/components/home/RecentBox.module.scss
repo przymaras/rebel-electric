@@ -51,9 +51,9 @@
 
     &:after {
       position: absolute;
-      left: 100%;
+      left: 99%;
       content: "";
-      background-image: url("/img/ornament-right.png");
+      background-image: url("/img/ornament-r.svg");
       background-size: contain;
       background-repeat: no-repeat;
       width: 326px;
@@ -65,12 +65,12 @@
       position: absolute;
       left: 0;
       content: "";
-      background-image: url("/img/ornament-left.png");
+      background-image: url("/img/ornament-l.svg");
       background-size: contain;
       background-repeat: no-repeat;
       width: 326px;
       height: 351px;
-      transform: translateX(-100%);
+      transform: translateX(-99%);
       z-index: 0;
     }
   }

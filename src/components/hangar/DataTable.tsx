@@ -1,4 +1,6 @@
-import { IconAcademy } from "../icons/IconAcademy";
+import { IconBattery } from "../icons/IconBattery";
+import { IconLightning } from "../icons/IconLightning";
+import { IconStar } from "../icons/IconStar";
 import styles from "./DataTable.module.scss";
 
 interface DataTableProps {
@@ -17,19 +19,23 @@ interface DataTableProps {
 const DataTable: React.FC<DataTableProps> = (props) => {
   let cssStyle;
   let cssStyleLight;
+  let Icon = IconStar;
 
   switch (props.style) {
     case "base":
       cssStyle = styles.base;
       cssStyleLight = styles.baseLight;
+      Icon = IconStar;
       break;
     case "electrical":
       cssStyle = styles.electrical;
       cssStyleLight = styles.electricalLight;
+      Icon = IconLightning;
       break;
     case "battery":
       cssStyle = styles.battery;
       cssStyleLight = styles.batteryLight;
+      Icon = IconBattery;
       break;
 
     default:
@@ -39,7 +45,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   return (
     <div className={`${styles.container}  ${cssStyleLight}`}>
       <div className={`${styles.headingRow}  ${cssStyle} rebel-font`}>
-        <IconAcademy />
+        <Icon />
         <p>
           <strong>{props.title}</strong>
         </p>

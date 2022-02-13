@@ -3,7 +3,10 @@ import useTranslation from "next-translate/useTranslation";
 import NavLink from "./NavLink";
 
 import { IconAcademy } from "../icons/IconAcademy";
+import { IconHangar } from "../icons/IconHangar";
 import { IconPowerOn } from "../icons/IconPowerOn";
+import { IconCirclePlus } from "../icons/IconCirclePlus";
+import { IconRebel } from "../icons/IconRebel";
 
 interface NavProps {
   closeNav: () => void;
@@ -20,7 +23,7 @@ const Nav: React.FC<NavProps> = (props) => {
       <div className={styles.container}>
         <NavLink
           href="/"
-          icon={<IconAcademy />}
+          icon={<IconRebel />}
           name={t("common:navHome")}
           closeNav={props.closeNav}
         />
@@ -32,13 +35,13 @@ const Nav: React.FC<NavProps> = (props) => {
         />
         <NavLink
           href="/hangar"
-          icon={<IconAcademy />}
+          icon={<IconHangar />}
           name={t("common:navHangar")}
           closeNav={props.closeNav}
         />
         <NavLink
           href="/hangar/add"
-          icon={<IconAcademy />}
+          icon={<IconCirclePlus />}
           name={t("common:navAddNew")}
           closeNav={props.closeNav}
         />

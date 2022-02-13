@@ -7,7 +7,7 @@ import styles from "./AddVehicle.module.scss";
 
 import { AddEbikeValues } from "../../models/hangar";
 
-import { IconAcademy } from "../icons/IconAcademy";
+import { IconHangar } from "../icons/IconHangar";
 import TitleBox from "../layout/TitleBox";
 import InfoBox from "../layout/InfoBox";
 import CategorySelector from "./CategorySelector";
@@ -77,7 +77,7 @@ const AddVehicle: React.FC<{
     <>
       <TitleBox>
         <div className={styles.title}>
-          <IconAcademy />
+          <IconHangar />
           <h1 className="rebel-font" style={{ fontSize: "5rem" }}>
             {" "}
             {t("hangar:header")}{" "}

@@ -6,6 +6,8 @@ import styles from "./Home.module.scss";
 import { Vehicle } from "../../models/hangar";
 
 import BtnLink from "../layout/BtnLink";
+import { IconUser } from "../icons/IconUser";
+import { IconHangar } from "../icons/IconHangar";
 import { IconAcademy } from "../icons/IconAcademy";
 import InfoBox from "../layout/InfoBox";
 import RecentBox from "./RecentBox";
@@ -38,7 +40,7 @@ const Home: React.FC<{ vehicles: Vehicle[] }> = (props) => {
       <div className={styles.sectionWrapper}>
         <BtnLink
           href="/hangar"
-          icon={<IconAcademy />}
+          icon={<IconHangar />}
           text={t("common:navHangar")}
         />
         <InfoBox>
@@ -89,7 +91,7 @@ const Home: React.FC<{ vehicles: Vehicle[] }> = (props) => {
       <div className={styles.sectionWrapper}>
         <BtnLink
           href="/users/add"
-          icon={<IconAcademy />}
+          icon={<IconUser />}
           text={t("common:register")}
         />
         <InfoBox>

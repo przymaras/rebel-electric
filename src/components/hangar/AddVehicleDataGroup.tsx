@@ -1,4 +1,6 @@
-import { IconAcademy } from "../icons/IconAcademy";
+import { IconBattery } from "../icons/IconBattery";
+import { IconLightning } from "../icons/IconLightning";
+import { IconStar } from "../icons/IconStar";
 import styles from "./AddVehicleDataGroup.module.scss";
 
 interface AddVehicleDataGroupProps {
@@ -8,16 +10,20 @@ interface AddVehicleDataGroupProps {
 
 const AddVehicleDataGroup: React.FC<AddVehicleDataGroupProps> = (props) => {
   let cssStyle;
+  let Icon = IconStar;
 
   switch (props.style) {
     case "base":
       cssStyle = styles.base;
+      Icon = IconStar;
       break;
     case "electrical":
       cssStyle = styles.electrical;
+      Icon = IconLightning;
       break;
     case "battery":
       cssStyle = styles.battery;
+      Icon = IconBattery;
       break;
 
     default:
@@ -27,7 +33,7 @@ const AddVehicleDataGroup: React.FC<AddVehicleDataGroupProps> = (props) => {
   return (
     <div className={`${styles.container} ${cssStyle}`}>
       <div className={styles.heading}>
-        <IconAcademy />
+        <Icon />
         <h2 className="rebel-font">{props.name}</h2>
       </div>
       <div className={styles.wrapper}>{props.children}</div>

@@ -2,7 +2,7 @@ import useTranslation from "next-translate/useTranslation";
 
 import styles from "./Hangar.module.scss";
 
-import { IconAcademy } from "../icons/IconAcademy";
+import { IconHangar } from "../icons/IconHangar";
 import TitleBox from "../layout/TitleBox";
 import InfoBox from "../layout/InfoBox";
 import SearchBar from "./SearchBar";
@@ -26,7 +26,7 @@ const Hangar: React.FC<HangarProps> = (props) => {
     <>
       <TitleBox>
         <div className={styles.title}>
-          <IconAcademy />
+          <IconHangar />
           <h1 className="rebel-font" style={{ fontSize: "5rem" }}>
             {" "}
             {t("hangar:header")}{" "}

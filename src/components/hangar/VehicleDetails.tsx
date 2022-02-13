@@ -7,7 +7,9 @@ import styles from "./VehicleDetails.module.scss";
 import { useStore } from "../../store/useStore";
 import { StoreState } from "../../store/useStore";
 
-import { IconAcademy } from "../icons/IconAcademy";
+import { IconHangar } from "../icons/IconHangar";
+import { IconUser } from "../icons/IconUser";
+import { IconMapLocation } from "../icons/IconMapLocation";
 import TitleBox from "../layout/TitleBox";
 import VehicleSwiper from "./VehicleSwiper";
 import VehicleVeiwsCatLikes from "./VehicleVeiwsCatLikes";
@@ -57,9 +59,9 @@ const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
             {vData?.projectName ?? unknownText}
           </h1>
           <div className={styles.userWrapper}>
-            <IconAcademy />
-            <p>{vData?.userName ?? unknownText}</p>
-            <IconAcademy />
+            <IconUser />
+            <p className={styles.user}>{vData?.userName ?? unknownText}</p>
+            <IconMapLocation />
             <p>{vData?.city ?? unknownText}</p>
           </div>
         </div>
@@ -85,13 +87,13 @@ const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
         <div className={styles.buttonsWrapper}>
           <BtnLink
             href="/users/add"
-            icon={<IconAcademy />}
+            icon={<IconUser />}
             text={"Zobacz profil właściciela"}
             horizontal={true}
           />
           <BtnLink
             href="/users/add"
-            icon={<IconAcademy />}
+            icon={<IconHangar />}
             text={"Zobacz podobne pojazdy"}
             horizontal={true}
           />

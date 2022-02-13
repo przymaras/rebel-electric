@@ -28,7 +28,7 @@
   font-weight: 800;
 
   &:before {
-    background-image: url("/img/d_arr_l.png");
+    background-image: url("/img/back-arrow-right.svg");
     content: "";
     width: 8px;
     height: 37px;
@@ -37,7 +37,7 @@
   }
 
   &:after {
-    background-image: url("/img/d_arr_r.png");
+    background-image: url("/img/front-arrow-right.svg");
     content: "";
     width: 10px;
     height: 37px;

@@ -1,6 +1,8 @@
 import useTranslation from "next-translate/useTranslation";
 
-import { IconAcademy } from "../icons/IconAcademy";
+import { IconBattery } from "../icons/IconBattery";
+import { IconLightning } from "../icons/IconLightning";
+import { IconStar } from "../icons/IconStar";
 
 import styles from "./DataBarLabels.module.scss";
 
@@ -9,15 +11,15 @@ const DataBarLabels: React.FC = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.label}>
-        <IconAcademy />
+        <IconStar />
         <p>{t("hangar:label-base")}</p>
       </div>
       <div className={styles.label}>
-        <IconAcademy />
+        <IconLightning />
         <p>{t("hangar:label-drive")}</p>
       </div>
       <div className={styles.label}>
-        <IconAcademy />
+        <IconBattery />
         <p>{t("hangar:label-battery")}</p>
       </div>
     </div>
