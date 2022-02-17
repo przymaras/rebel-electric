@@ -19,28 +19,28 @@ const categories: VehiclesCategories = {
   catTitle: "RODZAJ POJAZDU",
   categories: [
     {
-      id: "1",
+      id: "cGB6DW-xNd8GdX4I9N24S",
       name: "eBike",
       image: "/img/categories/ebike/ebike-factory.svg",
       child: {
         catTitle: "WYKONANIE",
         categories: [
           {
-            id: "2",
+            id: "DwNLVj_Mf-bHgSzsL1KZL",
             name: "KONWERSJA",
             image: "/img/categories/ebike/ebike-conversion.svg",
             child: {
               catTitle: "ZAWIESZENIE",
               categories: [
                 {
-                  id: "3",
+                  id: "XKBYwLwfXn_Emv8E1hztm",
                   name: "SZTYWNY TYŁ",
                   image: "/img/categories/ebike/ebike-conversion-ht.svg",
                   child: {
                     catTitle: "NAPĘD",
                     categories: [
                       {
-                        id: "3",
+                        id: "in1KQgvIjIC1bmV0hBOZd",
                         name: "HUB TYŁ",
                         image:
                           "/img/categories/ebike/ebike-conversion-ht-hub_r.svg",
@@ -49,19 +49,19 @@ const categories: VehiclesCategories = {
                           powerRelated: true,
                           categories: [
                             {
-                              id: "3",
+                              id: "OFk8Ql-Cu18GRgsV6cfF1",
                               name: "ŚREDNIA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-ht-hub_r-mp.svg",
                             },
                             {
-                              id: "1",
+                              id: "b0YlW9bMwRUXV6Au3cDH_",
                               name: "DUŻA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-ht-hub_r-hp.svg",
                             },
                             {
-                              id: "4",
+                              id: "Vno_VCgCqeoT6XVNXmBo1",
                               name: "CRUISER",
                               image:
                                 "/img/categories/ebike/ebike-conversion-ht-hub_r-cruiser.svg",
@@ -70,7 +70,7 @@ const categories: VehiclesCategories = {
                         },
                       },
                       {
-                        id: "1",
+                        id: "1mkxGiFObWo1Jz2yYtT1Q",
                         name: "HUB PRZÓD",
                         image:
                           "/img/categories/ebike/ebike-conversion-ht-hub_f.svg",
@@ -79,19 +79,19 @@ const categories: VehiclesCategories = {
                           powerRelated: true,
                           categories: [
                             {
-                              id: "3",
+                              id: "hL96QxppkzaN_4lAU6nPZ",
                               name: "NISKA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-ht-hub_f-lp.svg",
                             },
                             {
-                              id: "1",
+                              id: "hL96QxppkzaN_4lAU6nPZ",
                               name: "ŚREDNIA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-ht-hub_f-mp.svg",
                             },
                             {
-                              id: "4",
+                              id: "hL96QxppkzaN_4lAU6nPZ",
                               name: "CRUISER",
                               image:
                                 "/img/categories/ebike/ebike-conversion-ht-hub_f-cruiser.svg",
@@ -100,7 +100,7 @@ const categories: VehiclesCategories = {
                         },
                       },
                       {
-                        id: "4",
+                        id: "hL96QxppkzaN_4lAU6nPZ",
                         name: "MID",
                         image:
                           "/img/categories/ebike/ebike-conversion-ht-mid.svg",
@@ -109,13 +109,13 @@ const categories: VehiclesCategories = {
                           powerRelated: true,
                           categories: [
                             {
-                              id: "3",
+                              id: "VH20EFscWX5RZZvVANgmo",
                               name: "NISKA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-ht-mid-lp.svg",
                             },
                             {
-                              id: "1",
+                              id: "yrYPh2P9uiIIcvXKI0U7A",
                               name: "ŚREDNIA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-ht-mid-mp.svg",
@@ -127,14 +127,14 @@ const categories: VehiclesCategories = {
                   },
                 },
                 {
-                  id: "1",
+                  id: "vdn0glY4OxzyMAROdDRnK",
                   name: "AMORTYZOWANY",
                   image: "/img/categories/ebike/ebike-conversion-full.svg",
                   child: {
                     catTitle: "NAPĘD",
                     categories: [
                       {
-                        id: "3",
+                        id: "DDwqfomYcMsHwEVEgkpE4",
                         name: "HUB TYŁ",
                         image:
                           "/img/categories/ebike/ebike-conversion-full-hub_r.svg",
@@ -143,19 +143,19 @@ const categories: VehiclesCategories = {
                           powerRelated: true,
                           categories: [
                             {
-                              id: "3",
+                              id: "Kqvsu-NJb4sWLsq9xl5V_",
                               name: "ŚREDNIA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-full-hub_r-mp.svg",
                             },
                             {
-                              id: "1",
+                              id: "cg-RsVO3_knIoap7k9Ac3",
                               name: "DUŻA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-full-hub_r-hp.svg",
                             },
                             {
-                              id: "4",
+                              id: "LV-grOQ1I-kqPhu-mFf1T",
                               name: "SZALONA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-full-hub_r-ip.svg",
@@ -164,7 +164,7 @@ const categories: VehiclesCategories = {
                         },
                       },
                       {
-                        id: "1",
+                        id: "ZCaoFYRpohPFZDPPaxI9B",
                         name: "HUB PRZÓD",
                         image:
                           "/img/categories/ebike/ebike-conversion-full-hub_f.svg",
@@ -173,13 +173,13 @@ const categories: VehiclesCategories = {
                           powerRelated: true,
                           categories: [
                             {
-                              id: "32",
+                              id: "A54ydtMWJh1PYfITzkxO7",
                               name: "NISKA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-full-hub_f-lp.svg",
                             },
                             {
-                              id: "11",
+                              id: "uRo95TnWiEhVNqgGMshB3",
                               name: "ŚREDNIA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-full-hub_f-mp.svg",
@@ -188,7 +188,7 @@ const categories: VehiclesCategories = {
                         },
                       },
                       {
-                        id: "4",
+                        id: "W9mxgnMZbSsp-s8HzAR1U",
                         name: "MID",
                         image:
                           "/img/categories/ebike/ebike-conversion-full-mid.svg",
@@ -197,19 +197,19 @@ const categories: VehiclesCategories = {
                           powerRelated: true,
                           categories: [
                             {
-                              id: "6",
+                              id: "WvLux4IwSCJtsvSW1idgb",
                               name: "ŚREDNIA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-full-mid-mp.svg",
                             },
                             {
-                              id: "7",
+                              id: "kCOfhCzz9EEiQdsN-sA26",
                               name: "DUŻA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-full-mid-hp.svg",
                             },
                             {
-                              id: "8",
+                              id: "JE_RWSU9TC0sDG79X3oCe",
                               name: "SZALONA MOC",
                               image:
                                 "/img/categories/ebike/ebike-conversion-full-mid-ip.svg",
@@ -224,19 +224,19 @@ const categories: VehiclesCategories = {
             },
           },
           {
-            id: "1",
+            id: "ZAFEtsbS_twu60cJPh8mY",
             name: "FABRYCZNY",
             image: "/img/categories/ebike/ebike-factory.svg",
             child: {
               catTitle: "ZAWIESZENIE",
               categories: [
                 {
-                  id: "6",
+                  id: "TV7T57ayF7ehqp68Zl394",
                   name: "SZTYWNY TYŁ",
                   image: "/img/categories/ebike/ebike-factory-ht.svg",
                 },
                 {
-                  id: "7",
+                  id: "GvsG6l4X2Fl_0KCKobP9M",
                   name: "AMORTYZOWANY",
                   image: "/img/categories/ebike/ebike-factory-full.svg",
                 },
@@ -244,7 +244,7 @@ const categories: VehiclesCategories = {
             },
           },
           {
-            id: "4",
+            id: "gpIumLWLhuYRdG9SATW_O",
             name: "INNY",
             image: "/img/categories/other.svg",
           },
@@ -252,24 +252,24 @@ const categories: VehiclesCategories = {
       },
     },
     {
-      id: "3",
+      id: "o_4BEAOpUnqWndFlFu8FM",
       name: "MONSTER eBIKE",
       image: "/img/categories/ebike/ebike-monster.svg",
       child: {
         catTitle: "TYP",
         categories: [
           {
-            id: "6",
+            id: "maIs1g-It6gQHE03B16oz",
             name: "GÓRSKI",
             image: "/img/categories/ebike/ebike-monster-hill_c.svg",
           },
           {
-            id: "7",
+            id: "31gPVruvZ1URza7Rk4EqN",
             name: "SPEED",
             image: "/img/categories/ebike/ebike-monster-speed.svg",
           },
           {
-            id: "8",
+            id: "a6VkOdtqJGt1Q2wH_jUiw",
             name: "LEKKI",
             image: "/img/categories/ebike/ebike-monster-light.svg",
           },
@@ -277,31 +277,31 @@ const categories: VehiclesCategories = {
       },
     },
     {
-      id: "2",
+      id: "Tj-t6OmSgcjst7vS0VTlP",
       name: "eMoto",
       image: "/img/categories/emoto/emoto.svg",
       child: {
         catTitle: "WYKONANIE",
         categories: [
           {
-            id: "2",
+            id: "fG9Fg1QGmx2BuuKbQY_bE",
             name: "FABRYCZNY",
             image: "/img/categories/emoto/emoto-factory.svg",
           },
           {
-            id: "3",
+            id: "A_e5lCIX0OAKJ3KRnp7CA",
             name: "KONWERSJA",
             image: "/img/categories/emoto/emoto-conversion-mid.svg",
             child: {
               catTitle: "NAPĘD",
               categories: [
                 {
-                  id: "2",
+                  id: "fiHHGNgmMMA2h7FYOrXgY",
                   name: "HUB TYŁ",
                   image: "/img/categories/emoto/emoto-conversion-hub.svg",
                 },
                 {
-                  id: "3",
+                  id: "VWt61uiWvxzxijHCVOyj7",
                   name: "MID",
                   image: "/img/categories/emoto/emoto-conversion-mid.svg",
                 },
@@ -313,12 +313,12 @@ const categories: VehiclesCategories = {
     },
 
     {
-      id: "4",
+      id: "gJTvJiV6d6CHgnawhIz7v",
       name: "eCar",
       image: "/img/categories/other.svg",
     },
     {
-      id: "5",
+      id: "5ttnUNAu5tC0w7lBDgPx2",
       name: "Inny",
       image: "/img/categories/other.svg",
     },
