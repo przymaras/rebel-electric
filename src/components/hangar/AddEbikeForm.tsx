@@ -122,7 +122,6 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
     <>
       <div className={styles.container}>
         <Form>
-          {/*TODO: Add info about number of actually typed characters */}
           <TextInput
             label={`Nazwa Projektu: (${props.formik.values.projectName.length} / max. 30 znaków)`}
             name="projectName"
@@ -179,7 +178,6 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
             description=""
             rebelHeading={true}
           />
-          {/*TODO: Add info about number of actually typed characters */}
           <TextArea
             label={`Dodaj opis: (${props.formik.values.description.length} / max. 1000 znaków)`}
             name="description"

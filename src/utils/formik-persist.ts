@@ -45,6 +45,7 @@ class PersistImpl extends React.Component<
       : window.localStorage.getItem(this.props.name);
     if (maybeState && maybeState !== null) {
       const restoredFormikState = JSON.parse(maybeState);
+      //FIXME: If saved category === [-1] user will never see addForm - filter out this scenario...
       this.props.formik.setFormikState(restoredFormikState);
       useStore
         .getState()
