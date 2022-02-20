@@ -145,6 +145,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
             ownerId: 1,
             totalCost: 1,
             totalCostCurrency: 1,
+            likesCount: 1,
+            viewsCount: 1,
           },
         },
       ])

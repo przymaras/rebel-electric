@@ -77,6 +77,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             category: 1,
             createdAt: 1,
             ownerId: 1,
+            likesCount: 1,
+            viewsCount: 1,
           },
         },
       ])
