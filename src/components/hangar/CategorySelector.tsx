@@ -43,8 +43,12 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
   const vehiclesCategories = useStore(vehiclesCategoriesSelector);
 
   useEffect(() => {
-    useStore.getState().setNewCategoryChosen(true);
-  }, [selectedCategory]);
+    if (props.addVehicle === true) {
+      useStore.getState().setNewCategoryChosen(true);
+    } else {
+      useStore.getState().setNewHangarCategoryChosen(true);
+    }
+  }, [selectedCategory, props.addVehicle]);
 
   /**
    * Here we are rendering recursively category swipers.

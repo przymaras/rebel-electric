@@ -53,31 +53,44 @@ export const getFullSrc: ImgProjNameFn = (imgName, projName) => {
 
 export const getSelectedCategoryId = (
   cat: VehiclesCategories,
-  selected: number[]
+  selected: number[],
+  allowPartialSelection?: boolean
 ) => {
+  if (selected[0] === -1) return;
   let categoryID: string = "";
   let level = -1;
 
-  const getId: (catArr: VehiclesCategories, selected: number[]) => void = (
-    catArr,
-    selected
-  ) => {
+  const getId: (
+    catArr: VehiclesCategories,
+    selected: number[],
+    allowPartialSelection: boolean
+  ) => void = (catArr, selected, allowPartialSelection = false) => {
     level++;
     if (catArr === undefined) return;
     if (selected[level] === undefined) return;
     if (selected[level] === -1) return;
 
-    if (level === selected.length - 1) {
+    // this is for hangar filtering by category where user select only part of category tree
+    if (selected[level + 1] === -1 && allowPartialSelection) {
+      categoryID = catArr.categories[selected[level]].id;
+      return;
+    }
+
+    if (level === selected.length - 1 && selected[level] !== -1) {
       categoryID = catArr.categories[selected[level]].id;
       return;
     }
 
     if (catArr.categories[selected[level]].child) {
-      getId(catArr.categories[selected[level]].child!, selected);
+      getId(
+        catArr.categories[selected[level]].child!,
+        selected,
+        allowPartialSelection
+      );
     }
   };
 
-  getId(cat, selected);
+  getId(cat, selected, allowPartialSelection ?? false);
   return categoryID;
 };
 

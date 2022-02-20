@@ -13,6 +13,12 @@ import VehicleBox from "./VehicleBox";
 import DataBarsHeadingContainer from "./DataBarsHeadingContainer";
 import CategorySelector from "./CategorySelector";
 import { Vehicle } from "../../models/hangar";
+import {
+  getSelectedCategoryId,
+  getSelectedCategoryTreeInfo,
+} from "../../utils/common-functions";
+import { useStore } from "../../store/useStore";
+import { useEffect, useState } from "react";
 
 interface HangarProps {
   vehicles: Vehicle[];
@@ -21,6 +27,42 @@ interface HangarProps {
 const Hangar: React.FC<HangarProps> = (props) => {
   const { t } = useTranslation();
   const vehicles = props.vehicles;
+  const newHangarCategoryChosen = useStore(
+    (state) => state.newHangarCategoryChosen
+  );
+  const [selectedCategoryInfo, setSelectedCategoryInfo] =
+    useState<ReturnType<typeof getSelectedCategoryTreeInfo>>(undefined);
+
+  useEffect(() => {
+    if (newHangarCategoryChosen) {
+      const selectedCategoryId = getSelectedCategoryId(
+        useStore.getState().vehiclesCategories,
+        useStore.getState().hangarCategory,
+        true
+      );
+
+      setSelectedCategoryInfo(
+        getSelectedCategoryTreeInfo(
+          useStore.getState().vehiclesCategories,
+          selectedCategoryId ?? ""
+        )
+      );
+
+      useStore.getState().setNewHangarCategoryChosen(false);
+    }
+  }, [newHangarCategoryChosen]);
+
+  const vehiclesToDisplay = () => {
+    let vehiclesToDisplay: Vehicle[] = [...vehicles];
+
+    if (selectedCategoryInfo) {
+      vehiclesToDisplay = vehiclesToDisplay.filter((vehicle) =>
+        selectedCategoryInfo.restIDs.includes(vehicle.category)
+      );
+    }
+
+    return vehiclesToDisplay;
+  };
 
   return (
     <>
@@ -48,7 +90,7 @@ const Hangar: React.FC<HangarProps> = (props) => {
 
       <SearchBar />
 
-      <SearchResultSortBar found={vehicles.length} />
+      <SearchResultSortBar found={vehiclesToDisplay().length} />
 
       <DataBarLabels />
 
@@ -75,7 +117,7 @@ const Hangar: React.FC<HangarProps> = (props) => {
         />
       </DataBarsHeadingContainer>
       <div className={styles.vehiclesWrapper}>
-        {vehicles.map((vehicle) => (
+        {vehiclesToDisplay().map((vehicle) => (
           <VehicleBox key={vehicle._id} vehicleData={vehicle} />
         ))}
       </div>
