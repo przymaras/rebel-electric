@@ -41,6 +41,7 @@ import { StoreState } from "../../store/useStore";
 import styles from "./AddEbikeForm.module.scss";
 
 import AddVehicleDataGroup from "./AddVehicleDataGroup";
+import { getSelectedCategoryId } from "../../utils/common-functions";
 
 let isRefreshRender = false;
 
@@ -91,7 +92,10 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
     if (newCategoryChosen) {
       props.formik.setFieldValue(
         "category",
-        useStore.getState().addVehicleCategory
+        getSelectedCategoryId(
+          useStore.getState().vehiclesCategories,
+          useStore.getState().addVehicleCategory
+        )
       );
       useStore.getState().setNewCategoryChosen(false);
     }

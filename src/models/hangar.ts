@@ -1,14 +1,8 @@
-export interface Vehiclee {
-  _id: string;
-  projectName: string;
-  vehicleImages: string[];
-  createdAt: string;
-}
 export interface Vehicle {
   _id: string;
   projectName: string;
   vehicleImages: string[];
-  category: string[];
+  category: string;
   createdAt: string;
   ownerId: string;
   video?: string;
@@ -70,7 +64,7 @@ export interface AddEbikeValues {
   capacity: string;
   capacityUnit: string;
   vehicleImages: string[];
-  category: number[];
+  category: string;
 }
 
 export interface VehicleCategory {

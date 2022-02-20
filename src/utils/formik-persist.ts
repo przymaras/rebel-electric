@@ -3,6 +3,7 @@ import { FormikProps, connect } from "formik";
 import debounce from "lodash.debounce";
 import isEqual from "react-fast-compare";
 import { useStore } from "../store/useStore";
+import { getSelectedCategoryTreeInfo } from "./common-functions";
 
 export interface PersistProps {
   name: string;
@@ -45,12 +46,16 @@ class PersistImpl extends React.Component<
       : window.localStorage.getItem(this.props.name);
     if (maybeState && maybeState !== null) {
       const restoredFormikState = JSON.parse(maybeState);
-      //FIXME: If saved category === [-1] user will never see addForm - filter out this scenario...
+      //FIXME: If saved category is eg ebike and user will click on other eg on monsterebike
+      //level 0 will be monster ebike but rest of levels will be loaded as saved for ebike
       this.props.formik.setFormikState(restoredFormikState);
       useStore
         .getState()
         .setAddVehicleCategory(
-          (restoredFormikState?.values?.category as number[]) ?? [-1]
+          getSelectedCategoryTreeInfo(
+            useStore.getState().vehiclesCategories,
+            restoredFormikState?.values?.category
+          )?.categoriesIndexes ?? [0]
         );
     }
   }

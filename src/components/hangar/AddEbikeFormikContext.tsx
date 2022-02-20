@@ -58,7 +58,7 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
           capacity: "",
           capacityUnit: "",
           vehicleImages: [],
-          category: [-1],
+          category: "",
         }}
         validationSchema={Yup.object({
           projectName: Yup.string()
@@ -191,10 +191,9 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
             message: "Add at least one image",
             test: (arr) => arr!.length >= 1 && arr![0] !== null,
           }),
-          category: Yup.array().test({
-            message: "Select category to the end of category tree",
-            test: (arr) => !arr?.includes(-1),
-          }),
+          category: Yup.string().required(
+            "Select category to the end of category tree"
+          ),
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {

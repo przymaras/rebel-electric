@@ -16,7 +16,7 @@ import VehicleVeiwsCatLikes from "./VehicleVeiwsCatLikes";
 import DataTablesEbike from "./DataTablesEbike";
 import Description from "./Description";
 import BtnLink from "../layout/BtnLink";
-import { getSelectedCategoriesNamesAndImages } from "../../utils/common-functions";
+import { getSelectedCategoryTreeInfo } from "../../utils/common-functions";
 
 interface VehicleDetailsProps {
   vehicleData?: Vehicle;
@@ -37,19 +37,21 @@ const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
 
   const vehiclesCategories = useStore(vehiclesCategoriesSelector);
 
-  const categoriesNamesAndImagesArray = getSelectedCategoriesNamesAndImages(
+  const selectedCategoryTreeInfo = getSelectedCategoryTreeInfo(
     vehiclesCategories,
-    vData?.category ?? [-1]
+    vData?.category ?? ""
   );
-  const lastIndex = categoriesNamesAndImagesArray.length - 1;
 
-  const categoryName = `${categoriesNamesAndImagesArray[0][1]} / 
-                        ${categoriesNamesAndImagesArray[1][1]} / 
-                        ${categoriesNamesAndImagesArray[lastIndex][1]}`;
+  const categoryName =
+    selectedCategoryTreeInfo?.categoriesNames.join(" / ") ?? "undefined";
 
-  const categoryImage = categoriesNamesAndImagesArray[lastIndex][2];
+  const categoryImage =
+    [...(selectedCategoryTreeInfo?.categoriesImages ?? ["undefined"])].pop() ??
+    "undefined";
 
-  const motorType = categoriesNamesAndImagesArray[lastIndex][1];
+  const motorType =
+    [...(selectedCategoryTreeInfo?.categoriesNames ?? ["undefined"])].pop() ??
+    "undefined";
 
   return (
     <>
