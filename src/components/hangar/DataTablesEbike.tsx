@@ -100,7 +100,8 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
         row1={
           <>
             <p>
-              Baza: <strong>{vData?.bikeBase ?? unknownText}</strong>
+              Baza:
+              <strong>{vData?.bikeBase ? vData.bikeBase : unknownText}</strong>
             </p>
             <p>
               Rozmiar kół:
@@ -116,9 +117,13 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               V maks.:
-              <strong>{`${roundNum(vData?.vmax) ?? unknownText} ${t(
-                `hangar:${vData?.vmaxUnit ?? "empty"}`
-              )}`}</strong>
+              <strong>
+                {vData?.vmax
+                  ? `${roundNum(vData.vmax)} ${t(
+                      `hangar:${vData?.vmaxUnit ? vData.vmaxUnit : "empty"}`
+                    )}`
+                  : unknownText}
+              </strong>
             </p>
           </>
         }
@@ -126,15 +131,19 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
           <>
             <p>
               Masa po konwersji:
-              <strong>{`${roundNum(vData?.mass) ?? "---"}  ${
-                vData?.massUnit ?? ""
-              }`}</strong>
+              <strong>
+                {vData?.mass
+                  ? `${roundNum(vData.mass)}  ${vData?.massUnit ?? ""}`
+                  : unknownText}
+              </strong>
             </p>
             <p>
               Średni zasięg:
-              <strong>{`${roundNum(vData?.range) ?? "---"}  ${
-                vData?.rangeUnit ?? ""
-              }`}</strong>
+              <strong>
+                {vData?.range
+                  ? `${roundNum(vData.range)}  ${vData?.rangeUnit ?? ""}`
+                  : unknownText}
+              </strong>
             </p>
 
             <p>
@@ -183,16 +192,23 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Prąd maksymalny sterownika:
-              <strong>{`${roundNum(vData?.ctrlCurrent) ?? "---"} A`}</strong>
+              <strong>
+                {vData?.ctrlCurrent
+                  ? `${roundNum(vData.ctrlCurrent)} A`
+                  : unknownText}
+              </strong>
             </p>
             <p>
-              Moc maksymalna:<strong>{`${roundNum(power) ?? "---"} W`}</strong>
+              Moc maksymalna:
+              <strong>{power ? `${roundNum(power)} W` : unknownText}</strong>
             </p>
             <p>
               Zużycie energii:
-              <strong>{`${energyConsumption ?? "---"} Wh/${
-                vData?.rangeUnit ?? "---"
-              }`}</strong>
+              <strong>
+                {energyConsumption
+                  ? `${energyConsumption} Wh/${vData?.rangeUnit ?? "---"}`
+                  : unknownText}
+              </strong>
             </p>
           </>
         }
@@ -257,9 +273,11 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Napięcie nominalne:
-              <strong>{`${
-                roundNum(vData?.batVoltage) ?? unknownText
-              } V`}</strong>
+              <strong>
+                {vData?.batVoltage
+                  ? `${roundNum(vData.batVoltage)} V`
+                  : unknownText}
+              </strong>
             </p>
           </>
         }
@@ -267,11 +285,11 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
           <>
             <p>
               Pojemność [Wh]:
-              <strong>{capacityWh ?? "---"}</strong>
+              <strong>{capacityWh ? capacityWh : unknownText}</strong>
             </p>
             <p>
               Pojemność [Ah]:
-              <strong>{capacityAh ?? "---"}</strong>
+              <strong>{capacityAh ? capacityAh : unknownText}</strong>
             </p>
           </>
         }

@@ -75,25 +75,29 @@ const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
 
           <DataBar
             style="base"
-            col1={`${vData?.vmax ?? "---"} ${t(
-              `hangar:${vData?.vmaxUnit ?? ""}`
-            )}`}
-            col2={`${vData?.mass ?? "---"} ${vData.massUnit ?? ""}`}
-            col3={`${vData?.range ?? "---"} ${vData.rangeUnit ?? ""}`}
-          />
-          <DataBar
-            style="electrical"
-            col1={`${power ?? "---"} W`}
-            col2={`${vData?.ctrlCurrent ?? "---"} A`}
-            col3={`${energyConsumption ?? "---"} Wh/${
-              vData?.rangeUnit ?? "---"
+            col1={`${vData?.vmax ? vData.vmax : "---"} ${
+              vData?.vmaxUnit ? t(`hangar:${vData.vmaxUnit}`) : ""
+            }`}
+            col2={`${vData?.mass ? vData.mass : "---"} ${vData.massUnit ?? ""}`}
+            col3={`${vData?.range ? vData.range : "---"} ${
+              vData?.rangeUnit ?? ""
             }`}
           />
           <DataBar
+            style="electrical"
+            col1={power ? `${power} W` : "---"}
+            col2={vData?.ctrlCurrent ? `${vData.ctrlCurrent} A` : "---"}
+            col3={
+              energyConsumption
+                ? `${energyConsumption} Wh/${vData?.rangeUnit ?? "---"}`
+                : "---"
+            }
+          />
+          <DataBar
             style="battery"
-            col1={`${capacityWh} Wh`}
-            col2={`${capacityAh} Ah`}
-            col3={`${vData?.batVoltage ?? "---"} V`}
+            col1={capacityWh ? `${capacityWh} Wh` : "---"}
+            col2={capacityAh ? `${capacityAh} Ah` : "---"}
+            col3={vData?.batVoltage ? `${vData.batVoltage} V` : "---"}
           />
         </div>
       </a>
