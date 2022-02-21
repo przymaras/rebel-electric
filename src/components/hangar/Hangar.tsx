@@ -35,6 +35,8 @@ const Hangar: React.FC<HangarProps> = (props) => {
 
   const [sortBy, setSortBy] = useState<string>("createdAt");
 
+  const [searchValue, setSearchValue] = useState<string>("");
+
   useEffect(() => {
     if (newHangarCategoryChosen) {
       const selectedCategoryId = getSelectedCategoryId(
@@ -62,6 +64,13 @@ const Hangar: React.FC<HangarProps> = (props) => {
         selectedCategoryInfo.restIDs.includes(vehicle.category)
       );
     }
+    console.log(searchValue);
+    if (searchValue) {
+      vehiclesToDisplay = vehiclesToDisplay.filter((vehicle) =>
+        vehicle.projectName.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
+
     if (sortBy === "createdAt") {
       return vehiclesToDisplay.sort(
         (a, b) =>
@@ -78,6 +87,7 @@ const Hangar: React.FC<HangarProps> = (props) => {
         (a, b) => Number(b.likesCount ?? 0) - Number(a.likesCount ?? 0)
       );
     }
+
     return vehiclesToDisplay;
   };
 
@@ -105,7 +115,7 @@ const Hangar: React.FC<HangarProps> = (props) => {
 
       <CategorySelector />
 
-      <SearchBar />
+      <SearchBar setSearchValue={setSearchValue} />
 
       <SearchResultSortBar
         found={vehiclesToDisplay().length}
