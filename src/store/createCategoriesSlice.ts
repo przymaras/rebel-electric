@@ -2,15 +2,15 @@ import { GetState, SetState } from "zustand";
 import { StoreState } from "./useStore";
 import { VehiclesCategories } from "../models/hangar";
 
-export interface VehiclesCategoriesState {
+export interface categoriesState {
   vehiclesCategories: VehiclesCategories;
   setVehiclesCategories: (newValue: boolean) => void;
 }
 
-export const createVehiclesCategoriesSlice: (
+export const createCategoriesSlice: (
   set: SetState<StoreState>,
   get: GetState<StoreState>
-) => VehiclesCategoriesState = (set, get) => ({
+) => categoriesState = (set, get) => ({
   vehiclesCategories: categories,
   setVehiclesCategories: (newValue) => ({ vehiclesCategories: newValue }),
 });

@@ -1,26 +1,21 @@
 import create from "zustand";
 
 import {
-  AddVehicleCategoryState,
-  createAddVehicleCategorySlice,
-} from "./createAddVehicleCategorySlice";
+  AddVehicleState,
+  createAddVehicleSlice,
+} from "./createAddVehicleSlice";
+
+import { HangarState, createHangarSlice } from "./createHangarSlice";
 
 import {
-  HangarCategoryState,
-  createHangarCategorySlice,
-} from "./createHangarCategorySlice";
+  categoriesState,
+  createCategoriesSlice,
+} from "./createCategoriesSlice";
 
-import {
-  VehiclesCategoriesState,
-  createVehiclesCategoriesSlice,
-} from "./createVehiclesCategoriesSlice";
-
-export type StoreState = HangarCategoryState &
-  AddVehicleCategoryState &
-  VehiclesCategoriesState;
+export type StoreState = HangarState & AddVehicleState & categoriesState;
 
 export const useStore = create<StoreState>((set, get) => ({
-  ...createAddVehicleCategorySlice(set, get),
-  ...createHangarCategorySlice(set, get),
-  ...createVehiclesCategoriesSlice(set, get),
+  ...createAddVehicleSlice(set, get),
+  ...createHangarSlice(set, get),
+  ...createCategoriesSlice(set, get),
 }));

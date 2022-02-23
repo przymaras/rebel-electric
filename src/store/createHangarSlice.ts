@@ -1,22 +1,30 @@
 import { GetState, SetState } from "zustand";
 import { StoreState } from "./useStore";
 
-export interface HangarCategoryState {
+export interface HangarState {
   hangarCategory: number[];
   newHangarCategoryChosen: boolean;
+  sortBy: string;
+  searchValue: string;
   setHangarCategory: (newCategory: number[]) => void;
   resetHangarCategory: () => void;
   setNewHangarCategoryChosen: (newValue: boolean) => void;
+  setSortBy: (newSortBy: string) => void;
+  setSearchValue: (newSearchValue: string) => void;
 }
 
-export const createHangarCategorySlice: (
+export const createHangarSlice: (
   set: SetState<StoreState>,
   get: GetState<StoreState>
-) => HangarCategoryState = (set, get) => ({
+) => HangarState = (set, get) => ({
   hangarCategory: [-1],
   newHangarCategoryChosen: false,
+  sortBy: "createdAt",
+  searchValue: "",
   setHangarCategory: (newCategory) => set({ hangarCategory: newCategory }),
   resetHangarCategory: () => set({ hangarCategory: [-1] }),
   setNewHangarCategoryChosen: (newValue) =>
     set({ newHangarCategoryChosen: newValue }),
+  setSortBy: (newSortBy) => set({ sortBy: newSortBy }),
+  setSearchValue: (newSearchValue) => set({ searchValue: newSearchValue }),
 });

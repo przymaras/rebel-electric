@@ -1,18 +1,17 @@
 import useTranslation from "next-translate/useTranslation";
 import styles from "./SearchResultSortBar.module.scss";
 
+import { useStore } from "../../store/useStore";
 interface SearchResultSortBarProps {
   found: number;
-  sortBy: string;
-  setSortBy: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchResultSortBar: React.FC<SearchResultSortBarProps> = ({
-  found,
-  sortBy,
-  setSortBy,
-}) => {
+const SearchResultSortBar: React.FC<SearchResultSortBarProps> = ({ found }) => {
   const { t } = useTranslation();
+
+  const sortBy = useStore((state) => state.sortBy);
+  const setSortBy = useStore((state) => state.setSortBy);
+
   return (
     <div className={styles.container}>
       <p>

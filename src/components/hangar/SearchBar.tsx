@@ -1,16 +1,20 @@
 import styles from "./SearchBar.module.scss";
 import useTranslation from "next-translate/useTranslation";
-import { ChangeEvent, useState } from "react";
-
-interface SearchBar {
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-}
+import { ChangeEvent, useEffect, useState } from "react";
+import { useStore } from "../../store/useStore";
 
 let timer: ReturnType<typeof setTimeout>;
 
-const SearchBar: React.FC<SearchBar> = ({ setSearchValue }) => {
+const SearchBar: React.FC = () => {
   const { t } = useTranslation();
   const [localSearchValue, setLocalSearchValue] = useState<string>("");
+  const setSearchValue = useStore((state) => state.setSearchValue);
+  const searchValue = useStore((state) => state.searchValue);
+
+  useEffect(() => {
+    setLocalSearchValue(searchValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
     setLocalSearchValue(e.target.value);
