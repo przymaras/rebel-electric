@@ -525,12 +525,24 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 hidden={props.formik.values.cellsType !== "other"}
               />
 
+              <Select label="Napięcie nominalne" name="batVoltage">
+                <option value="">Wybierz napięcie</option>
+                <option value="24">24 V</option>
+                <option value="36">36 V</option>
+                <option value="48">48 V</option>
+                <option value="52">52 V</option>
+                <option value="60">60 V</option>
+                <option value="72">72 V</option>
+                <option value="other">Inne</option>
+              </Select>
+
               <TextInput
-                label="Napięcie nominalne [V]"
-                name="batVoltage"
+                label="Podaj napięcie nominalne [V]: "
+                name="batVoltageOther"
                 type="text"
                 placeholder=""
-                description=""
+                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                hidden={props.formik.values.batVoltage !== "other"}
               />
 
               <Fieldset name="capacityUnit" legend="Pojemność baterii">

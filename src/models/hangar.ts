@@ -33,6 +33,7 @@ export interface Vehicle {
   cellsType?: string;
   cellsTypeOther?: string;
   batVoltage?: string;
+  batVoltageOther?: string;
   capacity?: string;
   capacityUnit?: string;
   batteryCase?: string;

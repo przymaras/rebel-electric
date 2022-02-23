@@ -97,7 +97,13 @@ const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
             style="battery"
             col1={capacityWh ? `${capacityWh} Wh` : "---"}
             col2={capacityAh ? `${capacityAh} Ah` : "---"}
-            col3={vData?.batVoltage ? `${vData.batVoltage} V` : "---"}
+            col3={
+              vData?.batVoltage && vData?.batVoltage !== "other"
+                ? `${vData.batVoltage} V`
+                : vData?.batVoltageOther
+                ? `${vData.batVoltageOther} V`
+                : "---"
+            }
           />
         </div>
       </a>

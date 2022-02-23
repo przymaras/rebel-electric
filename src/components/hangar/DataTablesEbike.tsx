@@ -274,9 +274,13 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             <p>
               Napięcie nominalne:
               <strong>
-                {vData?.batVoltage
-                  ? `${roundNum(vData.batVoltage)} V`
-                  : unknownText}
+                {dataOrOther(
+                  vData?.batVoltage && vData?.batVoltage !== "other"
+                    ? `${vData?.batVoltage} V`
+                    : vData?.batVoltage,
+                  vData?.batVoltageOther && `${vData?.batVoltageOther} V`,
+                  t
+                )}
               </strong>
             </p>
           </>

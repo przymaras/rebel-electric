@@ -137,6 +137,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             cellsType: 1,
             cellsTypeOther: 1,
             batVoltage: 1,
+            batVoltageOther: 1,
             capacity: 1,
             capacityUnit: 1,
             vehicleImages: 1,

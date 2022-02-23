@@ -55,6 +55,7 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
           cellsType: "",
           cellsTypeOther: "",
           batVoltage: "",
+          batVoltageOther: "",
           capacity: "",
           capacityUnit: "",
           vehicleImages: [],
@@ -80,6 +81,17 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
             is: "other",
             then: Yup.string()
               .max(30, "Must be max. 30 characters long")
+              .required("Required"),
+          }),
+          batVoltageOther: Yup.number().when("batVoltage", {
+            is: "other",
+            then: Yup.number()
+              .typeError("Must be a number")
+              .test(
+                "maxDigits",
+                "number field must have 10 digits or less",
+                (number) => String(number).length <= 10
+              )
               .required("Required"),
           }),
           mass: Yup.number()
@@ -111,13 +123,6 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
               (number) => String(number).length <= 10
             ),
           ctrlCurrent: Yup.number()
-            .typeError("Must be a number")
-            .test(
-              "maxDigits",
-              "number field must have 10 digits or less",
-              (number) => String(number).length <= 10
-            ),
-          batVoltage: Yup.number()
             .typeError("Must be a number")
             .test(
               "maxDigits",
