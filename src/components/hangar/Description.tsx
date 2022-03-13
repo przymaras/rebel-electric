@@ -1,4 +1,4 @@
-import styles from "./Description.module.scss";
+import styles from './Description.module.scss';
 
 interface DescriptionProps {
   description: string;
@@ -16,11 +16,7 @@ const Description: React.FC<DescriptionProps> = (props) => {
     </div>
   );
 
-  return (
-    <div className={styles.container}>
-      {props.description && markupToRender}
-    </div>
-  );
+  return <div className={styles.container}>{props.description && markupToRender}</div>;
 };
 
 export default Description;

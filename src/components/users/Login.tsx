@@ -1,8 +1,8 @@
-import useTranslation from "next-translate/useTranslation";
+import useTranslation from 'next-translate/useTranslation';
 
 const Login: React.FC = () => {
   const { t } = useTranslation();
-  return <h1> {t("user:headerLogin")} </h1>;
+  return <h1> {t('user:headerLogin')} </h1>;
 };
 
 export default Login;

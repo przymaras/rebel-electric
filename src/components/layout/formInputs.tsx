@@ -1,6 +1,6 @@
-import { useField, FormikProps } from "formik";
+import { useField, FormikProps } from 'formik';
 
-import styles from "./formInputs.module.scss";
+import styles from './formInputs.module.scss';
 
 interface InputProps {
   id?: string;
@@ -30,14 +30,14 @@ export const TextInput: React.FC<InputProps> = ({
       {label &&
         (rebelHeading === true ? (
           <label
-            className={`${styles.label} ${hidden ? styles.hidden : ""}`}
+            className={`${styles.label} ${hidden ? styles.hidden : ''}`}
             htmlFor={props.id || props.name}
           >
-            <h2 className="rebel-font">{label}</h2>
+            <h2 className='rebel-font'>{label}</h2>
           </label>
         ) : (
           <label
-            className={`${styles.label} ${hidden ? styles.hidden : ""}`}
+            className={`${styles.label} ${hidden ? styles.hidden : ''}`}
             htmlFor={props.id || props.name}
           >
             {label}
@@ -45,26 +45,17 @@ export const TextInput: React.FC<InputProps> = ({
         ))}
 
       <input
-        className={`${styles.textInput} ${hidden ? styles.hidden : ""}`}
+        className={`${styles.textInput} ${hidden ? styles.hidden : ''}`}
         {...field}
         {...props}
       />
-      {meta.touched && meta.error ? (
-        <div className={styles.error}>{meta.error}</div>
-      ) : null}
-      {description ? (
-        <p className={`${hidden ? styles.hidden : ""}`}>{description}</p>
-      ) : null}
+      {meta.touched && meta.error ? <div className={styles.error}>{meta.error}</div> : null}
+      {description ? <p className={`${hidden ? styles.hidden : ''}`}>{description}</p> : null}
     </div>
   );
 };
 
-export const TextArea: React.FC<InputProps> = ({
-  label,
-  description,
-  rebelHeading,
-  ...props
-}) => {
+export const TextArea: React.FC<InputProps> = ({ label, description, rebelHeading, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and alse replace ErrorMessage entirely.
   const [field, meta] = useField(props);
@@ -72,7 +63,7 @@ export const TextArea: React.FC<InputProps> = ({
     <div className={styles.container}>
       {rebelHeading === true ? (
         <label className={styles.label} htmlFor={props.id || props.name}>
-          <h2 className="rebel-font">{label}</h2>
+          <h2 className='rebel-font'>{label}</h2>
         </label>
       ) : (
         <label className={styles.label} htmlFor={props.id || props.name}>
@@ -80,9 +71,7 @@ export const TextArea: React.FC<InputProps> = ({
         </label>
       )}
       <textarea className={styles.textArea} {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className={styles.error}>{meta.error}</div>
-      ) : null}
+      {meta.touched && meta.error ? <div className={styles.error}>{meta.error}</div> : null}
       {description ? <p>{description}</p> : null}
     </div>
   );
@@ -97,15 +86,8 @@ export const Select: React.FC<InputProps> = ({ label, disabled, ...props }) => {
       <label className={styles.label} htmlFor={props.id || props.name}>
         {label}
       </label>
-      <select
-        className={styles.select}
-        {...field}
-        {...props}
-        disabled={disabled}
-      />
-      {meta.touched && meta.error ? (
-        <div className={styles.error}>{meta.error}</div>
-      ) : null}
+      <select className={styles.select} {...field} {...props} disabled={disabled} />
+      {meta.touched && meta.error ? <div className={styles.error}>{meta.error}</div> : null}
     </div>
   );
 };
@@ -113,7 +95,7 @@ export const Select: React.FC<InputProps> = ({ label, disabled, ...props }) => {
 export const RadioInput: React.FC<InputProps> = ({ label, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and alse replace ErrorMessage entirely.
-  const [field, meta] = useField({ ...props, type: "radio" });
+  const [field, meta] = useField({ ...props, type: 'radio' });
   return (
     <>
       <label className={styles.radioLabel}>
@@ -127,10 +109,7 @@ export const RadioInput: React.FC<InputProps> = ({ label, ...props }) => {
   );
 };
 
-export const Fieldset: React.FC<InputProps & { legend: string }> = ({
-  legend,
-  ...props
-}) => {
+export const Fieldset: React.FC<InputProps & { legend: string }> = ({ legend, ...props }) => {
   const [field, meta] = useField(props.name);
   return (
     <div>
@@ -139,9 +118,7 @@ export const Fieldset: React.FC<InputProps & { legend: string }> = ({
 
         {props.children}
       </fieldset>
-      {meta.touched && meta.error ? (
-        <div className={styles.error}>{meta.error}</div>
-      ) : null}
+      {meta.touched && meta.error ? <div className={styles.error}>{meta.error}</div> : null}
     </div>
   );
 };
@@ -152,21 +129,14 @@ interface SubmitButtonProps {
   errorMsg: string;
 }
 
-export const SubmitButton: React.FC<SubmitButtonProps> = ({
-  formik,
-  text,
-  errorMsg,
-  ...props
-}) => {
+export const SubmitButton: React.FC<SubmitButtonProps> = ({ formik, text, errorMsg, ...props }) => {
   const isDisabled = formik.isSubmitting;
   return (
     <div className={styles.container}>
-      <button className={styles.submitBtn} type="submit" disabled={isDisabled}>
+      <button className={styles.submitBtn} type='submit' disabled={isDisabled}>
         {text}
       </button>
-      {!formik.isValid && formik.submitCount > 0 && (
-        <p className={styles.error}>{errorMsg}</p>
-      )}
+      {!formik.isValid && formik.submitCount > 0 && <p className={styles.error}>{errorMsg}</p>}
       {formik.isSubmitting && <p>Wysyłam!</p>}
     </div>
   );

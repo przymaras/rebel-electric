@@ -1,9 +1,9 @@
-import Image from "next/image";
-import Nav from "./Nav";
-import styles from "./Header.module.scss";
-import Logo from "../../../public/img/rebel-electric-logo.svg";
-import { IconNavBars } from "../icons/IconNavBars";
-import { useEffect, useState } from "react";
+import Image from 'next/image';
+import Nav from './Nav';
+import styles from './Header.module.scss';
+import Logo from '../../../public/img/rebel-electric-logo.svg';
+import { IconNavBars } from '../icons/IconNavBars';
+import { useEffect, useState } from 'react';
 
 const Header: React.FC = (props) => {
   const [isVisibleNav, setIsVisibleNav] = useState<boolean>(false);
@@ -19,9 +19,7 @@ const Header: React.FC = (props) => {
   }
 
   useEffect(() => {
-    isVisibleNav
-      ? (document.body.style.overflow = "hidden")
-      : (document.body.style.overflow = "");
+    isVisibleNav ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
   }, [isVisibleNav]);
 
   return (
@@ -35,7 +33,7 @@ const Header: React.FC = (props) => {
           <br /> ELECTRIC
         </h2>
         <div className={styles.img}>
-          <Image src={Logo} alt="Rebel Electric Logo" width={115} height={50} />
+          <Image src={Logo} alt='Rebel Electric Logo' width={115} height={50} />
         </div>
         <Nav isVisible={isVisibleNav} closeNav={closeNav} />
       </div>

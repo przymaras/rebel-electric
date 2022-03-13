@@ -1,5 +1,5 @@
-import { GetState, SetState } from "zustand";
-import { StoreState } from "./useStore";
+import { GetState, SetState } from 'zustand';
+import { StoreState } from './useStore';
 
 export interface HangarState {
   hangarCategory: number[];
@@ -19,12 +19,11 @@ export const createHangarSlice: (
 ) => HangarState = (set, get) => ({
   hangarCategory: [-1],
   newHangarCategoryChosen: false,
-  sortBy: "createdAt",
-  searchValue: "",
+  sortBy: 'createdAt',
+  searchValue: '',
   setHangarCategory: (newCategory) => set({ hangarCategory: newCategory }),
   resetHangarCategory: () => set({ hangarCategory: [-1] }),
-  setNewHangarCategoryChosen: (newValue) =>
-    set({ newHangarCategoryChosen: newValue }),
+  setNewHangarCategoryChosen: (newValue) => set({ newHangarCategoryChosen: newValue }),
   setSortBy: (newSortBy) => set({ sortBy: newSortBy }),
   setSearchValue: (newSearchValue) => set({ searchValue: newSearchValue }),
 });

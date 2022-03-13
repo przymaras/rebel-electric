@@ -1,7 +1,7 @@
-import { IconBattery } from "../icons/IconBattery";
-import { IconLightning } from "../icons/IconLightning";
-import { IconStar } from "../icons/IconStar";
-import styles from "./DataTable.module.scss";
+import { IconBattery } from '../icons/IconBattery';
+import { IconLightning } from '../icons/IconLightning';
+import { IconStar } from '../icons/IconStar';
+import styles from './DataTable.module.scss';
 
 interface DataTableProps {
   style: string;
@@ -22,24 +22,24 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   let Icon = IconStar;
 
   switch (props.style) {
-    case "base":
+    case 'base':
       cssStyle = styles.base;
       cssStyleLight = styles.baseLight;
       Icon = IconStar;
       break;
-    case "electrical":
+    case 'electrical':
       cssStyle = styles.electrical;
       cssStyleLight = styles.electricalLight;
       Icon = IconLightning;
       break;
-    case "battery":
+    case 'battery':
       cssStyle = styles.battery;
       cssStyleLight = styles.batteryLight;
       Icon = IconBattery;
       break;
 
     default:
-      cssStyle = "";
+      cssStyle = '';
       break;
   }
   return (
@@ -69,12 +69,8 @@ const DataTable: React.FC<DataTableProps> = (props) => {
         </div> */}
       </div>
       <div className={styles.details}>
-        <div className={`${styles.detailsRow}  ${cssStyleLight}`}>
-          {props.row1}
-        </div>
-        <div className={`${styles.detailsRow}  ${cssStyleLight}`}>
-          {props.row2}
-        </div>
+        <div className={`${styles.detailsRow}  ${cssStyleLight}`}>{props.row1}</div>
+        <div className={`${styles.detailsRow}  ${cssStyleLight}`}>{props.row2}</div>
       </div>
     </div>
   );

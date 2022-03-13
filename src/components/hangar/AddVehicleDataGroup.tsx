@@ -1,7 +1,7 @@
-import { IconBattery } from "../icons/IconBattery";
-import { IconLightning } from "../icons/IconLightning";
-import { IconStar } from "../icons/IconStar";
-import styles from "./AddVehicleDataGroup.module.scss";
+import { IconBattery } from '../icons/IconBattery';
+import { IconLightning } from '../icons/IconLightning';
+import { IconStar } from '../icons/IconStar';
+import styles from './AddVehicleDataGroup.module.scss';
 
 interface AddVehicleDataGroupProps {
   style: string;
@@ -13,28 +13,28 @@ const AddVehicleDataGroup: React.FC<AddVehicleDataGroupProps> = (props) => {
   let Icon = IconStar;
 
   switch (props.style) {
-    case "base":
+    case 'base':
       cssStyle = styles.base;
       Icon = IconStar;
       break;
-    case "electrical":
+    case 'electrical':
       cssStyle = styles.electrical;
       Icon = IconLightning;
       break;
-    case "battery":
+    case 'battery':
       cssStyle = styles.battery;
       Icon = IconBattery;
       break;
 
     default:
-      cssStyle = "";
+      cssStyle = '';
       break;
   }
   return (
     <div className={`${styles.container} ${cssStyle}`}>
       <div className={styles.heading}>
         <Icon />
-        <h2 className="rebel-font">{props.name}</h2>
+        <h2 className='rebel-font'>{props.name}</h2>
       </div>
       <div className={styles.wrapper}>{props.children}</div>
     </div>

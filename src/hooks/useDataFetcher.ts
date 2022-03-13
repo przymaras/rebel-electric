@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const useDataFetcher: (url: string) => [any[], boolean] = (url: string) => {
   const [data, setData] = useState<any[]>([]);
@@ -12,7 +12,7 @@ const useDataFetcher: (url: string) => [any[], boolean] = (url: string) => {
           const data = await res.json();
           setData(data);
           setIsAvailable(true);
-        } else throw Error("Error while fetching data...");
+        } else throw Error('Error while fetching data...');
       } catch (err: any) {
         console.error(err.message);
       }

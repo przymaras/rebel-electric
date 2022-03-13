@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
-import useTranslation from "next-translate/useTranslation";
+import Link from 'next/link';
+import useTranslation from 'next-translate/useTranslation';
 
-import { getBigThumbSrc, roundNum } from "../../utils/common-functions";
+import { getBigThumbSrc, roundNum } from '../../utils/common-functions';
 
-import styles from "./VehicleBox.module.scss";
+import styles from './VehicleBox.module.scss';
 
-import DataBar from "./DataBar";
-import { Vehicle } from "../../models/hangar";
+import DataBar from './DataBar';
+import { Vehicle } from '../../models/hangar';
 
 interface VehicleBoxProps {
   vehicleData: Vehicle;
@@ -16,9 +16,7 @@ interface VehicleBoxProps {
 const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
   const vData = props.vehicleData;
 
-  const imageName = vData.vehicleImages[0]
-    ? vData.vehicleImages[0]
-    : "none.jpg";
+  const imageName = vData.vehicleImages[0] ? vData.vehicleImages[0] : 'none.jpg';
   const projectName = vData.projectName;
   const vehicleId = vData._id;
 
@@ -27,7 +25,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
   //TODO: Refactor definitions below to functions here and in DataTablesEbike
 
   let power: number | undefined =
-    parseInt(vData?.batVoltage ?? "") * parseInt(vData?.ctrlCurrent ?? "");
+    parseInt(vData?.batVoltage ?? '') * parseInt(vData?.ctrlCurrent ?? '');
 
   power = power ? roundNum(power) : undefined;
 
@@ -37,19 +35,19 @@ const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
   let capacityWh: number | undefined;
   let capacityAh: number | undefined;
 
-  if (capacityUnit === "Wh") {
+  if (capacityUnit === 'Wh') {
     capacityWh = capacity;
     if (voltage) {
       capacityAh = roundNum((capacity ?? 0) / voltage);
     }
-  } else if (capacityUnit === "Ah") {
+  } else if (capacityUnit === 'Ah') {
     capacityAh = capacity;
     if (voltage) {
       capacityWh = roundNum((capacity ?? 0) * voltage);
     }
   }
 
-  const range = parseInt(vData?.range ?? "---");
+  const range = parseInt(vData?.range ?? '---');
   let energyConsumption: number | undefined;
 
   if (capacityWh && range) {
@@ -61,48 +59,38 @@ const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
       <a>
         <div className={styles.container}>
           <div className={styles.titleContainer}>
-            <h2 className={`${styles.title} rebel-font`}>
-              {vData.projectName}
-            </h2>
+            <h2 className={`${styles.title} rebel-font`}>{vData.projectName}</h2>
           </div>
           <div className={styles.categoryImg}>
-            <img
-              src={getBigThumbSrc(imageName, projectName)}
-              alt={projectName}
-              loading="lazy"
-            />
+            <img src={getBigThumbSrc(imageName, projectName)} alt={projectName} loading='lazy' />
           </div>
 
           <DataBar
-            style="base"
-            col1={`${vData?.vmax ? vData.vmax : "---"} ${
-              vData?.vmaxUnit ? t(`hangar:${vData.vmaxUnit}`) : ""
+            style='base'
+            col1={`${vData?.vmax ? vData.vmax : '---'} ${
+              vData?.vmaxUnit ? t(`hangar:${vData.vmaxUnit}`) : ''
             }`}
-            col2={`${vData?.mass ? vData.mass : "---"} ${vData.massUnit ?? ""}`}
-            col3={`${vData?.range ? vData.range : "---"} ${
-              vData?.rangeUnit ?? ""
-            }`}
+            col2={`${vData?.mass ? vData.mass : '---'} ${vData.massUnit ?? ''}`}
+            col3={`${vData?.range ? vData.range : '---'} ${vData?.rangeUnit ?? ''}`}
           />
           <DataBar
-            style="electrical"
-            col1={power ? `${power} W` : "---"}
-            col2={vData?.ctrlCurrent ? `${vData.ctrlCurrent} A` : "---"}
+            style='electrical'
+            col1={power ? `${power} W` : '---'}
+            col2={vData?.ctrlCurrent ? `${vData.ctrlCurrent} A` : '---'}
             col3={
-              energyConsumption
-                ? `${energyConsumption} Wh/${vData?.rangeUnit ?? "---"}`
-                : "---"
+              energyConsumption ? `${energyConsumption} Wh/${vData?.rangeUnit ?? '---'}` : '---'
             }
           />
           <DataBar
-            style="battery"
-            col1={capacityWh ? `${capacityWh} Wh` : "---"}
-            col2={capacityAh ? `${capacityAh} Ah` : "---"}
+            style='battery'
+            col1={capacityWh ? `${capacityWh} Wh` : '---'}
+            col2={capacityAh ? `${capacityAh} Ah` : '---'}
             col3={
-              vData?.batVoltage && vData?.batVoltage !== "other"
+              vData?.batVoltage && vData?.batVoltage !== 'other'
                 ? `${vData.batVoltage} V`
                 : vData?.batVoltageOther
                 ? `${vData.batVoltageOther} V`
-                : "---"
+                : '---'
             }
           />
         </div>

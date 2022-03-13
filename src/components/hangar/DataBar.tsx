@@ -1,7 +1,7 @@
-import { IconBattery } from "../icons/IconBattery";
-import { IconLightning } from "../icons/IconLightning";
-import { IconStar } from "../icons/IconStar";
-import styles from "./DataBar.module.scss";
+import { IconBattery } from '../icons/IconBattery';
+import { IconLightning } from '../icons/IconLightning';
+import { IconStar } from '../icons/IconStar';
+import styles from './DataBar.module.scss';
 
 interface DataBarProps {
   style: string;
@@ -15,21 +15,21 @@ const DataBar: React.FC<DataBarProps> = (props) => {
   let Icon = IconStar;
 
   switch (props.style) {
-    case "base":
+    case 'base':
       cssStyle = styles.base;
       Icon = IconStar;
       break;
-    case "electrical":
+    case 'electrical':
       cssStyle = styles.electrical;
       Icon = IconLightning;
       break;
-    case "battery":
+    case 'battery':
       cssStyle = styles.battery;
       Icon = IconBattery;
       break;
 
     default:
-      cssStyle = "";
+      cssStyle = '';
       break;
   }
   return (

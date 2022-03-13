@@ -1,4 +1,4 @@
-@import "../../variables.scss";
+@import '../../variables.scss';
 
 .recentlyAdded {
   background: $dark-background;
@@ -52,8 +52,8 @@
     &:after {
       position: absolute;
       left: 99%;
-      content: "";
-      background-image: url("/img/ornament-r.svg");
+      content: '';
+      background-image: url('/img/ornament-r.svg');
       background-size: contain;
       background-repeat: no-repeat;
       width: 326px;
@@ -64,8 +64,8 @@
     &:before {
       position: absolute;
       left: 0;
-      content: "";
-      background-image: url("/img/ornament-l.svg");
+      content: '';
+      background-image: url('/img/ornament-l.svg');
       background-size: contain;
       background-repeat: no-repeat;
       width: 326px;

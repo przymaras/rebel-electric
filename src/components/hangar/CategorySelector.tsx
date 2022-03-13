@@ -1,23 +1,22 @@
-import { ErrorMessage, FormikHelpers, FormikProps } from "formik";
-import { useCallback, useState } from "react";
-import { useEffect } from "react";
-import { VehiclesCategories } from "../../models/hangar";
+import { ErrorMessage, FormikHelpers, FormikProps } from 'formik';
+import { useCallback, useState } from 'react';
+import { useEffect } from 'react';
+import { VehiclesCategories } from '../../models/hangar';
 
-import styles from "./CategorySelector.module.scss";
+import styles from './CategorySelector.module.scss';
 
-import { useStore } from "../../store/useStore";
-import { StoreState } from "../../store/useStore";
+import { useStore } from '../../store/useStore';
+import { StoreState } from '../../store/useStore';
 
-import CategorySwiper from "./CategorySwiper";
+import CategorySwiper from './CategorySwiper';
 
-import CategorySwiperStyles from "./CategorySwiperStyles";
+import CategorySwiperStyles from './CategorySwiperStyles';
 
 interface CategorySelectorProps {
   addVehicle?: boolean;
 }
 
-const vehiclesCategoriesSelector = (state: StoreState) =>
-  state.vehiclesCategories;
+const vehiclesCategoriesSelector = (state: StoreState) => state.vehiclesCategories;
 
 const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
   const categorySelector = useCallback<(state: StoreState) => number[]>(
@@ -28,9 +27,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
     [props.addVehicle]
   );
 
-  const setCategorySelector = useCallback<
-    (state: StoreState) => (cat: number[]) => void
-  >(
+  const setCategorySelector = useCallback<(state: StoreState) => (cat: number[]) => void>(
     (state) => {
       if (props.addVehicle === true) return state.setAddVehicleCategory;
       else return state.setHangarCategory;
@@ -71,10 +68,10 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
      */
     let currentCatLvl = -1;
 
-    const renderSwiper: (
-      cat: VehiclesCategories,
-      selected: number[]
-    ) => React.ReactNode = (cat, selected) => {
+    const renderSwiper: (cat: VehiclesCategories, selected: number[]) => React.ReactNode = (
+      cat,
+      selected
+    ) => {
       //increment category level / first is from -1 to 0
       currentCatLvl++;
 
@@ -92,30 +89,21 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
         </>
       );
 
-      const thereIsCategoryToRenderAtCurrentLevel =
-        cat.categories[selected[currentCatLvl]];
+      const thereIsCategoryToRenderAtCurrentLevel = cat.categories[selected[currentCatLvl]];
 
-      const thisIsFirstRenderWithoutSelectedCategory =
-        selected[currentCatLvl] === -1;
+      const thisIsFirstRenderWithoutSelectedCategory = selected[currentCatLvl] === -1;
 
-      if (
-        thereIsCategoryToRenderAtCurrentLevel ||
-        thisIsFirstRenderWithoutSelectedCategory
-      ) {
+      if (thereIsCategoryToRenderAtCurrentLevel || thisIsFirstRenderWithoutSelectedCategory) {
         // try to render this category level
         // or first category level if this is first render without any selections
-        const thereAreChildCategories =
-          cat.categories[selected[currentCatLvl]]?.child;
+        const thereAreChildCategories = cat.categories[selected[currentCatLvl]]?.child;
 
         const childCategoryIsNotPowerRelated =
           !cat.categories[selected[currentCatLvl]]?.child?.powerRelated;
 
         const isNotInAddVEhicleMode = !props.addVehicle ?? true;
 
-        if (
-          thereAreChildCategories &&
-          (childCategoryIsNotPowerRelated || isNotInAddVEhicleMode)
-        ) {
+        if (thereAreChildCategories && (childCategoryIsNotPowerRelated || isNotInAddVEhicleMode)) {
           // enter recursive mode
           const thisIsFirstTimeGoingThroughCategoryArray =
             selected[currentCatLvl + 1] === undefined;
@@ -131,10 +119,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
               {Swiper}
 
               {/*enter recursive mode but this time as "cat" argument we pass child array*/}
-              {renderSwiper(
-                cat.categories[selected[currentCatLvl]].child!,
-                selected
-              )}
+              {renderSwiper(cat.categories[selected[currentCatLvl]].child!, selected)}
             </>
           );
         } else {
@@ -147,16 +132,13 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
     return renderSwiper(cat, selected);
   }
 
-  const renderSelectedCategoriesNames = (
-    cat: VehiclesCategories,
-    selected: number[]
-  ) => {
+  const renderSelectedCategoriesNames = (cat: VehiclesCategories, selected: number[]) => {
     let currentIndex = -1;
 
-    const renderSelected: (
-      cat: VehiclesCategories,
-      selected: number[]
-    ) => React.ReactNode = (cat, selected) => {
+    const renderSelected: (cat: VehiclesCategories, selected: number[]) => React.ReactNode = (
+      cat,
+      selected
+    ) => {
       currentIndex++;
       if (
         selected[currentIndex] !== undefined &&
@@ -171,10 +153,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
               {/* <p> */}
               {/* {cat.catTitle}:  */}
               {cat.categories[selected[currentIndex]].name} / {/* </p> */}
-              {renderSelected(
-                cat.categories[selected[currentIndex]].child!,
-                selected
-              )}
+              {renderSelected(cat.categories[selected[currentIndex]].child!, selected)}
             </>
           );
         } else {
@@ -198,13 +177,8 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
       {!selectedCategory.includes(-1) && (props.addVehicle ?? false) && (
         <div>
           <p className={styles.selectedCategory}>
-            Twój pojazd trafi do kategorii:{" "}
-            <strong>
-              {renderSelectedCategoriesNames(
-                vehiclesCategories,
-                selectedCategory
-              )}
-            </strong>
+            Twój pojazd trafi do kategorii:{' '}
+            <strong>{renderSelectedCategoriesNames(vehiclesCategories, selectedCategory)}</strong>
           </p>
         </div>
       )}

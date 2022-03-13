@@ -1,9 +1,9 @@
-import * as React from "react";
-import { FormikProps, connect } from "formik";
-import debounce from "lodash.debounce";
-import isEqual from "react-fast-compare";
-import { useStore } from "../store/useStore";
-import { getSelectedCategoryTreeInfo } from "./common-functions";
+import * as React from 'react';
+import { FormikProps, connect } from 'formik';
+import debounce from 'lodash.debounce';
+import isEqual from 'react-fast-compare';
+import { useStore } from '../store/useStore';
+import { getSelectedCategoryTreeInfo } from './common-functions';
 
 export interface PersistProps {
   name: string;
@@ -11,10 +11,7 @@ export interface PersistProps {
   isSessionStorage?: boolean;
 }
 
-class PersistImpl extends React.Component<
-  PersistProps & { formik: FormikProps<any> },
-  {}
-> {
+class PersistImpl extends React.Component<PersistProps & { formik: FormikProps<any> }, {}> {
   static defaultProps = {
     debounce: 300,
   };
@@ -22,15 +19,9 @@ class PersistImpl extends React.Component<
   saveForm = debounce((data: FormikProps<{}>) => {
     const { isSubmitting, ...filteredData } = data; //ommit isSubmitting - submit button depends on this formik prop, it is going to remain disabled
     if (this.props.isSessionStorage) {
-      window.sessionStorage.setItem(
-        this.props.name,
-        JSON.stringify(filteredData)
-      );
+      window.sessionStorage.setItem(this.props.name, JSON.stringify(filteredData));
     } else {
-      window.localStorage.setItem(
-        this.props.name,
-        JSON.stringify(filteredData)
-      );
+      window.localStorage.setItem(this.props.name, JSON.stringify(filteredData));
     }
   }, this.props.debounce);
 
