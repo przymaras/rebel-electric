@@ -1,12 +1,12 @@
-import styles from './Nav.module.scss';
 import useTranslation from 'next-translate/useTranslation';
-import NavLink from './NavLink';
 
 import { IconAcademy } from '../icons/IconAcademy';
+import { IconCirclePlus } from '../icons/IconCirclePlus';
 import { IconHangar } from '../icons/IconHangar';
 import { IconPowerOn } from '../icons/IconPowerOn';
-import { IconCirclePlus } from '../icons/IconCirclePlus';
 import { IconRebel } from '../icons/IconRebel';
+import styles from './Nav.module.scss';
+import NavLink from './NavLink';
 
 interface NavProps {
   closeNav: () => void;
@@ -16,7 +16,10 @@ interface NavProps {
 const Nav: React.FC<NavProps> = (props) => {
   const { t } = useTranslation();
   return (
-    <nav onClick={props.closeNav} className={`${styles.nav} ${!props.isVisible && styles.hidden}`}>
+    <nav
+      onClick={props.closeNav}
+      className={`${styles.nav} ${!props.isVisible ? styles.hidden : ''}`}
+    >
       <div className={styles.container}>
         <NavLink
           href='/'

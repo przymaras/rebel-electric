@@ -1,18 +1,15 @@
-import { useRouter } from "next/router";
-import { Document, MongoClient, ObjectId } from "mongodb";
-import { GetStaticProps, GetStaticPaths } from "next";
-import { Vehicle } from "../../src/models/hangar";
-import { ItemManufacturerObj } from "../../src/models/hangar";
+import { MongoClient, ObjectId } from 'mongodb';
+import { GetStaticProps, GetStaticPaths } from 'next';
 
-import VehicleDetails from "../../src/components/hangar/VehicleDetails";
+import VehicleDetails from 'src/components/hangar/VehicleDetails';
+import { Vehicle } from 'src/models/hangar';
+import { ItemManufacturerObj } from 'src/models/hangar';
 
 const HangarVehiclePage: React.FC<{
   vehicleData: Vehicle;
   controllersData: ItemManufacturerObj[];
   motorsData: ItemManufacturerObj[];
 }> = (props) => {
-  const router = useRouter();
-  // const { vehicleId } = router.query;
   return (
     <VehicleDetails
       vehicleData={props.vehicleData}
@@ -27,28 +24,29 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const dbhost = process.env.MONGODB_HOST;
   const dbUser = process.env.MONGODB_USER;
   const dbPass = process.env.MONGODB_PASS;
+  if (!dbName || !dbhost || !dbUser || !dbPass) return { paths: [], fallback: false };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  let vehiclesArray: Document[] = [];
+  let vehiclesArray: Vehicle[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
-    const vehiclesCollection = db.collection("vehicles");
-    vehiclesArray = await vehiclesCollection
+    const vehiclesCollection = db.collection('vehicles');
+    vehiclesArray = (await vehiclesCollection
       .aggregate([{ $project: { _id: 1, createdAt: 1 } }])
       .sort({ createdAt: -1 })
       .limit(5)
-      .toArray();
+      .toArray()) as Vehicle[];
 
-    client.close();
+    await client.close();
     console.log(vehiclesArray);
   } catch (err) {
     console.log(err);
   }
 
   return {
-    fallback: "blocking",
+    fallback: 'blocking',
     // paths: [{ params: { meetupId: "m1" } }, { params: { meetupId: "m2" } }],
     paths: vehiclesArray.map((vehicle) => ({
       params: { vehicleId: vehicle._id.toString() },
@@ -61,19 +59,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const dbhost = process.env.MONGODB_HOST;
   const dbUser = process.env.MONGODB_USER;
   const dbPass = process.env.MONGODB_PASS;
+  if (!dbName || !dbhost || !dbUser || !dbPass) return { props: {} };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  const vehicleId = context.params!.vehicleId;
+  const vehicleId = context.params?.vehicleId;
 
-  let vehiclesArray: Document[] = [{ _id: 0 }];
-  let controllersArray: Document[] = [];
-  let motorsArray: Document[] = [];
+  let vehiclesArray: Vehicle[] = [];
+  let controllersArray: ItemManufacturerObj[] = [];
+  let motorsArray: ItemManufacturerObj[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
-    const vehiclesCollection = db.collection("vehicles");
-    vehiclesArray = await vehiclesCollection
+    if (typeof vehicleId !== 'string') return { props: {} };
+    const vehiclesCollection = db.collection('vehicles');
+    vehiclesArray = (await vehiclesCollection
       .aggregate([
         {
           $match: {
@@ -82,10 +82,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
         },
         {
           $lookup: {
-            from: "users",
-            localField: "ownerId",
-            foreignField: "_id",
-            as: "user",
+            from: 'users',
+            localField: 'ownerId',
+            foreignField: '_id',
+            as: 'user',
           },
         },
         {
@@ -93,9 +93,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
             newRoot: {
               $mergeObjects: [
                 {
-                  $arrayElemAt: ["$user", 0],
+                  $arrayElemAt: ['$user', 0],
                 },
-                "$$ROOT",
+                '$$ROOT',
               ],
             },
           },
@@ -151,15 +151,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
           },
         },
       ])
-      .toArray();
+      .toArray()) as Vehicle[];
 
-    const controllersCollection = db.collection("controllers");
-    controllersArray = await controllersCollection.aggregate([]).toArray();
+    const controllersCollection = db.collection('controllers');
+    controllersArray = (await controllersCollection
+      .aggregate([])
+      .toArray()) as ItemManufacturerObj[];
 
-    const motorsCollection = db.collection("motors");
-    motorsArray = await motorsCollection.aggregate([]).toArray();
+    const motorsCollection = db.collection('motors');
+    motorsArray = (await motorsCollection.aggregate([]).toArray()) as ItemManufacturerObj[];
 
-    client.close();
+    await client.close();
   } catch (err) {
     console.log(err);
   }
@@ -169,14 +171,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
       vehicleData: {
         ...vehiclesArray[0],
         _id: vehiclesArray[0]._id.toString(),
-        ownerId: vehiclesArray[0].ownerId
-          ? vehiclesArray[0].ownerId.toString()
-          : "",
+        ownerId: vehiclesArray[0].ownerId ? vehiclesArray[0].ownerId.toString() : '',
       },
       controllersData: controllersArray.map((controller) => ({
         ...controller,
         _id: controller._id.toString(),
-        models: controller.models.map((model: Document) => ({
+        models: controller.models.map((model) => ({
           ...model,
           _id: model._id.toString(),
         })),
@@ -184,7 +184,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       motorsData: motorsArray.map((motor) => ({
         ...motor,
         _id: motor._id.toString(),
-        models: motor.models.map((model: Document) => ({
+        models: motor.models.map((model) => ({
           ...model,
           _id: model._id.toString(),
         })),

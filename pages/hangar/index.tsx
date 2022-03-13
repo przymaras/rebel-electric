@@ -1,8 +1,8 @@
-import { Document, MongoClient } from "mongodb";
-import { GetStaticProps } from "next";
-import { Vehicle } from "../../src/models/hangar";
+import { MongoClient } from 'mongodb';
+import { GetStaticProps } from 'next';
 
-import Hangar from "../../src/components/hangar/Hangar";
+import Hangar from 'src/components/hangar/Hangar';
+import { Vehicle } from 'src/models/hangar';
 
 const HangarPage: React.FC<{ vehicles: Vehicle[] }> = (props) => {
   return <Hangar vehicles={props.vehicles} />;
@@ -27,22 +27,21 @@ const HangarPage: React.FC<{ vehicles: Vehicle[] }> = (props) => {
 //   };
 // }
 
-export const getStaticProps: GetStaticProps<{
-  vehicles: Document[];
-}> = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const dbName = process.env.MONGODB_DB;
   const dbhost = process.env.MONGODB_HOST;
   const dbUser = process.env.MONGODB_USER;
   const dbPass = process.env.MONGODB_PASS;
+  if (!dbName || !dbhost || !dbUser || !dbPass) return { props: {} };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  let vehiclesArray: Document[] = [];
+  let vehiclesArray: Vehicle[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
-    const vehiclesCollection = db.collection("vehicles");
-    vehiclesArray = await vehiclesCollection
+    const vehiclesCollection = db.collection('vehicles');
+    vehiclesArray = (await vehiclesCollection
       .aggregate([
         {
           $project: {
@@ -53,8 +52,8 @@ export const getStaticProps: GetStaticProps<{
 
       .sort({ createdAt: -1 }) //sort from newest to oldest
       // .limit(3)
-      .toArray();
-    client.close();
+      .toArray()) as Vehicle[];
+    await client.close();
   } catch (err) {
     console.log(err);
   }

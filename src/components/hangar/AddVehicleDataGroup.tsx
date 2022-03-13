@@ -4,7 +4,7 @@ import { IconStar } from '../icons/IconStar';
 import styles from './AddVehicleDataGroup.module.scss';
 
 interface AddVehicleDataGroupProps {
-  style: string;
+  groupStyle: string;
   name: string;
 }
 
@@ -12,7 +12,7 @@ const AddVehicleDataGroup: React.FC<AddVehicleDataGroupProps> = (props) => {
   let cssStyle;
   let Icon = IconStar;
 
-  switch (props.style) {
+  switch (props.groupStyle) {
     case 'base':
       cssStyle = styles.base;
       Icon = IconStar;

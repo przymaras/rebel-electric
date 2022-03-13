@@ -1,13 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from 'next/link';
 import useTranslation from 'next-translate/useTranslation';
+import Link from 'next/link';
 
-import { getBigThumbSrc, roundNum } from '../../utils/common-functions';
-
-import styles from './VehicleBox.module.scss';
-
-import DataBar from './DataBar';
 import { Vehicle } from '../../models/hangar';
+import { getBigThumbSrc, roundNum } from '../../utils/common-functions';
+import DataBar from './DataBar';
+import styles from './VehicleBox.module.scss';
 
 interface VehicleBoxProps {
   vehicleData: Vehicle;
@@ -56,6 +54,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
 
   return (
     <Link href={`/hangar/${vehicleId}`} passHref>
+      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a>
         <div className={styles.container}>
           <div className={styles.titleContainer}>
@@ -66,7 +65,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
           </div>
 
           <DataBar
-            style='base'
+            barStyle='base'
             col1={`${vData?.vmax ? vData.vmax : '---'} ${
               vData?.vmaxUnit ? t(`hangar:${vData.vmaxUnit}`) : ''
             }`}
@@ -74,7 +73,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
             col3={`${vData?.range ? vData.range : '---'} ${vData?.rangeUnit ?? ''}`}
           />
           <DataBar
-            style='electrical'
+            barStyle='electrical'
             col1={power ? `${power} W` : '---'}
             col2={vData?.ctrlCurrent ? `${vData.ctrlCurrent} A` : '---'}
             col3={
@@ -82,7 +81,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
             }
           />
           <DataBar
-            style='battery'
+            barStyle='battery'
             col1={capacityWh ? `${capacityWh} Wh` : '---'}
             col2={capacityAh ? `${capacityAh} Ah` : '---'}
             col3={

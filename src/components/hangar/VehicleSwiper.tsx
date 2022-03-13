@@ -1,25 +1,20 @@
 /* eslint-disable jsx-a11y/alt-text */
+
 /* eslint-disable @next/next/no-img-element */
-
 //Swiper Zoom doesn't work for <Image /> element - fix it later
-
 import React, { useState } from 'react';
-
-import VehicleSwiperStyles from './VehicleSwiperStyles';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperClass, { FreeMode, Navigation, Thumbs, Zoom, Lazy } from 'swiper';
-
 import 'swiper/css';
 import 'swiper/css/free-mode';
+import 'swiper/css/lazy';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'swiper/css/zoom';
-import 'swiper/css/lazy';
-
-import styles from './VehicleSwiper.module.scss';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { getFullSrc, getSmallThumbSrc } from '../../utils/common-functions';
+import styles from './VehicleSwiper.module.scss';
+import VehicleSwiperStyles from './VehicleSwiperStyles';
 
 interface VehicleSwiperProps {
   images: string[];

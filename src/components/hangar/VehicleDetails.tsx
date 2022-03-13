@@ -1,22 +1,20 @@
 import useTranslation from 'next-translate/useTranslation';
-import { Vehicle } from '../../models/hangar';
+
 import { ItemManufacturerObj } from '../../../src/models/hangar';
-
-import styles from './VehicleDetails.module.scss';
-
+import { Vehicle } from '../../models/hangar';
 import { useStore } from '../../store/useStore';
 import { StoreState } from '../../store/useStore';
-
+import { getSelectedCategoryTreeInfo } from '../../utils/common-functions';
 import { IconHangar } from '../icons/IconHangar';
-import { IconUser } from '../icons/IconUser';
 import { IconMapLocation } from '../icons/IconMapLocation';
+import { IconUser } from '../icons/IconUser';
+import BtnLink from '../layout/BtnLink';
 import TitleBox from '../layout/TitleBox';
-import VehicleSwiper from './VehicleSwiper';
-import VehicleVeiwsCatLikes from './VehicleVeiwsCatLikes';
 import DataTablesEbike from './DataTablesEbike';
 import Description from './Description';
-import BtnLink from '../layout/BtnLink';
-import { getSelectedCategoryTreeInfo } from '../../utils/common-functions';
+import styles from './VehicleDetails.module.scss';
+import VehicleSwiper from './VehicleSwiper';
+import VehicleVeiwsCatLikes from './VehicleVeiwsCatLikes';
 
 interface VehicleDetailsProps {
   vehicleData?: Vehicle;

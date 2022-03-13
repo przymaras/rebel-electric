@@ -1,10 +1,8 @@
 import useTranslation from 'next-translate/useTranslation';
 
-import styles from './RecentBox.module.scss';
-
 import { Vehicle } from '../../models/hangar';
-
 import Recent from './Recent';
+import styles from './RecentBox.module.scss';
 
 const RecentBox: React.FC<{ vehicles: Vehicle[] }> = (props) => {
   const { t } = useTranslation();

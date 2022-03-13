@@ -1,20 +1,17 @@
-import { useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
 import { ItemManufacturerObj } from '../../../src/models/hangar';
-
-import styles from './AddVehicle.module.scss';
-
 import { AddEbikeValues } from '../../models/hangar';
-
-import { IconHangar } from '../icons/IconHangar';
-import TitleBox from '../layout/TitleBox';
-import InfoBox from '../layout/InfoBox';
-import CategorySelector from './CategorySelector';
-import AddEbikeFormikContext from './AddEbikeFormikContext';
-
 import { useStore } from '../../store/useStore';
 import { StoreState } from '../../store/useStore';
+import { IconHangar } from '../icons/IconHangar';
+import InfoBox from '../layout/InfoBox';
+import TitleBox from '../layout/TitleBox';
+import AddEbikeFormikContext from './AddEbikeFormikContext';
+import styles from './AddVehicle.module.scss';
+import CategorySelector from './CategorySelector';
 
 const newCategoryChosenSelector = (state: StoreState) => state.newCategoryChosen;
 
@@ -63,7 +60,7 @@ const AddVehicle: React.FC<{
       //Then with the data from the response in JSON...
       .then((data) => {
         console.log('Success:', data);
-        router.replace('/hangar');
+        void router.replace('/hangar');
       })
       //Then with the error genereted...
       .catch((error) => {

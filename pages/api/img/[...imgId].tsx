@@ -1,13 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { getImageDetailsByName } from "../../../src/utils/imageKit-functions";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { getImageDetailsByName } from '../../../src/utils/imageKit-functions';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  let { imgId } = req.query;
-
-  // console.log(imgId);
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { imgId } = req.query;
 
   try {
     res.status(200).json(await getImageDetailsByName(imgId));

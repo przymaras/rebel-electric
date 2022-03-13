@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-
 import Link from 'next/link';
+
 import { Vehicle } from '../../models/hangar';
 import { getBigThumbSrc } from '../../utils/common-functions';
-
 import styles from './Recent.module.scss';
 
 const Recent: React.FC<{ vehicle: Vehicle }> = (props) => {
@@ -13,6 +12,7 @@ const Recent: React.FC<{ vehicle: Vehicle }> = (props) => {
   return (
     <div className={styles.container}>
       <Link href={`/hangar/${id}`} passHref>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a>
           <div className={styles.recentImgContainer}>
             <img

@@ -1,4 +1,5 @@
 import { GetState, SetState } from 'zustand';
+
 import { StoreState } from './useStore';
 
 export interface AddVehicleState {
@@ -12,7 +13,7 @@ export interface AddVehicleState {
 export const createAddVehicleSlice: (
   set: SetState<StoreState>,
   get: GetState<StoreState>
-) => AddVehicleState = (set, get) => ({
+) => AddVehicleState = (set) => ({
   addVehicleCategory: [-1],
   newCategoryChosen: false,
   setAddVehicleCategory: (newCategory) => set({ addVehicleCategory: newCategory }),

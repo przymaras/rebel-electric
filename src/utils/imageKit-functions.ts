@@ -14,12 +14,12 @@ const imagekit: ImageKit = new ImageKit({
 //   return imagesDetails;
 // };
 
-export const getAuthenticationParameters = async () => {
-  return await imagekit.getAuthenticationParameters();
+export const getAuthenticationParameters = () => {
+  return imagekit.getAuthenticationParameters();
 };
 
 export const moveImage = async (source: string, destination: string) => {
-  return await imagekit.moveFile(source, destination);
+  await imagekit.moveFile(source, destination);
 };
 
 export const getImageDetailsByName = async (imageFileNames: string | string[]) => {
@@ -30,11 +30,10 @@ export const getImageDetailsByName = async (imageFileNames: string | string[]) =
   } else ImageFilesNamesArray = imageFileNames;
 
   imagesDetails = await Promise.all(
-    ImageFilesNamesArray.map(
-      async (imgName) =>
-        await imagekit.listFiles({
-          name: imgName,
-        })
+    ImageFilesNamesArray.map((imgName) =>
+      imagekit.listFiles({
+        name: imgName,
+      })
     )
   );
   return imagesDetails.map((image) => image[0]); //[0] for remove parent array which always have one item

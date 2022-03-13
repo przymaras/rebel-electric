@@ -1,11 +1,12 @@
 import Image from 'next/image';
-import Nav from './Nav';
-import styles from './Header.module.scss';
-import Logo from '../../../public/img/rebel-electric-logo.svg';
-import { IconNavBars } from '../icons/IconNavBars';
 import { useEffect, useState } from 'react';
 
-const Header: React.FC = (props) => {
+import Logo from '../../../public/img/rebel-electric-logo.svg';
+import { IconNavBars } from '../icons/IconNavBars';
+import styles from './Header.module.scss';
+import Nav from './Nav';
+
+const Header: React.FC = () => {
   const [isVisibleNav, setIsVisibleNav] = useState<boolean>(false);
 
   function toggleNav() {
@@ -19,7 +20,7 @@ const Header: React.FC = (props) => {
   }
 
   useEffect(() => {
-    isVisibleNav ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '');
+    document.body.style.overflow = isVisibleNav ? 'hidden' : '';
   }, [isVisibleNav]);
 
   return (
@@ -33,6 +34,7 @@ const Header: React.FC = (props) => {
           <br /> ELECTRIC
         </h2>
         <div className={styles.img}>
+          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
           <Image src={Logo} alt='Rebel Electric Logo' width={115} height={50} />
         </div>
         <Nav isVisible={isVisibleNav} closeNav={closeNav} />

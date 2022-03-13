@@ -4,7 +4,7 @@ import { IconStar } from '../icons/IconStar';
 import styles from './DataTable.module.scss';
 
 interface DataTableProps {
-  style: string;
+  tableStyle: string;
   title: string;
   // col1Title: string;
   // col1Value: string;
@@ -17,11 +17,11 @@ interface DataTableProps {
 }
 
 const DataTable: React.FC<DataTableProps> = (props) => {
-  let cssStyle;
-  let cssStyleLight;
+  let cssStyle = '';
+  let cssStyleLight = '';
   let Icon = IconStar;
-
-  switch (props.style) {
+  //TODO: change to classNames lib
+  switch (props.tableStyle) {
     case 'base':
       cssStyle = styles.base;
       cssStyleLight = styles.baseLight;

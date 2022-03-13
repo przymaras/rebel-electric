@@ -1,11 +1,9 @@
-import { Formik, Field, Form, ErrorMessage, useField } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import { useRef } from 'react';
 import * as Yup from 'yup';
 
 import { ItemManufacturerObj } from '../../../src/models/hangar';
-
 import { AddEbikeValues } from '../../models/hangar';
-
 import AddEbikeForm from './AddEbikeForm';
 
 interface AddEbikeFormikContextProps {
@@ -58,7 +56,7 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
           batVoltageOther: '',
           capacity: '',
           capacityUnit: '',
-          vehicleImages: [],
+          vehicleImages: [] as string[],
           category: '',
         }}
         validationSchema={Yup.object({
@@ -173,7 +171,7 @@ const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
           }),
           vehicleImages: Yup.array().test({
             message: 'Add at least one image',
-            test: (arr) => arr!.length >= 1 && arr![0] !== null,
+            test: (arr) => (arr ?? []).length >= 1 && (arr ?? [])[0] !== null,
           }),
           category: Yup.string().required('Select category to the end of category tree'),
         })}

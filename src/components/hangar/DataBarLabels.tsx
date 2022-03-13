@@ -3,10 +3,9 @@ import useTranslation from 'next-translate/useTranslation';
 import { IconBattery } from '../icons/IconBattery';
 import { IconLightning } from '../icons/IconLightning';
 import { IconStar } from '../icons/IconStar';
-
 import styles from './DataBarLabels.module.scss';
 
-const DataBarLabels: React.FC = (props) => {
+const DataBarLabels: React.FC = () => {
   const { t } = useTranslation();
   return (
     <div className={styles.container}>

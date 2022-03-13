@@ -1,14 +1,12 @@
 import Image from 'next/image';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperClass from 'swiper';
 import { useEffect, useRef } from 'react';
+import SwiperClass from 'swiper';
+import 'swiper/css';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useWindowResize } from '../../hooks/useWindowResize';
-
-import 'swiper/css';
-import styles from './CategorySwiper.module.scss';
 import { VehiclesCategories } from '../../models/hangar';
+import styles from './CategorySwiper.module.scss';
 
 interface CategorySwiperProps {
   selectedCategory: number[];
@@ -22,10 +20,10 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
   const selectedCategory = props.selectedCategory;
   const setSelectedCategory = props.setSelectedCategory;
 
-  let timer: any;
+  let timer: number;
   let initialSlide = 1;
   const swiperObject = useRef<SwiperClass>();
-  const [currentWidth, currentHeight] = useWindowResize();
+  const currentWidth = useWindowResize()[0];
 
   if (
     selectedCategory[props.currentCatLvl] !== undefined &&
@@ -39,7 +37,9 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
       selectedCategory[props.currentCatLvl] !== undefined &&
       selectedCategory[props.currentCatLvl] === -1
     ) {
-      swiperObject.current!.slideTo(1, 400);
+      if (swiperObject.current) {
+        swiperObject.current.slideTo(1, 400);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.cat.categories]); //set last category (without child) to slide no 1  when parent category has changed
@@ -69,11 +69,11 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
 
         onActiveIndexChange={(swiper) => {
           if (swiper.isBeginning) {
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
               swiper.slideTo(1, 400);
             }, 100);
           } else if (swiper.isEnd) {
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
               swiper.slideTo(props.cat.categories.length + 1, 400);
             }, 100);
           } else if (
@@ -81,7 +81,7 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
             swiper.activeIndex < props.cat.categories.length + 2
           ) {
             clearTimeout(timer); // allow user to swipe more than once without reload subcategories
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
               setSelectedCategory(
                 (() => {
                   const newArray = [...selectedCategory];
@@ -114,7 +114,7 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
         // }
         onClick={(swiper) => {
           if (swiper.clickedIndex !== 0 && swiper.clickedIndex !== swiper.slides.length - 1) {
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
               swiper.slideTo(swiper.clickedIndex, 400);
               // console.log(swiper.realIndex);
               // swiper.init();
