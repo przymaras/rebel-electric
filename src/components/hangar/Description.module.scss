@@ -1,4 +1,4 @@
-@import "../../variables.scss";
+@import '../../variables.scss';
 
 .container {
   width: 100%;
@@ -28,8 +28,8 @@
   font-weight: 800;
 
   &:before {
-    background-image: url("/img/back-arrow-right.svg");
-    content: "";
+    background-image: url('/img/back-arrow-right.svg');
+    content: '';
     width: 8px;
     height: 37px;
     left: -8px;
@@ -37,8 +37,8 @@
   }
 
   &:after {
-    background-image: url("/img/front-arrow-right.svg");
-    content: "";
+    background-image: url('/img/front-arrow-right.svg');
+    content: '';
     width: 10px;
     height: 37px;
     top: 0;

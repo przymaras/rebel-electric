@@ -1,4 +1,4 @@
-@import "../../variables.scss";
+@import '../../variables.scss';
 
 .container {
   width: 100%;
@@ -35,17 +35,17 @@
     grid-template-rows: repeat(6, auto);
     gap: 20px;
     grid-template-areas:
-      "swiper cat"
-      "swiper data"
-      "desc data"
-      "desc data"
-      "desc data"
-      "btns btns";
+      'swiper cat'
+      'swiper data'
+      'desc data'
+      'desc data'
+      'desc data'
+      'btns btns';
     align-items: start;
   }
 
   .buttonsWrapper {
-    grid-area: "btns";
+    grid-area: 'btns';
     justify-self: center;
   }
 }

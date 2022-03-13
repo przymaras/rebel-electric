@@ -3,23 +3,23 @@
 
 //Swiper Zoom doesn't work for <Image /> element - fix it later
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import VehicleSwiperStyles from "./VehicleSwiperStyles";
+import VehicleSwiperStyles from './VehicleSwiperStyles';
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperClass, { FreeMode, Navigation, Thumbs, Zoom, Lazy } from "swiper";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperClass, { FreeMode, Navigation, Thumbs, Zoom, Lazy } from 'swiper';
 
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
-import "swiper/css/zoom";
-import "swiper/css/lazy";
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
+import 'swiper/css/zoom';
+import 'swiper/css/lazy';
 
-import styles from "./VehicleSwiper.module.scss";
+import styles from './VehicleSwiper.module.scss';
 
-import { getFullSrc, getSmallThumbSrc } from "../../utils/common-functions";
+import { getFullSrc, getSmallThumbSrc } from '../../utils/common-functions';
 
 interface VehicleSwiperProps {
   images: string[];
@@ -42,7 +42,7 @@ const VehicleSwiper: React.FC<VehicleSwiperProps> = (props) => {
           modules={[FreeMode, Navigation, Thumbs, Zoom, Lazy]}
           navigation={true}
           thumbs={{ swiper: thumbsSwiper }}
-          className="mySwiper2"
+          className='mySwiper2'
           zoom={true}
           lazy={{
             loadPrevNext: true,
@@ -51,12 +51,12 @@ const VehicleSwiper: React.FC<VehicleSwiperProps> = (props) => {
           {props.images.map((image, index) => (
             <SwiperSlide key={index} zoom={true}>
               <img
-                src="/img/rebel.jpg"
+                src='/img/rebel.jpg'
                 data-src={getFullSrc(image, `${props.projectName} ${index}`)}
                 alt={`${props.projectName} ${index}`}
-                className="swiper-lazy"
+                className='swiper-lazy'
               />
-              <div className="swiper-lazy-preloader"></div>
+              <div className='swiper-lazy-preloader'></div>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -67,7 +67,7 @@ const VehicleSwiper: React.FC<VehicleSwiperProps> = (props) => {
           slidesPerView={4}
           freeMode={true}
           watchSlidesProgress={true}
-          className="mySwiper"
+          className='mySwiper'
         >
           {props.images.map((image, index) => (
             <SwiperSlide key={index}>

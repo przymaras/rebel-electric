@@ -1,9 +1,9 @@
-import ImageKit from "imagekit";
+import ImageKit from 'imagekit';
 
 const imagekit: ImageKit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY!,
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,
-  urlEndpoint: "https://ik.imagekit.io/rebelelectric/",
+  urlEndpoint: 'https://ik.imagekit.io/rebelelectric/',
 });
 
 // export const getImageDetails = async (imagesIds) => {
@@ -22,12 +22,10 @@ export const moveImage = async (source: string, destination: string) => {
   return await imagekit.moveFile(source, destination);
 };
 
-export const getImageDetailsByName = async (
-  imageFileNames: string | string[]
-) => {
+export const getImageDetailsByName = async (imageFileNames: string | string[]) => {
   let imagesDetails = [];
   let ImageFilesNamesArray: string[] = [];
-  if (typeof imageFileNames === "string") {
+  if (typeof imageFileNames === 'string') {
     ImageFilesNamesArray.push(imageFileNames);
   } else ImageFilesNamesArray = imageFileNames;
 

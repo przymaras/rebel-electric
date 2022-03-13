@@ -1,15 +1,13 @@
-import { VehiclesCategories } from "../models/hangar";
+import { VehiclesCategories } from '../models/hangar';
 
 export const dataOrOther = (
   value: string | undefined,
   valueOther: string | undefined,
   t: Function
 ) => {
-  let returnValue: string | undefined = value
-    ? value
-    : (t("hangar:unknown") as string);
+  let returnValue: string | undefined = value ? value : (t('hangar:unknown') as string);
 
-  if (value === "other") returnValue = valueOther;
+  if (value === 'other') returnValue = valueOther;
 
   return returnValue;
 };
@@ -19,9 +17,9 @@ export const translateOrOther = (
   valueOther: string | undefined,
   t: Function
 ) => {
-  let returnValue = t(`hangar:${value ? value : "unknown"}`);
+  let returnValue = t(`hangar:${value ? value : 'unknown'}`);
 
-  if (value === "other") returnValue = valueOther;
+  if (value === 'other') returnValue = valueOther;
 
   return returnValue;
 };
@@ -34,20 +32,20 @@ export const roundNum = (number: number | string | undefined) => {
 type ImgProjNameFn = (imgName: string, projName: string) => string;
 
 export const getBigThumbSrc: ImgProjNameFn = (imgName, projName) => {
-  const [imageName, imageExtension] = imgName.split(".");
-  const underscoredProjectName = projName.split(" ").join("_");
+  const [imageName, imageExtension] = imgName.split('.');
+  const underscoredProjectName = projName.split(' ').join('_');
   return `https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true,di-rebel.jpg/hangar/${imageName}/${underscoredProjectName}.${imageExtension}`;
 };
 
 export const getSmallThumbSrc: ImgProjNameFn = (imgName, projName) => {
-  const [imageName, imageExtension] = imgName.split(".");
-  const underscoredProjectName = projName.split(" ").join("_");
+  const [imageName, imageExtension] = imgName.split('.');
+  const underscoredProjectName = projName.split(' ').join('_');
   return `https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-small_thumb,pr-true,di-rebel.jpg/hangar/${imageName}/${underscoredProjectName}.${imageExtension}`;
 };
 
 export const getFullSrc: ImgProjNameFn = (imgName, projName) => {
-  const [imageName, imageExtension] = imgName.split(".");
-  const underscoredProjectName = projName.split(" ").join("_");
+  const [imageName, imageExtension] = imgName.split('.');
+  const underscoredProjectName = projName.split(' ').join('_');
   return `https://ik.imagekit.io/rebelelectric/ik-seo/tr:pr-true,di-rebel.jpg/hangar/${imageName}/${underscoredProjectName}.${imageExtension}`;
 };
 
@@ -57,7 +55,7 @@ export const getSelectedCategoryId = (
   allowPartialSelection?: boolean
 ) => {
   if (selected[0] === -1) return;
-  let categoryID: string = "";
+  let categoryID: string = '';
   let level = -1;
 
   const getId: (
@@ -82,11 +80,7 @@ export const getSelectedCategoryId = (
     }
 
     if (catArr.categories[selected[level]].child) {
-      getId(
-        catArr.categories[selected[level]].child!,
-        selected,
-        allowPartialSelection
-      );
+      getId(catArr.categories[selected[level]].child!, selected, allowPartialSelection);
     }
   };
 
@@ -94,10 +88,7 @@ export const getSelectedCategoryId = (
   return categoryID;
 };
 
-export const getSelectedCategoryTreeInfo = (
-  cat: VehiclesCategories,
-  id: string
-) => {
+export const getSelectedCategoryTreeInfo = (cat: VehiclesCategories, id: string) => {
   if (!id) return;
   let categoriesIndexes: number[] = [];
   let categoriesIDs: string[] = [];
@@ -109,16 +100,11 @@ export const getSelectedCategoryTreeInfo = (
   let level = 0;
   let idFound = false;
 
-  const getInfo: (
-    catArr: VehiclesCategories | undefined,
-    id: string
-  ) => void = (catArr, id) => {
+  const getInfo: (catArr: VehiclesCategories | undefined, id: string) => void = (catArr, id) => {
     if (catArr === undefined) return;
 
     //search for given id in this level of categories
-    const foundIndex = catArr.categories.findIndex(
-      (category) => category.id === id
-    );
+    const foundIndex = catArr.categories.findIndex((category) => category.id === id);
 
     //if found push it's index number at index [level] to "categoriesInfoArray" and return
     if (foundIndex !== -1) {
@@ -164,9 +150,7 @@ export const getSelectedCategoryTreeInfo = (
     });
   };
 
-  const getRestIDs: (catArr: VehiclesCategories | undefined) => void = (
-    catArr
-  ) => {
+  const getRestIDs: (catArr: VehiclesCategories | undefined) => void = (catArr) => {
     if (!catArr) return;
 
     catArr.categories.forEach((category) => {

@@ -1,7 +1,7 @@
-import styles from "./Layout.module.scss";
+import styles from './Layout.module.scss';
 
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from './Header';
+import Footer from './Footer';
 
 const Layout: React.FC = (props) => {
   return (

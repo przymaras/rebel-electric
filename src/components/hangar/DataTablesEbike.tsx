@@ -1,15 +1,11 @@
-import useTranslation from "next-translate/useTranslation";
-import {
-  dataOrOther,
-  translateOrOther,
-  roundNum,
-} from "../../utils/common-functions";
-import { Vehicle } from "../../models/hangar";
-import { ItemManufacturerObj } from "../../models/hangar";
+import useTranslation from 'next-translate/useTranslation';
+import { dataOrOther, translateOrOther, roundNum } from '../../utils/common-functions';
+import { Vehicle } from '../../models/hangar';
+import { ItemManufacturerObj } from '../../models/hangar';
 
-import styles from "./DataTables.module.scss";
+import styles from './DataTables.module.scss';
 
-import DataTable from "./DataTable";
+import DataTable from './DataTable';
 
 interface DataTablesProps {
   vehicleData?: Vehicle;
@@ -20,7 +16,7 @@ interface DataTablesProps {
 
 const DataTables: React.FC<DataTablesProps> = (props) => {
   const { t } = useTranslation();
-  const unknownText = t("hangar:unknown");
+  const unknownText = t('hangar:unknown');
   const vData = props.vehicleData;
   const cData = props.controllersData;
   const mData = props.motorsData;
@@ -28,7 +24,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
   //TODO: Refactor definitions below to functions here and in VehicleBox
 
   let power: number | undefined =
-    parseInt(vData?.batVoltage ?? "") * parseInt(vData?.ctrlCurrent ?? "");
+    parseInt(vData?.batVoltage ?? '') * parseInt(vData?.ctrlCurrent ?? '');
 
   power = power ? roundNum(power) : undefined;
 
@@ -38,34 +34,30 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
   let capacityWh: number | undefined;
   let capacityAh: number | undefined;
 
-  if (capacityUnit === "Wh") {
+  if (capacityUnit === 'Wh') {
     capacityWh = capacity;
     if (voltage) {
       capacityAh = roundNum((capacity ?? 0) / voltage);
     }
-  } else if (capacityUnit === "Ah") {
+  } else if (capacityUnit === 'Ah') {
     capacityAh = capacity;
     if (voltage) {
       capacityWh = roundNum((capacity ?? 0) * voltage);
     }
   }
 
-  const range = parseInt(vData?.range ?? "---");
+  const range = parseInt(vData?.range ?? '---');
   let energyConsumption: number | undefined;
 
   if (capacityWh && range) {
     energyConsumption = roundNum(capacityWh / range);
   }
 
-  const getItemManufName = (
-    itemManufId: string,
-    iData: ItemManufacturerObj[] | undefined
-  ) => {
+  const getItemManufName = (itemManufId: string, iData: ItemManufacturerObj[] | undefined) => {
     let itemManufName = itemManufId;
-    if (itemManufId !== "other") {
+    if (itemManufId !== 'other') {
       itemManufName =
-        iData?.find((manufacturer) => manufacturer._id === itemManufId)
-          ?.manufacturer ?? "";
+        iData?.find((manufacturer) => manufacturer._id === itemManufId)?.manufacturer ?? '';
     }
     return itemManufName;
   };
@@ -77,11 +69,11 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
   ) => {
     let itemModelName = itemModelId;
 
-    if (itemModelId !== "other") {
+    if (itemModelId !== 'other') {
       itemModelName =
         iData
           ?.find((manufacturer) => manufacturer._id === itemManufId)
-          ?.models.find((model) => model._id === itemModelId)?.model ?? "";
+          ?.models.find((model) => model._id === itemModelId)?.model ?? '';
     }
     return itemModelName;
   };
@@ -89,8 +81,8 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
   return (
     <div className={styles.container}>
       <DataTable
-        style="base"
-        title="Baza"
+        style='base'
+        title='Baza'
         // col1Title="V maks."
         // col1Value={`${ifData(vData, "vmax", "---")} km/h`}
         // col2Title="Masa"
@@ -105,22 +97,18 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               Rozmiar kół:
-              <strong>
-                {translateOrOther(vData?.wheelSize, vData?.wheelOther, t)}
-              </strong>
+              <strong>{translateOrOther(vData?.wheelSize, vData?.wheelOther, t)}</strong>
             </p>
             <p>
               Hamulce:
-              <strong>
-                {translateOrOther(vData?.brakes, vData?.brakesOther, t)}
-              </strong>
+              <strong>{translateOrOther(vData?.brakes, vData?.brakesOther, t)}</strong>
             </p>
             <p>
               V maks.:
               <strong>
                 {vData?.vmax
                   ? `${roundNum(vData.vmax)} ${t(
-                      `hangar:${vData?.vmaxUnit ? vData.vmaxUnit : "empty"}`
+                      `hangar:${vData?.vmaxUnit ? vData.vmaxUnit : 'empty'}`
                     )}`
                   : unknownText}
               </strong>
@@ -132,32 +120,28 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             <p>
               Masa po konwersji:
               <strong>
-                {vData?.mass
-                  ? `${roundNum(vData.mass)}  ${vData?.massUnit ?? ""}`
-                  : unknownText}
+                {vData?.mass ? `${roundNum(vData.mass)}  ${vData?.massUnit ?? ''}` : unknownText}
               </strong>
             </p>
             <p>
               Średni zasięg:
               <strong>
-                {vData?.range
-                  ? `${roundNum(vData.range)}  ${vData?.rangeUnit ?? ""}`
-                  : unknownText}
+                {vData?.range ? `${roundNum(vData.range)}  ${vData?.rangeUnit ?? ''}` : unknownText}
               </strong>
             </p>
 
             <p>
               Koszt:
               <strong>{`${roundNum(vData?.totalCost) ?? unknownText}  ${
-                vData?.totalCostCurrency ?? ""
+                vData?.totalCostCurrency ?? ''
               }`}</strong>
             </p>
           </>
         }
       />
       <DataTable
-        style="electrical"
-        title="Elektryka"
+        style='electrical'
+        title='Elektryka'
         // col1Title="Moc maks."
         // col1Value={`${power} W`}
         // col2Title="Napięcie"
@@ -170,7 +154,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
               Producent sterownika:
               <strong>
                 {dataOrOther(
-                  getItemManufName(vData?.ctrlManuf ?? "", cData),
+                  getItemManufName(vData?.ctrlManuf ?? '', cData),
                   vData?.ctrlManufOther,
                   t
                 )}
@@ -180,11 +164,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
               Model sterownika:
               <strong>
                 {dataOrOther(
-                  getItemModelName(
-                    vData?.ctrlManuf ?? "",
-                    vData?.ctrlModel ?? "",
-                    cData
-                  ),
+                  getItemModelName(vData?.ctrlManuf ?? '', vData?.ctrlModel ?? '', cData),
                   vData?.ctrlModelOther,
                   t
                 )}
@@ -193,9 +173,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             <p>
               Prąd maksymalny sterownika:
               <strong>
-                {vData?.ctrlCurrent
-                  ? `${roundNum(vData.ctrlCurrent)} A`
-                  : unknownText}
+                {vData?.ctrlCurrent ? `${roundNum(vData.ctrlCurrent)} A` : unknownText}
               </strong>
             </p>
             <p>
@@ -206,7 +184,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
               Zużycie energii:
               <strong>
                 {energyConsumption
-                  ? `${energyConsumption} Wh/${vData?.rangeUnit ?? "---"}`
+                  ? `${energyConsumption} Wh/${vData?.rangeUnit ?? '---'}`
                   : unknownText}
               </strong>
             </p>
@@ -221,7 +199,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
               Marka silnika:
               <strong>
                 {dataOrOther(
-                  getItemManufName(vData?.motorManuf ?? "", mData),
+                  getItemManufName(vData?.motorManuf ?? '', mData),
                   vData?.motorManufOther,
                   t
                 )}
@@ -231,11 +209,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
               Model silnika:
               <strong>
                 {dataOrOther(
-                  getItemModelName(
-                    vData?.motorManuf ?? "",
-                    vData?.motorModel ?? "",
-                    mData
-                  ),
+                  getItemModelName(vData?.motorManuf ?? '', vData?.motorModel ?? '', mData),
                   vData?.motorModelOther,
                   t
                 )}
@@ -245,8 +219,8 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
         }
       />
       <DataTable
-        style="battery"
-        title="Bateria"
+        style='battery'
+        title='Bateria'
         // col1Title="Napięcie"
         // col1Value={`${ifData(vData, "batVoltage", "---")} V`}
         // col2Title="Poj. Wh"
@@ -257,25 +231,17 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
           <>
             <p>
               Sposób montazu baterii:
-              <strong>
-                {translateOrOther(
-                  vData?.batteryCase,
-                  vData?.batteryCaseOther,
-                  t
-                )}
-              </strong>
+              <strong>{translateOrOther(vData?.batteryCase, vData?.batteryCaseOther, t)}</strong>
             </p>
             <p>
               Typ akumulatora:
-              <strong>
-                {translateOrOther(vData?.cellsType, vData?.cellsTypeOther, t)}
-              </strong>
+              <strong>{translateOrOther(vData?.cellsType, vData?.cellsTypeOther, t)}</strong>
             </p>
             <p>
               Napięcie nominalne:
               <strong>
                 {dataOrOther(
-                  vData?.batVoltage && vData?.batVoltage !== "other"
+                  vData?.batVoltage && vData?.batVoltage !== 'other'
                     ? `${vData?.batVoltage} V`
                     : vData?.batVoltage,
                   vData?.batVoltageOther && `${vData?.batVoltageOther} V`,

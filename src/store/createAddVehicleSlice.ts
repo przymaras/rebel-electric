@@ -1,5 +1,5 @@
-import { GetState, SetState } from "zustand";
-import { StoreState } from "./useStore";
+import { GetState, SetState } from 'zustand';
+import { StoreState } from './useStore';
 
 export interface AddVehicleState {
   addVehicleCategory: number[];
@@ -15,8 +15,7 @@ export const createAddVehicleSlice: (
 ) => AddVehicleState = (set, get) => ({
   addVehicleCategory: [-1],
   newCategoryChosen: false,
-  setAddVehicleCategory: (newCategory) =>
-    set({ addVehicleCategory: newCategory }),
+  setAddVehicleCategory: (newCategory) => set({ addVehicleCategory: newCategory }),
   resetAddVehicleCategory: () => set({ addVehicleCategory: [-1] }),
   setNewCategoryChosen: (newValue) => set({ newCategoryChosen: newValue }),
 });

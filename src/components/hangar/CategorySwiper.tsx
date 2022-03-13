@@ -1,14 +1,14 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperClass from "swiper";
-import { useEffect, useRef } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperClass from 'swiper';
+import { useEffect, useRef } from 'react';
 
-import { useWindowResize } from "../../hooks/useWindowResize";
+import { useWindowResize } from '../../hooks/useWindowResize';
 
-import "swiper/css";
-import styles from "./CategorySwiper.module.scss";
-import { VehiclesCategories } from "../../models/hangar";
+import 'swiper/css';
+import styles from './CategorySwiper.module.scss';
+import { VehiclesCategories } from '../../models/hangar';
 
 interface CategorySwiperProps {
   selectedCategory: number[];
@@ -44,15 +44,15 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.cat.categories]); //set last category (without child) to slide no 1  when parent category has changed
 
-  let firstSlideText = "";
+  let firstSlideText = '';
   if (props?.addVehicle && props.currentCatLvl === 0) {
-    firstSlideText = "Wybierz kategorię główną";
+    firstSlideText = 'Wybierz kategorię główną';
   } else if (props?.addVehicle && props.currentCatLvl !== 0) {
-    firstSlideText = "Wybierz podkategorię";
+    firstSlideText = 'Wybierz podkategorię';
   } else if (!props?.addVehicle && props.currentCatLvl === 0) {
-    firstSlideText = "Pokaż wszystkie (bez filtra kategorii)";
+    firstSlideText = 'Pokaż wszystkie (bez filtra kategorii)';
   } else if (!props?.addVehicle && props.currentCatLvl !== 0) {
-    firstSlideText = "Pokaż wszystkie z tej podkategorii";
+    firstSlideText = 'Pokaż wszystkie z tej podkategorii';
   }
 
   return (
@@ -85,8 +85,7 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
               setSelectedCategory(
                 (() => {
                   const newArray = [...selectedCategory];
-                  let newIndex =
-                    swiper.activeIndex - 2 < 0 ? -1 : swiper.activeIndex - 2;
+                  let newIndex = swiper.activeIndex - 2 < 0 ? -1 : swiper.activeIndex - 2;
 
                   if (newIndex > props.cat.categories.length - 1) {
                     newIndex = props.cat.categories.length - 1;
@@ -114,10 +113,7 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
         //   }, 100))
         // }
         onClick={(swiper) => {
-          if (
-            swiper.clickedIndex !== 0 &&
-            swiper.clickedIndex !== swiper.slides.length - 1
-          ) {
+          if (swiper.clickedIndex !== 0 && swiper.clickedIndex !== swiper.slides.length - 1) {
             timer = setTimeout(() => {
               swiper.slideTo(swiper.clickedIndex, 400);
               // console.log(swiper.realIndex);
@@ -145,11 +141,7 @@ const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
             >
               <div className={styles.slideContent}>
                 <div className={styles.categoryImg}>
-                  <Image
-                    src={category.image}
-                    alt={`Category ${category.name}`}
-                    layout="fill"
-                  />
+                  <Image src={category.image} alt={`Category ${category.name}`} layout='fill' />
                 </div>
                 <p>{category.name}</p>
               </div>

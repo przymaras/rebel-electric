@@ -1,13 +1,13 @@
-import styles from "./SearchBar.module.scss";
-import useTranslation from "next-translate/useTranslation";
-import { ChangeEvent, useEffect, useState } from "react";
-import { useStore } from "../../store/useStore";
+import styles from './SearchBar.module.scss';
+import useTranslation from 'next-translate/useTranslation';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useStore } from '../../store/useStore';
 
 let timer: ReturnType<typeof setTimeout>;
 
 const SearchBar: React.FC = () => {
   const { t } = useTranslation();
-  const [localSearchValue, setLocalSearchValue] = useState<string>("");
+  const [localSearchValue, setLocalSearchValue] = useState<string>('');
   const setSearchValue = useStore((state) => state.setSearchValue);
   const searchValue = useStore((state) => state.searchValue);
 
@@ -31,8 +31,8 @@ const SearchBar: React.FC = () => {
       <input
         onChange={updateSearchValue}
         value={localSearchValue}
-        type="search"
-        placeholder={t("hangar:search-placeholder")}
+        type='search'
+        placeholder={t('hangar:search-placeholder')}
       />
     </div>
   );

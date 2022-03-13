@@ -1,22 +1,22 @@
-import useTranslation from "next-translate/useTranslation";
-import { Vehicle } from "../../models/hangar";
-import { ItemManufacturerObj } from "../../../src/models/hangar";
+import useTranslation from 'next-translate/useTranslation';
+import { Vehicle } from '../../models/hangar';
+import { ItemManufacturerObj } from '../../../src/models/hangar';
 
-import styles from "./VehicleDetails.module.scss";
+import styles from './VehicleDetails.module.scss';
 
-import { useStore } from "../../store/useStore";
-import { StoreState } from "../../store/useStore";
+import { useStore } from '../../store/useStore';
+import { StoreState } from '../../store/useStore';
 
-import { IconHangar } from "../icons/IconHangar";
-import { IconUser } from "../icons/IconUser";
-import { IconMapLocation } from "../icons/IconMapLocation";
-import TitleBox from "../layout/TitleBox";
-import VehicleSwiper from "./VehicleSwiper";
-import VehicleVeiwsCatLikes from "./VehicleVeiwsCatLikes";
-import DataTablesEbike from "./DataTablesEbike";
-import Description from "./Description";
-import BtnLink from "../layout/BtnLink";
-import { getSelectedCategoryTreeInfo } from "../../utils/common-functions";
+import { IconHangar } from '../icons/IconHangar';
+import { IconUser } from '../icons/IconUser';
+import { IconMapLocation } from '../icons/IconMapLocation';
+import TitleBox from '../layout/TitleBox';
+import VehicleSwiper from './VehicleSwiper';
+import VehicleVeiwsCatLikes from './VehicleVeiwsCatLikes';
+import DataTablesEbike from './DataTablesEbike';
+import Description from './Description';
+import BtnLink from '../layout/BtnLink';
+import { getSelectedCategoryTreeInfo } from '../../utils/common-functions';
 
 interface VehicleDetailsProps {
   vehicleData?: Vehicle;
@@ -24,12 +24,11 @@ interface VehicleDetailsProps {
   motorsData?: ItemManufacturerObj[];
 }
 
-const vehiclesCategoriesSelector = (state: StoreState) =>
-  state.vehiclesCategories;
+const vehiclesCategoriesSelector = (state: StoreState) => state.vehiclesCategories;
 
 const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
   const { t } = useTranslation();
-  const unknownText = t("hangar:unknown");
+  const unknownText = t('hangar:unknown');
 
   const vData = props.vehicleData;
   const cData = props.controllersData;
@@ -39,25 +38,22 @@ const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
 
   const selectedCategoryTreeInfo = getSelectedCategoryTreeInfo(
     vehiclesCategories,
-    vData?.category ?? ""
+    vData?.category ?? ''
   );
 
-  const categoryName =
-    selectedCategoryTreeInfo?.categoriesNames.join(" / ") ?? "undefined";
+  const categoryName = selectedCategoryTreeInfo?.categoriesNames.join(' / ') ?? 'undefined';
 
   const categoryImage =
-    [...(selectedCategoryTreeInfo?.categoriesImages ?? ["undefined"])].pop() ??
-    "undefined";
+    [...(selectedCategoryTreeInfo?.categoriesImages ?? ['undefined'])].pop() ?? 'undefined';
 
   const motorType =
-    [...(selectedCategoryTreeInfo?.categoriesNames ?? ["undefined"])].pop() ??
-    "undefined";
+    [...(selectedCategoryTreeInfo?.categoriesNames ?? ['undefined'])].pop() ?? 'undefined';
 
   return (
     <>
       <TitleBox>
         <div className={styles.title}>
-          <h1 className="rebel-font" style={{ fontSize: "3rem" }}>
+          <h1 className='rebel-font' style={{ fontSize: '3rem' }}>
             {vData?.projectName ?? unknownText}
           </h1>
           <div className={styles.userWrapper}>
@@ -74,10 +70,10 @@ const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
           projectName={vData?.projectName ?? unknownText}
         />
         <VehicleVeiwsCatLikes
-          views={vData?.viewsCount ?? "0"}
+          views={vData?.viewsCount ?? '0'}
           category={categoryName}
           categoryImg={categoryImage}
-          likes={vData?.likesCount ?? "0"}
+          likes={vData?.likesCount ?? '0'}
         />
         <DataTablesEbike
           vehicleData={vData}
@@ -85,18 +81,18 @@ const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
           controllersData={cData}
           motorType={motorType}
         />
-        <Description description={vData?.description ?? ""} />
+        <Description description={vData?.description ?? ''} />
         <div className={styles.buttonsWrapper}>
           <BtnLink
-            href="/users/add"
+            href='/users/add'
             icon={<IconUser />}
-            text={"Zobacz profil właściciela"}
+            text={'Zobacz profil właściciela'}
             horizontal={true}
           />
           <BtnLink
-            href="/users/add"
+            href='/users/add'
             icon={<IconHangar />}
-            text={"Zobacz podobne pojazdy"}
+            text={'Zobacz podobne pojazdy'}
             horizontal={true}
           />
         </div>

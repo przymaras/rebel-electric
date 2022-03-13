@@ -19,7 +19,7 @@ export const getServerSettings = (imgsToRestoreDetails: ImageObj[]) => {
       // Asynchronously uploading files with FilePond is called processing. In short, FilePond sends a file to the server and expects the server to return a unique file id. This unique id is then used to revert uploads or restore earlier uploads.
 
       //get authorization token for imagekit API
-      const res = await fetch("/api/img/");
+      const res = await fetch('/api/img/');
       const imgAuth = await res.json();
 
       const date = new Date().toISOString().slice(0, 7);
@@ -27,16 +27,16 @@ export const getServerSettings = (imgsToRestoreDetails: ImageObj[]) => {
       // https://docs.imagekit.io/api-reference/upload-file-api/client-side-file-upload
       // all parameters are describec in imagekit's docs
       const formData = new FormData();
-      formData.append("file", file);
-      formData.append("fileName", file.name);
-      formData.append("folder", `/tmp/${date}/`);
-      formData.append("signature", imgAuth.signature);
-      formData.append("token", imgAuth.token);
-      formData.append("expire", imgAuth.expire);
-      formData.append("publicKey", "public_h821WuPXEZBS6QvIimCu4L2vFt8=");
+      formData.append('file', file);
+      formData.append('fileName', file.name);
+      formData.append('folder', `/tmp/${date}/`);
+      formData.append('signature', imgAuth.signature);
+      formData.append('token', imgAuth.token);
+      formData.append('expire', imgAuth.expire);
+      formData.append('publicKey', 'public_h821WuPXEZBS6QvIimCu4L2vFt8=');
 
       const request = new XMLHttpRequest();
-      request.open("POST", "https://upload.imagekit.io/api/v1/files/upload");
+      request.open('POST', 'https://upload.imagekit.io/api/v1/files/upload');
 
       // Should call the progress method to update the progress to 100% before calling load
       // Setting computable to false switches the loading indicator to infinite mode
@@ -86,14 +86,13 @@ export const getServerSettings = (imgsToRestoreDetails: ImageObj[]) => {
       const request = new XMLHttpRequest();
 
       request.open(
-        "GET",
+        'GET',
         `https://ik.imagekit.io/rebelelectric${
-          imgsToRestoreDetails.find((img) => img.name === uniqueFileName)! //dangerously set ! here !!!!!!!!!! fix it!
-            .filePath
+          imgsToRestoreDetails.find((img) => img.name === uniqueFileName)!.filePath //dangerously set ! here !!!!!!!!!! fix it!
         }`
       );
 
-      request.responseType = "blob";
+      request.responseType = 'blob';
 
       request.onload = () => {
         if (request.status >= 200 && request.status < 300) {
