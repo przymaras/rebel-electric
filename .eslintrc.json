@@ -1,10 +1,13 @@
 {
-  "plugins": ["prettier", "@typescript-eslint"],
-  "extends": ["next/core-web-vitals", "airbnb-typescript", "react-app", "prettier"],
+  "plugins": ["prettier", "@typescript-eslint", "testing-library"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "airbnb-typescript",
+    "prettier"
+  ],
   "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
+
   "settings": {
     "import/resolver": {
       "typescript": {
@@ -12,22 +15,19 @@
       }
     }
   },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      }
+    },
+    {
+      "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+      "extends": ["plugin:testing-library/react"]
+    }
+  ],
   "rules": {
-    "object-curly-spacing": ["warn", "always"],
-    "@typescript-eslint/semi": ["off"],
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "vars": "all",
-        "args": "none"
-      }
-    ],
-    "@typescript-eslint/no-explicit-any": [
-      "error",
-      {
-        "ignoreRestArgs": true
-      }
-    ],
     "max-lines": [
       "warn",
       {
@@ -44,17 +44,17 @@
         "ignoreComments": true
       }
     ],
-    "no-plusplus": [
+    "react/jsx-key": "error",
+    "@typescript-eslint/no-explicit-any": [
       "error",
       {
-        "allowForLoopAfterthoughts": true
+        "ignoreRestArgs": true
       }
     ],
-    "react/jsx-key": "error",
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*.test.ts", "**/*.test.tsx"]
+        "devDependencies": ["setupTests.ts", "**/*.test.ts", "**/*.test.tsx"]
       }
     ]
   }

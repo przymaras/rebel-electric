@@ -1,7 +1,8 @@
 import useTranslation from 'next-translate/useTranslation';
-import styles from './SearchResultSortBar.module.scss';
 
 import { useStore } from '../../store/useStore';
+import styles from './SearchResultSortBar.module.scss';
+
 interface SearchResultSortBarProps {
   found: number;
 }

@@ -1,21 +1,20 @@
 import useTranslation from 'next-translate/useTranslation';
+import { useEffect, useState } from 'react';
 
-import styles from './Hangar.module.scss';
-
+import { Vehicle } from '../../models/hangar';
+import { useStore } from '../../store/useStore';
+import { getSelectedCategoryId, getSelectedCategoryTreeInfo } from '../../utils/common-functions';
 import { IconHangar } from '../icons/IconHangar';
-import TitleBox from '../layout/TitleBox';
 import InfoBox from '../layout/InfoBox';
-import SearchBar from './SearchBar';
-import SearchResultSortBar from './SearchResultSortBar';
+import TitleBox from '../layout/TitleBox';
+import CategorySelector from './CategorySelector';
 import DataBar from './DataBar';
 import DataBarLabels from './DataBarLabels';
-import VehicleBox from './VehicleBox';
 import DataBarsHeadingContainer from './DataBarsHeadingContainer';
-import CategorySelector from './CategorySelector';
-import { Vehicle } from '../../models/hangar';
-import { getSelectedCategoryId, getSelectedCategoryTreeInfo } from '../../utils/common-functions';
-import { useStore } from '../../store/useStore';
-import { useEffect, useState } from 'react';
+import styles from './Hangar.module.scss';
+import SearchBar from './SearchBar';
+import SearchResultSortBar from './SearchResultSortBar';
+import VehicleBox from './VehicleBox';
 
 interface HangarProps {
   vehicles: Vehicle[];
@@ -52,37 +51,37 @@ const Hangar: React.FC<HangarProps> = (props) => {
   }, [newHangarCategoryChosen]);
 
   const vehiclesToDisplay = () => {
-    let vehiclesToDisplay: Vehicle[] = [...vehicles];
+    let vehiclesToDisplay2: Vehicle[] = [...vehicles];
 
     if (selectedCategoryInfo) {
-      vehiclesToDisplay = vehiclesToDisplay.filter((vehicle) =>
+      vehiclesToDisplay2 = vehiclesToDisplay2.filter((vehicle) =>
         selectedCategoryInfo.restIDs.includes(vehicle.category)
       );
     }
 
     if (searchValue) {
-      vehiclesToDisplay = vehiclesToDisplay.filter((vehicle) =>
+      vehiclesToDisplay2 = vehiclesToDisplay2.filter((vehicle) =>
         vehicle.projectName.toLowerCase().includes(searchValue.toLowerCase())
       );
     }
 
     if (sortBy === 'createdAt') {
-      return vehiclesToDisplay.sort(
+      return vehiclesToDisplay2.sort(
         (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
       );
     }
     if (sortBy === 'viewsCount') {
-      return vehiclesToDisplay.sort(
+      return vehiclesToDisplay2.sort(
         (a, b) => Number(b.viewsCount ?? 0) - Number(a.viewsCount ?? 0)
       );
     }
     if (sortBy === 'likesCount') {
-      return vehiclesToDisplay.sort(
+      return vehiclesToDisplay2.sort(
         (a, b) => Number(b.likesCount ?? 0) - Number(a.likesCount ?? 0)
       );
     }
 
-    return vehiclesToDisplay;
+    return vehiclesToDisplay2;
   };
 
   return (
@@ -117,21 +116,21 @@ const Hangar: React.FC<HangarProps> = (props) => {
 
       <DataBarsHeadingContainer>
         <DataBar
-          style='base'
+          barStyle='base'
           col1={t('hangar:label-vmax')}
           col2={t('hangar:label-mass')}
           col3={t('hangar:label-range')}
         />
 
         <DataBar
-          style='electrical'
+          barStyle='electrical'
           col1={t('hangar:label-pmax')}
           col2={t('hangar:label-imax')}
           col3={t('hangar:label-enCons')}
         />
 
         <DataBar
-          style='battery'
+          barStyle='battery'
           col1={t('hangar:label-capwh')}
           col2={t('hangar:label-capah')}
           col3={t('hangar:label-voltage')}

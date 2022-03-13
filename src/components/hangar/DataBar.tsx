@@ -4,7 +4,7 @@ import { IconStar } from '../icons/IconStar';
 import styles from './DataBar.module.scss';
 
 interface DataBarProps {
-  style: string;
+  barStyle: string;
   col1: string;
   col2: string;
   col3: string;
@@ -14,7 +14,7 @@ const DataBar: React.FC<DataBarProps> = (props) => {
   let cssStyle;
   let Icon = IconStar;
 
-  switch (props.style) {
+  switch (props.barStyle) {
     case 'base':
       cssStyle = styles.base;
       Icon = IconStar;

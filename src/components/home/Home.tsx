@@ -1,18 +1,17 @@
 import useTranslation from 'next-translate/useTranslation';
 import Image from 'next/image';
 
+import { IconAcademy } from 'src/components/icons/IconAcademy';
+import { IconHangar } from 'src/components/icons/IconHangar';
+import { IconUser } from 'src/components/icons/IconUser';
+import BtnLink from 'src/components/layout/BtnLink';
+import InfoBox from 'src/components/layout/InfoBox';
+import { Vehicle } from 'src/models/hangar';
+
+import Logo from 'public/img/rebel-electric-logo.svg';
+
 import styles from './Home.module.scss';
-
-import { Vehicle } from '../../models/hangar';
-
-import BtnLink from '../layout/BtnLink';
-import { IconUser } from '../icons/IconUser';
-import { IconHangar } from '../icons/IconHangar';
-import { IconAcademy } from '../icons/IconAcademy';
-import InfoBox from '../layout/InfoBox';
 import RecentBox from './RecentBox';
-
-import Logo from '../../../public/img/rebel-electric-logo.svg';
 
 const Home: React.FC<{ vehicles: Vehicle[] }> = (props) => {
   const { t } = useTranslation();
@@ -22,6 +21,7 @@ const Home: React.FC<{ vehicles: Vehicle[] }> = (props) => {
     <>
       <div className={styles.sectionWrapper}>
         <div className={styles.logo}>
+          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
           <Image src={Logo} alt='Rebel Electric Logo' layout='fill' />
         </div>
         <div>

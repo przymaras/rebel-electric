@@ -1,4 +1,5 @@
 import { GetState, SetState } from 'zustand';
+
 import { StoreState } from './useStore';
 
 export interface HangarState {
@@ -16,7 +17,7 @@ export interface HangarState {
 export const createHangarSlice: (
   set: SetState<StoreState>,
   get: GetState<StoreState>
-) => HangarState = (set, get) => ({
+) => HangarState = (set) => ({
   hangarCategory: [-1],
   newHangarCategoryChosen: false,
   sortBy: 'createdAt',

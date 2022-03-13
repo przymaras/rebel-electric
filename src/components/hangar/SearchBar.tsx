@@ -1,7 +1,8 @@
-import styles from './SearchBar.module.scss';
 import useTranslation from 'next-translate/useTranslation';
 import { ChangeEvent, useEffect, useState } from 'react';
+
 import { useStore } from '../../store/useStore';
+import styles from './SearchBar.module.scss';
 
 let timer: ReturnType<typeof setTimeout>;
 

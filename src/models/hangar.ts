@@ -44,6 +44,7 @@ export interface Vehicle {
   viewsCount?: string;
 }
 export interface AddEbikeValues {
+  //TODO: Update this interface to all possible values
   projectName: string;
   video: string;
   description: string;
@@ -66,6 +67,19 @@ export interface AddEbikeValues {
   capacityUnit: string;
   vehicleImages: string[];
   category: string;
+  wheelOther: string;
+  brakesOther: string;
+  massUnit: string;
+  vmaxUnit: string;
+  rangeUnit: string;
+  totalCostCurrency: string;
+  ctrlManufOther: string;
+  ctrlModelOther: string;
+  motorManufOther: string;
+  motorModelOther: string;
+  batteryCaseOther: string;
+  cellsTypeOther: string;
+  batVoltageOther: string;
 }
 
 export interface VehicleCategory {

@@ -1,9 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
-import { useDataFetcher } from '../../hooks/useDataFetcher';
-import { nanoid } from 'nanoid';
-
+import type { FilePondFile, FilePondInitialFile } from 'filepond';
+import FilePondPluginFileRename from 'filepond-plugin-file-rename';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginImageResize from 'filepond-plugin-image-resize';
+import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import { ErrorMessage, Form, FormikProps } from 'formik';
-import { Persist } from '../../utils/formik-persist';
+import type { ListFileResponse } from 'imagekit/dist/libs/interfaces';
+import { nanoid } from 'nanoid';
+import { useEffect, useRef, useState } from 'react';
+import { FilePond, registerPlugin } from 'react-filepond';
+
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import 'filepond/dist/filepond.min.css';
+
+import FilePondStyles from 'src/components/layout/FilePondStyles';
 import {
   TextInput,
   TextArea,
@@ -11,19 +22,17 @@ import {
   RadioInput,
   Fieldset,
   SubmitButton,
-} from '../layout/formInputs';
+} from 'src/components/layout/formInputs';
+import { useDataFetcher } from 'src/hooks/useDataFetcher';
+import { AddEbikeValues, ItemManufacturerObj } from 'src/models/hangar';
+import { useStore } from 'src/store/useStore';
+import { StoreState } from 'src/store/useStore';
+import { getSelectedCategoryId } from 'src/utils/common-functions';
+import { getServerSettings } from 'src/utils/filepond-functions';
+import { Persist } from 'src/utils/formik-persist';
 
-import { FilePond, registerPlugin } from 'react-filepond';
-import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import FilePondPluginFileRename from 'filepond-plugin-file-rename';
-import FilePondPluginImageResize from 'filepond-plugin-image-resize';
-import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import 'filepond/dist/filepond.min.css';
-import FilePondStyles from '../layout/FilePondStyles';
-import { getServerSettings } from '../../utils/filepond-functions';
+import styles from './AddEbikeForm.module.scss';
+import AddVehicleDataGroup from './AddVehicleDataGroup';
 
 registerPlugin(
   FilePondPluginImageExifOrientation,
@@ -34,19 +43,10 @@ registerPlugin(
   FilePondPluginFileValidateType
 );
 
-import { ItemManufacturerObj } from '../../../src/models/hangar';
-import { useStore } from '../../store/useStore';
-import { StoreState } from '../../store/useStore';
-
-import styles from './AddEbikeForm.module.scss';
-
-import AddVehicleDataGroup from './AddVehicleDataGroup';
-import { getSelectedCategoryId } from '../../utils/common-functions';
-
 let isRefreshRender = false;
 
 interface AddEbikeFormProps {
-  formik: FormikProps<any>;
+  formik: FormikProps<AddEbikeValues>;
   setRemoveImages: (f: Function) => void;
   controllersData: ItemManufacturerObj[];
   motorsData: ItemManufacturerObj[];
@@ -58,7 +58,9 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
   const newCategoryChosen = useStore(newCategoryChosenSelector);
   const filePondRef = useRef<FilePond>(null);
 
-  const [imageFiles, setImageFiles] = useState<any[]>([]);
+  const [imageFiles, setImageFiles] = useState<
+    (string | FilePondInitialFile | Blob | File | FilePondFile)[] | undefined
+  >([]);
   const [imagesToRestoreIDs, setImagesToRestoreIDs] = useState('');
 
   useEffect(() => {
@@ -69,7 +71,7 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
   }, [props.formik.values.vehicleImages]);
 
   const apiUrl = imagesToRestoreIDs ? `/api/img/${imagesToRestoreIDs}` : '';
-  const [imgsToRestoreDetails, isImgDetailsAvailable] = useDataFetcher(apiUrl);
+  const [imgsToRestoreDetails, isImgDetailsAvailable] = useDataFetcher<ListFileResponse>(apiUrl);
 
   useEffect(() => {
     if (isImgDetailsAvailable) {
@@ -103,17 +105,21 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
   function updateFormikImagesFieldValue() {
     isRefreshRender = true;
     if (!props.formik.isSubmitting) {
-      const filesIds = filePondRef.current!.getFiles().map((file) => file.serverId);
-      props.formik.setFieldValue('vehicleImages', filesIds);
+      if (filePondRef.current) {
+        const filesIds = filePondRef.current.getFiles().map((file) => file.serverId);
+        props.formik.setFieldValue('vehicleImages', filesIds);
+      }
     }
   }
 
   function removeFileHandler() {
     isRefreshRender = true;
     if (!props.formik.isSubmitting) {
-      const filesIds = filePondRef.current!.getFiles().map((file) => file.serverId);
-      // props.formik.setFieldValue("vehicleImages", filesIds);
-      props.formik.values.vehicleImages = filesIds; // FIXME: I'm mutating state directly because filepond goes mad when removing file and updating state of formik - I don't know why.. Maybe because of rerender forced by formik, while filepond's remove proomise isn't resolved?
+      if (filePondRef.current) {
+        const filesIds = filePondRef.current.getFiles().map((file) => file.serverId);
+        // props.formik.setFieldValue("vehicleImages", filesIds);
+        props.formik.values.vehicleImages = filesIds; // FIXME: I'm mutating state directly because filepond goes mad when removing file and updating state of formik - I don't know why.. Maybe because of rerender forced by formik, while filepond's remove proomise isn't resolved?
+      }
     }
   }
 
@@ -137,7 +143,7 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
               <FilePond
                 ref={filePondRef}
                 name='vehicleImages'
-                files={imageFiles}
+                files={imageFiles as (string | FilePondInitialFile | Blob | File)[] | undefined} //FIXME: "as ... " shouldn't be hre, but there is lack of FilePondFile[] type here
                 allowReorder={true}
                 allowMultiple={true}
                 maxFiles={10}
@@ -151,7 +157,9 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 }}
                 onupdatefiles={(files) => {
                   setImageFiles(files);
-                  props.setRemoveImages(filePondRef.current!.removeFiles);
+                  if (filePondRef.current) {
+                    props.setRemoveImages(filePondRef.current.removeFiles);
+                  }
                 }}
                 // labelIdle="Przeciągnij zdjęcia na tę ramkę lub kliknij w nią, aby wyświetlić eksplorator plików."
                 onreorderfiles={updateFormikImagesFieldValue}
@@ -190,7 +198,7 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
             niektóre z nich, a pozostałe zostawić puste ...
           </p>
           <div className={styles.data}>
-            <AddVehicleDataGroup style='base' name='baza'>
+            <AddVehicleDataGroup groupStyle='base' name='baza'>
               <TextInput
                 label='Baza: (marka / model / rok ) '
                 name='bikeBase'
@@ -292,7 +300,7 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 <RadioInput label='GBP' type='radio' name='totalCostCurrency' value='GBP' />
               </Fieldset>
             </AddVehicleDataGroup>
-            <AddVehicleDataGroup style='electrical' name='elektryka'>
+            <AddVehicleDataGroup groupStyle='electrical' name='elektryka'>
               <Select label='Producent sterownika' name='ctrlManuf'>
                 <option value=''>Wybierz producenta</option>
                 {props.controllersData &&
@@ -412,7 +420,7 @@ const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
               />
             </AddVehicleDataGroup>
 
-            <AddVehicleDataGroup style='battery' name='bateria'>
+            <AddVehicleDataGroup groupStyle='battery' name='bateria'>
               <Select label='Sposób montażu baterii' name='batteryCase'>
                 <option value=''>Wybierz typ</option>
                 <option value='textileBag'>Torba</option>

@@ -1,15 +1,11 @@
-import { ErrorMessage, FormikHelpers, FormikProps } from 'formik';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useEffect } from 'react';
+
 import { VehiclesCategories } from '../../models/hangar';
-
-import styles from './CategorySelector.module.scss';
-
 import { useStore } from '../../store/useStore';
 import { StoreState } from '../../store/useStore';
-
+import styles from './CategorySelector.module.scss';
 import CategorySwiper from './CategorySwiper';
-
 import CategorySwiperStyles from './CategorySwiperStyles';
 
 interface CategorySelectorProps {
@@ -66,22 +62,22 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
      * Category level means how deeply nested we are right now in category tree (multi dimensional array of objects)
      * starting from -1 so first increment gives 0 and points to first item in "selected" array
      */
-    let currentCatLvl = -1;
+    let currentCatLvl2 = -1;
 
     const renderSwiper: (cat: VehiclesCategories, selected: number[]) => React.ReactNode = (
-      cat,
-      selected
+      cat2,
+      selected2
     ) => {
       //increment category level / first is from -1 to 0
-      currentCatLvl++;
+      currentCatLvl2 += 1;
 
       const Swiper = (
         //this is actual swiper to render
         <>
           <CategorySwiper
-            cat={cat}
+            cat={cat2}
             // name={cat.catTitle}
-            currentCatLvl={currentCatLvl}
+            currentCatLvl={currentCatLvl2}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
             addVehicle={props.addVehicle}
@@ -89,24 +85,24 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
         </>
       );
 
-      const thereIsCategoryToRenderAtCurrentLevel = cat.categories[selected[currentCatLvl]];
+      const thereIsCategoryToRenderAtCurrentLevel = cat2.categories[selected2[currentCatLvl2]];
 
-      const thisIsFirstRenderWithoutSelectedCategory = selected[currentCatLvl] === -1;
+      const thisIsFirstRenderWithoutSelectedCategory = selected2[currentCatLvl2] === -1;
 
       if (thereIsCategoryToRenderAtCurrentLevel || thisIsFirstRenderWithoutSelectedCategory) {
         // try to render this category level
         // or first category level if this is first render without any selections
-        const thereAreChildCategories = cat.categories[selected[currentCatLvl]]?.child;
+        const thereAreChildCategories = cat2.categories[selected2[currentCatLvl2]]?.child;
 
         const childCategoryIsNotPowerRelated =
-          !cat.categories[selected[currentCatLvl]]?.child?.powerRelated;
+          !cat2.categories[selected2[currentCatLvl2]]?.child?.powerRelated;
 
         const isNotInAddVEhicleMode = !props.addVehicle ?? true;
 
         if (thereAreChildCategories && (childCategoryIsNotPowerRelated || isNotInAddVEhicleMode)) {
           // enter recursive mode
           const thisIsFirstTimeGoingThroughCategoryArray =
-            selected[currentCatLvl + 1] === undefined;
+            selected2[currentCatLvl2 + 1] === undefined;
 
           if (thisIsFirstTimeGoingThroughCategoryArray)
             // check if this is first time when we are going through category array
@@ -119,7 +115,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
               {Swiper}
 
               {/*enter recursive mode but this time as "cat" argument we pass child array*/}
-              {renderSwiper(cat.categories[selected[currentCatLvl]].child!, selected)}
+              {renderSwiper(cat2.categories[selected2[currentCatLvl2]].child!, selected2)}
             </>
           );
         } else {
@@ -133,34 +129,34 @@ const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
   }
 
   const renderSelectedCategoriesNames = (cat: VehiclesCategories, selected: number[]) => {
-    let currentIndex = -1;
+    let currentIndex2 = -1;
 
     const renderSelected: (cat: VehiclesCategories, selected: number[]) => React.ReactNode = (
-      cat,
-      selected
+      cat2,
+      selected2
     ) => {
-      currentIndex++;
+      currentIndex2 += 1;
       if (
-        selected[currentIndex] !== undefined &&
-        cat.categories[selected[currentIndex]] !== undefined
+        selected2[currentIndex2] !== undefined &&
+        cat2.categories[selected2[currentIndex2]] !== undefined
       ) {
         if (
-          cat.categories[selected[currentIndex]].child &&
-          !cat.categories[selected[currentIndex]]?.child?.powerRelated
+          cat2.categories[selected2[currentIndex2]].child &&
+          !cat2.categories[selected2[currentIndex2]]?.child?.powerRelated
         ) {
           return (
             <>
               {/* <p> */}
               {/* {cat.catTitle}:  */}
-              {cat.categories[selected[currentIndex]].name} / {/* </p> */}
-              {renderSelected(cat.categories[selected[currentIndex]].child!, selected)}
+              {cat2.categories[selected2[currentIndex2]].name} / {/* </p> */}
+              {renderSelected(cat2.categories[selected2[currentIndex2]].child!, selected2)}
             </>
           );
         } else {
           return (
             // <p>
             // {cat.catTitle}:
-            cat.categories[selected[currentIndex]].name
+            cat2.categories[selected2[currentIndex2]].name
             /* </p> */
           );
         }

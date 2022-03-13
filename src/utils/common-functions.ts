@@ -1,11 +1,13 @@
+import type { Translate } from 'next-translate';
+
 import { VehiclesCategories } from '../models/hangar';
 
 export const dataOrOther = (
   value: string | undefined,
   valueOther: string | undefined,
-  t: Function
+  t: Translate
 ) => {
-  let returnValue: string | undefined = value ? value : (t('hangar:unknown') as string);
+  let returnValue: string | undefined = value ? value : t('hangar:unknown');
 
   if (value === 'other') returnValue = valueOther;
 
@@ -15,17 +17,17 @@ export const dataOrOther = (
 export const translateOrOther = (
   value: string | undefined,
   valueOther: string | undefined,
-  t: Function
+  t: Translate
 ) => {
   let returnValue = t(`hangar:${value ? value : 'unknown'}`);
 
-  if (value === 'other') returnValue = valueOther;
+  if (value === 'other' && valueOther) returnValue = valueOther;
 
   return returnValue;
 };
 
 export const roundNum = (number: number | string | undefined) => {
-  let value = Math.round(Number(number) * 100) / 100;
+  const value = Math.round(Number(number) * 100) / 100;
   return value ? value : undefined;
 };
 
@@ -62,25 +64,29 @@ export const getSelectedCategoryId = (
     catArr: VehiclesCategories,
     selected: number[],
     allowPartialSelection: boolean
-  ) => void = (catArr, selected, allowPartialSelection = false) => {
+  ) => void = (catArr, selectedGetId, allowPartialSelectionGetId = false) => {
     level++;
     if (catArr === undefined) return;
-    if (selected[level] === undefined) return;
-    if (selected[level] === -1) return;
+    if (selectedGetId[level] === undefined) return;
+    if (selectedGetId[level] === -1) return;
 
     // this is for hangar filtering by category where user select only part of category tree
-    if (selected[level + 1] === -1 && allowPartialSelection) {
-      categoryID = catArr.categories[selected[level]].id;
+    if (selectedGetId[level + 1] === -1 && allowPartialSelectionGetId) {
+      categoryID = catArr.categories[selectedGetId[level]].id;
       return;
     }
 
-    if (level === selected.length - 1 && selected[level] !== -1) {
-      categoryID = catArr.categories[selected[level]].id;
+    if (level === selectedGetId.length - 1 && selectedGetId[level] !== -1) {
+      categoryID = catArr.categories[selectedGetId[level]].id;
       return;
     }
 
-    if (catArr.categories[selected[level]].child) {
-      getId(catArr.categories[selected[level]].child!, selected, allowPartialSelection);
+    if (catArr.categories[selectedGetId[level]].child) {
+      getId(
+        catArr.categories[selectedGetId[level]].child!,
+        selectedGetId,
+        allowPartialSelectionGetId
+      );
     }
   };
 
@@ -90,21 +96,24 @@ export const getSelectedCategoryId = (
 
 export const getSelectedCategoryTreeInfo = (cat: VehiclesCategories, id: string) => {
   if (!id) return;
-  let categoriesIndexes: number[] = [];
-  let categoriesIDs: string[] = [];
-  let categoriesNames: string[] = [];
-  let categoriesImages: string[] = [];
+  const categoriesIndexes: number[] = [];
+  const categoriesIDs: string[] = [];
+  const categoriesNames: string[] = [];
+  const categoriesImages: string[] = [];
   let restCategories: VehiclesCategories | undefined;
   let restIDs: string[] = [];
 
   let level = 0;
   let idFound = false;
 
-  const getInfo: (catArr: VehiclesCategories | undefined, id: string) => void = (catArr, id) => {
+  const getInfo: (catArr: VehiclesCategories | undefined, id: string) => void = (
+    catArr,
+    idGetInfo
+  ) => {
     if (catArr === undefined) return;
 
     //search for given id in this level of categories
-    const foundIndex = catArr.categories.findIndex((category) => category.id === id);
+    const foundIndex = catArr.categories.findIndex((category) => category.id === idGetInfo);
 
     //if found push it's index number at index [level] to "categoriesInfoArray" and return
     if (foundIndex !== -1) {
@@ -140,7 +149,7 @@ export const getSelectedCategoryTreeInfo = (cat: VehiclesCategories, id: string)
 
         //repeat until idFound or no more children
         level++;
-        getInfo(category.child, id);
+        getInfo(category.child, idGetInfo);
       }
 
       //if idFound then break .some method and return

@@ -1,19 +1,21 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient, ObjectId } from 'mongodb';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const dbName = process.env.MONGODB_DB;
   const dbhost = process.env.MONGODB_HOST;
   const dbUser = process.env.MONGODB_USER;
   const dbPass = process.env.MONGODB_PASS;
+  if (!dbName || !dbhost || !dbUser || !dbPass) return;
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
   try {
     const { vehicleId } = req.query;
     const client = await MongoClient.connect(connectString);
     const db = client.db();
-    const vehiclesCollection = db.collection("vehicles");
-    let vehicles = await vehiclesCollection
+    const vehiclesCollection = db.collection('vehicles');
+    if (typeof vehicleId !== 'string') return;
+    const vehicles = await vehiclesCollection
       .aggregate([
         {
           $match: {
@@ -22,10 +24,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         },
         {
           $lookup: {
-            from: "users",
-            localField: "ownerId",
-            foreignField: "_id",
-            as: "user",
+            from: 'users',
+            localField: 'ownerId',
+            foreignField: '_id',
+            as: 'user',
           },
         },
         {
@@ -33,9 +35,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             newRoot: {
               $mergeObjects: [
                 {
-                  $arrayElemAt: ["$user", 0],
+                  $arrayElemAt: ['$user', 0],
                 },
-                "$$ROOT",
+                '$$ROOT',
               ],
             },
           },
@@ -92,7 +94,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         },
       ])
       .toArray();
-    client.close();
+    await client.close();
     res.status(200).json({ ...vehicles[0] });
   } catch (err) {
     res.status(500).json({ error: err });

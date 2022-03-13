@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-const useDataFetcher: (url: string) => [any[], boolean] = (url: string) => {
-  const [data, setData] = useState<any[]>([]);
+const useDataFetcher: <T>(url: string) => [T[], boolean] = <T>(url: string) => {
+  const [data, setData] = useState<T[]>([]);
   const [isAvailable, setIsAvailable] = useState(false);
 
   useEffect(() => {
@@ -9,18 +9,22 @@ const useDataFetcher: (url: string) => [any[], boolean] = (url: string) => {
       try {
         const res = await fetch(fetchUrl);
         if (res.ok) {
-          const data = await res.json();
-          setData(data);
+          const fetchedData = (await res.json()) as T[];
+          setData(fetchedData);
           setIsAvailable(true);
         } else throw Error('Error while fetching data...');
-      } catch (err: any) {
-        console.error(err.message);
+      } catch (err) {
+        if (err instanceof Error) {
+          console.log(err.message);
+        } else {
+          console.log('Unexpected error', err);
+        }
       }
     }
 
     if (url) {
       setIsAvailable(false);
-      getData(url);
+      void getData(url);
     }
   }, [url]);
 

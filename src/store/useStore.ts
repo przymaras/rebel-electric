@@ -1,12 +1,10 @@
 import create from 'zustand';
 
 import { AddVehicleState, createAddVehicleSlice } from './createAddVehicleSlice';
-
+import { CategoriesState, createCategoriesSlice } from './createCategoriesSlice';
 import { HangarState, createHangarSlice } from './createHangarSlice';
 
-import { categoriesState, createCategoriesSlice } from './createCategoriesSlice';
-
-export type StoreState = HangarState & AddVehicleState & categoriesState;
+export type StoreState = HangarState & AddVehicleState & CategoriesState;
 
 export const useStore = create<StoreState>((set, get) => ({
   ...createAddVehicleSlice(set, get),

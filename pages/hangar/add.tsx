@@ -1,44 +1,41 @@
-import { Document, MongoClient } from "mongodb";
-import { GetStaticProps } from "next";
-import { ItemManufacturerObj } from "../../src/models/hangar";
+import { MongoClient } from 'mongodb';
+import { GetStaticProps } from 'next';
 
-import AddVehicle from "../../src/components/hangar/AddVehicle";
+import AddVehicle from 'src/components/hangar/AddVehicle';
+import { ItemManufacturerObj } from 'src/models/hangar';
 
 const HangarAddPage: React.FC<{
   controllersData: ItemManufacturerObj[];
   motorsData: ItemManufacturerObj[];
 }> = (props) => {
-  return (
-    <AddVehicle
-      controllersData={props.controllersData}
-      motorsData={props.motorsData}
-    />
-  );
+  return <AddVehicle controllersData={props.controllersData} motorsData={props.motorsData} />;
 };
 
-export const getStaticProps: GetStaticProps<{
-  controllersData: Document[];
-}> = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const dbName = process.env.MONGODB_DB;
   const dbhost = process.env.MONGODB_HOST;
   const dbUser = process.env.MONGODB_USER;
   const dbPass = process.env.MONGODB_PASS;
+
+  if (!dbName || !dbhost || !dbUser || !dbPass) return { props: {} };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  let controllersArray: Document[] = [];
-  let motorsArray: Document[] = [];
+  let controllersArray: ItemManufacturerObj[] = [];
+  let motorsArray: ItemManufacturerObj[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
 
-    const controllersCollection = db.collection("controllers");
-    controllersArray = await controllersCollection.aggregate([]).toArray();
+    const controllersCollection = db.collection('controllers');
+    controllersArray = (await controllersCollection
+      .aggregate([])
+      .toArray()) as ItemManufacturerObj[];
 
-    const motorsCollection = db.collection("motors");
-    motorsArray = await motorsCollection.aggregate([]).toArray();
+    const motorsCollection = db.collection('motors');
+    motorsArray = (await motorsCollection.aggregate([]).toArray()) as ItemManufacturerObj[];
 
-    client.close();
+    await client.close();
   } catch (err) {
     console.log(err);
   }
@@ -48,7 +45,7 @@ export const getStaticProps: GetStaticProps<{
       controllersData: controllersArray.map((controller) => ({
         ...controller,
         _id: controller._id.toString(),
-        models: controller.models.map((model: Document) => ({
+        models: controller.models.map((model) => ({
           ...model,
           _id: model._id.toString(),
         })),
@@ -56,7 +53,7 @@ export const getStaticProps: GetStaticProps<{
       motorsData: motorsArray.map((motor) => ({
         ...motor,
         _id: motor._id.toString(),
-        models: motor.models.map((model: Document) => ({
+        models: motor.models.map((model) => ({
           ...model,
           _id: model._id.toString(),
         })),

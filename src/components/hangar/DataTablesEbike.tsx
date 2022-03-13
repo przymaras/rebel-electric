@@ -1,11 +1,10 @@
 import useTranslation from 'next-translate/useTranslation';
-import { dataOrOther, translateOrOther, roundNum } from '../../utils/common-functions';
+
 import { Vehicle } from '../../models/hangar';
 import { ItemManufacturerObj } from '../../models/hangar';
-
-import styles from './DataTables.module.scss';
-
+import { dataOrOther, translateOrOther, roundNum } from '../../utils/common-functions';
 import DataTable from './DataTable';
+import styles from './DataTables.module.scss';
 
 interface DataTablesProps {
   vehicleData?: Vehicle;
@@ -81,7 +80,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
   return (
     <div className={styles.container}>
       <DataTable
-        style='base'
+        tableStyle='base'
         title='Baza'
         // col1Title="V maks."
         // col1Value={`${ifData(vData, "vmax", "---")} km/h`}
@@ -107,7 +106,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
               V maks.:
               <strong>
                 {vData?.vmax
-                  ? `${roundNum(vData.vmax)} ${t(
+                  ? `${roundNum(vData.vmax)?.toString() ?? ''} ${t(
                       `hangar:${vData?.vmaxUnit ? vData.vmaxUnit : 'empty'}`
                     )}`
                   : unknownText}
@@ -120,13 +119,17 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             <p>
               Masa po konwersji:
               <strong>
-                {vData?.mass ? `${roundNum(vData.mass)}  ${vData?.massUnit ?? ''}` : unknownText}
+                {vData?.mass
+                  ? `${roundNum(vData.mass)?.toString() ?? ''}  ${vData?.massUnit ?? ''}`
+                  : unknownText}
               </strong>
             </p>
             <p>
               Średni zasięg:
               <strong>
-                {vData?.range ? `${roundNum(vData.range)}  ${vData?.rangeUnit ?? ''}` : unknownText}
+                {vData?.range
+                  ? `${roundNum(vData.range)?.toString() ?? ''}  ${vData?.rangeUnit ?? ''}`
+                  : unknownText}
               </strong>
             </p>
 
@@ -140,7 +143,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
         }
       />
       <DataTable
-        style='electrical'
+        tableStyle='electrical'
         title='Elektryka'
         // col1Title="Moc maks."
         // col1Value={`${power} W`}
@@ -173,12 +176,14 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
             <p>
               Prąd maksymalny sterownika:
               <strong>
-                {vData?.ctrlCurrent ? `${roundNum(vData.ctrlCurrent)} A` : unknownText}
+                {vData?.ctrlCurrent
+                  ? `${roundNum(vData.ctrlCurrent)?.toString() ?? ''} A`
+                  : unknownText}
               </strong>
             </p>
             <p>
               Moc maksymalna:
-              <strong>{power ? `${roundNum(power)} W` : unknownText}</strong>
+              <strong>{power ? `${roundNum(power)?.toString() ?? ''} W` : unknownText}</strong>
             </p>
             <p>
               Zużycie energii:
@@ -219,7 +224,7 @@ const DataTables: React.FC<DataTablesProps> = (props) => {
         }
       />
       <DataTable
-        style='battery'
+        tableStyle='battery'
         title='Bateria'
         // col1Title="Napięcie"
         // col1Value={`${ifData(vData, "batVoltage", "---")} V`}

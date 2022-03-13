@@ -1,5 +1,7 @@
 import { useField, FormikProps } from 'formik';
 
+import { AddEbikeValues } from 'src/models/hangar';
+
 import styles from './formInputs.module.scss';
 
 interface InputProps {
@@ -95,7 +97,7 @@ export const Select: React.FC<InputProps> = ({ label, disabled, ...props }) => {
 export const RadioInput: React.FC<InputProps> = ({ label, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and alse replace ErrorMessage entirely.
-  const [field, meta] = useField({ ...props, type: 'radio' });
+  const field = useField({ ...props, type: 'radio' })[0];
   return (
     <>
       <label className={styles.radioLabel}>
@@ -110,7 +112,7 @@ export const RadioInput: React.FC<InputProps> = ({ label, ...props }) => {
 };
 
 export const Fieldset: React.FC<InputProps & { legend: string }> = ({ legend, ...props }) => {
-  const [field, meta] = useField(props.name);
+  const meta = useField(props.name)[1];
   return (
     <div>
       <fieldset className={styles.fieldset}>
@@ -124,12 +126,12 @@ export const Fieldset: React.FC<InputProps & { legend: string }> = ({ legend, ..
 };
 
 interface SubmitButtonProps {
-  formik: FormikProps<{}>;
+  formik: FormikProps<AddEbikeValues>;
   text: string;
   errorMsg: string;
 }
 
-export const SubmitButton: React.FC<SubmitButtonProps> = ({ formik, text, errorMsg, ...props }) => {
+export const SubmitButton: React.FC<SubmitButtonProps> = ({ formik, text, errorMsg }) => {
   const isDisabled = formik.isSubmitting;
   return (
     <div className={styles.container}>
