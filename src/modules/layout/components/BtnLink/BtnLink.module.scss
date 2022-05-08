@@ -1,0 +1,60 @@
+@import 'src/styles/variables.scss';
+
+.icoBox {
+  height: 50px;
+  font-size: 5rem;
+  color: $nav-font-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  transition: color 150ms;
+}
+
+.a {
+  background: $accent-color;
+  color: $nav-font-color;
+  min-width: 165px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 4px 4px #00000066;
+  transition: background 150ms, color 150ms;
+  margin: 1em 0;
+  align-self: center;
+
+  &:hover {
+    background: $nav-font-color;
+    color: $accent-color;
+    outline: 4px solid $accent-color;
+    outline-offset: -4px;
+
+    .icoBox {
+      color: $accent-color;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: unset;
+  }
+}
+
+.p {
+  font-size: 2.4rem;
+  margin: 0 1em;
+}
+
+.horizontal {
+  flex-direction: row;
+  padding: 0 1.5em;
+  text-align: center;
+  height: 150px;
+
+  .p {
+    margin: 0 0 0 1em;
+  }
+}

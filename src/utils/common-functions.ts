@@ -1,6 +1,6 @@
 import type { Translate } from 'next-translate';
 
-import { VehiclesCategories } from '../models/hangar';
+import { VehiclesCategories } from 'src/modules/hangar/types/hangar';
 
 export const dataOrOther = (
   value: string | undefined,

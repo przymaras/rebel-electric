@@ -1,8 +1,14 @@
 import create from 'zustand';
 
-import { AddVehicleState, createAddVehicleSlice } from './createAddVehicleSlice';
-import { CategoriesState, createCategoriesSlice } from './createCategoriesSlice';
-import { HangarState, createHangarSlice } from './createHangarSlice';
+import {
+  AddVehicleState,
+  createAddVehicleSlice,
+} from 'src/modules/hangar/store/createAddVehicleSlice';
+import {
+  CategoriesState,
+  createCategoriesSlice,
+} from 'src/modules/hangar/store/createCategoriesSlice';
+import { HangarState, createHangarSlice } from 'src/modules/hangar/store/createHangarSlice';
 
 export type StoreState = HangarState & AddVehicleState & CategoriesState;
 

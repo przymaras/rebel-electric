@@ -1,0 +1,41 @@
+@import 'src/styles/variables.scss';
+
+.container {
+  max-width: 590px;
+
+  --b: 3px; /* thickness of the border */
+  --c: #46474d; /* color of the border */
+  --w: 20px; /* width of border */
+
+  border: var(--b) solid transparent; /* space for the border */
+  --g: #000000 90deg, var(--c) 0;
+  background: conic-gradient(from 90deg at top var(--b) left var(--b), var(--g)) 0 0,
+    conic-gradient(from 180deg at top var(--b) right var(--b), var(--g)) 100% 0,
+    conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--g)) 0 100%,
+    conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--g)) 100% 100%;
+  background-size: var(--w) var(--w);
+  background-origin: border-box;
+  background-repeat: no-repeat;
+
+  margin-bottom: 1em;
+}
+
+.content {
+  background: #ffffff;
+  padding: 1em;
+  box-shadow: 0 4px 4px #00000066;
+  text-align: center;
+  font-weight: 700;
+
+  p {
+    &:nth-child(1n + 2) {
+      margin-top: 0.5em;
+    }
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .container {
+    margin: unset;
+  }
+}

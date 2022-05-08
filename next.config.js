@@ -13,6 +13,6 @@ module.exports = {
     scrollRestoration: true,
   },
   eslint: {
-    dirs: ['pages', 'src'],
+    dirs: ['src'],
   },
 };

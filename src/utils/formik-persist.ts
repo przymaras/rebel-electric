@@ -3,9 +3,9 @@ import debounce from 'lodash.debounce';
 import * as React from 'react';
 import isEqual from 'react-fast-compare';
 
-import { AddEbikeValues } from 'src/models/hangar';
+import { AddEbikeValues } from 'src/modules/hangar/types/hangar';
+import { useStore } from 'src/store/useStore';
 
-import { useStore } from '../store/useStore';
 import { getSelectedCategoryTreeInfo } from './common-functions';
 
 export interface PersistProps {
@@ -14,6 +14,7 @@ export interface PersistProps {
   isSessionStorage?: boolean;
 }
 
+//TODO: Make this component generic
 class PersistImpl extends React.Component<
   PersistProps & { formik: FormikProps<AddEbikeValues> },
   {}
