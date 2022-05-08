@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "npm run lint && next build",
-    "types-check": "tsc --outDir .next",
+    "cy-open": "cypress open",
+    "cy-run": "cypress run",
     "dev": "next dev",
     "format-check": "prettier src --check",
     "format": "prettier src --write",
@@ -12,7 +13,8 @@
     "start": "next start",
     "test-check": "jest",
     "test-coverage": "jest --watchAll --coverage",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "types-check": "tsc --outDir .next"
   },
   "dependencies": {
     "filepond": "^4.30.3",
@@ -50,6 +52,7 @@
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
     "babel-eslint": "^10.1.0",
+    "cypress": "^9.6.0",
     "eslint": "8.15.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
