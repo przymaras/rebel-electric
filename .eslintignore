@@ -1,4 +1,4 @@
 build/*
 public/*
-pages/404.js
+src/pages/404.js
 /next.config.js

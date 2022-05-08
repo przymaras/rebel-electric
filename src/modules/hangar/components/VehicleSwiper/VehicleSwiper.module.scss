@@ -1,0 +1,17 @@
+@import 'src/styles/variables.scss';
+
+.container {
+  width: 100vw;
+}
+
+.thumb {
+  cursor: pointer;
+}
+
+@media (min-width: $desktop-width) {
+  .container {
+    width: 800px;
+    height: 700px;
+    grid-area: swiper;
+  }
+}

@@ -1,0 +1,65 @@
+@import 'src/styles/variables.scss';
+
+.container {
+  width: 100%;
+}
+
+.wrapper {
+  width: 100%;
+  align-self: stretch;
+  max-width: 590px;
+  background: #ffffff;
+
+  border: 3px solid black;
+
+  margin: 3em 0 1em 0;
+  position: relative;
+}
+
+.title {
+  background: $header-background;
+  position: absolute;
+  top: -28px;
+  left: -5px;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  padding: 0 1em;
+  font-weight: 800;
+
+  &:before {
+    background-image: url('/img/back-arrow-right.svg');
+    content: '';
+    width: 8px;
+    height: 37px;
+    left: -8px;
+    position: absolute;
+  }
+
+  &:after {
+    background-image: url('/img/front-arrow-right.svg');
+    content: '';
+    width: 10px;
+    height: 37px;
+    top: 0;
+    right: -10px;
+    position: absolute;
+  }
+}
+
+.content {
+  padding: 1em;
+  box-shadow: 0 4px 4px #00000066;
+  font-weight: 700;
+  white-space: pre-line;
+}
+
+@media (min-width: $desktop-width) {
+  .container {
+    grid-area: desc;
+    max-width: 800px;
+  }
+  .wrapper {
+    max-width: unset;
+  }
+}

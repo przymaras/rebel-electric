@@ -1,0 +1,72 @@
+@import 'src/styles/variables.scss';
+
+.icoBox {
+  width: 50px;
+  height: 30px;
+  font-size: 2rem;
+  color: $nav-font-color;
+  background: $nav-ico-background;
+  border: 0.5px solid $nav-font-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.linkContainer {
+  a {
+    padding: 0.2em;
+    transition: background 250ms;
+    display: flex;
+    align-items: center;
+    color: $nav-font-color;
+    font-weight: bold;
+
+    &:hover {
+      background: #ffffff;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+.loginContainer {
+  background: $accent-color;
+  align-self: start;
+
+  a {
+    &:hover {
+      background: unset;
+    }
+
+    &:active {
+      transform: unset;
+    }
+  }
+
+  &:hover {
+    outline: 2px solid $nav-font-color;
+  }
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.loginIcoBox {
+  background: none;
+  border: none;
+  font-size: 3rem;
+}
+
+@media (min-width: $desktop-width) {
+  .loginContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .loginIcoBox {
+    width: unset;
+  }
+}

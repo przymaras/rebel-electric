@@ -1,0 +1,29 @@
+@import 'src/styles/variables.scss';
+
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 55px 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  color: $nav-font-color;
+
+  p {
+    margin: 0;
+    font-size: 1.5rem;
+    padding: 0.15em 0;
+    text-align: center;
+  }
+}
+
+.base {
+  background: $data-gray-light;
+}
+
+.electrical {
+  background: $data-yellow-light;
+}
+
+.battery {
+  background: $data-green-light;
+}

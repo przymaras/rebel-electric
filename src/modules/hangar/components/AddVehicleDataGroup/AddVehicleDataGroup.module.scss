@@ -1,0 +1,50 @@
+@import 'src/styles/variables.scss';
+
+.container {
+  width: 100%;
+  margin-top: 1em;
+
+  &.base {
+    background: $data-gray-light;
+  }
+
+  &.electrical {
+    background: $data-yellow-light;
+  }
+
+  &.battery {
+    background: $data-green-light;
+  }
+}
+
+.base {
+  .heading {
+    background: $data-gray;
+  }
+}
+
+.electrical {
+  .heading {
+    background: $data-yellow;
+  }
+}
+
+.battery {
+  .heading {
+    background: $data-green;
+  }
+}
+
+.heading {
+  padding: 0.5em 0;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.wrapper {
+  padding: 1em;
+}
