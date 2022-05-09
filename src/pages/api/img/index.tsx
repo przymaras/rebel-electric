@@ -6,3 +6,4 @@ import { getAuthenticationParameters } from 'src/utils/imageKit-functions';
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   res.status(200).json(getAuthenticationParameters());
 }
+//FIXME: Everybody can get this token
