@@ -14,11 +14,15 @@ interface ExtendedNextApiRequest extends NextApiRequest {
 }
 
 async function handler(req: ExtendedNextApiRequest, res: NextApiResponse) {
+  const imgTargetDir = process.env.NEXT_PUBLIC_IMAGEKIT_DIRECTORY;
   const dbName = process.env.MONGODB_DB;
   const dbhost = process.env.MONGODB_HOST;
   const dbUser = process.env.MONGODB_USER;
   const dbPass = process.env.MONGODB_PASS;
-  if (!dbName || !dbhost || !dbUser || !dbPass) return;
+
+  if (!dbName || !dbhost || !dbUser || !dbPass || !imgTargetDir)
+    return res.status(500).json({ message: '.env variables reading error' });
+
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
   if (req.method === 'POST') {
@@ -41,7 +45,7 @@ async function handler(req: ExtendedNextApiRequest, res: NextApiResponse) {
 
       const images = await getImageDetailsByName(data.vehicleImages);
       await Promise.all(
-        images.map(async (image: { filePath: string }) => moveImage(image.filePath, '/hangar/'))
+        images.map(async (image: { filePath: string }) => moveImage(image.filePath, imgTargetDir))
       );
       const client = await MongoClient.connect(connectString);
       const db = client.db();
