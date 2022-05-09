@@ -1,8 +1,8 @@
 import ImageKit from 'imagekit';
 
 const imagekit: ImageKit = new ImageKit({
-  publicKey: process.env.IMAGEKIT_PUBLIC_KEY!,
-  privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,
+  publicKey: process.env.IMAGEKIT_PUBLIC_KEY ?? '',
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY ?? '',
   urlEndpoint: 'https://ik.imagekit.io/rebelelectric/',
 });
 

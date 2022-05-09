@@ -23,7 +23,7 @@ export const getServerSettings: (imgsToRestoreDetails: ImageObj[]) => {
       abort
     ) => {
       // Asynchronously uploading files with FilePond is called processing. In short, FilePond sends a file to the server and expects the server to return a unique file id. This unique id is then used to revert uploads or restore earlier uploads.
-
+      //FIXME: Everybody can get this token
       //get authorization token for imagekit API
       const res = await fetch('/api/img/');
       const imgAuth = (await res.json()) as {
@@ -36,6 +36,8 @@ export const getServerSettings: (imgsToRestoreDetails: ImageObj[]) => {
 
       // https://docs.imagekit.io/api-reference/upload-file-api/client-side-file-upload
       // all parameters are describec in imagekit's docs
+      //FIXME: hardcoded publicKey
+      //FIXME: everybody can send and OVERWRITE any image file at any location using this api!!!!
       const formData = new FormData();
       formData.append('file', file);
       formData.append('fileName', file.name);
