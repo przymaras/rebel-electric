@@ -1,15 +1,13 @@
 import useTranslation from 'next-translate/useTranslation';
-import Image from 'next/image';
 
 import { IconAcademy } from 'src/assets/icons/IconAcademy';
 import { IconHangar } from 'src/assets/icons/IconHangar';
 import { IconUser } from 'src/assets/icons/IconUser';
+import RebelLogo from 'src/assets/rebel-electric-logo.svg';
 import { Vehicle } from 'src/modules/hangar/types/hangar';
 import { RecentBox } from 'src/modules/home/components/RecentBox';
 import { BtnLink } from 'src/modules/layout/components/BtnLink';
 import { InfoBox } from 'src/modules/layout/components/InfoBox';
-
-import Logo from 'public/img/rebel-electric-logo.svg';
 
 import styles from './Home.module.scss';
 
@@ -21,8 +19,7 @@ export const Home: React.FC<{ vehicles: Vehicle[] }> = (props) => {
     <>
       <div className={styles.sectionWrapper}>
         <div className={styles.logo}>
-          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-          <Image src={Logo} alt='Rebel Electric Logo' layout='fill' />
+          <RebelLogo title='Rebel Electric Logo' />
         </div>
         <div>
           <p className={styles.p}>

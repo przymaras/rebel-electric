@@ -1,7 +1,7 @@
+//If there is another plugin over nextTranslate - consider useing https://github.com/cyrilwanner/next-compose-plugins
 const nextTranslate = require('next-translate');
 
-module.exports = {
-  ...nextTranslate(),
+const nextConfig = {
   reactStrictMode: true,
   compiler: {
     reactRemoveProperties: true,
@@ -15,4 +15,15 @@ module.exports = {
   eslint: {
     dirs: ['src'],
   },
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    });
+
+    return config;
+  },
 };
+
+module.exports = nextTranslate(nextConfig);

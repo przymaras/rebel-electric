@@ -1,10 +1,8 @@
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import { IconNavBars } from 'src/assets/icons/IconNavBars';
+import RebelLogo from 'src/assets/rebel-electric-logo.svg';
 import { Nav } from 'src/modules/layout/components/Nav';
-
-import Logo from 'public/img/rebel-electric-logo.svg';
 
 import styles from './Header.module.scss';
 
@@ -36,8 +34,7 @@ export const Header: React.FC = () => {
           <br /> ELECTRIC
         </h2>
         <div className={styles.img}>
-          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-          <Image src={Logo} alt='Rebel Electric Logo' width={115} height={50} />
+          <RebelLogo title='Rebel Electric Logo' width={115} />
         </div>
         <Nav isVisible={isVisibleNav} closeNav={closeNav} />
       </div>
