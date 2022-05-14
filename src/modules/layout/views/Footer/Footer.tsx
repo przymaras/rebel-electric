@@ -1,6 +1,4 @@
-import Image from 'next/image';
-
-import Logo from 'public/img/rebel-electric-logo.svg';
+import RebelLogo from 'src/assets/rebel-electric-logo.svg';
 
 import styles from './Footer.module.scss';
 
@@ -9,8 +7,7 @@ export const Footer: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.footer}>
         <div className={`${styles.img} ${styles.logo}`}>
-          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-          <Image src={Logo} alt='Rebel Electric Logo' />
+          <RebelLogo width={139} title='Rebel Electric Logo' />
         </div>
       </div>
     </div>
