@@ -4,7 +4,7 @@ const nextTranslate = require('next-translate');
 const nextConfig = {
   reactStrictMode: true,
   compiler: {
-    reactRemoveProperties: true,
+    reactRemoveProperties: process.env.REMOVE_TEST_ATTRIBUTES === 'true',
   },
   images: {
     domains: ['rebel-electric.com'],
