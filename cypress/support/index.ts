@@ -12,9 +12,17 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      /**
+       * Custom command to select DOM element by data-testid attribute.
+       * @example cy.getByTestId('Greeting')
+       */
+      getByTestId(value: string): Chainable<JQuery<HTMLElement>>;
+    }
+  }
+}
