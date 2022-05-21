@@ -12,7 +12,7 @@ interface BtnLinkProps {
 //TODO: use classNames
 export const BtnLink: React.FC<BtnLinkProps> = ({ horizontal, href, icon, testId = '', text }) => {
   return (
-    <Link href={href} passHref>
+    <Link href={href}>
       <a
         data-testid={`BtnLink${testId}`}
         className={`${styles.a} ${horizontal === true ? styles.horizontal : ''}`}

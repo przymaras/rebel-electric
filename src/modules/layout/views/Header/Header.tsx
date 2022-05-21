@@ -24,17 +24,17 @@ export const Header: React.FC = () => {
   }, [isVisibleNav]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid='Header'>
       <div className={styles.header}>
-        <button onClick={toggleNav} className={styles.btn}>
+        <button onClick={toggleNav} className={styles.btn} data-testid='ToggleNavButton'>
           <IconNavBars />
         </button>
-        <h2 className={`${styles.title} rebel-font`}>
+        <h2 className={`${styles.title} rebel-font`} data-testid='HeaderText'>
           REBEL
           <br /> ELECTRIC
         </h2>
         <div className={styles.img}>
-          <RebelLogo title='Rebel Electric Logo' width={115} />
+          <RebelLogo title='Rebel Electric Logo' width={115} data-testid='HeaderLogo' />
         </div>
         <Nav isVisible={isVisibleNav} closeNav={closeNav} />
       </div>
