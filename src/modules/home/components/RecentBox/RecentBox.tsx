@@ -9,7 +9,7 @@ export const RecentBox: React.FC<{ vehicles: Vehicle[] }> = (props) => {
   const { t } = useTranslation();
 
   return (
-    <div className={styles.recentlyAdded}>
+    <div className={styles.recentlyAdded} data-testid='RecentBox'>
       <h2 className={`${styles.recentTitle} rebel-font`}>{t('home:recently-added')}</h2>
       <div className={styles.container}>
         {props.vehicles.map((vehicle) => {

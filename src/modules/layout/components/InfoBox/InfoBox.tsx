@@ -1,9 +1,13 @@
 import styles from './InfoBox.module.scss';
 
-export const InfoBox: React.FC = (props) => {
+interface InfoBoxProps {
+  testId?: string;
+}
+
+export const InfoBox: React.FC<InfoBoxProps> = ({ testId = '', children }) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>{props.children}</div>
+    <div className={styles.container} data-testid={`InfoBox${testId}`}>
+      <div className={styles.content}>{children}</div>
     </div>
   );
 };

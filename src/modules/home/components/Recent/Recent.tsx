@@ -6,18 +6,18 @@ import { getBigThumbSrc } from 'src/utils/common-functions';
 
 import styles from './Recent.module.scss';
 
-export const Recent: React.FC<{ vehicle: Vehicle }> = (props) => {
-  const imageName = props.vehicle.vehicleImages[0];
-  const projectName = props.vehicle.projectName;
-  const id = props.vehicle._id;
+interface RecentProps {
+  vehicle: Vehicle;
+}
+
+export const Recent: React.FC<RecentProps> = ({ vehicle: { vehicleImages, projectName, _id } }) => {
+  const imageName = vehicleImages[0];
   return (
-    <div className={styles.container}>
-      <Link href={`/hangar/${id}`} passHref>
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+    <div className={styles.container} data-testid={`Recent_${_id}`}>
+      <Link href={`/hangar/${_id}`}>
         <a>
           <div className={styles.recentImgContainer}>
             <img
-              // src={`https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true,di-rebel.jpg/hangar/${imageName}/${underscoredName}.${imageExtension}`}
               src={getBigThumbSrc(imageName, projectName)}
               alt='Cube Ams 100 TSDZ2'
               className={styles.img}
@@ -25,7 +25,7 @@ export const Recent: React.FC<{ vehicle: Vehicle }> = (props) => {
           </div>
         </a>
       </Link>
-      <h2 className={styles.recentName}>{props.vehicle.projectName}</h2>
+      <h2 className={styles.recentName}>{projectName}</h2>
     </div>
   );
 };
