@@ -17,11 +17,11 @@ export const Home: React.FC<{ vehicles: Vehicle[] }> = (props) => {
 
   return (
     <>
-      <div className={styles.sectionWrapper}>
+      <div className={styles.sectionWrapper} data-testid='IntroSection'>
         <div className={styles.logo}>
-          <RebelLogo title='Rebel Electric Logo' />
+          <RebelLogo title='Rebel Electric Logo' data-testid='IntroLogo' />
         </div>
-        <div>
+        <div data-testid='IntroText'>
           <p className={styles.p}>
             {t('home:intro-1')}
             <em>{t('home:intro-2')}</em>
@@ -34,24 +34,35 @@ export const Home: React.FC<{ vehicles: Vehicle[] }> = (props) => {
           </p>
         </div>
       </div>
-      <div className={styles.sectionWrapper}>
-        <BtnLink href='/hangar' icon={<IconHangar />} text={t('common:navHangar')} />
-        <InfoBox>
+      <div className={styles.sectionWrapper} data-testid='HangarSection'>
+        <BtnLink
+          href='/hangar'
+          icon={<IconHangar />}
+          text={t('common:navHangar')}
+          testId='Hangar'
+        />
+        <InfoBox testId='Hangar'>
           <p>{t('home:hangar-info-1')}</p>
           <p>{t('home:hangar-info-2')}</p>
         </InfoBox>
       </div>
 
       <RecentBox vehicles={recentVehicles} />
-      <div className={styles.sectionWrapper}>
-        <BtnLink href='/knowledge' icon={<IconAcademy />} text={t('common:navKnowledgeBase')} />
-        <InfoBox>
+
+      <div className={styles.sectionWrapper} data-testid='KnowledgeBaseSection'>
+        <BtnLink
+          href='/knowledge'
+          icon={<IconAcademy />}
+          text={t('common:navKnowledgeBase')}
+          testId='KnowledgeBase'
+        />
+        <InfoBox testId='KnowledgeBase'>
           <p>{t('home:knowledge-info-1')}</p>
           <p>{t('home:knowledge-info-2')}</p>
         </InfoBox>
       </div>
-
-      <div className={styles.call}>
+      {/* TODO: try use HTML in translations https://github.com/vinissimus/next-translate#6-use-html-inside-the-translation  */}
+      <div className={styles.call} data-testid='AnnouncementSection'>
         <div className={styles.callContainer}>
           <p>
             {t('home:call-1')}
@@ -77,9 +88,15 @@ export const Home: React.FC<{ vehicles: Vehicle[] }> = (props) => {
           </p>
         </div>
       </div>
-      <div className={styles.sectionWrapper}>
-        <BtnLink href='/users/add' icon={<IconUser />} text={t('common:register')} />
-        <InfoBox>
+
+      <div className={styles.sectionWrapper} data-testid='RegisterSection'>
+        <BtnLink
+          href='/users/add'
+          icon={<IconUser />}
+          text={t('common:register')}
+          testId='Register'
+        />
+        <InfoBox testId='Register'>
           <p>{t('home:register-info-1')}</p>
           <p>{t('home:register-info-2')}</p>
         </InfoBox>
