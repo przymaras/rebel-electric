@@ -1,5 +1,7 @@
 import type { AppProps } from 'next/app';
 
+import 'src/styles/google-fonts.css';
+
 import { Layout } from 'src/modules/layout/views/Layout';
 import 'src/styles/globals.scss';
 
