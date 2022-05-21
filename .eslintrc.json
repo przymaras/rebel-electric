@@ -23,7 +23,7 @@
       }
     },
     {
-      "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+      "files": ["src/**/__tests__/**/*.[jt]s?(x)", "src/**/?(*.)+(spec|test).[jt]s?(x)"],
       "extends": ["plugin:testing-library/react"]
     }
   ],
@@ -54,7 +54,7 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["setupTests.ts", "**/*.test.ts", "**/*.test.tsx"]
+        "devDependencies": ["setupTests.ts", "src/**/*.test.ts", "src/**/*.test.tsx"]
       }
     ]
   }
