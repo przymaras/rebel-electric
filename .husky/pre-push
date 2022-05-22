@@ -5,4 +5,4 @@ npm run format-check
 npm run types-check
 npm run lint
 npm run test-check
-npx start-server-and-test dev-test http://localhost:3000/en cy-run
+npm run cy-start-run
