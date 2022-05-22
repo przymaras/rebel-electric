@@ -1,1 +1,8 @@
-{ "screenshotsFolder": "./cypress/snapshots/actual", "trashAssetsBeforeRuns": true }
+{
+  "screenshotsFolder": "./cypress/snapshots/actual",
+  "trashAssetsBeforeRuns": true,
+  "env": {
+    "ALWAYS_GENERATE_DIFF": false,
+    "SNAPSHOT_DIFF_DIRECTORY": "./cypress/snapshots/actual/diff"
+  }
+}
