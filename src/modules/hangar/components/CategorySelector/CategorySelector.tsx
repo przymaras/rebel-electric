@@ -1,3 +1,4 @@
+import useTranslation from 'next-translate/useTranslation';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 
@@ -15,6 +16,7 @@ interface CategorySelectorProps {
 const vehiclesCategoriesSelector = (state: StoreState) => state.vehiclesCategories;
 
 export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
+  const { t } = useTranslation();
   const categorySelector = useCallback<(state: StoreState) => number[]>(
     (state) => {
       if (props.addVehicle === true) return state.addVehicleCategory;
@@ -148,7 +150,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
             <>
               {/* <p> */}
               {/* {cat.catTitle}:  */}
-              {cat2.categories[selected2[currentIndex2]].name} / {/* </p> */}
+              {t(`hangar:${cat2.categories[selected2[currentIndex2]].name}`)} / {/* </p> */}
               {renderSelected(cat2.categories[selected2[currentIndex2]].child!, selected2)}
             </>
           );
@@ -156,7 +158,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
           return (
             // <p>
             // {cat.catTitle}:
-            cat2.categories[selected2[currentIndex2]].name
+            t(`hangar:${cat2.categories[selected2[currentIndex2]].name}`)
             /* </p> */
           );
         }
@@ -173,7 +175,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
       {!selectedCategory.includes(-1) && (props.addVehicle ?? false) && (
         <div>
           <p className={styles.selectedCategory}>
-            Twój pojazd trafi do kategorii:{' '}
+            {t('hangar:catChosen')}{' '}
             <strong>{renderSelectedCategoriesNames(vehiclesCategories, selectedCategory)}</strong>
           </p>
         </div>

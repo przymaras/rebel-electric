@@ -1,50 +1,50 @@
 import { VehiclesCategories } from 'src/modules/hangar/types/hangar';
 
 export const categories: VehiclesCategories = {
-  catTitle: 'RODZAJ POJAZDU',
+  catTitle: 'catType',
   categories: [
     {
       id: 'cGB6DW-xNd8GdX4I9N24S',
-      name: 'eBike',
+      name: 'catEbike',
       image: '/img/categories/ebike/ebike-factory.svg',
       child: {
-        catTitle: 'WYKONANIE',
+        catTitle: 'catMade',
         categories: [
           {
             id: 'DwNLVj_Mf-bHgSzsL1KZL',
-            name: 'KONWERSJA',
+            name: 'catDiy',
             image: '/img/categories/ebike/ebike-conversion.svg',
             child: {
-              catTitle: 'ZAWIESZENIE',
+              catTitle: 'catFrame',
               categories: [
                 {
                   id: 'XKBYwLwfXn_Emv8E1hztm',
-                  name: 'SZTYWNY TYŁ',
+                  name: 'catHardtail',
                   image: '/img/categories/ebike/ebike-conversion-ht.svg',
                   child: {
-                    catTitle: 'NAPĘD',
+                    catTitle: 'catDrive',
                     categories: [
                       {
                         id: 'in1KQgvIjIC1bmV0hBOZd',
-                        name: 'HUB TYŁ',
+                        name: 'catRearHub',
                         image: '/img/categories/ebike/ebike-conversion-ht-hub_r.svg',
                         child: {
-                          catTitle: 'MOC',
+                          catTitle: 'catPower',
                           powerRelated: true,
                           categories: [
                             {
                               id: 'OFk8Ql-Cu18GRgsV6cfF1',
-                              name: 'ŚREDNIA MOC',
+                              name: 'catMidPower',
                               image: '/img/categories/ebike/ebike-conversion-ht-hub_r-mp.svg',
                             },
                             {
                               id: 'b0YlW9bMwRUXV6Au3cDH_',
-                              name: 'DUŻA MOC',
+                              name: 'catHighPower',
                               image: '/img/categories/ebike/ebike-conversion-ht-hub_r-hp.svg',
                             },
                             {
                               id: 'Vno_VCgCqeoT6XVNXmBo1',
-                              name: 'CRUISER',
+                              name: 'catCruiser',
                               image: '/img/categories/ebike/ebike-conversion-ht-hub_r-cruiser.svg',
                             },
                           ],
@@ -52,25 +52,25 @@ export const categories: VehiclesCategories = {
                       },
                       {
                         id: '1mkxGiFObWo1Jz2yYtT1Q',
-                        name: 'HUB PRZÓD',
+                        name: 'catFrontHub',
                         image: '/img/categories/ebike/ebike-conversion-ht-hub_f.svg',
                         child: {
-                          catTitle: 'MOC',
+                          catTitle: 'catPower',
                           powerRelated: true,
                           categories: [
                             {
                               id: 'hL96QxppkzaN_4lAU6nPZ',
-                              name: 'NISKA MOC',
+                              name: 'catLowPower',
                               image: '/img/categories/ebike/ebike-conversion-ht-hub_f-lp.svg',
                             },
                             {
                               id: 'hL96QxppkzaN_4lAU6nPZ',
-                              name: 'ŚREDNIA MOC',
+                              name: 'catMidPower',
                               image: '/img/categories/ebike/ebike-conversion-ht-hub_f-mp.svg',
                             },
                             {
                               id: 'hL96QxppkzaN_4lAU6nPZ',
-                              name: 'CRUISER',
+                              name: 'catCruiser',
                               image: '/img/categories/ebike/ebike-conversion-ht-hub_f-cruiser.svg',
                             },
                           ],
@@ -78,20 +78,20 @@ export const categories: VehiclesCategories = {
                       },
                       {
                         id: 'hL96QxppkzaN_4lAU6nPZ',
-                        name: 'MID',
+                        name: 'catMidDrive',
                         image: '/img/categories/ebike/ebike-conversion-ht-mid.svg',
                         child: {
-                          catTitle: 'MOC',
+                          catTitle: 'catPower',
                           powerRelated: true,
                           categories: [
                             {
                               id: 'VH20EFscWX5RZZvVANgmo',
-                              name: 'NISKA MOC',
+                              name: 'catLowPower',
                               image: '/img/categories/ebike/ebike-conversion-ht-mid-lp.svg',
                             },
                             {
                               id: 'yrYPh2P9uiIIcvXKI0U7A',
-                              name: 'ŚREDNIA MOC',
+                              name: 'catMidPower',
                               image: '/img/categories/ebike/ebike-conversion-ht-mid-mp.svg',
                             },
                           ],
@@ -102,32 +102,32 @@ export const categories: VehiclesCategories = {
                 },
                 {
                   id: 'vdn0glY4OxzyMAROdDRnK',
-                  name: 'AMORTYZOWANY',
+                  name: 'catFull',
                   image: '/img/categories/ebike/ebike-conversion-full.svg',
                   child: {
-                    catTitle: 'NAPĘD',
+                    catTitle: 'catDrive',
                     categories: [
                       {
                         id: 'DDwqfomYcMsHwEVEgkpE4',
-                        name: 'HUB TYŁ',
+                        name: 'catRearHub',
                         image: '/img/categories/ebike/ebike-conversion-full-hub_r.svg',
                         child: {
-                          catTitle: 'MOC',
+                          catTitle: 'catPower',
                           powerRelated: true,
                           categories: [
                             {
                               id: 'Kqvsu-NJb4sWLsq9xl5V_',
-                              name: 'ŚREDNIA MOC',
+                              name: 'catMidPower',
                               image: '/img/categories/ebike/ebike-conversion-full-hub_r-mp.svg',
                             },
                             {
                               id: 'cg-RsVO3_knIoap7k9Ac3',
-                              name: 'DUŻA MOC',
+                              name: 'catHighPower',
                               image: '/img/categories/ebike/ebike-conversion-full-hub_r-hp.svg',
                             },
                             {
                               id: 'LV-grOQ1I-kqPhu-mFf1T',
-                              name: 'SZALONA MOC',
+                              name: 'catInsanePower',
                               image: '/img/categories/ebike/ebike-conversion-full-hub_r-ip.svg',
                             },
                           ],
@@ -135,20 +135,20 @@ export const categories: VehiclesCategories = {
                       },
                       {
                         id: 'ZCaoFYRpohPFZDPPaxI9B',
-                        name: 'HUB PRZÓD',
+                        name: 'catFrontHub',
                         image: '/img/categories/ebike/ebike-conversion-full-hub_f.svg',
                         child: {
-                          catTitle: 'MOC',
+                          catTitle: 'catPower',
                           powerRelated: true,
                           categories: [
                             {
                               id: 'A54ydtMWJh1PYfITzkxO7',
-                              name: 'NISKA MOC',
+                              name: 'catLowPower',
                               image: '/img/categories/ebike/ebike-conversion-full-hub_f-lp.svg',
                             },
                             {
                               id: 'uRo95TnWiEhVNqgGMshB3',
-                              name: 'ŚREDNIA MOC',
+                              name: 'catMidPower',
                               image: '/img/categories/ebike/ebike-conversion-full-hub_f-mp.svg',
                             },
                           ],
@@ -156,25 +156,25 @@ export const categories: VehiclesCategories = {
                       },
                       {
                         id: 'W9mxgnMZbSsp-s8HzAR1U',
-                        name: 'MID',
+                        name: 'catMidDrive',
                         image: '/img/categories/ebike/ebike-conversion-full-mid.svg',
                         child: {
-                          catTitle: 'MOC',
+                          catTitle: 'catPower',
                           powerRelated: true,
                           categories: [
                             {
                               id: 'WvLux4IwSCJtsvSW1idgb',
-                              name: 'ŚREDNIA MOC',
+                              name: 'catMidPower',
                               image: '/img/categories/ebike/ebike-conversion-full-mid-mp.svg',
                             },
                             {
                               id: 'kCOfhCzz9EEiQdsN-sA26',
-                              name: 'DUŻA MOC',
+                              name: 'catHighPower',
                               image: '/img/categories/ebike/ebike-conversion-full-mid-hp.svg',
                             },
                             {
                               id: 'JE_RWSU9TC0sDG79X3oCe',
-                              name: 'SZALONA MOC',
+                              name: 'catInsanePower',
                               image: '/img/categories/ebike/ebike-conversion-full-mid-ip.svg',
                             },
                           ],
@@ -188,19 +188,19 @@ export const categories: VehiclesCategories = {
           },
           {
             id: 'ZAFEtsbS_twu60cJPh8mY',
-            name: 'FABRYCZNY',
+            name: 'catFactory',
             image: '/img/categories/ebike/ebike-factory.svg',
             child: {
-              catTitle: 'ZAWIESZENIE',
+              catTitle: 'catFrame',
               categories: [
                 {
                   id: 'TV7T57ayF7ehqp68Zl394',
-                  name: 'SZTYWNY TYŁ',
+                  name: 'catHardtail',
                   image: '/img/categories/ebike/ebike-factory-ht.svg',
                 },
                 {
                   id: 'GvsG6l4X2Fl_0KCKobP9M',
-                  name: 'AMORTYZOWANY',
+                  name: 'catFull',
                   image: '/img/categories/ebike/ebike-factory-full.svg',
                 },
               ],
@@ -208,7 +208,7 @@ export const categories: VehiclesCategories = {
           },
           {
             id: 'gpIumLWLhuYRdG9SATW_O',
-            name: 'INNY',
+            name: 'catOther',
             image: '/img/categories/other.svg',
           },
         ],
@@ -216,24 +216,24 @@ export const categories: VehiclesCategories = {
     },
     {
       id: 'o_4BEAOpUnqWndFlFu8FM',
-      name: 'MONSTER eBIKE',
+      name: 'catMonster',
       image: '/img/categories/ebike/ebike-monster.svg',
       child: {
-        catTitle: 'TYP',
+        catTitle: 'catType',
         categories: [
           {
             id: 'maIs1g-It6gQHE03B16oz',
-            name: 'GÓRSKI',
+            name: 'catMonsterMountain',
             image: '/img/categories/ebike/ebike-monster-hill_c.svg',
           },
           {
             id: '31gPVruvZ1URza7Rk4EqN',
-            name: 'SPEED',
+            name: 'catMonsterSpeed',
             image: '/img/categories/ebike/ebike-monster-speed.svg',
           },
           {
             id: 'a6VkOdtqJGt1Q2wH_jUiw',
-            name: 'LEKKI',
+            name: 'catMonsterLight',
             image: '/img/categories/ebike/ebike-monster-light.svg',
           },
         ],
@@ -241,31 +241,31 @@ export const categories: VehiclesCategories = {
     },
     {
       id: 'Tj-t6OmSgcjst7vS0VTlP',
-      name: 'eMoto',
+      name: 'catEMoto',
       image: '/img/categories/emoto/emoto.svg',
       child: {
-        catTitle: 'WYKONANIE',
+        catTitle: 'catMade',
         categories: [
           {
             id: 'fG9Fg1QGmx2BuuKbQY_bE',
-            name: 'FABRYCZNY',
+            name: 'catFactory',
             image: '/img/categories/emoto/emoto-factory.svg',
           },
           {
             id: 'A_e5lCIX0OAKJ3KRnp7CA',
-            name: 'KONWERSJA',
+            name: 'catDiy',
             image: '/img/categories/emoto/emoto-conversion-mid.svg',
             child: {
-              catTitle: 'NAPĘD',
+              catTitle: 'catDrive',
               categories: [
                 {
                   id: 'fiHHGNgmMMA2h7FYOrXgY',
-                  name: 'HUB TYŁ',
+                  name: 'catRearHub',
                   image: '/img/categories/emoto/emoto-conversion-hub.svg',
                 },
                 {
                   id: 'VWt61uiWvxzxijHCVOyj7',
-                  name: 'MID',
+                  name: 'catMidDrive',
                   image: '/img/categories/emoto/emoto-conversion-mid.svg',
                 },
               ],
@@ -277,12 +277,12 @@ export const categories: VehiclesCategories = {
 
     {
       id: 'gJTvJiV6d6CHgnawhIz7v',
-      name: 'eCar',
+      name: 'catECar',
       image: '/img/categories/other.svg',
     },
     {
       id: '5ttnUNAu5tC0w7lBDgPx2',
-      name: 'Inny',
+      name: 'catOther',
       image: '/img/categories/other.svg',
     },
   ],

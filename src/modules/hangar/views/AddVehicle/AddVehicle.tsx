@@ -31,11 +31,11 @@ export const AddVehicle: React.FC<{
   const NOT_SELECTED = -1;
   const EBIKE_TYPE = vehiclesCategories.categories
     .map((category) => category.name)
-    .indexOf('eBike');
+    .indexOf('catEbike');
 
   const MONSTEREBIKE_TYPE = vehiclesCategories.categories
     .map((category) => category.name)
-    .indexOf('MONSTER eBIKE');
+    .indexOf('catMonster');
 
   useEffect(() => {
     if (newCategoryChosen) {
@@ -98,15 +98,9 @@ export const AddVehicle: React.FC<{
           motorsData={props.motorsData}
         />
       ) : selectedCategory[VEHICLE_TYPE] === NOT_SELECTED ? (
-        <p className={styles.formInfo}>
-          Wybierz kategorię pojazdu, aby wyświetić odpowiedni formularz dodawania.
-        </p>
+        <p className={styles.formInfo}>{t('hangar:chooseCategoryToGetForm')}</p>
       ) : (
-        <p className={styles.formInfo}>
-          Formularz dodawania pojazdu dla tej kategorii jest jeszcze w trakcie przygotowania. W tej
-          chwili nie jest możliwe dodanie pojazdu do tej kategorii. Przepraszamy za utrudnienia i
-          zapraszamy ponownie w przyszłośći. Załoga Rebelelectric.com
-        </p>
+        <p className={styles.formInfo}>{t('hangar:formNotPrepared')}</p>
       )}
     </>
   );

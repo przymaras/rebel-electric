@@ -82,7 +82,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
     <div className={styles.container}>
       <DataTable
         tableStyle='base'
-        title='Baza'
+        title={t('hangar:base')}
         // col1Title="V maks."
         // col1Value={`${ifData(vData, "vmax", "---")} km/h`}
         // col2Title="Masa"
@@ -92,19 +92,19 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
         row1={
           <>
             <p>
-              Baza:
+              {`${t('hangar:base')}:`}
               <strong>{vData?.bikeBase ? vData.bikeBase : unknownText}</strong>
             </p>
             <p>
-              Rozmiar kół:
+              {`${t('hangar:wheelSize')}:`}
               <strong>{translateOrOther(vData?.wheelSize, vData?.wheelOther, t)}</strong>
             </p>
             <p>
-              Hamulce:
+              {`${t('hangar:brakes')}:`}
               <strong>{translateOrOther(vData?.brakes, vData?.brakesOther, t)}</strong>
             </p>
             <p>
-              V maks.:
+              {`${t('hangar:vMax')}:`}
               <strong>
                 {vData?.vmax
                   ? `${roundNum(vData.vmax)?.toString() ?? ''} ${t(
@@ -118,7 +118,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
         row2={
           <>
             <p>
-              Masa po konwersji:
+              {`${t('hangar:weightAfter')}:`}
               <strong>
                 {vData?.mass
                   ? `${roundNum(vData.mass)?.toString() ?? ''}  ${vData?.massUnit ?? ''}`
@@ -126,7 +126,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
               </strong>
             </p>
             <p>
-              Średni zasięg:
+              {`${t('hangar:averageRange')}:`}
               <strong>
                 {vData?.range
                   ? `${roundNum(vData.range)?.toString() ?? ''}  ${vData?.rangeUnit ?? ''}`
@@ -135,7 +135,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
             </p>
 
             <p>
-              Koszt:
+              {`${t('hangar:cost')}:`}
               <strong>{`${roundNum(vData?.totalCost) ?? unknownText}  ${
                 vData?.totalCostCurrency ?? ''
               }`}</strong>
@@ -145,7 +145,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
       />
       <DataTable
         tableStyle='electrical'
-        title='Elektryka'
+        title={t('hangar:electrical')}
         // col1Title="Moc maks."
         // col1Value={`${power} W`}
         // col2Title="Napięcie"
@@ -155,7 +155,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
         row1={
           <>
             <p>
-              Producent sterownika:
+              {`${t('hangar:ctrlManufacturer')}:`}
               <strong>
                 {dataOrOther(
                   getItemManufName(vData?.ctrlManuf ?? '', cData),
@@ -165,7 +165,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
               </strong>
             </p>
             <p>
-              Model sterownika:
+              {`${t('hangar:ctrlModel')}:`}
               <strong>
                 {dataOrOther(
                   getItemModelName(vData?.ctrlManuf ?? '', vData?.ctrlModel ?? '', cData),
@@ -175,7 +175,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
               </strong>
             </p>
             <p>
-              Prąd maksymalny sterownika:
+              {`${t('hangar:ctrlMaxCurrent')}:`}
               <strong>
                 {vData?.ctrlCurrent
                   ? `${roundNum(vData.ctrlCurrent)?.toString() ?? ''} A`
@@ -183,11 +183,11 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
               </strong>
             </p>
             <p>
-              Moc maksymalna:
+              {`${t('hangar:maxPower')}:`}
               <strong>{power ? `${roundNum(power)?.toString() ?? ''} W` : unknownText}</strong>
             </p>
             <p>
-              Zużycie energii:
+              {`${t('hangar:energyConsumption')}:`}
               <strong>
                 {energyConsumption
                   ? `${energyConsumption} Wh/${vData?.rangeUnit ?? '---'}`
@@ -199,10 +199,11 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
         row2={
           <>
             <p>
-              Rodzaj silnika:<strong>{props.motorType}</strong>
+              {`${t('hangar:motorType')}:`}
+              <strong>{t(`hangar:${props.motorType}`)}</strong>
             </p>
             <p>
-              Marka silnika:
+              {`${t('hangar:motorManufacturer')}:`}
               <strong>
                 {dataOrOther(
                   getItemManufName(vData?.motorManuf ?? '', mData),
@@ -212,7 +213,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
               </strong>
             </p>
             <p>
-              Model silnika:
+              {`${t('hangar:motorModel')}:`}
               <strong>
                 {dataOrOther(
                   getItemModelName(vData?.motorManuf ?? '', vData?.motorModel ?? '', mData),
@@ -226,7 +227,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
       />
       <DataTable
         tableStyle='battery'
-        title='Bateria'
+        title={t('hangar:battery')}
         // col1Title="Napięcie"
         // col1Value={`${ifData(vData, "batVoltage", "---")} V`}
         // col2Title="Poj. Wh"
@@ -236,15 +237,15 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
         row1={
           <>
             <p>
-              Sposób montazu baterii:
+              {`${t('hangar:batteryCaseType')}:`}
               <strong>{translateOrOther(vData?.batteryCase, vData?.batteryCaseOther, t)}</strong>
             </p>
             <p>
-              Typ akumulatora:
+              {`${t('hangar:cellsType')}:`}
               <strong>{translateOrOther(vData?.cellsType, vData?.cellsTypeOther, t)}</strong>
             </p>
             <p>
-              Napięcie nominalne:
+              {`${t('hangar:nominalVoltage')}:`}
               <strong>
                 {dataOrOther(
                   vData?.batVoltage && vData?.batVoltage !== 'other'
@@ -260,11 +261,11 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
         row2={
           <>
             <p>
-              Pojemność [Wh]:
+              {`${t('hangar:capacityWh')}:`}
               <strong>{capacityWh ? capacityWh : unknownText}</strong>
             </p>
             <p>
-              Pojemność [Ah]:
+              {`${t('hangar:capacityAh')}:`}
               <strong>{capacityAh ? capacityAh : unknownText}</strong>
             </p>
           </>
