@@ -40,7 +40,9 @@ export const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
     vData?.category ?? ''
   );
 
-  const categoryName = selectedCategoryTreeInfo?.categoriesNames.join(' / ') ?? 'undefined';
+  const categoryName =
+    selectedCategoryTreeInfo?.categoriesNames.map((name) => t(`hangar:${name}`)).join(' / ') ??
+    'undefined';
 
   const categoryImage =
     [...(selectedCategoryTreeInfo?.categoriesImages ?? ['undefined'])].pop() ?? 'undefined';
@@ -85,13 +87,13 @@ export const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
           <BtnLink
             href='/users/add'
             icon={<IconUser />}
-            text={'Zobacz profil właściciela'}
+            text={t('hangar:seeOwnersProfile')}
             horizontal={true}
           />
           <BtnLink
             href='/users/add'
             icon={<IconHangar />}
-            text={'Zobacz podobne pojazdy'}
+            text={t('hangar:seeSimilarVehicles')}
             horizontal={true}
           />
         </div>

@@ -8,6 +8,7 @@ import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import { ErrorMessage, Form, FormikProps } from 'formik';
 import type { ListFileResponse } from 'imagekit/dist/libs/interfaces';
 import { nanoid } from 'nanoid';
+import useTranslation from 'next-translate/useTranslation';
 import { useEffect, useRef, useState } from 'react';
 import { FilePond, registerPlugin } from 'react-filepond';
 
@@ -57,6 +58,7 @@ const newCategoryChosenSelector = (state: StoreState) => state.newCategoryChosen
 export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
   const newCategoryChosen = useStore(newCategoryChosenSelector);
   const filePondRef = useRef<FilePond>(null);
+  const { t } = useTranslation();
 
   const [imageFiles, setImageFiles] = useState<
     (string | FilePondInitialFile | Blob | File | FilePondFile)[] | undefined
@@ -128,16 +130,18 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
       <div className={styles.container}>
         <Form>
           <TextInput
-            label={`Nazwa Projektu: (${props.formik.values.projectName.length} / max. 30 znaków)`}
+            label={`${t('hangar:addProjectName')}: (${
+              props.formik.values.projectName.length
+            } / max. 30 ${t('hangar:addCharacters')})`}
             name='projectName'
             type='text'
             placeholder=''
-            description='(będzie wyświetlana nad galerią)'
+            description={`(${t('hangar:addDisplayedAboveGallery')})`}
             rebelHeading={true}
           />
           <div>
-            <h2 className={`${styles.addPhotosTitle} rebel-font`}>Dodaj zdjęcia:</h2>
-            <p>Przynajmniej jedno zdjęcie jest wymagane, dodaj maksymalnie dziesięć.</p>
+            <h2 className={`${styles.addPhotosTitle} rebel-font`}>{t('hangar:addPhotos')}:</h2>
+            <p>{t('hangar:addLeastOnePhoto')}</p>
             <div className={styles.file}>
               <FilePondStyles />
               <FilePond
@@ -161,7 +165,7 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                     props.setRemoveImages(filePondRef.current.removeFiles);
                   }
                 }}
-                // labelIdle="Przeciągnij zdjęcia na tę ramkę lub kliknij w nią, aby wyświetlić eksplorator plików."
+                labelIdle={t('hangar:addDragPhotoHere')}
                 onreorderfiles={updateFormikImagesFieldValue}
                 onprocessfiles={updateFormikImagesFieldValue}
                 onremovefile={removeFileHandler}
@@ -173,7 +177,7 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
             </ErrorMessage>
           </div>
           <TextInput
-            label='Dodaj prezentację video!'
+            label={t('hangar:addVideo')}
             name='video'
             type='text'
             placeholder=''
@@ -181,113 +185,138 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
             rebelHeading={true}
           />
           <TextArea
-            label={`Dodaj opis: (${props.formik.values.description.length} / max. 1000 znaków)`}
+            label={`${t('hangar:addDescription')}: (${
+              props.formik.values.description.length
+            } / max. 1000 ${t('hangar:addCharacters')})`}
             name='description'
             type='text-area'
             placeholder=''
             rebelHeading={true}
-            description="Napisz kilka słów o swoim pojeździe - pochwal się jego
-            historią, osiągami i ile lat go użytkujesz. Jak zaczęła się Twoja
-            historia z elektrykami? Użytkownicy Rebel-electric chętnie
-            dowiedzą się więcej informacji o Tobie i Twoim e-bike'u!"
+            description={t('hangar:addDescriptionEncouragement')}
           />
 
-          <p className={styles.info}>
-            Poniższe pola są opcjonalne, jednak bardzo ważne dla lepszego poznania Twojej maszyny!
-            Nie rezygnuj z nich lub uzupelnij je w późniejszym czasie! Możesz uzupełnić tylko
-            niektóre z nich, a pozostałe zostawić puste ...
-          </p>
+          <p className={styles.info}>{t('hangar:addBelowOptional')}</p>
           <div className={styles.data}>
-            <AddVehicleDataGroup groupStyle='base' name='baza'>
+            <AddVehicleDataGroup groupStyle='base' name={t('hangar:label-base')}>
               <TextInput
-                label='Baza: (marka / model / rok ) '
+                label={t('hangar:addBaseLabel')}
                 name='bikeBase'
                 type='text'
                 placeholder=''
-                description='np: Kona Stinky 2005r'
+                description={t('hangar:addBaseDesc')}
               />
 
-              <Select label='Rozmiar kół' name='wheelSize'>
-                <option value=''>Rozmiar kół</option>
-                <option value='20'>{"20''"}</option>
-                <option value='24'>{"24''"}</option>
-                <option value='26'>{"26''"}</option>
-                <option value='27.5'>{"27.5''"}</option>
-                <option value='28/29'>{"28/29''"}</option>
-                <option value='18moto'>{"18'' moto"}</option>
-                <option value='19moto'>{"19'' moto"}</option>
-                <option value='other'>{'Inny'}</option>
+              <Select label={t('hangar:wheelSize')} name='wheelSize'>
+                <option value=''>{t('hangar:wheelSize')}</option>
+                <option value='20'>{t('hangar:20')}</option>
+                <option value='24'>{t('hangar:24')}</option>
+                <option value='26'>{t('hangar:26')}</option>
+                <option value='27.5'>{t('hangar:27_5')}</option>
+                <option value='28/29'>{t('hangar:28/29')}</option>
+                <option value='18moto'>{t('hangar:18moto')}</option>
+                <option value='19moto'>{t('hangar:19moto')}</option>
+                <option value='other'>{t('hangar:other')}</option>
               </Select>
 
               <TextInput
-                label='Podaj rozmiar kół: '
+                label={t('hangar:addEnterWheelSize')}
                 name='wheelOther'
                 type='text'
                 placeholder=''
-                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                description={t('hangar:addWhyVisible')}
                 hidden={props.formik.values.wheelSize !== 'other'}
               />
 
-              <Select label='Rodzaj hamulców' name='brakes'>
-                <option value=''>Wybierz rodzaj</option>
-                <option value='discHydraulic'>Tarczowe mechaniczne</option>
-                <option value='discMechanic'>Tarczowe hydrauliczne</option>
-                <option value='vBrake'>V-brake</option>
-                <option value='uBrake'>U-brake</option>
-                <option value='other'>Inny</option>
+              <Select label={t('hangar:addBrakesType')} name='brakes'>
+                <option value=''>{t('hangar:addBrakesType')}</option>
+                <option value='discHydraulic'>{t('hangar:discHydraulic')}</option>
+                <option value='discMechanic'>{t('hangar:discMechanic')}</option>
+                <option value='vBrake'>{t('hangar:vBrake')}</option>
+                <option value='uBrake'>{t('hangar:uBrake')}</option>
+                <option value='other'>{t('hangar:other')}</option>
               </Select>
 
               <TextInput
-                label='Podaj rodzaj hamulców: '
+                label={t('hangar:addEnterBrakesType')}
                 name='brakesOther'
                 type='text'
                 placeholder=''
-                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                description={t('hangar:addWhyVisible')}
                 hidden={props.formik.values.brakes !== 'other'}
               />
 
-              <Fieldset name='massUnit' legend='Masa po konwersji na eBike'>
+              <Fieldset name='massUnit' legend={t('hangar:addWeightLegend')}>
                 <TextInput
-                  label='Podaj masę pojazdu i wybierz jednostkę, w której ją wpisałeś'
+                  label={t('hangar:addEnterWeight')}
                   name='mass'
                   type='text'
                   placeholder=''
                   description=''
                 />
 
-                <RadioInput label='kg' type='radio' name='massUnit' value='kg' />
-                <RadioInput label='lbs' type='radio' name='massUnit' value='lbs' />
+                <RadioInput
+                  label={t('hangar:addWeightUnitKg')}
+                  type='radio'
+                  name='massUnit'
+                  value='kg'
+                />
+                <RadioInput
+                  label={t('hangar:addWeightUnitLbs')}
+                  type='radio'
+                  name='massUnit'
+                  value='lbs'
+                />
               </Fieldset>
 
-              <Fieldset name='vmaxUnit' legend='Prędkość maksymalna'>
+              <Fieldset name='vmaxUnit' legend={t('hangar:addVmaxLegend')}>
                 <TextInput
-                  label='Podaj prędkość maksymalną i wybierz jednostkę, w której ją wpisałeś'
+                  label={t('hangar:addEnterVmax')}
                   name='vmax'
                   type='text'
                   placeholder=''
                   description=''
                 />
 
-                <RadioInput label='km/h' type='radio' name='vmaxUnit' value='kph' />
-                <RadioInput label='mil/h' type='radio' name='vmaxUnit' value='mph' />
+                <RadioInput
+                  label={t('hangar:addVmaxUnitKph')}
+                  type='radio'
+                  name='vmaxUnit'
+                  value='kph'
+                />
+                <RadioInput
+                  label={t('hangar:addVmaxUnitMph')}
+                  type='radio'
+                  name='vmaxUnit'
+                  value='mph'
+                />
               </Fieldset>
 
-              <Fieldset name='rangeUnit' legend='Średni zasięg:'>
+              <Fieldset name='rangeUnit' legend={t('hangar:addAvgRangeLegend')}>
                 <TextInput
-                  label='Podaj zasięg na jednym ładowaniu i wybierz jednostkę, w której go wpisałeś'
+                  label={t('hangar:addEnterAvgRange')}
                   name='range'
                   type='text'
                   placeholder=''
                   description=''
                 />
 
-                <RadioInput label='km' type='radio' name='rangeUnit' value='km' />
-                <RadioInput label='mil' type='radio' name='rangeUnit' value='mi' />
+                <RadioInput
+                  label={t('hangar:addAvgRangeUnitKm')}
+                  type='radio'
+                  name='rangeUnit'
+                  value='km'
+                />
+                <RadioInput
+                  label={t('hangar:addAvgRangeUnitMi')}
+                  type='radio'
+                  name='rangeUnit'
+                  value='mi'
+                />
               </Fieldset>
 
-              <Fieldset name='totalCostCurrency' legend='Szacunkowy koszt projektu:'>
+              <Fieldset name='totalCostCurrency' legend={t('hangar:addAvgCostLegend')}>
                 <TextInput
-                  label='Podaj koszt i wybierz walutę, w której go wpisałeś'
+                  label={t('hangar:addEnterAvgCost')}
                   name='totalCost'
                   type='text'
                   placeholder=''
@@ -300,9 +329,9 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 <RadioInput label='GBP' type='radio' name='totalCostCurrency' value='GBP' />
               </Fieldset>
             </AddVehicleDataGroup>
-            <AddVehicleDataGroup groupStyle='electrical' name='elektryka'>
-              <Select label='Producent sterownika' name='ctrlManuf'>
-                <option value=''>Wybierz producenta</option>
+            <AddVehicleDataGroup groupStyle='electrical' name={t('hangar:electrical')}>
+              <Select label={t('hangar:ctrlManufacturer')} name='ctrlManuf'>
+                <option value=''>{t('hangar:addSelect')}</option>
                 {props.controllersData &&
                   props.controllersData.map((controller: ItemManufacturerObj) => {
                     const option = (
@@ -314,24 +343,24 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                   })}
                 {/* <option value="ctrlManuf1">Producent1</option>
                 <option value="ctrlManuf2">Producent2</option> */}
-                <option value='other'>Inny</option>
+                <option value='other'>{t('hangar:other')}</option>
               </Select>
 
               <TextInput
-                label='Podaj producenta sterownika: '
+                label={t('hangar:addEnterManufacturer')}
                 name='ctrlManufOther'
                 type='text'
                 placeholder=''
-                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                description={t('hangar:addWhyVisible')}
                 hidden={props.formik.values.ctrlManuf !== 'other'}
               />
 
               <Select
-                label='Model sterownika'
+                label={t('hangar:ctrlModel')}
                 name='ctrlModel'
                 disabled={!props.formik.values.ctrlManuf}
               >
-                <option value=''>Wybierz model</option>
+                <option value=''>{t('hangar:addSelect')}</option>
                 {props.controllersData &&
                   props.controllersData
                     .find((controller) => controller._id === props.formik.values.ctrlManuf)
@@ -345,28 +374,28 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                     })}
                 {/* <option value="controller1">Sterownik1</option>
                 <option value="controller2">Sterownik2</option> */}
-                <option value='other'>Inny</option>
+                <option value='other'>{t('hangar:other')}</option>
               </Select>
 
               <TextInput
-                label='Podaj model sterownika: '
+                label={t('hangar:addEnterModel')}
                 name='ctrlModelOther'
                 type='text'
                 placeholder=''
-                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                description={t('hangar:addWhyVisible')}
                 hidden={props.formik.values.ctrlModel !== 'other'}
               />
 
               <TextInput
-                label='Prąd maksymalny pobierany z baterii przez sterownik [A]'
+                label={t('hangar:addMaxCurrent')}
                 name='ctrlCurrent'
                 type='text'
                 placeholder=''
                 description=''
               />
 
-              <Select label='Marka silnika' name='motorManuf'>
-                <option value=''>Wybierz markę</option>
+              <Select label={t('hangar:addMotorManufacturer')} name='motorManuf'>
+                <option value=''>{t('hangar:addSelect')}</option>
                 {props.motorsData &&
                   props.motorsData.map((motor: ItemManufacturerObj) => {
                     return (
@@ -377,24 +406,24 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                   })}
                 {/* <option value="motor1">Silnik1</option>
                 <option value="motor2">Silnik2</option> */}
-                <option value='other'>Inny</option>
+                <option value='other'>{t('hangar:other')}</option>
               </Select>
 
               <TextInput
-                label='Podaj markę silnika: '
+                label={t('hangar:addEnterManufacturer')}
                 name='motorManufOther'
                 type='text'
                 placeholder=''
-                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                description={t('hangar:addWhyVisible')}
                 hidden={props.formik.values.motorManuf !== 'other'}
               />
 
               <Select
-                label='Model silnika'
+                label={t('hangar:addMotorModel')}
                 name='motorModel'
                 disabled={!props.formik.values.motorManuf}
               >
-                <option value=''>Wybierz model</option>
+                <option value=''>{t('hangar:addSelect')}</option>
                 {props.motorsData &&
                   props.motorsData
                     .find((motor) => motor._id === props.formik.values.motorManuf)
@@ -407,88 +436,88 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                     })}
                 {/* <option value="motorModel1">Model1</option>
                 <option value="motorModel2">Model2</option> */}
-                <option value='other'>Inny</option>
+                <option value='other'>{t('hangar:other')}</option>
               </Select>
 
               <TextInput
-                label='Podaj model silnika: '
+                label={t('hangar:addEnterModel')}
                 name='motorModelOther'
                 type='text'
                 placeholder=''
-                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                description={t('hangar:addWhyVisible')}
                 hidden={props.formik.values.motorModel !== 'other'}
               />
             </AddVehicleDataGroup>
 
-            <AddVehicleDataGroup groupStyle='battery' name='bateria'>
-              <Select label='Sposób montażu baterii' name='batteryCase'>
-                <option value=''>Wybierz typ</option>
-                <option value='textileBag'>Torba</option>
-                <option value='resinCase'>Skrzynka z żywicy</option>
-                <option value='woddenCase'>Skrzynka z drewna</option>
-                <option value='aluCase'>Skrzynka z aluminium</option>
-                <option value='3dPrintCase'>Skrzynka z druku 3D</option>
-                <option value='waterBottleCase'>Bateria bidonowa</option>
-                <option value='backpack'>Plecak</option>
-                <option value='other'>Inny</option>
+            <AddVehicleDataGroup groupStyle='battery' name={t('hangar:battery')}>
+              <Select label={t('hangar:batteryCaseType')} name='batteryCase'>
+                <option value=''>{t('hangar:addSelect')}</option>
+                <option value='textileBag'>{t('hangar:textileBag')}</option>
+                <option value='resinCase'>{t('hangar:resinCase')}</option>
+                <option value='woddenCase'>{t('hangar:woddenCase')}</option>
+                <option value='aluCase'>{t('hangar:aluCase')}</option>
+                <option value='3dPrintCase'>{t('hangar:3dPrintCase')}</option>
+                <option value='waterBottleCase'>{t('hangar:waterBottleCase')}</option>
+                <option value='backpack'>{t('hangar:backpack')}</option>
+                <option value='other'>{t('hangar:other')}</option>
               </Select>
 
               <TextInput
-                label='Podaj sposób montażu: '
+                label={t('hangar:addEnterType')}
                 name='batteryCaseOther'
                 type='text'
                 placeholder=''
-                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                description={t('hangar:addWhyVisible')}
                 hidden={props.formik.values.batteryCase !== 'other'}
               />
 
-              <Select label='Typ ogniw' name='cellsType'>
-                <option value=''>Wybierz typ</option>
-                <option value='liIon'>Li-ion</option>
-                <option value='liPo'>Li-Po</option>
-                <option value='liFePo4'>LiFePo4</option>
-                <option value='leadAcid'>Ołowiowe - elektrolitowe</option>
-                <option value='leadGel'>Ołowiowe - Żelowe</option>
-                <option value='leadAgm'>Ołowiowe - AGM</option>
-                <option value='other'>Inny</option>
+              <Select label={t('hangar:cellsType')} name='cellsType'>
+                <option value=''>{t('hangar:addSelect')}</option>
+                <option value='liIon'>{t('hangar:liIon')}</option>
+                <option value='liPo'>{t('hangar:liPo')}</option>
+                <option value='liFePo4'>{t('hangar:liFePo4')}</option>
+                <option value='leadAcid'>{t('hangar:leadAcid')}</option>
+                <option value='leadGel'>{t('hangar:leadGel')}</option>
+                <option value='leadAgm'>{t('hangar:leadAgm')}</option>
+                <option value='other'>{t('hangar:other')}</option>
               </Select>
 
               <TextInput
-                label='Podaj typ ogniw: '
+                label={t('hangar:addEnterType')}
                 name='cellsTypeOther'
                 type='text'
                 placeholder=''
-                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                description={t('hangar:addWhyVisible')}
                 hidden={props.formik.values.cellsType !== 'other'}
               />
 
-              <Select label='Napięcie nominalne' name='batVoltage'>
-                <option value=''>Wybierz napięcie</option>
+              <Select label={t('hangar:label-voltage')} name='batVoltage'>
+                <option value=''>{t('hangar:addSelect')}</option>
                 <option value='24'>24 V</option>
                 <option value='36'>36 V</option>
                 <option value='48'>48 V</option>
                 <option value='52'>52 V</option>
                 <option value='60'>60 V</option>
                 <option value='72'>72 V</option>
-                <option value='other'>Inne</option>
+                <option value='other'>{t('hangar:other')}</option>
               </Select>
 
               <TextInput
-                label='Podaj napięcie nominalne [V]: '
+                label={t('hangar:addEnterVoltage')}
                 name='batVoltageOther'
                 type='text'
                 placeholder=''
-                description="To pole jest widoczne, ponieważ wybrałeś ''inny'' "
+                description={t('hangar:addWhyVisible')}
                 hidden={props.formik.values.batVoltage !== 'other'}
               />
 
-              <Fieldset name='capacityUnit' legend='Pojemność baterii'>
+              <Fieldset name='capacityUnit' legend={t('hangar:addBatCapacityLegend')}>
                 <TextInput
-                  label='Podaj pojemność baterii i wybierz jednostkę, w której ją wpisałeś'
+                  label={t('hangar:addEnterBatCapacity1')}
                   name='capacity'
                   type='text'
                   placeholder=''
-                  description='(druga wartość zostanie wyliczona automatycznie)'
+                  description={t('hangar:addEnterBatCapacity2')}
                 />
 
                 <RadioInput label='Ah' type='radio' name='capacityUnit' value='Ah' />
@@ -499,8 +528,8 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
 
           <SubmitButton
             formik={props.formik}
-            text='Dodaj'
-            errorMsg=' Uzupełnij wszystkie wymagane pola!'
+            text={t('hangar:addButtonText')}
+            errorMsg={t('hangar:addFillAll')}
           />
           <Persist name='addEbikeForm' />
         </Form>

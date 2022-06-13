@@ -1,3 +1,4 @@
+import useTranslation from 'next-translate/useTranslation';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import SwiperClass from 'swiper';
@@ -20,6 +21,7 @@ interface CategorySwiperProps {
 export const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
   const selectedCategory = props.selectedCategory;
   const setSelectedCategory = props.setSelectedCategory;
+  const { t } = useTranslation();
 
   let timer: number;
   let initialSlide = 1;
@@ -47,13 +49,13 @@ export const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
 
   let firstSlideText = '';
   if (props?.addVehicle && props.currentCatLvl === 0) {
-    firstSlideText = 'Wybierz kategorię główną';
+    firstSlideText = t(`hangar:catFirstSlideChooseMain`);
   } else if (props?.addVehicle && props.currentCatLvl !== 0) {
-    firstSlideText = 'Wybierz podkategorię';
+    firstSlideText = t(`hangar:catFirstSlideChooseSub`);
   } else if (!props?.addVehicle && props.currentCatLvl === 0) {
-    firstSlideText = 'Pokaż wszystkie (bez filtra kategorii)';
+    firstSlideText = t(`hangar:catFirstSlideShowAll`);
   } else if (!props?.addVehicle && props.currentCatLvl !== 0) {
-    firstSlideText = 'Pokaż wszystkie z tej podkategorii';
+    firstSlideText = t(`hangar:catFirstSlideCurrentSub`);
   }
 
   return (
@@ -142,9 +144,13 @@ export const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
             >
               <div className={styles.slideContent}>
                 <div className={styles.categoryImg}>
-                  <Image src={category.image} alt={`Category ${category.name}`} layout='fill' />
+                  <Image
+                    src={category.image}
+                    alt={`Category ${t(`hangar:${category.name}`)}`}
+                    layout='fill'
+                  />
                 </div>
-                <p>{category.name}</p>
+                <p>{t(`hangar:${category.name}`)}</p>
               </div>
             </SwiperSlide>
           );
@@ -154,7 +160,7 @@ export const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
           <div className={styles.lastSlide}></div>
         </SwiperSlide>
       </Swiper>
-      <p className={styles.catName}>{props.cat.catTitle}</p>
+      <p className={styles.catName}>{t(`hangar:${props.cat.catTitle}`)}</p>
     </div>
   );
 };

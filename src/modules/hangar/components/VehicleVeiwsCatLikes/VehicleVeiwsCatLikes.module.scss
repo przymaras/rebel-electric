@@ -33,6 +33,10 @@
   width: 45px;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 @media (max-width: 320px) {
   .container {
     font-size: 1rem;

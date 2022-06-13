@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+import useTranslation from 'next-translate/useTranslation';
+
 import styles from './VehicleVeiwsCatLikes.module.scss';
 
 interface VehicleVeiwsCatLikesProps {
@@ -8,22 +10,28 @@ interface VehicleVeiwsCatLikesProps {
   likes: string;
 }
 
-export const VehicleVeiwsCatLikes: React.FC<VehicleVeiwsCatLikesProps> = (props) => {
+export const VehicleVeiwsCatLikes: React.FC<VehicleVeiwsCatLikesProps> = ({
+  views,
+  category,
+  categoryImg,
+  likes,
+}) => {
+  const { t } = useTranslation();
   return (
     <div className={styles.container}>
       <div className={styles.views}>
         <img src='/img/fa-ico/eye-solid.svg' alt='Views' />
-        <p>{props.views}</p>
-        <p>WYŚWIETLEŃ</p>
+        <p>{views}</p>
+        <p className={styles.uppercase}>{t('hangar:views')}</p>
       </div>
       <div className={styles.category}>
-        <img src={props.categoryImg} alt='Category' />
-        <p>{props.category}</p>
+        <img src={categoryImg} alt='Category' />
+        <p>{category}</p>
       </div>
       <div className={styles.likes}>
         <img src='/img/fa-ico/thumbs-up-solid.svg' alt='Thumb up' />
-        <p>{props.likes}</p>
-        <p>POLUBIENIE</p>
+        <p>{likes}</p>
+        <p className={styles.uppercase}>{t('hangar:likes')}</p>
       </div>
     </div>
   );
