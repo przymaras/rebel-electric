@@ -9,7 +9,7 @@ import styles from './DataBarLabels.module.scss';
 export const DataBarLabels: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <div className={styles.container}>
+    <div data-testid='DataBarLabels' className={styles.container}>
       <div className={styles.label}>
         <IconStar />
         <p>{t('hangar:label-base')}</p>

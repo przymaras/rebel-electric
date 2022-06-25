@@ -15,7 +15,7 @@ export const SearchResultSortBar: React.FC<SearchResultSortBarProps> = ({ found 
   const setSortBy = useStore((state) => state.setSortBy);
 
   return (
-    <div className={styles.container}>
+    <div data-testid='SearchResultSortBar' className={styles.container}>
       <p>
         {t('hangar:searched-label')}: {found}
       </p>

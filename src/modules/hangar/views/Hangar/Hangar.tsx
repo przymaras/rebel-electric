@@ -97,7 +97,7 @@ export const Hangar: React.FC<HangarProps> = (props) => {
         </div>
         <p>{t('hangar:header-info')}</p>
       </TitleBox>
-      <div className={styles.sectionWrapper}>
+      <div data-testid='CategorySelectorIntro' className={styles.sectionWrapper}>
         <h2 className={`rebel-font ${styles.selectCategoryTitle}`}>
           {t('hangar:select-category')}
         </h2>
@@ -137,7 +137,7 @@ export const Hangar: React.FC<HangarProps> = (props) => {
           col3={t('hangar:label-voltage')}
         />
       </DataBarsHeadingContainer>
-      <div className={styles.vehiclesWrapper}>
+      <div data-testid='vehiclesWrapper' className={styles.vehiclesWrapper}>
         {vehiclesToDisplay().map((vehicle) => (
           <VehicleBox key={vehicle._id} vehicleData={vehicle} />
         ))}

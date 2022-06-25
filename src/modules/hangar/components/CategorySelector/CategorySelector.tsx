@@ -169,7 +169,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
   };
 
   return (
-    <>
+    <div data-testid='CategorySelector'>
       <CategorySwiperStyles />
       {renderSelectedSwipers(vehiclesCategories, selectedCategory)}
       {!selectedCategory.includes(-1) && (props.addVehicle ?? false) && (
@@ -180,6 +180,6 @@ export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
           </p>
         </div>
       )}
-    </>
+    </div>
   );
 };

@@ -29,7 +29,7 @@ export const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div data-testid='SearchBar' className={styles.container}>
       <input
         onChange={updateSearchValue}
         value={localSearchValue}
