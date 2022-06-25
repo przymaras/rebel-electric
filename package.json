@@ -4,6 +4,7 @@
   "scripts": {
     "build": "npm run lint && next build",
     "cy-open": "cypress open",
+    "cy-open-base": "cypress open --env type=base",
     "cy-run-base": "cypress run --env type=base",
     "cy-run": "cypress run --env type=actual",
     "cy-start-run": "npx start-server-and-test start-test http://localhost:3000/en cy-run",
