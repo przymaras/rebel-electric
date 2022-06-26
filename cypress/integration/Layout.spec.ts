@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import { viewports, languages, DESKTOP_WIDTH } from '../support/constants';
+import { fontShouldBeLoaded } from '../support/utils';
 
 describe('Layout', () => {
   languages.forEach((lang) => {
@@ -12,6 +13,7 @@ describe('Layout', () => {
             cy.getByTestId('Header').should('be.visible');
             cy.getByTestId('HeaderLogo').should('be.visible');
             cy.getByTestId('HeaderText').contains('REBEL ELECTRIC').should('be.visible');
+            fontShouldBeLoaded();
             cy.getByTestId('Header').compareSnapshot(`Header-${lang}-${width}x${height}`);
           });
 
@@ -23,12 +25,14 @@ describe('Layout', () => {
             if (width < DESKTOP_WIDTH) {
               cy.getByTestId('ToggleNavButton').should('be.visible');
               cy.getByTestId('Nav').should('not.be.visible');
+              fontShouldBeLoaded();
               cy.compareSnapshot(`Mobile-nav-hidden-${lang}-${width}x${height}`, {
                 capture: 'viewport',
                 clip: { x: 0, y: 0, width: width - 17, height },
               });
               cy.getByTestId('ToggleNavButton').click();
               cy.scrollTo('top');
+              fontShouldBeLoaded();
               cy.compareSnapshot(`Mobile-nav-visible-${lang}-${width}x${height}`, {
                 capture: 'viewport',
               });
@@ -108,6 +112,7 @@ describe('Layout', () => {
             cy.visit(`http://localhost:3000/${lang}`);
             cy.getByTestId('Footer').should('be.visible');
             cy.getByTestId('FooterLogo').should('be.visible');
+            fontShouldBeLoaded();
             cy.getByTestId('Footer').compareSnapshot(`Footer-${lang}-${width}x${height}`);
           });
         });

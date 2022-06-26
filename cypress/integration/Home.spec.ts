@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import { viewports, languages } from '../support/constants';
+import { fontShouldBeLoaded } from '../support/utils';
 
 describe('Home Page', () => {
   languages.forEach((lang) => {
@@ -12,6 +13,7 @@ describe('Home Page', () => {
             cy.getByTestId('IntroSection').should('be.visible');
             cy.getByTestId('IntroLogo').should('be.visible');
             cy.getByTestId('IntroText').should('be.visible');
+            fontShouldBeLoaded();
             cy.getByTestId('IntroSection').compareSnapshot(
               `IntroSection-${lang}-${width}x${height}`
             );
@@ -26,6 +28,7 @@ describe('Home Page', () => {
             cy.go('back');
             cy.url().should('eq', `http://localhost:3000/${lang}`);
             cy.getByTestId('InfoBoxHangar').should('be.visible');
+            fontShouldBeLoaded();
             cy.getByTestId('HangarSection').compareSnapshot(
               `HangarSection-${lang}-${width}x${height}`
             );
@@ -40,6 +43,7 @@ describe('Home Page', () => {
             cy.url().should('eq', `http://localhost:3000/${lang}/hangar/627fc2dc9e3d40a69cbc1104`);
             cy.go('back');
             cy.url().should('eq', `http://localhost:3000/${lang}`);
+            fontShouldBeLoaded();
             cy.getByTestId('RecentBox').compareSnapshot(`RecentBox-${lang}-${width}x${height}`);
           });
 
@@ -52,6 +56,7 @@ describe('Home Page', () => {
             cy.go('back');
             cy.url().should('eq', `http://localhost:3000/${lang}`);
             cy.getByTestId('InfoBoxKnowledgeBase').should('be.visible');
+            fontShouldBeLoaded();
             cy.getByTestId('KnowledgeBaseSection').compareSnapshot(
               `KnowledgeBaseSection-${lang}-${width}x${height}`
             );
@@ -61,6 +66,7 @@ describe('Home Page', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}`);
             cy.getByTestId('AnnouncementSection').should('be.visible');
+            fontShouldBeLoaded();
             cy.getByTestId('AnnouncementSection').compareSnapshot(
               `AnnouncementSection-${lang}-${width}x${height}`
             );
@@ -75,6 +81,7 @@ describe('Home Page', () => {
             cy.go('back');
             cy.url().should('eq', `http://localhost:3000/${lang}`);
             cy.getByTestId('InfoBoxRegister').should('be.visible');
+            fontShouldBeLoaded();
             cy.getByTestId('RegisterSection').compareSnapshot(
               `RegisterSection-${lang}-${width}x${height}`
             );
