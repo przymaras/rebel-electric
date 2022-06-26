@@ -30,6 +30,7 @@ describe('Hangar', () => {
             cy.visit(`http://localhost:3000/${lang}/hangar`);
             cy.getByTestId('CategorySelector').should('be.visible');
             fontShouldBeLoaded();
+            cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
             cy.getByTestId('CategorySelector').compareSnapshot(
               `HangarCategorySelector-${lang}-${width}x${height}`
             );
