@@ -20,6 +20,7 @@ export const SearchResultSortBar: React.FC<SearchResultSortBarProps> = ({ found 
         {t('hangar:searched-label')}: {found}
       </p>
       <select
+        data-testid='SortBy'
         onChange={(e) => {
           setSortBy(e.target.value);
         }}

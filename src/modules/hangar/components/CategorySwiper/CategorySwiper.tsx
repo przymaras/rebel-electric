@@ -142,7 +142,7 @@ export const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
               // onClick={(event, swiper) => setSelectedCategory("eBIKE")}
               key={category.id}
             >
-              <div className={styles.slideContent}>
+              <div data-testid={`Slide-${category.name}`} className={styles.slideContent}>
                 <div className={styles.categoryImg}>
                   <Image
                     src={category.image}
