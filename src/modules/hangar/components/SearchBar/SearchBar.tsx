@@ -32,9 +32,10 @@ export const SearchBar: React.FC = () => {
     <div data-testid='SearchBar' className={styles.container}>
       <input
         onChange={updateSearchValue}
-        value={localSearchValue}
-        type='search'
         placeholder={t('hangar:search-placeholder')}
+        type='search'
+        value={localSearchValue}
+        data-testid='SearchBarInput'
       />
     </div>
   );

@@ -79,7 +79,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div data-testid='DataTablesEbike' className={styles.container}>
       <DataTable
         tableStyle='base'
         title={t('hangar:base')}

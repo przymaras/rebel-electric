@@ -19,5 +19,9 @@ export const Description: React.FC<DescriptionProps> = (props) => {
     </div>
   );
 
-  return <div className={styles.container}>{props.description && markupToRender}</div>;
+  return (
+    <div data-testid='Description' className={styles.container}>
+      {props.description && markupToRender}
+    </div>
+  );
 };

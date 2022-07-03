@@ -18,7 +18,7 @@ export const VehicleVeiwsCatLikes: React.FC<VehicleVeiwsCatLikesProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div className={styles.container}>
+    <div data-testid='VehicleVeiwsCatLikes' className={styles.container}>
       <div className={styles.views}>
         <img src='/img/fa-ico/eye-solid.svg' alt='Views' />
         <p>{views}</p>
