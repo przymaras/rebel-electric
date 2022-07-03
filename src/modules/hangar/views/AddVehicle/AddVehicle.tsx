@@ -79,7 +79,7 @@ export const AddVehicle: React.FC<{
         </div>
         <p>{t('hangar:header-add-info')}</p>
       </TitleBox>
-      <div className={styles.sectionWrapper}>
+      <div data-testid='CategorySelectorIntro' className={styles.sectionWrapper}>
         <h2 className={`rebel-font ${styles.selectCategoryTitle}`}>
           {t('hangar:select-category')}
         </h2>
@@ -98,9 +98,13 @@ export const AddVehicle: React.FC<{
           motorsData={props.motorsData}
         />
       ) : selectedCategory[VEHICLE_TYPE] === NOT_SELECTED ? (
-        <p className={styles.formInfo}>{t('hangar:chooseCategoryToGetForm')}</p>
+        <p data-testid='ChooseCategoryToGetForm' className={styles.formInfo}>
+          {t('hangar:chooseCategoryToGetForm')}
+        </p>
       ) : (
-        <p className={styles.formInfo}>{t('hangar:formNotPrepared')}</p>
+        <p data-testid='FormNotPrepared' className={styles.formInfo}>
+          {t('hangar:formNotPrepared')}
+        </p>
       )}
     </>
   );

@@ -134,8 +134,13 @@ interface SubmitButtonProps {
 export const SubmitButton: React.FC<SubmitButtonProps> = ({ formik, text, errorMsg }) => {
   const isDisabled = formik.isSubmitting;
   return (
-    <div className={styles.container}>
-      <button className={styles.submitBtn} type='submit' disabled={isDisabled}>
+    <div data-testid='SubmitSection' className={styles.container}>
+      <button
+        data-testid='SubmitButton'
+        className={styles.submitBtn}
+        type='submit'
+        disabled={isDisabled}
+      >
         {text}
       </button>
       {!formik.isValid && formik.submitCount > 0 && <p className={styles.error}>{errorMsg}</p>}

@@ -32,7 +32,10 @@ export const AddVehicleDataGroup: React.FC<AddVehicleDataGroupProps> = (props) =
       break;
   }
   return (
-    <div className={`${styles.container} ${cssStyle}`}>
+    <div
+      data-testid={`AddEbikeForm${props.groupStyle}`}
+      className={`${styles.container} ${cssStyle}`}
+    >
       <div className={styles.heading}>
         <Icon />
         <h2 className='rebel-font'>{props.name}</h2>

@@ -206,9 +206,13 @@ export const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (prop
       >
         {(formik) => {
           return (
-            <>
+            <div data-testid='Form'>
               <ErrorMessage name='category'>
-                {(msg) => <div style={{ color: 'tomato' }}>{msg}</div>}
+                {(msg) => (
+                  <div data-testid='CategoryErrorMessage' style={{ color: 'tomato' }}>
+                    {msg}
+                  </div>
+                )}
               </ErrorMessage>
               <AddEbikeForm
                 setRemoveImages={setRemoveImages}
@@ -216,7 +220,7 @@ export const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (prop
                 controllersData={props.controllersData}
                 motorsData={props.motorsData}
               />
-            </>
+            </div>
           );
         }}
       </Formik>
