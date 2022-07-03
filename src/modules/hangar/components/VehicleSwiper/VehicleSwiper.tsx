@@ -32,7 +32,7 @@ export const VehicleSwiper: React.FC<VehicleSwiperProps> = (props) => {
   return (
     <>
       <VehicleSwiperStyles />
-      <div className={styles.container}>
+      <div data-testid='VehicleSwiper' className={styles.container}>
         <Swiper
           loop={false}
           modules={[FreeMode, Navigation, Thumbs, Zoom, Lazy]}

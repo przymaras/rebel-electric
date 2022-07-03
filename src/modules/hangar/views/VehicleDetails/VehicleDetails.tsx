@@ -83,7 +83,7 @@ export const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
           motorType={motorType}
         />
         <Description description={vData?.description ?? ''} />
-        <div className={styles.buttonsWrapper}>
+        <div data-testid='VehicleButtons' className={styles.buttonsWrapper}>
           <BtnLink
             href='/users/add'
             icon={<IconUser />}
