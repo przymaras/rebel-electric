@@ -23,16 +23,11 @@
   color: tomato;
 }
 
-@media (min-width: 800px) and (max-width: $desktop-width) {
+@media (min-width: 768px) and (max-width: $desktop-width) {
   .data {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-
-    > div {
-      max-width: 48%;
-    }
   }
 }
 
