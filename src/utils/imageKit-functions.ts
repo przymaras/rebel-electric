@@ -1,4 +1,5 @@
 import ImageKit from 'imagekit';
+import type { IKCallback } from 'imagekit/dist/libs/interfaces';
 
 const imagekit: ImageKit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY ?? '',
@@ -37,4 +38,10 @@ export const getImageDetailsByName = async (imageFileNames: string | string[]) =
     )
   );
   return imagesDetails.map((image) => image[0]); //[0] for remove parent array which always have one item
+};
+
+export const deleteImage = async (fileName: string, fn?: IKCallback<void, Error>) => {
+  const fileId = (await getImageDetailsByName(fileName))[0].fileId;
+  if (fn) imagekit.deleteFile(fileId, fn);
+  else await imagekit.deleteFile(fileId);
 };
