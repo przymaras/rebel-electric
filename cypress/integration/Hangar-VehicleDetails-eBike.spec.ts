@@ -11,62 +11,66 @@ describe('Hangar-VehicleDetails-eBike', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar/627fc2dc9e3d40a69cbc1104`);
             fontShouldBeLoaded();
-            cy.getByTestId('TitleBox').should('be.visible');
-            cy.getByTestId('TitleBox').compareSnapshot(
-              `HangarVehicleDetailsTitleBox-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('TitleBox')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarVehicleDetailsTitleBox-${lang}-${width}x${height}`);
           });
 
           it('should render VehicleSwiper', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar/627fc2dc9e3d40a69cbc1104`);
             fontShouldBeLoaded();
-            cy.getByTestId('VehicleSwiper').should('be.visible');
             cy.getByTestId('VehicleSwiper').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-            cy.getByTestId('VehicleSwiper').compareSnapshot(
-              `HangarVehicleDetailsVehicleSwiper-${lang}-${width}x${height}`,
-              0.15
-            );
+            cy.getByTestId('VehicleSwiper')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(
+                `HangarVehicleDetailsVehicleSwiper-${lang}-${width}x${height}`,
+                0.15
+              );
           });
 
           it('should render VehicleVeiwsCatLikes', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar/627fc2dc9e3d40a69cbc1104`);
             fontShouldBeLoaded();
-            cy.getByTestId('VehicleVeiwsCatLikes').should('be.visible');
-            cy.getByTestId('VehicleVeiwsCatLikes').compareSnapshot(
-              `HangarVehicleDetailsVehicleVeiwsCatLikes-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('VehicleVeiwsCatLikes')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(
+                `HangarVehicleDetailsVehicleVeiwsCatLikes-${lang}-${width}x${height}`
+              );
           });
 
           it('should render DataTablesEbike', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar/627fc2dc9e3d40a69cbc1104`);
             fontShouldBeLoaded();
-            cy.getByTestId('DataTablesEbike').should('be.visible');
-            cy.getByTestId('DataTablesEbike').compareSnapshot(
-              `HangarVehicleDetailsDataTablesEbike-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('DataTablesEbike')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarVehicleDetailsDataTablesEbike-${lang}-${width}x${height}`);
           });
 
           it('should render Description', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar/627fc2dc9e3d40a69cbc1104`);
             fontShouldBeLoaded();
-            cy.getByTestId('Description').should('be.visible');
-            cy.getByTestId('Description').compareSnapshot(
-              `HangarVehicleDetailsDescription-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('Description')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarVehicleDetailsDescription-${lang}-${width}x${height}`);
           });
 
           it('should render VehicleButtons', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar/627fc2dc9e3d40a69cbc1104`);
             fontShouldBeLoaded();
-            cy.getByTestId('VehicleButtons').should('be.visible');
-            cy.getByTestId('VehicleButtons').compareSnapshot(
-              `HangarVehicleDetailsVehicleButtons-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('VehicleButtons')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarVehicleDetailsVehicleButtons-${lang}-${width}x${height}`);
           });
         });
       });

@@ -4,6 +4,10 @@ import { deleteImage } from 'src/utils/imageKit-functions';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { imgId } = req.query;
+  if (!imgId) {
+    res.status(500).json({ deleteFile: 'no id' });
+    return;
+  }
   let imageName: string;
   if (typeof imgId === 'string') imageName = imgId;
   else imageName = imgId[0];

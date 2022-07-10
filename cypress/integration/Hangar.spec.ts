@@ -11,59 +11,61 @@ describe('Hangar', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar`);
             fontShouldBeLoaded();
-            cy.getByTestId('TitleBox').should('be.visible');
-            cy.getByTestId('TitleBox').compareSnapshot(`HangarTitleBox-${lang}-${width}x${height}`);
+            cy.getByTestId('TitleBox')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarTitleBox-${lang}-${width}x${height}`);
           });
 
           it('should render CategorySelectorIntro', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar`);
-            cy.getByTestId('CategorySelectorIntro').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('CategorySelectorIntro').compareSnapshot(
-              `HangarCategorySelectorIntro-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('CategorySelectorIntro')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarCategorySelectorIntro-${lang}-${width}x${height}`);
           });
 
           it('should render CategorySelector', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar`);
-            cy.getByTestId('CategorySelector').should('be.visible');
             fontShouldBeLoaded();
             cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-            cy.getByTestId('CategorySelector').compareSnapshot(
-              `HangarCategorySelector-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('CategorySelector')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarCategorySelector-${lang}-${width}x${height}`);
           });
 
           it('should render SearchBar', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar`);
-            cy.getByTestId('SearchBar').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('SearchBar').compareSnapshot(
-              `HangarSearchBar-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('SearchBar')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarSearchBar-${lang}-${width}x${height}`);
           });
 
           it('should render SearchResultSortBar', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar`);
-            cy.getByTestId('SearchResultSortBar').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('SearchResultSortBar').compareSnapshot(
-              `HangarSearchResultSortBar-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('SearchResultSortBar')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarSearchResultSortBar-${lang}-${width}x${height}`);
           });
 
           it('should render DataBarLabels', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar`);
-            cy.getByTestId('DataBarLabels').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('DataBarLabels').compareSnapshot(
-              `HangarDataBarLabels-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('DataBarLabels')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarDataBarLabels-${lang}-${width}x${height}`);
           });
 
           it('should render DataBarsHeadingContainer', () => {
@@ -71,32 +73,33 @@ describe('Hangar', () => {
             cy.visit(`http://localhost:3000/${lang}/hangar`);
             cy.getByTestId('DataBarsHeadingContainer').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('DataBarsHeadingContainer').compareSnapshot(
-              `HangarDataBarsHeadingContainer-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('DataBarsHeadingContainer')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarDataBarsHeadingContainer-${lang}-${width}x${height}`);
           });
 
           it('should render vehiclesWrapper', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar`);
-            cy.getByTestId('vehiclesWrapper').should('be.visible');
             fontShouldBeLoaded();
             cy.getByTestId('vehiclesWrapper').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-            cy.getByTestId('vehiclesWrapper').compareSnapshot(
-              `HangarVehiclesWrapper-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('vehiclesWrapper')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarVehiclesWrapper-${lang}-${width}x${height}`);
           });
 
           it('should refine search when search text entered', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar`);
             cy.getByTestId('SearchBarInput').type('test project 1');
-            cy.getByTestId('vehiclesWrapper').should('be.visible');
             fontShouldBeLoaded();
             cy.getByTestId('vehiclesWrapper').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-            cy.getByTestId('vehiclesWrapper').compareSnapshot(
-              `HangarRefinedSearch-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('vehiclesWrapper')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarRefinedSearch-${lang}-${width}x${height}`);
           });
 
           it('should have sticky legend', () => {
@@ -113,24 +116,24 @@ describe('Hangar', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar`);
             cy.getByTestId('SortBy').select(1);
-            cy.getByTestId('vehiclesWrapper').should('be.visible');
             fontShouldBeLoaded();
             cy.getByTestId('vehiclesWrapper').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-            cy.getByTestId('vehiclesWrapper').compareSnapshot(
-              `HangarSortMostViewed-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('vehiclesWrapper')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarSortMostViewed-${lang}-${width}x${height}`);
           });
 
           it('should sort by most liked', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}/hangar`);
             cy.getByTestId('SortBy').select(2);
-            cy.getByTestId('vehiclesWrapper').should('be.visible');
             fontShouldBeLoaded();
             cy.getByTestId('vehiclesWrapper').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-            cy.getByTestId('vehiclesWrapper').compareSnapshot(
-              `HangarSortMostLiked-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('vehiclesWrapper')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarSortMostLiked-${lang}-${width}x${height}`);
           });
 
           it('should refine search by category ebike DIY Hardtail', () => {
