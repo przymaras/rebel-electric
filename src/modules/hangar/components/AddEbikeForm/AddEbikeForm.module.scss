@@ -17,6 +17,28 @@
 
 .file {
   height: 100%;
+
+  :global(.filepond--panel-root) {
+    background-color: #ffffff;
+    border: 3px solid #2c3340;
+    border-radius: unset;
+  }
+
+  :global(.filepond--drop-label label) {
+    font-size: 1.8rem;
+  }
+
+  @media (min-width: 600px) {
+    :global(.filepond--item) {
+      width: calc(50% - 0.5em);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    :global(.filepond--item) {
+      width: calc(33% - 0.5em);
+    }
+  }
 }
 
 .error {

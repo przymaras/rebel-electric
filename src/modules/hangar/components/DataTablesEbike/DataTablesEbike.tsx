@@ -24,13 +24,17 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
   //TODO: Refactor definitions below to functions here and in VehicleBox
 
   let power: number | undefined =
-    parseInt(vData?.batVoltage ?? '') * parseInt(vData?.ctrlCurrent ?? '');
+    parseInt(
+      (vData?.batVoltage ?? '') === 'other' ? vData?.batVoltageOther ?? '' : vData?.batVoltage ?? ''
+    ) * parseInt(vData?.ctrlCurrent ?? '');
 
   power = power ? roundNum(power) : undefined;
 
   const capacityUnit = vData?.capacityUnit;
   const capacity = roundNum(vData?.capacity);
-  const voltage = roundNum(vData?.batVoltage);
+  const voltage = roundNum(
+    (vData?.batVoltage ?? '') === 'other' ? vData?.batVoltageOther ?? '' : vData?.batVoltage ?? ''
+  );
   let capacityWh: number | undefined;
   let capacityAh: number | undefined;
 

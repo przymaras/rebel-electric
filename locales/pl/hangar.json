@@ -34,7 +34,7 @@
   "20": "20''",
   "24": "24''",
   "26": "26''",
-  "27.5": "27.5''",
+  "27_5": "27.5''",
   "28/29": "28/29''",
   "19moto": "19'' moto",
   "discHydraulic": "Tarczowe mechaniczne",
@@ -163,5 +163,6 @@
   "errorUnit": "Jednostka wymagana",
   "errorCurrency": "Waluta wymagana",
   "errorOneImage": "Dodaj conajmniej jedno zdjęcie",
-  "errorCategory": "Wybierz kategorię do samego końca"
+  "errorCategory": "Wybierz kategorię do samego końca",
+  "submitting": "Wysyłam!"
 }
