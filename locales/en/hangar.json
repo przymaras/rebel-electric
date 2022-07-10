@@ -163,5 +163,6 @@
   "errorUnit": "Unit required",
   "errorCurrency": "Currency required",
   "errorOneImage": "Add at least one image",
-  "errorCategory": "Select category to the end of category tree"
+  "errorCategory": "Select category to the end of category tree",
+  "submitting": "Submitting!"
 }

@@ -1,4 +1,5 @@
 import { useField, FormikProps } from 'formik';
+import useTranslation from 'next-translate/useTranslation';
 
 import { AddEbikeValues } from 'src/modules/hangar/types/hangar';
 
@@ -133,6 +134,7 @@ interface SubmitButtonProps {
 
 export const SubmitButton: React.FC<SubmitButtonProps> = ({ formik, text, errorMsg }) => {
   const isDisabled = formik.isSubmitting;
+  const { t } = useTranslation();
   return (
     <div data-testid='SubmitSection' className={styles.container}>
       <button
@@ -144,7 +146,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({ formik, text, errorM
         {text}
       </button>
       {!formik.isValid && formik.submitCount > 0 && <p className={styles.error}>{errorMsg}</p>}
-      {formik.isSubmitting && <p>Wysyłam!</p>}
+      {formik.isSubmitting && <p>{t('hangar:submitting')}</p>}
     </div>
   );
 };

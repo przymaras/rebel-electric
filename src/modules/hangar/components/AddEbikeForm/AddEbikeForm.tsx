@@ -18,7 +18,6 @@ import 'filepond/dist/filepond.min.css';
 import { useDataFetcher } from 'src/hooks/useDataFetcher/useDataFetcher';
 import { AddVehicleDataGroup } from 'src/modules/hangar/components/AddVehicleDataGroup';
 import { AddEbikeValues, ItemManufacturerObj } from 'src/modules/hangar/types/hangar';
-import { FilePondStyles } from 'src/modules/layout/components/FilePondStyles';
 import {
   TextInput,
   TextArea,
@@ -144,7 +143,6 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
               <h2 className={`${styles.addPhotosTitle} rebel-font`}>{t('hangar:addPhotos')}:</h2>
               <p>{t('hangar:addLeastOnePhoto')}</p>
               <div className={styles.file}>
-                <FilePondStyles />
                 <FilePond
                   ref={filePondRef}
                   name='vehicleImages'
@@ -171,6 +169,7 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                   onprocessfiles={updateFormikImagesFieldValue}
                   onremovefile={removeFileHandler}
                   server={getServerSettings(imgsToRestoreDetails)}
+                  className={styles.filePond}
                 />
               </div>
               <ErrorMessage name='vehicleImages'>

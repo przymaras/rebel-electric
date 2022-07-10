@@ -2,7 +2,7 @@
 import { viewports, languages } from '../support/constants';
 import { fontShouldBeLoaded } from '../support/utils';
 
-describe('Hangar', () => {
+describe('Hangar-VehicleDetails-eBike', () => {
   languages.forEach((lang) => {
     context(`in ${lang} language`, () => {
       viewports.forEach(({ width, height }) => {
