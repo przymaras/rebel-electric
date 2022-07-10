@@ -14,7 +14,10 @@ describe('Layout', () => {
             cy.getByTestId('HeaderLogo').should('be.visible');
             cy.getByTestId('HeaderText').contains('REBEL ELECTRIC').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('Header').compareSnapshot(`Header-${lang}-${width}x${height}`);
+            cy.getByTestId('Header')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`Header-${lang}-${width}x${height}`);
           });
 
           it('should render and toggle Nav component', () => {
@@ -113,7 +116,10 @@ describe('Layout', () => {
             cy.getByTestId('Footer').should('be.visible');
             cy.getByTestId('FooterLogo').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('Footer').compareSnapshot(`Footer-${lang}-${width}x${height}`);
+            cy.getByTestId('Footer')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`Footer-${lang}-${width}x${height}`);
           });
         });
       });

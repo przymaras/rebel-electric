@@ -16,9 +16,10 @@ describe('Hangar-Add-eBike', () => {
             cy.visit(`http://localhost:3000/${lang}/hangar/add`);
             fontShouldBeLoaded();
             cy.getByTestId('TitleBox').should('be.visible');
-            cy.getByTestId('TitleBox').compareSnapshot(
-              `HangarAddEbikeTitleBox-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('TitleBox')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarAddEbikeTitleBox-${lang}-${width}x${height}`);
           });
 
           it('should render CategorySelectorIntro', () => {
@@ -26,9 +27,10 @@ describe('Hangar-Add-eBike', () => {
             cy.visit(`http://localhost:3000/${lang}/hangar/add`);
             fontShouldBeLoaded();
             cy.getByTestId('CategorySelectorIntro').should('be.visible');
-            cy.getByTestId('CategorySelectorIntro').compareSnapshot(
-              `HangarAddEbikeCategorySelectorIntro-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('CategorySelectorIntro')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarAddEbikeCategorySelectorIntro-${lang}-${width}x${height}`);
           });
 
           it('should render CategorySelector', () => {
@@ -37,9 +39,10 @@ describe('Hangar-Add-eBike', () => {
             cy.getByTestId('CategorySelector').should('be.visible');
             fontShouldBeLoaded();
             cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-            cy.getByTestId('CategorySelector').compareSnapshot(
-              `HangarCategorySelector-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('CategorySelector')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarCategorySelector-${lang}-${width}x${height}`);
           });
 
           it('should render ChooseCategoryToGetForm when category not selected', () => {
@@ -88,9 +91,10 @@ describe('Hangar-Add-eBike', () => {
             cy.visit(`http://localhost:3000/${lang}/hangar/add`);
             cy.getByTestId('Slide-catEbike').click();
             fontShouldBeLoaded();
-            cy.getByTestId('AddEbikeFormRequired').compareSnapshot(
-              `HangarAddEbikeFormRequired-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('AddEbikeFormRequired')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarAddEbikeFormRequired-${lang}-${width}x${height}`);
           });
 
           it('should match snapshot of optional form section', () => {
@@ -98,9 +102,10 @@ describe('Hangar-Add-eBike', () => {
             cy.visit(`http://localhost:3000/${lang}/hangar/add`);
             cy.getByTestId('Slide-catEbike').click();
             fontShouldBeLoaded();
-            cy.getByTestId('AddEbikeFormOptional').compareSnapshot(
-              `HangarAddEbikeFormOptional-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('AddEbikeFormOptional')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarAddEbikeFormOptional-${lang}-${width}x${height}`);
           });
 
           it('should show error messages in every section', () => {
@@ -126,21 +131,25 @@ describe('Hangar-Add-eBike', () => {
 
             fontShouldBeLoaded();
 
-            cy.getByTestId('CategoryErrorMessage').compareSnapshot(
-              `HangarAddEbikeCategoryErrorMessage-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('CategoryErrorMessage')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarAddEbikeCategoryErrorMessage-${lang}-${width}x${height}`);
 
-            cy.getByTestId('AddEbikeFormRequired').compareSnapshot(
-              `HangarAddEbikeFormRequiredError-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('AddEbikeFormRequired')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarAddEbikeFormRequiredError-${lang}-${width}x${height}`);
 
-            cy.getByTestId('AddEbikeFormOptional').compareSnapshot(
-              `HangarAddEbikeFormOptionalError-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('AddEbikeFormOptional')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarAddEbikeFormOptionalError-${lang}-${width}x${height}`);
 
-            cy.getByTestId('SubmitSection').compareSnapshot(
-              `HangarAddEbikeFormSubmitButtonError-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('SubmitSection')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarAddEbikeFormSubmitButtonError-${lang}-${width}x${height}`);
           });
 
           it('should add ebike', () => {

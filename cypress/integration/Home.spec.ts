@@ -14,9 +14,10 @@ describe('Home Page', () => {
             cy.getByTestId('IntroLogo').should('be.visible');
             cy.getByTestId('IntroText').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('IntroSection').compareSnapshot(
-              `IntroSection-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('IntroSection')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`IntroSection-${lang}-${width}x${height}`);
           });
 
           it('should render hangar section', () => {
@@ -29,9 +30,10 @@ describe('Home Page', () => {
             cy.url().should('eq', `http://localhost:3000/${lang}`);
             cy.getByTestId('InfoBoxHangar').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('HangarSection').compareSnapshot(
-              `HangarSection-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('HangarSection')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarSection-${lang}-${width}x${height}`);
           });
 
           it('should render RECENTLY ADDED VEHICLES section', () => {
@@ -44,7 +46,10 @@ describe('Home Page', () => {
             cy.go('back');
             cy.url().should('eq', `http://localhost:3000/${lang}`);
             fontShouldBeLoaded();
-            cy.getByTestId('RecentBox').compareSnapshot(`RecentBox-${lang}-${width}x${height}`);
+            cy.getByTestId('RecentBox')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`RecentBox-${lang}-${width}x${height}`);
           });
 
           it('should render knowledge base section', () => {
@@ -57,19 +62,20 @@ describe('Home Page', () => {
             cy.url().should('eq', `http://localhost:3000/${lang}`);
             cy.getByTestId('InfoBoxKnowledgeBase').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('KnowledgeBaseSection').compareSnapshot(
-              `KnowledgeBaseSection-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('KnowledgeBaseSection')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`KnowledgeBaseSection-${lang}-${width}x${height}`);
           });
 
           it('should render announcement section', () => {
             cy.viewport(width, height);
             cy.visit(`http://localhost:3000/${lang}`);
-            cy.getByTestId('AnnouncementSection').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('AnnouncementSection').compareSnapshot(
-              `AnnouncementSection-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('AnnouncementSection')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`AnnouncementSection-${lang}-${width}x${height}`);
           });
 
           it('should render register section', () => {
@@ -82,9 +88,10 @@ describe('Home Page', () => {
             cy.url().should('eq', `http://localhost:3000/${lang}`);
             cy.getByTestId('InfoBoxRegister').should('be.visible');
             fontShouldBeLoaded();
-            cy.getByTestId('RegisterSection').compareSnapshot(
-              `RegisterSection-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('RegisterSection')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`RegisterSection-${lang}-${width}x${height}`);
           });
         });
       });

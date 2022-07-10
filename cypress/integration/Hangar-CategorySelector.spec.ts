@@ -17,9 +17,10 @@ describe.only('Hangar-CategorySelector', () => {
             cy.getByTestId('Slide-catRearHub').click();
             cy.getByTestId('Slide-catMidPower').click().wait(500);
             cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-            cy.getByTestId('CategorySelector').compareSnapshot(
-              `HangarCategorySelectorEbike1-${lang}-${width}x${height}`
-            );
+            cy.getByTestId('CategorySelector')
+              .should('be.visible')
+              .wait(200)
+              .compareSnapshot(`HangarCategorySelectorEbike1-${lang}-${width}x${height}`);
           });
         });
       });
@@ -34,9 +35,10 @@ describe.only('Hangar-CategorySelector', () => {
           cy.getByTestId('Slide-catFrontHub').click();
           cy.getByTestId('Slide-catMidPower').click().wait(500);
           cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-          cy.getByTestId('CategorySelector').compareSnapshot(
-            `HangarCategorySelectorEbike2-${lang}-1440x890`
-          );
+          cy.getByTestId('CategorySelector')
+            .should('be.visible')
+            .wait(200)
+            .compareSnapshot(`HangarCategorySelectorEbike2-${lang}-1440x890`);
         });
         it('should render eBikeCategory 3', () => {
           cy.viewport(1440, 890);
@@ -48,9 +50,10 @@ describe.only('Hangar-CategorySelector', () => {
           cy.getByTestId('Slide-catMidDrive').click();
           cy.getByTestId('Slide-catMidPower').click().wait(500);
           cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-          cy.getByTestId('CategorySelector').compareSnapshot(
-            `HangarCategorySelectorEbike3-${lang}-1440x890`
-          );
+          cy.getByTestId('CategorySelector')
+            .should('be.visible')
+            .wait(200)
+            .compareSnapshot(`HangarCategorySelectorEbike3-${lang}-1440x890`);
         });
         it('should render eBikeCategory 4', () => {
           cy.viewport(1440, 890);
@@ -62,9 +65,10 @@ describe.only('Hangar-CategorySelector', () => {
           cy.getByTestId('Slide-catRearHub').click();
           cy.getByTestId('Slide-catMidPower').click().wait(500);
           cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-          cy.getByTestId('CategorySelector').compareSnapshot(
-            `HangarCategorySelectorEbike4-${lang}-1440x890`
-          );
+          cy.getByTestId('CategorySelector')
+            .should('be.visible')
+            .wait(200)
+            .compareSnapshot(`HangarCategorySelectorEbike4-${lang}-1440x890`);
         });
         it('should render eBikeCategory 5', () => {
           cy.viewport(1440, 890);
@@ -76,9 +80,10 @@ describe.only('Hangar-CategorySelector', () => {
           cy.getByTestId('Slide-catFrontHub').click();
           cy.getByTestId('Slide-catMidPower').click().wait(500);
           cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-          cy.getByTestId('CategorySelector').compareSnapshot(
-            `HangarCategorySelectorEbike5-${lang}-1440x890`
-          );
+          cy.getByTestId('CategorySelector')
+            .should('be.visible')
+            .wait(200)
+            .compareSnapshot(`HangarCategorySelectorEbike5-${lang}-1440x890`);
         });
         it('should render eBikeCategory 6', () => {
           cy.viewport(1440, 890);
@@ -90,9 +95,10 @@ describe.only('Hangar-CategorySelector', () => {
           cy.getByTestId('Slide-catMidDrive').click();
           cy.getByTestId('Slide-catMidPower').click().wait(500);
           cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-          cy.getByTestId('CategorySelector').compareSnapshot(
-            `HangarCategorySelectorEbike6-${lang}-1440x890`
-          );
+          cy.getByTestId('CategorySelector')
+            .should('be.visible')
+            .wait(200)
+            .compareSnapshot(`HangarCategorySelectorEbike6-${lang}-1440x890`);
         });
         it('should render eBikeCategory 7', () => {
           cy.viewport(1440, 890);
@@ -102,9 +108,10 @@ describe.only('Hangar-CategorySelector', () => {
           cy.getByTestId('Slide-catFactory').click();
           cy.getByTestId('Slide-catFull').click();
           cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-          cy.getByTestId('CategorySelector').compareSnapshot(
-            `HangarCategorySelectorEbike7-${lang}-1440x890`
-          );
+          cy.getByTestId('CategorySelector')
+            .should('be.visible')
+            .wait(200)
+            .compareSnapshot(`HangarCategorySelectorEbike7-${lang}-1440x890`);
         });
         it('should render monsterBikeCategory 1', () => {
           cy.viewport(1440, 890);
@@ -113,9 +120,10 @@ describe.only('Hangar-CategorySelector', () => {
           cy.getByTestId('Slide-catMonster').click();
           cy.getByTestId('Slide-catMonsterMountain').click();
           cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-          cy.getByTestId('CategorySelector').compareSnapshot(
-            `HangarCategorySelectorMonsterbike1-${lang}-1440x890`
-          );
+          cy.getByTestId('CategorySelector')
+            .should('be.visible')
+            .wait(200)
+            .compareSnapshot(`HangarCategorySelectorMonsterbike1-${lang}-1440x890`);
         });
         it('should render eMotoCategory 1', () => {
           cy.viewport(1440, 890);
@@ -124,9 +132,10 @@ describe.only('Hangar-CategorySelector', () => {
           cy.getByTestId('Slide-catEMoto').click();
           cy.getByTestId('Slide-catFactory').click();
           cy.getByTestId('CategorySelector').screenshot(); //Without this screenshot images are not fully loaded in comparesnapshot. It acts like a delay.
-          cy.getByTestId('CategorySelector').compareSnapshot(
-            `HangarCategorySelectorEMoto1-${lang}-1440x890`
-          );
+          cy.getByTestId('CategorySelector')
+            .should('be.visible')
+            .wait(200)
+            .compareSnapshot(`HangarCategorySelectorEMoto1-${lang}-1440x890`);
         });
       });
     });
