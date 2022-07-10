@@ -63,6 +63,7 @@ export const getStaticProps: GetStaticProps = async () => {
       vehicles: vehiclesArray.map((vehicle) => ({
         ...vehicle,
         _id: vehicle._id.toString(),
+        createdAt: vehicle.createdAt.toString(),
       })),
     },
     revalidate: 20,
