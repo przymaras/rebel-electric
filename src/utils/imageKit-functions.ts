@@ -19,8 +19,8 @@ export const getAuthenticationParameters = () => {
   return imagekit.getAuthenticationParameters();
 };
 
-export const moveImage = async (source: string, destination: string) => {
-  await imagekit.moveFile(source, destination);
+export const moveImage = async (sourceFilePath: string, destinationPath: string) => {
+  await imagekit.moveFile({ sourceFilePath, destinationPath });
 };
 
 export const getImageDetailsByName = async (imageFileNames: string | string[]) => {
