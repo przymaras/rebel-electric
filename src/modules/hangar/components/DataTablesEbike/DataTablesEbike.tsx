@@ -3,7 +3,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { DataTable } from 'src/modules/hangar/components/DataTable';
 import { Vehicle } from 'src/modules/hangar/types/hangar';
 import { ItemManufacturerObj } from 'src/modules/hangar/types/hangar';
-import { dataOrOther, translateOrOther, roundNum } from 'src/utils/common-functions';
+import { roundDec2, maybeOtherValue, maybeOtherValueOrT } from 'src/utils/common-functions';
 
 import styles from './DataTablesEbike.module.scss';
 
@@ -17,6 +17,8 @@ interface DataTablesProps {
 export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
   const { t } = useTranslation();
   const unknownText = t('hangar:unknown');
+  const { getMaybeOtherValue } = maybeOtherValue(unknownText);
+  const { getMaybeOtherValueOrT } = maybeOtherValueOrT(unknownText, t);
   const vData = props.vehicleData;
   const cData = props.controllersData;
   const mData = props.motorsData;
@@ -28,11 +30,11 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
       (vData?.batVoltage ?? '') === 'other' ? vData?.batVoltageOther ?? '' : vData?.batVoltage ?? ''
     ) * parseInt(vData?.ctrlCurrent ?? '');
 
-  power = power ? roundNum(power) : undefined;
+  power = power ? roundDec2(power) : undefined;
 
   const capacityUnit = vData?.capacityUnit;
-  const capacity = roundNum(vData?.capacity);
-  const voltage = roundNum(
+  const capacity = roundDec2(vData?.capacity);
+  const voltage = roundDec2(
     (vData?.batVoltage ?? '') === 'other' ? vData?.batVoltageOther ?? '' : vData?.batVoltage ?? ''
   );
   let capacityWh: number | undefined;
@@ -41,12 +43,12 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
   if (capacityUnit === 'Wh') {
     capacityWh = capacity;
     if (voltage) {
-      capacityAh = roundNum((capacity ?? 0) / voltage);
+      capacityAh = roundDec2((capacity ?? 0) / voltage);
     }
   } else if (capacityUnit === 'Ah') {
     capacityAh = capacity;
     if (voltage) {
-      capacityWh = roundNum((capacity ?? 0) * voltage);
+      capacityWh = roundDec2((capacity ?? 0) * voltage);
     }
   }
 
@@ -54,7 +56,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
   let energyConsumption: number | undefined;
 
   if (capacityWh && range) {
-    energyConsumption = roundNum(capacityWh / range);
+    energyConsumption = roundDec2(capacityWh / range);
   }
 
   const getItemManufName = (itemManufId: string, iData: ItemManufacturerObj[] | undefined) => {
@@ -101,17 +103,21 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
             </p>
             <p>
               {`${t('hangar:wheelSize')}:`}
-              <strong>{translateOrOther(vData?.wheelSize, vData?.wheelOther, t)}</strong>
+              <strong>
+                {getMaybeOtherValueOrT({ value: vData?.wheelSize, otherValue: vData?.wheelOther })}
+              </strong>
             </p>
             <p>
               {`${t('hangar:brakes')}:`}
-              <strong>{translateOrOther(vData?.brakes, vData?.brakesOther, t)}</strong>
+              <strong>
+                {getMaybeOtherValueOrT({ value: vData?.brakes, otherValue: vData?.brakesOther })}
+              </strong>
             </p>
             <p>
               {`${t('hangar:vMax')}:`}
               <strong>
                 {vData?.vmax
-                  ? `${roundNum(vData.vmax)?.toString() ?? ''} ${t(
+                  ? `${roundDec2(vData.vmax)?.toString() ?? ''} ${t(
                       `hangar:${vData?.vmaxUnit ? vData.vmaxUnit : 'empty'}`
                     )}`
                   : unknownText}
@@ -125,7 +131,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
               {`${t('hangar:weightAfter')}:`}
               <strong>
                 {vData?.mass
-                  ? `${roundNum(vData.mass)?.toString() ?? ''}  ${vData?.massUnit ?? ''}`
+                  ? `${roundDec2(vData.mass)?.toString() ?? ''}  ${vData?.massUnit ?? ''}`
                   : unknownText}
               </strong>
             </p>
@@ -133,14 +139,14 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
               {`${t('hangar:averageRange')}:`}
               <strong>
                 {vData?.range
-                  ? `${roundNum(vData.range)?.toString() ?? ''}  ${vData?.rangeUnit ?? ''}`
+                  ? `${roundDec2(vData.range)?.toString() ?? ''}  ${vData?.rangeUnit ?? ''}`
                   : unknownText}
               </strong>
             </p>
 
             <p>
               {`${t('hangar:cost')}:`}
-              <strong>{`${roundNum(vData?.totalCost) ?? unknownText}  ${
+              <strong>{`${roundDec2(vData?.totalCost) ?? unknownText}  ${
                 vData?.totalCostCurrency ?? ''
               }`}</strong>
             </p>
@@ -161,34 +167,32 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
             <p>
               {`${t('hangar:ctrlManufacturer')}:`}
               <strong>
-                {dataOrOther(
-                  getItemManufName(vData?.ctrlManuf ?? '', cData),
-                  vData?.ctrlManufOther,
-                  t
-                )}
+                {getMaybeOtherValue({
+                  value: getItemManufName(vData?.ctrlManuf ?? '', cData),
+                  otherValue: vData?.ctrlManufOther,
+                })}
               </strong>
             </p>
             <p>
               {`${t('hangar:ctrlModel')}:`}
               <strong>
-                {dataOrOther(
-                  getItemModelName(vData?.ctrlManuf ?? '', vData?.ctrlModel ?? '', cData),
-                  vData?.ctrlModelOther,
-                  t
-                )}
+                {getMaybeOtherValue({
+                  value: getItemModelName(vData?.ctrlManuf ?? '', vData?.ctrlModel ?? '', cData),
+                  otherValue: vData?.ctrlModelOther,
+                })}
               </strong>
             </p>
             <p>
               {`${t('hangar:ctrlMaxCurrent')}:`}
               <strong>
                 {vData?.ctrlCurrent
-                  ? `${roundNum(vData.ctrlCurrent)?.toString() ?? ''} A`
+                  ? `${roundDec2(vData.ctrlCurrent)?.toString() ?? ''} A`
                   : unknownText}
               </strong>
             </p>
             <p>
               {`${t('hangar:maxPower')}:`}
-              <strong>{power ? `${roundNum(power)?.toString() ?? ''} W` : unknownText}</strong>
+              <strong>{power ? `${roundDec2(power)?.toString() ?? ''} W` : unknownText}</strong>
             </p>
             <p>
               {`${t('hangar:energyConsumption')}:`}
@@ -209,21 +213,19 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
             <p>
               {`${t('hangar:motorManufacturer')}:`}
               <strong>
-                {dataOrOther(
-                  getItemManufName(vData?.motorManuf ?? '', mData),
-                  vData?.motorManufOther,
-                  t
-                )}
+                {getMaybeOtherValue({
+                  value: getItemManufName(vData?.motorManuf ?? '', mData),
+                  otherValue: vData?.motorManufOther,
+                })}
               </strong>
             </p>
             <p>
               {`${t('hangar:motorModel')}:`}
               <strong>
-                {dataOrOther(
-                  getItemModelName(vData?.motorManuf ?? '', vData?.motorModel ?? '', mData),
-                  vData?.motorModelOther,
-                  t
-                )}
+                {getMaybeOtherValue({
+                  value: getItemModelName(vData?.motorManuf ?? '', vData?.motorModel ?? '', mData),
+                  otherValue: vData?.motorModelOther,
+                })}
               </strong>
             </p>
           </>
@@ -242,22 +244,32 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
           <>
             <p>
               {`${t('hangar:batteryCaseType')}:`}
-              <strong>{translateOrOther(vData?.batteryCase, vData?.batteryCaseOther, t)}</strong>
+              <strong>
+                {getMaybeOtherValueOrT({
+                  value: vData?.batteryCase,
+                  otherValue: vData?.batteryCaseOther,
+                })}
+              </strong>
             </p>
             <p>
               {`${t('hangar:cellsType')}:`}
-              <strong>{translateOrOther(vData?.cellsType, vData?.cellsTypeOther, t)}</strong>
+              <strong>
+                {getMaybeOtherValueOrT({
+                  value: vData?.cellsType,
+                  otherValue: vData?.cellsTypeOther,
+                })}
+              </strong>
             </p>
             <p>
               {`${t('hangar:nominalVoltage')}:`}
               <strong>
-                {dataOrOther(
-                  vData?.batVoltage && vData?.batVoltage !== 'other'
-                    ? `${vData?.batVoltage} V`
-                    : vData?.batVoltage,
-                  vData?.batVoltageOther && `${vData?.batVoltageOther} V`,
-                  t
-                )}
+                {getMaybeOtherValue({
+                  value:
+                    vData?.batVoltage && vData?.batVoltage !== 'other'
+                      ? `${vData?.batVoltage} V`
+                      : vData?.batVoltage,
+                  otherValue: vData?.batVoltageOther && `${vData?.batVoltageOther} V`,
+                })}
               </strong>
             </p>
           </>

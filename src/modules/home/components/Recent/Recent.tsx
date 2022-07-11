@@ -18,7 +18,7 @@ export const Recent: React.FC<RecentProps> = ({ vehicle: { vehicleImages, projec
         <a>
           <div className={styles.recentImgContainer}>
             <img
-              src={getBigThumbSrc(imageName, projectName)}
+              src={getBigThumbSrc({ imageName, seoName: projectName })}
               alt='Cube Ams 100 TSDZ2'
               className={styles.img}
             />
