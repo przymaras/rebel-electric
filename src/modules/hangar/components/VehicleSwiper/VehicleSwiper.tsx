@@ -44,11 +44,11 @@ export const VehicleSwiper: React.FC<VehicleSwiperProps> = (props) => {
             loadPrevNext: true,
           }}
         >
-          {props.images.map((image, index) => (
+          {props.images.map((imageName, index) => (
             <SwiperSlide key={index} zoom={true}>
               <img
                 src='/img/rebel.jpg'
-                data-src={getFullSrc(image, `${props.projectName} ${index}`)}
+                data-src={getFullSrc({ imageName, seoName: `${props.projectName} ${index}` })}
                 alt={`${props.projectName} ${index}`}
                 className='swiper-lazy'
               />
@@ -65,10 +65,10 @@ export const VehicleSwiper: React.FC<VehicleSwiperProps> = (props) => {
           watchSlidesProgress={true}
           className='mySwiper'
         >
-          {props.images.map((image, index) => (
+          {props.images.map((imageName, index) => (
             <SwiperSlide key={index}>
               <img
-                src={getSmallThumbSrc(image, `${props.projectName} ${index}`)}
+                src={getSmallThumbSrc({ imageName, seoName: `${props.projectName} ${index}` })}
                 alt={`${props.projectName} ${index}`}
                 className={styles.thumb}
               />

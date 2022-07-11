@@ -2,58 +2,77 @@ import type { Translate } from 'next-translate';
 
 import { VehiclesCategories } from 'src/modules/hangar/types/hangar';
 
-const imgTargetDir = process.env.NEXT_PUBLIC_IMAGEKIT_DIRECTORY;
+const imgTargetDir = process.env.NEXT_PUBLIC_IMAGEKIT_DIRECTORY ?? '/hangar/';
 
-export const dataOrOther = (
-  value: string | undefined,
-  valueOther: string | undefined,
-  t: Translate
-) => {
-  let returnValue: string | undefined = value ? value : t('hangar:unknown');
+interface GetMaybeOtherValueProps {
+  value: string | undefined;
+  otherValue: string | undefined;
+}
 
-  if (value === 'other') returnValue = valueOther;
+interface GetMaybeOtherValueOrTProps {
+  value: string | undefined;
+  otherValue: string | undefined;
+}
 
-  return returnValue;
+interface GetImgSrcProps {
+  imageName: string;
+  seoName: string;
+}
+export const maybeOtherValue = (fallback: string) => {
+  /**It checks if value === 'other'
+   *
+   * If YES returns otherValue, if NO returns value.
+   *
+   * OR returns fallback if undefined*/
+  const getMaybeOtherValue = ({
+    otherValue = fallback,
+    value = fallback,
+  }: GetMaybeOtherValueProps) => {
+    return value === 'other' ? otherValue : value;
+  };
+  return { getMaybeOtherValue };
 };
 
-export const translateOrOther = (
-  value: string | undefined,
-  valueOther: string | undefined,
-  t: Translate
-) => {
-  let returnValue = t(`hangar:${value ? value : 'unknown'}`);
-
-  if (value === 'other' && valueOther) returnValue = valueOther;
-
-  return returnValue;
+export const maybeOtherValueOrT = (fallback: string, t: Translate) => {
+  /**It checks if value === 'other'
+   *
+   * If YES returns otherValue, if NO returns proper translation for value.
+   *
+   * OR returns fallback if undefined*/
+  const getMaybeOtherValueOrT = ({ otherValue = fallback, value }: GetMaybeOtherValueOrTProps) => {
+    return value === 'other' ? otherValue : t(`hangar:${value ? value : 'unknown'}`);
+  };
+  return { getMaybeOtherValueOrT };
 };
 
-export const roundNum = (number: number | string | undefined) => {
+/** Rounds number to 2 decimal places.
+ *
+ *  If not a number it returns undefined
+ */
+export const roundDec2 = (number: number | string | undefined) => {
   const value = Math.round(Number(number) * 100) / 100;
   return value ? value : undefined;
 };
 
-type ImgProjNameFn = (imgName: string, projName: string) => string;
-
-export const getBigThumbSrc: ImgProjNameFn = (imgName, projName) => {
-  const [imageName, imageExtension] = imgName.split('.');
-  const underscoredProjectName = projName.split(' ').join('_');
-  if (!imgTargetDir) return '';
-  return `https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true,di-rebel.jpg${imgTargetDir}${imageName}/${underscoredProjectName}.${imageExtension}`;
+/** Returns SEO friendly URL of BIG THUMB image */
+export const getBigThumbSrc = ({ imageName, seoName }: GetImgSrcProps) => {
+  const [name, extension] = imageName.split('.');
+  const underscoredProjectName = seoName.split(' ').join('_');
+  return `https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-big_thumb,pr-true,di-rebel.jpg${imgTargetDir}${name}/${underscoredProjectName}.${extension}`;
 };
 
-export const getSmallThumbSrc: ImgProjNameFn = (imgName, projName) => {
-  const [imageName, imageExtension] = imgName.split('.');
-  const underscoredProjectName = projName.split(' ').join('_');
-  if (!imgTargetDir) return '';
-  return `https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-small_thumb,pr-true,di-rebel.jpg${imgTargetDir}${imageName}/${underscoredProjectName}.${imageExtension}`;
+/** Returns SEO friendly URL of SMALL THUMB image */
+export const getSmallThumbSrc = ({ imageName, seoName }: GetImgSrcProps) => {
+  const [name, extension] = imageName.split('.');
+  const underscoredProjectName = seoName.split(' ').join('_');
+  return `https://ik.imagekit.io/rebelelectric/ik-seo/tr:n-small_thumb,pr-true,di-rebel.jpg${imgTargetDir}${name}/${underscoredProjectName}.${extension}`;
 };
 
-export const getFullSrc: ImgProjNameFn = (imgName, projName) => {
-  const [imageName, imageExtension] = imgName.split('.');
-  const underscoredProjectName = projName.split(' ').join('_');
-  if (!imgTargetDir) return '';
-  return `https://ik.imagekit.io/rebelelectric/ik-seo/tr:pr-true,di-rebel.jpg${imgTargetDir}${imageName}/${underscoredProjectName}.${imageExtension}`;
+/** Returns SEO friendly URL of FULL SIZE image */
+export const getFullSrc = ({ imageName, seoName }: GetImgSrcProps) => {
+  const [name, extension] = imageName.split('.');
+  const underscoredProjectName = seoName.split(' ').join('_');
+  return `https://ik.imagekit.io/rebelelectric/ik-seo/tr:pr-true,di-rebel.jpg${imgTargetDir}${name}/${underscoredProjectName}.${extension}`;
 };
 
 export const getSelectedCategoryId = (

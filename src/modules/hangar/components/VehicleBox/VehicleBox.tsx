@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { DataBar } from 'src/modules/hangar/components/DataBar';
 import { Vehicle } from 'src/modules/hangar/types/hangar';
-import { getBigThumbSrc, roundNum } from 'src/utils/common-functions';
+import { getBigThumbSrc, roundDec2 } from 'src/utils/common-functions';
 
 import styles from './VehicleBox.module.scss';
 
@@ -26,23 +26,23 @@ export const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
   let power: number | undefined =
     parseInt(vData?.batVoltage ?? '') * parseInt(vData?.ctrlCurrent ?? '');
 
-  power = power ? roundNum(power) : undefined;
+  power = power ? roundDec2(power) : undefined;
 
   const capacityUnit = vData?.capacityUnit;
-  const capacity = roundNum(vData?.capacity);
-  const voltage = roundNum(vData?.batVoltage);
+  const capacity = roundDec2(vData?.capacity);
+  const voltage = roundDec2(vData?.batVoltage);
   let capacityWh: number | undefined;
   let capacityAh: number | undefined;
 
   if (capacityUnit === 'Wh') {
     capacityWh = capacity;
     if (voltage) {
-      capacityAh = roundNum((capacity ?? 0) / voltage);
+      capacityAh = roundDec2((capacity ?? 0) / voltage);
     }
   } else if (capacityUnit === 'Ah') {
     capacityAh = capacity;
     if (voltage) {
-      capacityWh = roundNum((capacity ?? 0) * voltage);
+      capacityWh = roundDec2((capacity ?? 0) * voltage);
     }
   }
 
@@ -50,7 +50,7 @@ export const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
   let energyConsumption: number | undefined;
 
   if (capacityWh && range) {
-    energyConsumption = roundNum(capacityWh / range);
+    energyConsumption = roundDec2(capacityWh / range);
   }
 
   return (
@@ -62,7 +62,11 @@ export const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
             <h2 className={`${styles.title} rebel-font`}>{vData.projectName}</h2>
           </div>
           <div className={styles.categoryImg}>
-            <img src={getBigThumbSrc(imageName, projectName)} alt={projectName} loading='lazy' />
+            <img
+              src={getBigThumbSrc({ imageName, seoName: projectName })}
+              alt={projectName}
+              loading='lazy'
+            />
           </div>
 
           <DataBar
