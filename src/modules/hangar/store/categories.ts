@@ -1,6 +1,6 @@
-import { VehiclesCategories } from 'src/modules/hangar/types/hangar';
+import type { IVehicleCategories } from 'src/modules/hangar/types/hangar';
 
-export const categories: VehiclesCategories = {
+export const categories: IVehicleCategories = {
   catTitle: 'catType',
   categories: [
     {

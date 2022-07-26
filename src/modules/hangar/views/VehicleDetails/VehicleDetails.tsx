@@ -7,8 +7,8 @@ import { DataTablesEbike } from 'src/modules/hangar/components/DataTablesEbike';
 import { Description } from 'src/modules/hangar/components/Description';
 import { VehicleSwiper } from 'src/modules/hangar/components/VehicleSwiper';
 import { VehicleVeiwsCatLikes } from 'src/modules/hangar/components/VehicleVeiwsCatLikes';
-import { Vehicle } from 'src/modules/hangar/types/hangar';
-import { ItemManufacturerObj } from 'src/modules/hangar/types/hangar';
+import { IVehicle } from 'src/modules/hangar/types/hangar';
+import { ItemManufacturer } from 'src/modules/hangar/types/hangar';
 import { BtnLink } from 'src/modules/layout/components/BtnLink';
 import { TitleBox } from 'src/modules/layout/components/TitleBox';
 import { useStore } from 'src/store/useStore';
@@ -18,12 +18,12 @@ import { getSelectedCategoryTreeInfo } from 'src/utils/common-functions';
 import styles from './VehicleDetails.module.scss';
 
 interface VehicleDetailsProps {
-  vehicleData?: Vehicle;
-  controllersData?: ItemManufacturerObj[];
-  motorsData?: ItemManufacturerObj[];
+  vehicleData?: IVehicle;
+  controllersData?: ItemManufacturer[];
+  motorsData?: ItemManufacturer[];
 }
 
-const vehiclesCategoriesSelector = (state: StoreState) => state.vehiclesCategories;
+const vehiclesCategoriesSelector = (state: StoreState) => state.vehicleCategories;
 
 export const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
   const { t } = useTranslation();

@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 
-import { Vehicle } from 'src/modules/hangar/types/hangar';
+import { IVehicle } from 'src/modules/hangar/types/hangar';
 import { getBigThumbSrc } from 'src/utils/common-functions';
 
 import styles from './Recent.module.scss';
 
 interface RecentProps {
-  vehicle: Vehicle;
+  vehicle: IVehicle;
 }
 
 export const Recent: React.FC<RecentProps> = ({ vehicle: { vehicleImages, projectName, _id } }) => {

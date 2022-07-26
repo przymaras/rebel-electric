@@ -1,10 +1,10 @@
 import { MongoClient, ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import type { AddEbikeValues } from 'src/modules/hangar/types/hangar';
+import type { IAddEbikeValues } from 'src/modules/hangar/types/hangar';
 import { getImageDetailsByName, moveImage } from 'src/utils/imageKit-functions';
 
-interface ExtendedAddEbikeValues extends AddEbikeValues {
+interface ExtendedAddEbikeValues extends IAddEbikeValues {
   createdAt: string;
   ownerId: ObjectId;
 }

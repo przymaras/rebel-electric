@@ -1,12 +1,12 @@
 import { MongoClient } from 'mongodb';
 import { GetStaticProps } from 'next';
 
-import { ItemManufacturerObj } from 'src/modules/hangar/types/hangar';
+import { ItemManufacturer } from 'src/modules/hangar/types/hangar';
 import { AddVehicle } from 'src/modules/hangar/views/AddVehicle';
 
 const HangarAddPage: React.FC<{
-  controllersData: ItemManufacturerObj[];
-  motorsData: ItemManufacturerObj[];
+  controllersData: ItemManufacturer[];
+  motorsData: ItemManufacturer[];
 }> = (props) => {
   return <AddVehicle controllersData={props.controllersData} motorsData={props.motorsData} />;
 };
@@ -20,20 +20,18 @@ export const getStaticProps: GetStaticProps = async () => {
   if (!dbName || !dbhost || !dbUser || !dbPass) return { props: {} };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  let controllersArray: ItemManufacturerObj[] = [];
-  let motorsArray: ItemManufacturerObj[] = [];
+  let controllersArray: ItemManufacturer[] = [];
+  let motorsArray: ItemManufacturer[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
 
     const controllersCollection = db.collection('controllers');
-    controllersArray = (await controllersCollection
-      .aggregate([])
-      .toArray()) as ItemManufacturerObj[];
+    controllersArray = (await controllersCollection.aggregate([]).toArray()) as ItemManufacturer[];
 
     const motorsCollection = db.collection('motors');
-    motorsArray = (await motorsCollection.aggregate([]).toArray()) as ItemManufacturerObj[];
+    motorsArray = (await motorsCollection.aggregate([]).toArray()) as ItemManufacturer[];
 
     await client.close();
   } catch (err) {

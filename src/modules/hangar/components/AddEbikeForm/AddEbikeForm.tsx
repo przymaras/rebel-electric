@@ -17,7 +17,7 @@ import 'filepond/dist/filepond.min.css';
 
 import { useDataFetcher } from 'src/hooks/useDataFetcher/useDataFetcher';
 import { AddVehicleDataGroup } from 'src/modules/hangar/components/AddVehicleDataGroup';
-import { AddEbikeValues, ItemManufacturerObj } from 'src/modules/hangar/types/hangar';
+import { IAddEbikeValues, ItemManufacturer } from 'src/modules/hangar/types/hangar';
 import {
   TextInput,
   TextArea,
@@ -46,10 +46,10 @@ registerPlugin(
 let isRefreshRender = false;
 
 interface AddEbikeFormProps {
-  formik: FormikProps<AddEbikeValues>;
+  formik: FormikProps<IAddEbikeValues>;
   setRemoveImages: (f: Function) => void;
-  controllersData: ItemManufacturerObj[];
-  motorsData: ItemManufacturerObj[];
+  controllersData: ItemManufacturer[];
+  motorsData: ItemManufacturer[];
 }
 
 const newCategoryChosenSelector = (state: StoreState) => state.newCategoryChosen;
@@ -95,7 +95,7 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
       props.formik.setFieldValue(
         'category',
         getSelectedCategoryId(
-          useStore.getState().vehiclesCategories,
+          useStore.getState().vehicleCategories,
           useStore.getState().addVehicleCategory
         )
       );
@@ -334,7 +334,7 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 <Select label={t('hangar:ctrlManufacturer')} name='ctrlManuf'>
                   <option value=''>{t('hangar:addSelect')}</option>
                   {props.controllersData &&
-                    props.controllersData.map((controller: ItemManufacturerObj) => {
+                    props.controllersData.map((controller: ItemManufacturer) => {
                       const option = (
                         <option key={controller._id} value={controller._id}>
                           {controller.manufacturer}
@@ -398,7 +398,7 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                 <Select label={t('hangar:addMotorManufacturer')} name='motorManuf'>
                   <option value=''>{t('hangar:addSelect')}</option>
                   {props.motorsData &&
-                    props.motorsData.map((motor: ItemManufacturerObj) => {
+                    props.motorsData.map((motor: ItemManufacturer) => {
                       return (
                         <option key={motor._id} value={motor._id}>
                           {motor.manufacturer}

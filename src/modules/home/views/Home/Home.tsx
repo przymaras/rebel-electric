@@ -4,14 +4,14 @@ import { IconAcademy } from 'src/assets/icons/IconAcademy';
 import { IconHangar } from 'src/assets/icons/IconHangar';
 import { IconUser } from 'src/assets/icons/IconUser';
 import RebelLogo from 'src/assets/rebel-electric-logo.svg';
-import { Vehicle } from 'src/modules/hangar/types/hangar';
+import { IVehicle } from 'src/modules/hangar/types/hangar';
 import { RecentBox } from 'src/modules/home/components/RecentBox';
 import { BtnLink } from 'src/modules/layout/components/BtnLink';
 import { InfoBox } from 'src/modules/layout/components/InfoBox';
 
 import styles from './Home.module.scss';
 
-export const Home: React.FC<{ vehicles: Vehicle[] }> = (props) => {
+export const Home: React.FC<{ vehicles: IVehicle[] }> = (props) => {
   const { t } = useTranslation();
   const recentVehicles = props.vehicles;
 

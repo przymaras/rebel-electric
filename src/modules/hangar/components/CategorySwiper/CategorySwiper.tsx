@@ -6,7 +6,7 @@ import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useWindowResize } from 'src/hooks/useWindowResize/useWindowResize';
-import { VehiclesCategories } from 'src/modules/hangar/types/hangar';
+import { IVehicleCategories } from 'src/modules/hangar/types/hangar';
 
 import styles from './CategorySwiper.module.scss';
 
@@ -14,7 +14,7 @@ interface CategorySwiperProps {
   selectedCategory: number[];
   currentCatLvl: number;
   addVehicle?: boolean;
-  cat: VehiclesCategories;
+  cat: IVehicleCategories;
   setSelectedCategory: (newCategory: number[]) => void;
 }
 

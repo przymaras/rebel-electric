@@ -1,7 +1,7 @@
 import { useField, FormikProps } from 'formik';
 import useTranslation from 'next-translate/useTranslation';
 
-import { AddEbikeValues } from 'src/modules/hangar/types/hangar';
+import { IAddEbikeValues } from 'src/modules/hangar/types/hangar';
 
 import styles from './formInputs.module.scss';
 
@@ -127,7 +127,7 @@ export const Fieldset: React.FC<InputProps & { legend: string }> = ({ legend, ..
 };
 
 interface SubmitButtonProps {
-  formik: FormikProps<AddEbikeValues>;
+  formik: FormikProps<IAddEbikeValues>;
   text: string;
   errorMsg: string;
 }

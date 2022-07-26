@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import type { Vehicle } from 'src/modules/hangar/types/hangar';
+import type { IVehicle } from 'src/modules/hangar/types/hangar';
 import { deleteImage } from 'src/utils/imageKit-functions';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -15,7 +15,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
-    const vehiclesCollection = db.collection<Omit<Vehicle, '_id'>>('vehicles');
+    const vehiclesCollection = db.collection<Omit<IVehicle, '_id'>>('vehicles');
 
     const vehicles = await vehiclesCollection
       .find({

@@ -1,19 +1,19 @@
-import { GetState, SetState } from 'zustand';
+import type { GetState, SetState } from 'zustand';
 
-import { VehiclesCategories } from 'src/modules/hangar/types/hangar';
-import { StoreState } from 'src/store/useStore';
+import type { IVehicleCategories } from 'src/modules/hangar/types/hangar';
+import type { StoreState } from 'src/store/useStore';
 
-import { categories } from './categoriesData';
+import { categories } from './categories';
 
-export interface CategoriesState {
-  vehiclesCategories: VehiclesCategories;
-  setVehiclesCategories: (newValue: boolean) => void;
+export interface ICategoriesState {
+  vehicleCategories: IVehicleCategories;
+  setVehicleCategories: (newValue: IVehicleCategories) => void;
 }
 
 export const createCategoriesSlice: (
   set: SetState<StoreState>,
   get: GetState<StoreState>
-) => CategoriesState = () => ({
-  vehiclesCategories: categories,
-  setVehiclesCategories: (newValue) => ({ vehiclesCategories: newValue }),
+) => ICategoriesState = () => ({
+  vehicleCategories: categories,
+  setVehicleCategories: (newValue) => ({ vehicleCategories: newValue }),
 });

@@ -3,13 +3,13 @@ import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/link';
 
 import { DataBar } from 'src/modules/hangar/components/DataBar';
-import { Vehicle } from 'src/modules/hangar/types/hangar';
+import { IVehicle } from 'src/modules/hangar/types/hangar';
 import { getBigThumbSrc, roundDec2 } from 'src/utils/common-functions';
 
 import styles from './VehicleBox.module.scss';
 
 interface VehicleBoxProps {
-  vehicleData: Vehicle;
+  vehicleData: IVehicle;
 }
 
 export const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
