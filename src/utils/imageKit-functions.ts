@@ -2,18 +2,10 @@ import ImageKit from 'imagekit';
 import type { IKCallback } from 'imagekit/dist/libs/interfaces';
 
 const imagekit: ImageKit = new ImageKit({
-  publicKey: process.env.IMAGEKIT_PUBLIC_KEY ?? '',
+  publicKey: process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY ?? '',
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY ?? '',
   urlEndpoint: 'https://ik.imagekit.io/rebelelectric/',
 });
-
-// export const getImageDetails = async (imagesIds) => {
-//   let imagesDetails = [];
-//   imagesDetails = await Promise.all(
-//     imagesIds.map(async (oneImgId) => await imagekit.getFileDetails(oneImgId))
-//   );
-//   return imagesDetails;
-// };
 
 export const getAuthenticationParameters = () => {
   return imagekit.getAuthenticationParameters();
@@ -24,20 +16,20 @@ export const moveImage = async (sourceFilePath: string, destinationPath: string)
 };
 
 export const getImageDetailsByName = async (imageFileNames: string | string[]) => {
-  let imagesDetails = [];
-  let ImageFilesNamesArray: string[] = [];
+  let imageDetails = [];
+  let ImageFileNames: string[] = [];
   if (typeof imageFileNames === 'string') {
-    ImageFilesNamesArray.push(imageFileNames);
-  } else ImageFilesNamesArray = imageFileNames;
+    ImageFileNames.push(imageFileNames);
+  } else ImageFileNames = imageFileNames;
 
-  imagesDetails = await Promise.all(
-    ImageFilesNamesArray.map((imgName) =>
+  imageDetails = await Promise.all(
+    ImageFileNames.map((imgName) =>
       imagekit.listFiles({
         name: imgName,
       })
     )
   );
-  return imagesDetails.map((image) => image[0]); //[0] for remove parent array which always have one item
+  return imageDetails.map((image) => image[0]); //[0] for remove parent array which always have one item
 };
 
 export const deleteImage = async (fileName: string, fn?: IKCallback<void, Error>) => {
