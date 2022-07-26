@@ -118,58 +118,58 @@ export const getSelectedCategoryId = (
   return categoryID;
 };
 
-export const getSelectedCategoryTreeInfo = (cat: IVehicleCategories, id: string) => {
+export const getSelectedCategoryTreeInfo = (vehicleCategories: IVehicleCategories, id: string) => {
   if (!id) return;
-  const categoriesIndexes: number[] = [];
-  const categoriesIDs: string[] = [];
-  const categoriesNames: string[] = [];
-  const categoriesImages: string[] = [];
+  const categoryIndexes: number[] = [];
+  const categoryIDs: string[] = [];
+  const categoryNames: string[] = [];
+  const categoryImages: string[] = [];
   let restCategories: IVehicleCategories | undefined;
   let restIDs: string[] = [];
 
   let level = 0;
   let idFound = false;
 
-  const getInfo: (catArr: IVehicleCategories | undefined, id: string) => void = (
-    catArr,
+  const getInfo: (categories: IVehicleCategories | undefined, id: string) => void = (
+    categories,
     idGetInfo
   ) => {
-    if (catArr === undefined) return;
+    if (categories === undefined) return;
 
     //search for given id in this level of categories
-    const foundIndex = catArr.categories.findIndex((category) => category.id === idGetInfo);
+    const foundIndex = categories.categories.findIndex((category) => category.id === idGetInfo);
 
     //if found push it's index number at index [level] to "categoriesInfoArray" and return
     if (foundIndex !== -1) {
-      categoriesIndexes[level] = foundIndex;
-      categoriesIndexes.splice(level + 1);
+      categoryIndexes[level] = foundIndex;
+      categoryIndexes.splice(level + 1);
 
-      categoriesIDs[level] = catArr.categories[foundIndex].id;
-      categoriesIDs.splice(level + 1);
+      categoryIDs[level] = categories.categories[foundIndex].id;
+      categoryIDs.splice(level + 1);
 
-      categoriesNames[level] = catArr.categories[foundIndex].name;
-      categoriesNames.splice(level + 1);
+      categoryNames[level] = categories.categories[foundIndex].name;
+      categoryNames.splice(level + 1);
 
-      categoriesImages[level] = catArr.categories[foundIndex].image;
-      categoriesImages.splice(level + 1);
+      categoryImages[level] = categories.categories[foundIndex].image;
+      categoryImages.splice(level + 1);
 
-      restCategories = catArr.categories[foundIndex].child;
-      restIDs = [...restIDs, catArr.categories[foundIndex].id];
+      restCategories = categories.categories[foundIndex].child;
+      restIDs = [...restIDs, categories.categories[foundIndex].id];
 
       idFound = true;
       return;
     }
 
     //else get first category, check if it has child categories
-    catArr.categories.some((category, i) => {
+    categories.categories.some((category, i) => {
       const tempLevel = level;
 
       if (category.child) {
         //if it has child categories temporaryly push this category index at index[level] of "categoriesInfoArray"
-        categoriesIndexes[level] = i;
-        categoriesIDs[level] = category.id;
-        categoriesNames[level] = category.name;
-        categoriesImages[level] = category.image;
+        categoryIndexes[level] = i;
+        categoryIDs[level] = category.id;
+        categoryNames[level] = category.name;
+        categoryImages[level] = category.image;
 
         //repeat until idFound or no more children
         level++;
@@ -183,10 +183,10 @@ export const getSelectedCategoryTreeInfo = (cat: IVehicleCategories, id: string)
     });
   };
 
-  const getRestIDs: (catArr: IVehicleCategories | undefined) => void = (catArr) => {
-    if (!catArr) return;
+  const getRestIDs: (categories: IVehicleCategories | undefined) => void = (categories) => {
+    if (!categories) return;
 
-    catArr.categories.forEach((category) => {
+    categories.categories.forEach((category) => {
       restIDs = [...restIDs, category.id];
       if (category.child && !category.child.powerRelated) {
         getRestIDs(category.child);
@@ -194,14 +194,14 @@ export const getSelectedCategoryTreeInfo = (cat: IVehicleCategories, id: string)
     });
   };
 
-  getInfo(cat, id);
+  getInfo(vehicleCategories, id);
   getRestIDs(restCategories);
 
   return {
-    categoriesIndexes,
-    categoriesIDs,
-    categoriesNames,
-    categoriesImages,
+    categoryIndexes,
+    categoryIDs,
+    categoryNames,
+    categoryImages,
     restIDs,
   };
 };

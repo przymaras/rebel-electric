@@ -41,14 +41,14 @@ export const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
   );
 
   const categoryName =
-    selectedCategoryTreeInfo?.categoriesNames.map((name) => t(`hangar:${name}`)).join(' / ') ??
+    selectedCategoryTreeInfo?.categoryNames.map((name) => t(`hangar:${name}`)).join(' / ') ??
     'undefined';
 
   const categoryImage =
-    [...(selectedCategoryTreeInfo?.categoriesImages ?? ['undefined'])].pop() ?? 'undefined';
+    [...(selectedCategoryTreeInfo?.categoryImages ?? ['undefined'])].pop() ?? 'undefined';
 
   const motorType =
-    [...(selectedCategoryTreeInfo?.categoriesNames ?? ['undefined'])].pop() ?? 'undefined';
+    [...(selectedCategoryTreeInfo?.categoryNames ?? ['undefined'])].pop() ?? 'undefined';
 
   return (
     <>
