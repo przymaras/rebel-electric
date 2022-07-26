@@ -53,7 +53,7 @@ class PersistImpl extends React.Component<
           getSelectedCategoryTreeInfo(
             useStore.getState().vehicleCategories,
             restoredFormikState?.values?.category
-          )?.categoriesIndexes ?? [0]
+          )?.categoryIndexes ?? [0]
         );
     }
   }
