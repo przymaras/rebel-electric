@@ -1,11 +1,11 @@
 import useTranslation from 'next-translate/useTranslation';
 
-import { Vehicle } from 'src/modules/hangar/types/hangar';
+import { IVehicle } from 'src/modules/hangar/types/hangar';
 import { Recent } from 'src/modules/home/components/Recent';
 
 import styles from './RecentBox.module.scss';
 
-export const RecentBox: React.FC<{ vehicles: Vehicle[] }> = (props) => {
+export const RecentBox: React.FC<{ vehicles: IVehicle[] }> = (props) => {
   const { t } = useTranslation();
 
   return (

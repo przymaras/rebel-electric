@@ -1,6 +1,6 @@
 import type { Translate } from 'next-translate';
 
-import { VehiclesCategories } from 'src/modules/hangar/types/hangar';
+import { IVehicleCategories } from 'src/modules/hangar/types/hangar';
 
 const imgTargetDir = process.env.NEXT_PUBLIC_IMAGEKIT_DIRECTORY ?? '/hangar/';
 
@@ -76,7 +76,7 @@ export const getFullSrc = ({ imageName, seoName }: GetImgSrcProps) => {
 };
 
 export const getSelectedCategoryId = (
-  cat: VehiclesCategories,
+  cat: IVehicleCategories,
   selected: number[],
   allowPartialSelection?: boolean
 ) => {
@@ -85,7 +85,7 @@ export const getSelectedCategoryId = (
   let level = -1;
 
   const getId: (
-    catArr: VehiclesCategories,
+    catArr: IVehicleCategories,
     selected: number[],
     allowPartialSelection: boolean
   ) => void = (catArr, selectedGetId, allowPartialSelectionGetId = false) => {
@@ -118,19 +118,19 @@ export const getSelectedCategoryId = (
   return categoryID;
 };
 
-export const getSelectedCategoryTreeInfo = (cat: VehiclesCategories, id: string) => {
+export const getSelectedCategoryTreeInfo = (cat: IVehicleCategories, id: string) => {
   if (!id) return;
   const categoriesIndexes: number[] = [];
   const categoriesIDs: string[] = [];
   const categoriesNames: string[] = [];
   const categoriesImages: string[] = [];
-  let restCategories: VehiclesCategories | undefined;
+  let restCategories: IVehicleCategories | undefined;
   let restIDs: string[] = [];
 
   let level = 0;
   let idFound = false;
 
-  const getInfo: (catArr: VehiclesCategories | undefined, id: string) => void = (
+  const getInfo: (catArr: IVehicleCategories | undefined, id: string) => void = (
     catArr,
     idGetInfo
   ) => {
@@ -183,7 +183,7 @@ export const getSelectedCategoryTreeInfo = (cat: VehiclesCategories, id: string)
     });
   };
 
-  const getRestIDs: (catArr: VehiclesCategories | undefined) => void = (catArr) => {
+  const getRestIDs: (catArr: IVehicleCategories | undefined) => void = (catArr) => {
     if (!catArr) return;
 
     catArr.categories.forEach((category) => {

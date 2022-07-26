@@ -1,4 +1,4 @@
-export interface Vehicle {
+export interface IVehicle {
   _id: string;
   projectName: string;
   vehicleImages: string[];
@@ -43,7 +43,7 @@ export interface Vehicle {
   likesCount?: string;
   viewsCount?: string;
 }
-export interface AddEbikeValues {
+export interface IAddEbikeValues {
   projectName: string;
   video: string;
   description: string;
@@ -81,20 +81,20 @@ export interface AddEbikeValues {
   batVoltageOther: string;
 }
 
-export interface VehicleCategory {
+export interface IVehicleCategory {
   id: string;
   name: string;
   image: string;
-  child?: VehiclesCategories;
+  child?: IVehicleCategories;
 }
 
-export interface VehiclesCategories {
+export interface IVehicleCategories {
   catTitle: string;
   powerRelated?: boolean;
-  categories: VehicleCategory[];
+  categories: IVehicleCategory[];
 }
 
-interface ItemModelObj {
+interface IItemModel {
   _id: string;
   model: string;
   validated: boolean;
@@ -102,11 +102,11 @@ interface ItemModelObj {
   categories: string[];
 }
 
-export interface ItemManufacturerObj {
+export interface ItemManufacturer {
   _id: string;
   manufacturer: string;
   url: string;
   validated: boolean;
   categories: string[];
-  models: ItemModelObj[];
+  models: IItemModel[];
 }

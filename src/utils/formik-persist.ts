@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce';
 import * as React from 'react';
 import isEqual from 'react-fast-compare';
 
-import { AddEbikeValues } from 'src/modules/hangar/types/hangar';
+import { IAddEbikeValues } from 'src/modules/hangar/types/hangar';
 import { useStore } from 'src/store/useStore';
 
 import { getSelectedCategoryTreeInfo } from './common-functions';
@@ -16,14 +16,14 @@ export interface PersistProps {
 
 //TODO: Make this component generic
 class PersistImpl extends React.Component<
-  PersistProps & { formik: FormikProps<AddEbikeValues> },
+  PersistProps & { formik: FormikProps<IAddEbikeValues> },
   {}
 > {
   static defaultProps = {
     debounce: 300,
   };
 
-  saveForm = debounce((data: FormikProps<AddEbikeValues>) => {
+  saveForm = debounce((data: FormikProps<IAddEbikeValues>) => {
     const { isSubmitting, ...filteredData } = data; //ommit isSubmitting - submit button depends on this formik prop, it is going to remain disabled
     if (this.props.isSessionStorage) {
       window.sessionStorage.setItem(this.props.name, JSON.stringify(filteredData));
@@ -32,7 +32,7 @@ class PersistImpl extends React.Component<
     }
   }, this.props.debounce);
 
-  componentDidUpdate(prevProps: PersistProps & { formik: FormikProps<AddEbikeValues> }) {
+  componentDidUpdate(prevProps: PersistProps & { formik: FormikProps<IAddEbikeValues> }) {
     if (!isEqual(prevProps.formik, this.props.formik)) {
       this.saveForm(this.props.formik);
     }
@@ -43,7 +43,7 @@ class PersistImpl extends React.Component<
       ? window.sessionStorage.getItem(this.props.name)
       : window.localStorage.getItem(this.props.name);
     if (maybeState && maybeState !== null) {
-      const restoredFormikState = JSON.parse(maybeState) as FormikState<AddEbikeValues>;
+      const restoredFormikState = JSON.parse(maybeState) as FormikState<IAddEbikeValues>;
       //FIXME: If saved category is eg ebike and user will click on other eg on monsterebike
       //level 0 will be monster ebike but rest of levels will be loaded as saved for ebike
       this.props.formik.setFormikState(restoredFormikState);
@@ -51,7 +51,7 @@ class PersistImpl extends React.Component<
         .getState()
         .setAddVehicleCategory(
           getSelectedCategoryTreeInfo(
-            useStore.getState().vehiclesCategories,
+            useStore.getState().vehicleCategories,
             restoredFormikState?.values?.category
           )?.categoriesIndexes ?? [0]
         );
@@ -63,4 +63,4 @@ class PersistImpl extends React.Component<
   }
 }
 
-export const Persist = connect<PersistProps, AddEbikeValues>(PersistImpl);
+export const Persist = connect<PersistProps, IAddEbikeValues>(PersistImpl);

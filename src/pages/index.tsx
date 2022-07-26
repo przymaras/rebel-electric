@@ -3,10 +3,10 @@ import { GetStaticProps } from 'next';
 import useTranslation from 'next-translate/useTranslation';
 import Head from 'next/head';
 
-import { Vehicle } from 'src/modules/hangar/types/hangar';
+import { IVehicle } from 'src/modules/hangar/types/hangar';
 import { Home } from 'src/modules/home/views/Home';
 
-const HomePage: React.FC<{ vehicles: Vehicle[] }> = (props) => {
+const HomePage: React.FC<{ vehicles: IVehicle[] }> = (props) => {
   const { t } = useTranslation();
   return (
     <>
@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = async () => {
   if (!dbName || !dbhost || !dbUser || !dbPass) return { props: {} };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  let vehiclesArray: Vehicle[] = [];
+  let vehiclesArray: IVehicle[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps = async () => {
       ])
       .sort({ createdAt: -1 }) //sort from newest to oldest
       .limit(3)
-      .toArray()) as Vehicle[];
+      .toArray()) as IVehicle[];
     await client.close();
   } catch (err) {
     console.log(err);

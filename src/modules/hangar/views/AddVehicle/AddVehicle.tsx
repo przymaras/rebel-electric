@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { IconHangar } from 'src/assets/icons/IconHangar';
 import { AddEbikeFormikContext } from 'src/modules/hangar/components/AddEbikeFormikContext';
 import { CategorySelector } from 'src/modules/hangar/components/CategorySelector';
-import { ItemManufacturerObj, AddEbikeValues } from 'src/modules/hangar/types/hangar';
+import { ItemManufacturer, IAddEbikeValues } from 'src/modules/hangar/types/hangar';
 import { InfoBox } from 'src/modules/layout/components/InfoBox';
 import { TitleBox } from 'src/modules/layout/components/TitleBox';
 import { useStore, StoreState } from 'src/store/useStore';
@@ -14,11 +14,11 @@ import styles from './AddVehicle.module.scss';
 
 const newCategoryChosenSelector = (state: StoreState) => state.newCategoryChosen;
 
-const vehiclesCategoriesSelector = (state: StoreState) => state.vehiclesCategories;
+const vehiclesCategoriesSelector = (state: StoreState) => state.vehicleCategories;
 
 export const AddVehicle: React.FC<{
-  controllersData: ItemManufacturerObj[];
-  motorsData: ItemManufacturerObj[];
+  controllersData: ItemManufacturer[];
+  motorsData: ItemManufacturer[];
 }> = (props) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -45,7 +45,7 @@ export const AddVehicle: React.FC<{
     }
   }, [newCategoryChosen]);
 
-  function onAddVehicle(enteredData: AddEbikeValues) {
+  function onAddVehicle(enteredData: IAddEbikeValues) {
     //POST request with body equal on data in JSON format
     // console.log(enteredData);
     fetch('/api/vehicles/', {

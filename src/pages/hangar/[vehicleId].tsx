@@ -1,13 +1,13 @@
 import { MongoClient, ObjectId } from 'mongodb';
 import { GetStaticProps, GetStaticPaths } from 'next';
 
-import { Vehicle, ItemManufacturerObj } from 'src/modules/hangar/types/hangar';
+import { IVehicle, ItemManufacturer } from 'src/modules/hangar/types/hangar';
 import { VehicleDetails } from 'src/modules/hangar/views/VehicleDetails';
 
 const HangarVehiclePage: React.FC<{
-  vehicleData: Vehicle;
-  controllersData: ItemManufacturerObj[];
-  motorsData: ItemManufacturerObj[];
+  vehicleData: IVehicle;
+  controllersData: ItemManufacturer[];
+  motorsData: ItemManufacturer[];
 }> = (props) => {
   return (
     <VehicleDetails
@@ -26,7 +26,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   if (!dbName || !dbhost || !dbUser || !dbPass) return { paths: [], fallback: false };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  let vehiclesArray: Vehicle[] = [];
+  let vehiclesArray: IVehicle[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       .aggregate([{ $project: { _id: 1, createdAt: 1 } }])
       .sort({ createdAt: -1 })
       .limit(5)
-      .toArray()) as Vehicle[];
+      .toArray()) as IVehicle[];
 
     await client.close();
     console.log(vehiclesArray);
@@ -63,9 +63,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const vehicleId = context.params?.vehicleId;
 
-  let vehiclesArray: Vehicle[] = [];
-  let controllersArray: ItemManufacturerObj[] = [];
-  let motorsArray: ItemManufacturerObj[] = [];
+  let vehiclesArray: IVehicle[] = [];
+  let controllersArray: ItemManufacturer[] = [];
+  let motorsArray: ItemManufacturer[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
@@ -150,15 +150,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
           },
         },
       ])
-      .toArray()) as Vehicle[];
+      .toArray()) as IVehicle[];
 
     const controllersCollection = db.collection('controllers');
-    controllersArray = (await controllersCollection
-      .aggregate([])
-      .toArray()) as ItemManufacturerObj[];
+    controllersArray = (await controllersCollection.aggregate([]).toArray()) as ItemManufacturer[];
 
     const motorsCollection = db.collection('motors');
-    motorsArray = (await motorsCollection.aggregate([]).toArray()) as ItemManufacturerObj[];
+    motorsArray = (await motorsCollection.aggregate([]).toArray()) as ItemManufacturer[];
 
     await client.close();
   } catch (err) {

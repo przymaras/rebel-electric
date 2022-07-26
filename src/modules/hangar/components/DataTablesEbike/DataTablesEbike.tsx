@@ -1,16 +1,16 @@
 import useTranslation from 'next-translate/useTranslation';
 
 import { DataTable } from 'src/modules/hangar/components/DataTable';
-import { Vehicle } from 'src/modules/hangar/types/hangar';
-import { ItemManufacturerObj } from 'src/modules/hangar/types/hangar';
+import { IVehicle } from 'src/modules/hangar/types/hangar';
+import { ItemManufacturer } from 'src/modules/hangar/types/hangar';
 import { roundDec2, maybeOtherValue, maybeOtherValueOrT } from 'src/utils/common-functions';
 
 import styles from './DataTablesEbike.module.scss';
 
 interface DataTablesProps {
-  vehicleData?: Vehicle;
-  controllersData?: ItemManufacturerObj[];
-  motorsData?: ItemManufacturerObj[];
+  vehicleData?: IVehicle;
+  controllersData?: ItemManufacturer[];
+  motorsData?: ItemManufacturer[];
   motorType: string;
 }
 
@@ -59,7 +59,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
     energyConsumption = roundDec2(capacityWh / range);
   }
 
-  const getItemManufName = (itemManufId: string, iData: ItemManufacturerObj[] | undefined) => {
+  const getItemManufName = (itemManufId: string, iData: ItemManufacturer[] | undefined) => {
     let itemManufName = itemManufId;
     if (itemManufId !== 'other') {
       itemManufName =
@@ -71,7 +71,7 @@ export const DataTablesEbike: React.FC<DataTablesProps> = (props) => {
   const getItemModelName = (
     itemManufId: string,
     itemModelId: string,
-    iData: ItemManufacturerObj[] | undefined
+    iData: ItemManufacturer[] | undefined
   ) => {
     let itemModelName = itemModelId;
 

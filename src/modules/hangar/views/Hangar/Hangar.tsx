@@ -9,7 +9,7 @@ import { DataBarsHeadingContainer } from 'src/modules/hangar/components/DataBars
 import { SearchBar } from 'src/modules/hangar/components/SearchBar';
 import { SearchResultSortBar } from 'src/modules/hangar/components/SearchResultSortBar';
 import { VehicleBox } from 'src/modules/hangar/components/VehicleBox';
-import { Vehicle } from 'src/modules/hangar/types/hangar';
+import { IVehicle } from 'src/modules/hangar/types/hangar';
 import { InfoBox } from 'src/modules/layout/components/InfoBox';
 import { TitleBox } from 'src/modules/layout/components/TitleBox';
 import { useStore } from 'src/store/useStore';
@@ -18,7 +18,7 @@ import { getSelectedCategoryId, getSelectedCategoryTreeInfo } from 'src/utils/co
 import styles from './Hangar.module.scss';
 
 interface HangarProps {
-  vehicles: Vehicle[];
+  vehicles: IVehicle[];
 }
 
 export const Hangar: React.FC<HangarProps> = (props) => {
@@ -35,16 +35,13 @@ export const Hangar: React.FC<HangarProps> = (props) => {
   useEffect(() => {
     if (newHangarCategoryChosen) {
       const selectedCategoryId = getSelectedCategoryId(
-        useStore.getState().vehiclesCategories,
+        useStore.getState().vehicleCategories,
         useStore.getState().hangarCategory,
         true
       );
 
       setSelectedCategoryInfo(
-        getSelectedCategoryTreeInfo(
-          useStore.getState().vehiclesCategories,
-          selectedCategoryId ?? ''
-        )
+        getSelectedCategoryTreeInfo(useStore.getState().vehicleCategories, selectedCategoryId ?? '')
       );
 
       useStore.getState().setNewHangarCategoryChosen(false);
@@ -52,7 +49,7 @@ export const Hangar: React.FC<HangarProps> = (props) => {
   }, [newHangarCategoryChosen]);
 
   const vehiclesToDisplay = () => {
-    let vehiclesToDisplay2: Vehicle[] = [...vehicles];
+    let vehiclesToDisplay2: IVehicle[] = [...vehicles];
 
     if (selectedCategoryInfo) {
       vehiclesToDisplay2 = vehiclesToDisplay2.filter((vehicle) =>

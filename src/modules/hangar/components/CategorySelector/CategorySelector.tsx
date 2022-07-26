@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { CategorySwiper } from 'src/modules/hangar/components/CategorySwiper';
 import { CategorySwiperStyles } from 'src/modules/hangar/components/CategorySwiperStyles';
-import { VehiclesCategories } from 'src/modules/hangar/types/hangar';
+import { IVehicleCategories } from 'src/modules/hangar/types/hangar';
 import { useStore, StoreState } from 'src/store/useStore';
 
 import styles from './CategorySelector.module.scss';
@@ -13,7 +13,7 @@ interface CategorySelectorProps {
   addVehicle?: boolean;
 }
 
-const vehiclesCategoriesSelector = (state: StoreState) => state.vehiclesCategories;
+const vehiclesCategoriesSelector = (state: StoreState) => state.vehicleCategories;
 
 export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
   const { t } = useTranslation();
@@ -59,14 +59,14 @@ export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
    *  We dont know if there will be more child categories
    *  Not every categories has child subcategories
    */
-  function renderSelectedSwipers(cat: VehiclesCategories, selected: number[]) {
+  function renderSelectedSwipers(cat: IVehicleCategories, selected: number[]) {
     /**
      * Category level means how deeply nested we are right now in category tree (multi dimensional array of objects)
      * starting from -1 so first increment gives 0 and points to first item in "selected" array
      */
     let currentCatLvl2 = -1;
 
-    const renderSwiper: (cat: VehiclesCategories, selected: number[]) => React.ReactNode = (
+    const renderSwiper: (cat: IVehicleCategories, selected: number[]) => React.ReactNode = (
       cat2,
       selected2
     ) => {
@@ -130,10 +130,10 @@ export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
     return renderSwiper(cat, selected);
   }
 
-  const renderSelectedCategoriesNames = (cat: VehiclesCategories, selected: number[]) => {
+  const renderSelectedCategoriesNames = (cat: IVehicleCategories, selected: number[]) => {
     let currentIndex2 = -1;
 
-    const renderSelected: (cat: VehiclesCategories, selected: number[]) => React.ReactNode = (
+    const renderSelected: (cat: IVehicleCategories, selected: number[]) => React.ReactNode = (
       cat2,
       selected2
     ) => {

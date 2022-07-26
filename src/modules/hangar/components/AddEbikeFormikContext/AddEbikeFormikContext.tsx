@@ -4,12 +4,12 @@ import { useRef } from 'react';
 import * as Yup from 'yup';
 
 import { AddEbikeForm } from 'src/modules/hangar/components/AddEbikeForm';
-import { ItemManufacturerObj, AddEbikeValues } from 'src/modules/hangar/types/hangar';
+import { ItemManufacturer, IAddEbikeValues } from 'src/modules/hangar/types/hangar';
 
 interface AddEbikeFormikContextProps {
-  onAddVehicle: (enteredData: AddEbikeValues) => void;
-  controllersData: ItemManufacturerObj[];
-  motorsData: ItemManufacturerObj[];
+  onAddVehicle: (enteredData: IAddEbikeValues) => void;
+  controllersData: ItemManufacturer[];
+  motorsData: ItemManufacturer[];
 }
 
 export const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
