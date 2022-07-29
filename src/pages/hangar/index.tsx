@@ -35,13 +35,13 @@ export const getStaticProps: GetStaticProps = async () => {
   if (!dbName || !dbhost || !dbUser || !dbPass) return { props: {} };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  let vehiclesArray: IVehicle[] = [];
+  let vehiclesArray: Partial<IVehicle>[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
     const vehiclesCollection = db.collection('vehicles');
-    vehiclesArray = (await vehiclesCollection
+    vehiclesArray = await vehiclesCollection
       .aggregate([
         {
           $project: {
@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
       .sort({ createdAt: -1 }) //sort from newest to oldest
       // .limit(3)
-      .toArray()) as IVehicle[];
+      .toArray();
     await client.close();
   } catch (err) {
     console.log(err);
@@ -62,8 +62,8 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       vehicles: vehiclesArray.map((vehicle) => ({
         ...vehicle,
-        _id: vehicle._id.toString(),
-        createdAt: vehicle.createdAt.toString(),
+        _id: (vehicle?._id ?? '').toString(),
+        createdAt: (vehicle?.createdAt ?? '').toString(),
       })),
     },
     revalidate: 20,

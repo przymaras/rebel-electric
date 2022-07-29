@@ -20,18 +20,18 @@ export const getStaticProps: GetStaticProps = async () => {
   if (!dbName || !dbhost || !dbUser || !dbPass) return { props: {} };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  let controllersArray: ItemManufacturer[] = [];
-  let motorsArray: ItemManufacturer[] = [];
+  let controllersArray: Partial<ItemManufacturer>[] = [];
+  let motorsArray: Partial<ItemManufacturer>[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
 
     const controllersCollection = db.collection('controllers');
-    controllersArray = (await controllersCollection.aggregate([]).toArray()) as ItemManufacturer[];
+    controllersArray = await controllersCollection.aggregate([]).toArray();
 
     const motorsCollection = db.collection('motors');
-    motorsArray = (await motorsCollection.aggregate([]).toArray()) as ItemManufacturer[];
+    motorsArray = await motorsCollection.aggregate([]).toArray();
 
     await client.close();
   } catch (err) {
@@ -42,16 +42,16 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       controllersData: controllersArray.map((controller) => ({
         ...controller,
-        _id: controller._id.toString(),
-        models: controller.models.map((model) => ({
+        _id: (controller?._id ?? '').toString(),
+        models: (controller?.models ?? []).map((model) => ({
           ...model,
           _id: model._id.toString(),
         })),
       })),
       motorsData: motorsArray.map((motor) => ({
         ...motor,
-        _id: motor._id.toString(),
-        models: motor.models.map((model) => ({
+        _id: (motor?._id ?? '').toString(),
+        models: (motor?.models ?? []).map((model) => ({
           ...model,
           _id: model._id.toString(),
         })),
