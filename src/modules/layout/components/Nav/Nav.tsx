@@ -23,7 +23,7 @@ export const Nav: React.FC<NavProps> = (props) => {
           <NavLink
             key={i}
             href={href}
-            icon={<Icon />}
+            icon={<Icon height={20} />}
             text={t(text)}
             closeNav={props.closeNav}
             login={name.toLowerCase() === 'login'}

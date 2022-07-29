@@ -1,6 +1,5 @@
-import { IconBattery } from 'src/assets/icons/IconBattery';
-import { IconLightning } from 'src/assets/icons/IconLightning';
-import { IconStar } from 'src/assets/icons/IconStar';
+import { BatteryIcon, LightningIcon, StarIcon } from 'src/assets/icons';
+import type { IconType } from 'src/assets/icons';
 
 import styles from './DataBar.module.scss';
 
@@ -13,20 +12,20 @@ interface DataBarProps {
 
 export const DataBar: React.FC<DataBarProps> = (props) => {
   let cssStyle;
-  let Icon = IconStar;
+  let Icon: IconType = StarIcon;
 
   switch (props.barStyle) {
     case 'base':
       cssStyle = styles.base;
-      Icon = IconStar;
+      Icon = StarIcon;
       break;
     case 'electrical':
       cssStyle = styles.electrical;
-      Icon = IconLightning;
+      Icon = LightningIcon;
       break;
     case 'battery':
       cssStyle = styles.battery;
-      Icon = IconBattery;
+      Icon = BatteryIcon;
       break;
 
     default:
@@ -35,7 +34,7 @@ export const DataBar: React.FC<DataBarProps> = (props) => {
   }
   return (
     <div className={`${styles.container} ${cssStyle}`}>
-      <Icon />
+      <Icon height={18} />
       <p>{props.col1}</p>
       <p>{props.col2}</p>
       <p>{props.col3}</p>

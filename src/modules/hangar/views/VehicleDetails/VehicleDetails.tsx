@@ -1,8 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 
-import { IconHangar } from 'src/assets/icons/IconHangar';
-import { IconMapLocation } from 'src/assets/icons/IconMapLocation';
-import { IconUser } from 'src/assets/icons/IconUser';
+import { HangarIcon, MapLocationIcon } from 'src/assets/icons';
+import { UserIcon } from 'src/assets/icons';
 import { DataTablesEbike } from 'src/modules/hangar/components/DataTablesEbike';
 import { Description } from 'src/modules/hangar/components/Description';
 import { VehicleSwiper } from 'src/modules/hangar/components/VehicleSwiper';
@@ -58,9 +57,9 @@ export const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
             {vData?.projectName ?? unknownText}
           </h1>
           <div className={styles.userWrapper}>
-            <IconUser />
+            <UserIcon height={20} />
             <p className={styles.user}>{vData?.userName ?? unknownText}</p>
-            <IconMapLocation />
+            <MapLocationIcon height={20} />
             <p>{vData?.city ?? unknownText}</p>
           </div>
         </div>
@@ -86,13 +85,13 @@ export const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
         <div data-testid='VehicleButtons' className={styles.buttonsWrapper}>
           <BtnLink
             href='/users/add'
-            icon={<IconUser />}
+            icon={UserIcon}
             text={t('hangar:seeOwnersProfile')}
             horizontal={true}
           />
           <BtnLink
             href='/users/add'
-            icon={<IconHangar />}
+            icon={HangarIcon}
             text={t('hangar:seeSimilarVehicles')}
             horizontal={true}
           />

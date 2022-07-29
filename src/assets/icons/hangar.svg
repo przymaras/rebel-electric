@@ -1,11 +1,11 @@
-export const IconHangar: React.FC = () => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 8.985 5.639'
     fill='currentColor'
     className='icon'
     role='Img'
-    style={{ display: 'inline-block', height: '1em' }}
+    width='8.985'
+    height='5.639'
   >
     <title>Hangar</title>
     <g>
@@ -13,4 +13,3 @@ export const IconHangar: React.FC = () => (
       <path d='M3.426 1.396h2.03v.392h-2.03z' />
     </g>
   </svg>
-);

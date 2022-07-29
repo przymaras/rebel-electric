@@ -1,6 +1,6 @@
-import { IconBattery } from 'src/assets/icons/IconBattery';
-import { IconLightning } from 'src/assets/icons/IconLightning';
-import { IconStar } from 'src/assets/icons/IconStar';
+import { BatteryIcon, StarIcon } from 'src/assets/icons';
+import type { IconType } from 'src/assets/icons';
+import { LightningIcon } from 'src/assets/icons';
 
 import styles from './DataTable.module.scss';
 
@@ -20,23 +20,23 @@ interface DataTableProps {
 export const DataTable: React.FC<DataTableProps> = (props) => {
   let cssStyle = '';
   let cssStyleLight = '';
-  let Icon = IconStar;
+  let Icon: IconType = StarIcon;
   //TODO: change to classNames lib
   switch (props.tableStyle) {
     case 'base':
       cssStyle = styles.base;
       cssStyleLight = styles.baseLight;
-      Icon = IconStar;
+      Icon = StarIcon;
       break;
     case 'electrical':
       cssStyle = styles.electrical;
       cssStyleLight = styles.electricalLight;
-      Icon = IconLightning;
+      Icon = LightningIcon;
       break;
     case 'battery':
       cssStyle = styles.battery;
       cssStyleLight = styles.batteryLight;
-      Icon = IconBattery;
+      Icon = BatteryIcon;
       break;
 
     default:
@@ -46,7 +46,7 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
   return (
     <div className={`${styles.container}  ${cssStyleLight}`}>
       <div className={`${styles.headingRow}  ${cssStyle} rebel-font`}>
-        <Icon />
+        <Icon height={16} />
         <p>
           <strong>{props.title}</strong>
         </p>
