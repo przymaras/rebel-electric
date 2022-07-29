@@ -63,9 +63,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const vehicleId = context.params?.vehicleId;
 
-  let vehiclesArray: IVehicle[] = [];
-  let controllersArray: ItemManufacturer[] = [];
-  let motorsArray: ItemManufacturer[] = [];
+  let vehiclesArray: Partial<IVehicle>[] = [];
+  let controllersArray: Partial<ItemManufacturer>[] = [];
+  let motorsArray: Partial<ItemManufacturer>[] = [];
 
   try {
     const client = await MongoClient.connect(connectString);
@@ -150,7 +150,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
           },
         },
       ])
-      .toArray()) as IVehicle[];
+      .toArray()) as Partial<IVehicle>[];
 
     const controllersCollection = db.collection('controllers');
     controllersArray = (await controllersCollection.aggregate([]).toArray()) as ItemManufacturer[];
@@ -167,21 +167,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       vehicleData: {
         ...vehiclesArray[0],
-        _id: vehiclesArray[0]._id.toString(),
+        _id: (vehiclesArray[0]?._id ?? '').toString(),
         ownerId: vehiclesArray[0].ownerId ? vehiclesArray[0].ownerId.toString() : '',
       },
       controllersData: controllersArray.map((controller) => ({
         ...controller,
-        _id: controller._id.toString(),
-        models: controller.models.map((model) => ({
+        _id: (controller?._id ?? '').toString(),
+        models: (controller?.models ?? []).map((model) => ({
           ...model,
           _id: model._id.toString(),
         })),
       })),
       motorsData: motorsArray.map((motor) => ({
         ...motor,
-        _id: motor._id.toString(),
-        models: motor.models.map((model) => ({
+        _id: (motor?._id ?? '').toString(),
+        models: (motor?.models ?? []).map((model) => ({
           ...model,
           _id: model._id.toString(),
         })),
