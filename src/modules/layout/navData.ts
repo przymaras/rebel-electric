@@ -1,9 +1,9 @@
 import { AcademyIcon, CirclePlusIcon, HangarIcon, PowerOnIcon, RebelIcon } from 'src/assets/icons';
-import type { IconType } from 'src/assets/icons';
+import type { SvgComponentType } from 'src/types';
 
 export interface INavItem {
   href: string;
-  icon: IconType;
+  icon: SvgComponentType;
   name: string;
   text: string;
 }

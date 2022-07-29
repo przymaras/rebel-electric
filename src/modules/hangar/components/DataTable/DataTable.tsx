@@ -1,6 +1,6 @@
 import { BatteryIcon, StarIcon } from 'src/assets/icons';
-import type { IconType } from 'src/assets/icons';
 import { LightningIcon } from 'src/assets/icons';
+import type { SvgComponentType } from 'src/types';
 
 import styles from './DataTable.module.scss';
 
@@ -20,7 +20,7 @@ interface DataTableProps {
 export const DataTable: React.FC<DataTableProps> = (props) => {
   let cssStyle = '';
   let cssStyleLight = '';
-  let Icon: IconType = StarIcon;
+  let Icon: SvgComponentType = StarIcon;
   //TODO: change to classNames lib
   switch (props.tableStyle) {
     case 'base':

@@ -1,5 +1,5 @@
 import { BatteryIcon, LightningIcon, StarIcon } from 'src/assets/icons';
-import type { IconType } from 'src/assets/icons';
+import type { SvgComponentType } from 'src/types';
 
 import styles from './DataBar.module.scss';
 
@@ -12,7 +12,7 @@ interface DataBarProps {
 
 export const DataBar: React.FC<DataBarProps> = (props) => {
   let cssStyle;
-  let Icon: IconType = StarIcon;
+  let Icon: SvgComponentType = StarIcon;
 
   switch (props.barStyle) {
     case 'base':

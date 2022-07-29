@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
-import { IconType } from 'src/assets/icons';
+import { SvgComponentType } from 'src/types';
 
 import styles from './BtnLink.module.scss';
 
 interface BtnLinkProps {
   horizontal?: boolean;
   href: string;
-  icon: IconType;
+  icon: SvgComponentType;
   testId?: string;
   text: string;
 }

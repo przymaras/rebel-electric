@@ -1,5 +1,5 @@
 import { BatteryIcon, LightningIcon, StarIcon } from 'src/assets/icons';
-import type { IconType } from 'src/assets/icons';
+import type { SvgComponentType } from 'src/types';
 
 import styles from './AddVehicleDataGroup.module.scss';
 
@@ -10,7 +10,7 @@ interface AddVehicleDataGroupProps {
 
 export const AddVehicleDataGroup: React.FC<AddVehicleDataGroupProps> = (props) => {
   let cssStyle;
-  let Icon: IconType = StarIcon;
+  let Icon: SvgComponentType = StarIcon;
 
   switch (props.groupStyle) {
     case 'base':
