@@ -9,6 +9,7 @@ import { DataBarsHeadingContainer } from 'src/modules/hangar/components/DataBars
 import { SearchBar } from 'src/modules/hangar/components/SearchBar';
 import { SearchResultSortBar } from 'src/modules/hangar/components/SearchResultSortBar';
 import { VehicleBox } from 'src/modules/hangar/components/VehicleBox';
+import { vehicleCategories } from 'src/modules/hangar/store/vehicleCategories';
 import { IVehicle } from 'src/modules/hangar/types/hangar';
 import { InfoBox } from 'src/modules/layout/components/InfoBox';
 import { TitleBox } from 'src/modules/layout/components/TitleBox';
@@ -35,13 +36,13 @@ export const Hangar: React.FC<HangarProps> = (props) => {
   useEffect(() => {
     if (newHangarCategoryChosen) {
       const selectedCategoryId = getSelectedCategoryId(
-        useStore.getState().vehicleCategories,
+        vehicleCategories,
         useStore.getState().hangarCategory,
         true
       );
 
       setSelectedCategoryInfo(
-        getSelectedCategoryTreeInfo(useStore.getState().vehicleCategories, selectedCategoryId ?? '')
+        getSelectedCategoryTreeInfo(vehicleCategories, selectedCategoryId ?? '')
       );
 
       useStore.getState().setNewHangarCategoryChosen(false);

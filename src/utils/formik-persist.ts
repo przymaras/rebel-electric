@@ -3,6 +3,7 @@ import debounce from 'lodash.debounce';
 import * as React from 'react';
 import isEqual from 'react-fast-compare';
 
+import { vehicleCategories } from 'src/modules/hangar/store/vehicleCategories';
 import { IAddEbikeValues } from 'src/modules/hangar/types/hangar';
 import { useStore } from 'src/store/useStore';
 
@@ -50,10 +51,8 @@ class PersistImpl extends React.Component<
       useStore
         .getState()
         .setAddVehicleCategory(
-          getSelectedCategoryTreeInfo(
-            useStore.getState().vehicleCategories,
-            restoredFormikState?.values?.category
-          )?.categoryIndexes ?? [0]
+          getSelectedCategoryTreeInfo(vehicleCategories, restoredFormikState?.values?.category)
+            ?.categoryIndexes ?? [0]
         );
     }
   }
