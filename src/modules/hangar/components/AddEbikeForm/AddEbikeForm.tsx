@@ -17,6 +17,7 @@ import 'filepond/dist/filepond.min.css';
 
 import { useDataFetcher } from 'src/hooks/useDataFetcher/useDataFetcher';
 import { AddVehicleDataGroup } from 'src/modules/hangar/components/AddVehicleDataGroup';
+import { vehicleCategories } from 'src/modules/hangar/store/vehicleCategories';
 import { IAddEbikeValues, ItemManufacturer } from 'src/modules/hangar/types/hangar';
 import {
   TextInput,
@@ -94,10 +95,7 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
     if (newCategoryChosen) {
       props.formik.setFieldValue(
         'category',
-        getSelectedCategoryId(
-          useStore.getState().vehicleCategories,
-          useStore.getState().addVehicleCategory
-        )
+        getSelectedCategoryId(vehicleCategories, useStore.getState().addVehicleCategory)
       );
       useStore.getState().setNewCategoryChosen(false);
     }

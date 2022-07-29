@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 
 import { CategorySwiper } from 'src/modules/hangar/components/CategorySwiper';
 import { CategorySwiperStyles } from 'src/modules/hangar/components/CategorySwiperStyles';
+import { vehicleCategories } from 'src/modules/hangar/store/vehicleCategories';
 import { IVehicleCategories } from 'src/modules/hangar/types/hangar';
 import { useStore, StoreState } from 'src/store/useStore';
 
@@ -12,8 +13,6 @@ import styles from './CategorySelector.module.scss';
 interface CategorySelectorProps {
   addVehicle?: boolean;
 }
-
-const vehiclesCategoriesSelector = (state: StoreState) => state.vehicleCategories;
 
 export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
   const { t } = useTranslation();
@@ -35,7 +34,6 @@ export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
 
   const selectedCategory = useStore(categorySelector);
   const setSelectedCategory = useStore(setCategorySelector);
-  const vehiclesCategories = useStore(vehiclesCategoriesSelector);
 
   useEffect(() => {
     if (props.addVehicle === true) {
@@ -171,12 +169,12 @@ export const CategorySelector: React.FC<CategorySelectorProps> = (props) => {
   return (
     <div data-testid='CategorySelector'>
       <CategorySwiperStyles />
-      {renderSelectedSwipers(vehiclesCategories, selectedCategory)}
+      {renderSelectedSwipers(vehicleCategories, selectedCategory)}
       {!selectedCategory.includes(-1) && (props.addVehicle ?? false) && (
         <div>
           <p className={styles.selectedCategory}>
             {t('hangar:catChosen')}{' '}
-            <strong>{renderSelectedCategoriesNames(vehiclesCategories, selectedCategory)}</strong>
+            <strong>{renderSelectedCategoriesNames(vehicleCategories, selectedCategory)}</strong>
           </p>
         </div>
       )}

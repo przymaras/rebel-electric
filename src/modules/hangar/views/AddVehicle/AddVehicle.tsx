@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { HangarIcon } from 'src/assets/icons';
 import { AddEbikeFormikContext } from 'src/modules/hangar/components/AddEbikeFormikContext';
 import { CategorySelector } from 'src/modules/hangar/components/CategorySelector';
+import { vehicleCategories } from 'src/modules/hangar/store/vehicleCategories';
 import { ItemManufacturer, IAddEbikeValues } from 'src/modules/hangar/types/hangar';
 import { InfoBox } from 'src/modules/layout/components/InfoBox';
 import { TitleBox } from 'src/modules/layout/components/TitleBox';
@@ -13,8 +14,6 @@ import { useStore, StoreState } from 'src/store/useStore';
 import styles from './AddVehicle.module.scss';
 
 const newCategoryChosenSelector = (state: StoreState) => state.newCategoryChosen;
-
-const vehiclesCategoriesSelector = (state: StoreState) => state.vehicleCategories;
 
 export const AddVehicle: React.FC<{
   controllersData: ItemManufacturer[];
@@ -25,15 +24,14 @@ export const AddVehicle: React.FC<{
 
   const [selectedCategory, setSelectedCategory] = useState<number[]>([-1]);
   const newCategoryChosen = useStore(newCategoryChosenSelector);
-  const vehiclesCategories = useStore(vehiclesCategoriesSelector);
 
   const VEHICLE_TYPE = 0;
   const NOT_SELECTED = -1;
-  const EBIKE_TYPE = vehiclesCategories.categories
+  const EBIKE_TYPE = vehicleCategories.categories
     .map((category) => category.name)
     .indexOf('catEbike');
 
-  const MONSTEREBIKE_TYPE = vehiclesCategories.categories
+  const MONSTEREBIKE_TYPE = vehicleCategories.categories
     .map((category) => category.name)
     .indexOf('catMonster');
 
