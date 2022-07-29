@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { IconNavBars } from 'src/assets/icons/IconNavBars';
+import { NavBarsIcon } from 'src/assets/icons';
 import RebelLogo from 'src/assets/rebel-electric-logo.svg';
 import { Nav } from 'src/modules/layout/components/Nav';
 
@@ -27,7 +27,7 @@ export const Header: React.FC = () => {
     <div className={styles.container} data-testid='Header'>
       <div className={styles.header}>
         <button onClick={toggleNav} className={styles.btn} data-testid='ToggleNavButton'>
-          <IconNavBars />
+          <NavBarsIcon height={40} />
         </button>
         <h2 className={`${styles.title} rebel-font`} data-testid='HeaderText'>
           REBEL

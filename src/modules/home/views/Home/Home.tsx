@@ -1,8 +1,8 @@
 import useTranslation from 'next-translate/useTranslation';
 
-import { IconAcademy } from 'src/assets/icons/IconAcademy';
-import { IconHangar } from 'src/assets/icons/IconHangar';
-import { IconUser } from 'src/assets/icons/IconUser';
+import { AcademyIcon } from 'src/assets/icons';
+import { HangarIcon } from 'src/assets/icons';
+import { UserIcon } from 'src/assets/icons';
 import RebelLogo from 'src/assets/rebel-electric-logo.svg';
 import { IVehicle } from 'src/modules/hangar/types/hangar';
 import { RecentBox } from 'src/modules/home/components/RecentBox';
@@ -35,12 +35,7 @@ export const Home: React.FC<{ vehicles: IVehicle[] }> = (props) => {
         </div>
       </div>
       <div className={styles.sectionWrapper} data-testid='HangarSection'>
-        <BtnLink
-          href='/hangar'
-          icon={<IconHangar />}
-          text={t('common:navHangar')}
-          testId='Hangar'
-        />
+        <BtnLink href='/hangar' icon={HangarIcon} text={t('common:navHangar')} testId='Hangar' />
         <InfoBox testId='Hangar'>
           <p>{t('home:hangar-info-1')}</p>
           <p>{t('home:hangar-info-2')}</p>
@@ -52,7 +47,7 @@ export const Home: React.FC<{ vehicles: IVehicle[] }> = (props) => {
       <div className={styles.sectionWrapper} data-testid='KnowledgeBaseSection'>
         <BtnLink
           href='/knowledge'
-          icon={<IconAcademy />}
+          icon={AcademyIcon}
           text={t('common:navKnowledgeBase')}
           testId='KnowledgeBase'
         />
@@ -90,12 +85,7 @@ export const Home: React.FC<{ vehicles: IVehicle[] }> = (props) => {
       </div>
 
       <div className={styles.sectionWrapper} data-testid='RegisterSection'>
-        <BtnLink
-          href='/users/add'
-          icon={<IconUser />}
-          text={t('common:register')}
-          testId='Register'
-        />
+        <BtnLink href='/users/add' icon={UserIcon} text={t('common:register')} testId='Register' />
         <InfoBox testId='Register'>
           <p>{t('home:register-info-1')}</p>
           <p>{t('home:register-info-2')}</p>

@@ -2,7 +2,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import { IconHangar } from 'src/assets/icons/IconHangar';
+import { HangarIcon } from 'src/assets/icons';
 import { AddEbikeFormikContext } from 'src/modules/hangar/components/AddEbikeFormikContext';
 import { CategorySelector } from 'src/modules/hangar/components/CategorySelector';
 import { ItemManufacturer, IAddEbikeValues } from 'src/modules/hangar/types/hangar';
@@ -71,7 +71,7 @@ export const AddVehicle: React.FC<{
     <>
       <TitleBox>
         <div className={styles.title}>
-          <IconHangar />
+          <HangarIcon height={40} />
           <h1 className='rebel-font' style={{ fontSize: '5rem' }}>
             {' '}
             {t('hangar:header')}{' '}

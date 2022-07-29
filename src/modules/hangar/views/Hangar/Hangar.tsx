@@ -1,7 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 import { useEffect, useState } from 'react';
 
-import { IconHangar } from 'src/assets/icons/IconHangar';
+import { HangarIcon } from 'src/assets/icons';
 import { CategorySelector } from 'src/modules/hangar/components/CategorySelector';
 import { DataBar } from 'src/modules/hangar/components/DataBar';
 import { DataBarLabels } from 'src/modules/hangar/components/DataBarLabels';
@@ -86,7 +86,7 @@ export const Hangar: React.FC<HangarProps> = (props) => {
     <>
       <TitleBox>
         <div className={styles.title}>
-          <IconHangar />
+          <HangarIcon height={40} />
           <h1 className='rebel-font' style={{ fontSize: '5rem' }}>
             {' '}
             {t('hangar:header')}{' '}

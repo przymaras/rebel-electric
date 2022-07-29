@@ -1,11 +1,11 @@
-export const IconPowerOn: React.FC = () => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     viewBox='4.296 3.281 21.077 23.104'
     fill='currentColor'
     className='icon'
     role='Img'
-    style={{ display: 'inline-block', height: '1em' }}
+    width='21.077'
+    height='23.104'
   >
     <title>Login</title>
     <g>
@@ -17,4 +17,3 @@ export const IconPowerOn: React.FC = () => (
       <rect x='13.578' y='3.281' fill='#46474D' width='2.516' height='10.053' />
     </g>
   </svg>
-);

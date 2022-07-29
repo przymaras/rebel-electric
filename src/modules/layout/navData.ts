@@ -1,45 +1,40 @@
-import { FunctionComponent } from 'react';
-
-import { IconAcademy } from 'src/assets/icons/IconAcademy';
-import { IconCirclePlus } from 'src/assets/icons/IconCirclePlus';
-import { IconHangar } from 'src/assets/icons/IconHangar';
-import { IconPowerOn } from 'src/assets/icons/IconPowerOn';
-import { IconRebel } from 'src/assets/icons/IconRebel';
+import { AcademyIcon, CirclePlusIcon, HangarIcon, PowerOnIcon, RebelIcon } from 'src/assets/icons';
+import type { IconType } from 'src/assets/icons';
 
 export interface INavItem {
   href: string;
-  icon: FunctionComponent;
+  icon: IconType;
   name: string;
   text: string;
 }
 export const navItems: INavItem[] = [
   {
     href: '/',
-    icon: IconRebel,
+    icon: RebelIcon,
     name: 'Home',
     text: 'common:navHome',
   },
   {
     href: '/knowledge',
-    icon: IconAcademy,
+    icon: AcademyIcon,
     name: 'KnowledgeBase',
     text: 'common:navKnowledgeBase',
   },
   {
     href: '/hangar',
-    icon: IconHangar,
+    icon: HangarIcon,
     name: 'Hangar',
     text: 'common:navHangar',
   },
   {
     href: '/hangar/add',
-    icon: IconCirclePlus,
+    icon: CirclePlusIcon,
     name: 'AddNew',
     text: 'common:navAddNew',
   },
   {
     href: '/users/login',
-    icon: IconPowerOn,
+    icon: PowerOnIcon,
     name: 'Login',
     text: 'common:navLogin',
   },
