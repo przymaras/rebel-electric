@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import type { FunctionComponent } from 'react';
+import type { SvgComponentType } from 'src/types';
 
 import academy from './academy.svg';
 import battery from './battery.svg';
@@ -13,16 +13,14 @@ import rebel from './rebel.svg';
 import star from './star.svg';
 import user from './user.svg';
 
-export type IconType = FunctionComponent<{ height?: number; width?: number; title?: string }>;
-
-export const AcademyIcon: IconType = academy;
-export const BatteryIcon: IconType = battery;
-export const CirclePlusIcon: IconType = circlePlus;
-export const HangarIcon: IconType = hangar;
-export const LightningIcon: IconType = lightning;
-export const MapLocationIcon: IconType = mapLocation;
-export const NavBarsIcon: IconType = navBars;
-export const PowerOnIcon: IconType = powerOn;
-export const RebelIcon: IconType = rebel;
-export const StarIcon: IconType = star;
-export const UserIcon: IconType = user;
+export const AcademyIcon: SvgComponentType = academy;
+export const BatteryIcon: SvgComponentType = battery;
+export const CirclePlusIcon: SvgComponentType = circlePlus;
+export const HangarIcon: SvgComponentType = hangar;
+export const LightningIcon: SvgComponentType = lightning;
+export const MapLocationIcon: SvgComponentType = mapLocation;
+export const NavBarsIcon: SvgComponentType = navBars;
+export const PowerOnIcon: SvgComponentType = powerOn;
+export const RebelIcon: SvgComponentType = rebel;
+export const StarIcon: SvgComponentType = star;
+export const UserIcon: SvgComponentType = user;
