@@ -168,7 +168,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       vehicleData: {
         ...vehiclesArray[0],
         _id: (vehiclesArray[0]?._id ?? '').toString(),
-        ownerId: vehiclesArray[0].ownerId ? vehiclesArray[0].ownerId.toString() : '',
+        ownerId: (vehiclesArray[0]?.ownerId ?? '').toString(),
       },
       controllersData: controllersArray.map((controller) => ({
         ...controller,
