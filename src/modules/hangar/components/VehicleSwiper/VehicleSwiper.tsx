@@ -47,7 +47,7 @@ export const VehicleSwiper: React.FC<VehicleSwiperProps> = (props) => {
           {props.images.map((imageName, index) => (
             <SwiperSlide key={index} zoom={true}>
               <img
-                src='/img/rebel.jpg'
+                src='/img/rebel-logo-2000.svg'
                 data-src={getFullSrc({ imageName, seoName: `${props.projectName} ${index}` })}
                 alt={`${props.projectName} ${index}`}
                 className='swiper-lazy'
