@@ -1,5 +1,4 @@
 import useTranslation from 'next-translate/useTranslation';
-import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import SwiperClass from 'swiper';
 import 'swiper/css';
@@ -137,6 +136,7 @@ export const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
           <p>{firstSlideText}</p>
         </SwiperSlide>
         {props.cat.categories.map((category) => {
+          const SvgImage = category.image;
           return (
             <SwiperSlide
               // onClick={(event, swiper) => setSelectedCategory("eBIKE")}
@@ -144,11 +144,7 @@ export const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
             >
               <div data-testid={`Slide-${category.name}`} className={styles.slideContent}>
                 <div className={styles.categoryImg}>
-                  <Image
-                    src={category.image}
-                    alt={`Category ${t(`hangar:${category.name}`)}`}
-                    layout='fill'
-                  />
+                  <SvgImage title={`Category ${t(`hangar:${category.name}`)}`} height={75} />
                 </div>
                 <p>{t(`hangar:${category.name}`)}</p>
               </div>

@@ -2,6 +2,7 @@ import useTranslation from 'next-translate/useTranslation';
 
 import { HangarIcon, MapLocationIcon } from 'src/assets/icons';
 import { UserIcon } from 'src/assets/icons';
+import { Other } from 'src/assets/vehicleCategories';
 import { DataTablesEbike } from 'src/modules/hangar/components/DataTablesEbike';
 import { Description } from 'src/modules/hangar/components/Description';
 import { VehicleSwiper } from 'src/modules/hangar/components/VehicleSwiper';
@@ -38,8 +39,7 @@ export const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
     selectedCategoryTreeInfo?.categoryNames.map((name) => t(`hangar:${name}`)).join(' / ') ??
     'undefined';
 
-  const categoryImage =
-    [...(selectedCategoryTreeInfo?.categoryImages ?? ['undefined'])].pop() ?? 'undefined';
+  const categoryImage = [...(selectedCategoryTreeInfo?.categoryImages ?? [undefined])].pop();
 
   const motorType =
     [...(selectedCategoryTreeInfo?.categoryNames ?? ['undefined'])].pop() ?? 'undefined';
@@ -67,7 +67,7 @@ export const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
         <VehicleVeiwsCatLikes
           views={vData?.viewsCount ?? '0'}
           category={categoryName}
-          categoryImg={categoryImage}
+          CategoryImg={categoryImage ?? Other}
           likes={vData?.likesCount ?? '0'}
         />
         <DataTablesEbike
