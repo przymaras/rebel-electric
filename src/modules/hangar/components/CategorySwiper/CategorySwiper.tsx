@@ -4,6 +4,7 @@ import SwiperClass from 'swiper';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { DoubleArrowLeft, DoubleArrowRight } from 'src/assets';
 import { useWindowResize } from 'src/hooks/useWindowResize/useWindowResize';
 import { IVehicleCategories } from 'src/modules/hangar/types/hangar';
 
@@ -129,7 +130,9 @@ export const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
         }}
       >
         <SwiperSlide>
-          <div className={styles.firstSlide}></div>
+          <div className={styles.firstSlide}>
+            <DoubleArrowLeft height={29} />
+          </div>
         </SwiperSlide>
 
         <SwiperSlide>
@@ -153,7 +156,9 @@ export const CategorySwiper: React.FC<CategorySwiperProps> = (props) => {
         })}
 
         <SwiperSlide>
-          <div className={styles.lastSlide}></div>
+          <div className={styles.lastSlide}>
+            <DoubleArrowRight height={29} />
+          </div>
         </SwiperSlide>
       </Swiper>
       <p className={styles.catName}>{t(`hangar:${props.cat.catTitle}`)}</p>

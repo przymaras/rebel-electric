@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import useTranslation from 'next-translate/useTranslation';
 
+import { EyeSolidIcon, ThumbsUpSolidIcon } from 'src/assets/icons';
 import type { SvgComponentType } from 'src/types';
 
 import styles from './VehicleVeiwsCatLikes.module.scss';
@@ -22,7 +23,7 @@ export const VehicleVeiwsCatLikes: React.FC<VehicleVeiwsCatLikesProps> = ({
   return (
     <div data-testid='VehicleVeiwsCatLikes' className={styles.container}>
       <div className={styles.views}>
-        <img src='/img/fa-ico/eye-solid.svg' alt='Views' />
+        <EyeSolidIcon title='Views' height={40} />
         <p>{views}</p>
         <p className={styles.uppercase}>{t('hangar:views')}</p>
       </div>
@@ -31,7 +32,7 @@ export const VehicleVeiwsCatLikes: React.FC<VehicleVeiwsCatLikesProps> = ({
         <p>{category}</p>
       </div>
       <div className={styles.likes}>
-        <img src='/img/fa-ico/thumbs-up-solid.svg' alt='Thumb up' />
+        <ThumbsUpSolidIcon title='Thumb up' height={45} />
         <p>{likes}</p>
         <p className={styles.uppercase}>{t('hangar:likes')}</p>
       </div>
