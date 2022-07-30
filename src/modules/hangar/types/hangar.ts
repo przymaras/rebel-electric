@@ -1,3 +1,5 @@
+import type { SvgComponentType } from 'src/types';
+
 export interface IVehicle {
   _id: string;
   projectName: string;
@@ -84,7 +86,7 @@ export interface IAddEbikeValues {
 export interface IVehicleCategory {
   id: string;
   name: string;
-  image: string;
+  image: SvgComponentType;
   child?: IVehicleCategories;
 }
 

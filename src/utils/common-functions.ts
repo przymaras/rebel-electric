@@ -1,6 +1,7 @@
 import type { Translate } from 'next-translate';
 
-import { IVehicleCategories } from 'src/modules/hangar/types/hangar';
+import type { IVehicleCategories } from 'src/modules/hangar/types/hangar';
+import type { SvgComponentType } from 'src/types';
 
 const imgTargetDir = process.env.NEXT_PUBLIC_IMAGEKIT_DIRECTORY ?? '/hangar/';
 
@@ -123,7 +124,7 @@ export const getSelectedCategoryTreeInfo = (vehicleCategories: IVehicleCategorie
   const categoryIndexes: number[] = [];
   const categoryIDs: string[] = [];
   const categoryNames: string[] = [];
-  const categoryImages: string[] = [];
+  const categoryImages: SvgComponentType[] = [];
   let restCategories: IVehicleCategories | undefined;
   let restIDs: string[] = [];
 
