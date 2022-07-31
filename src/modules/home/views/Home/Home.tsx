@@ -4,14 +4,14 @@ import { AcademyIcon } from 'src/assets/icons';
 import { HangarIcon } from 'src/assets/icons';
 import { UserIcon } from 'src/assets/icons';
 import RebelLogo from 'src/assets/rebel-electric-logo.svg';
-import { IVehicle } from 'src/modules/hangar/types/hangar';
 import { RecentBox } from 'src/modules/home/components/RecentBox';
 import { BtnLink } from 'src/modules/layout/components/BtnLink';
 import { InfoBox } from 'src/modules/layout/components/InfoBox';
+import type { HomePageProps } from 'src/pages';
 
 import styles from './Home.module.scss';
 
-export const Home: React.FC<{ vehicles: IVehicle[] }> = (props) => {
+export const Home: React.FC<HomePageProps> = (props) => {
   const { t } = useTranslation();
   const recentVehicles = props.vehicles;
 

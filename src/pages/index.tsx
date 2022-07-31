@@ -1,12 +1,17 @@
 import { MongoClient } from 'mongodb';
-import { GetStaticProps } from 'next';
+import type { GetStaticProps } from 'next';
 import useTranslation from 'next-translate/useTranslation';
 import Head from 'next/head';
 
-import { IVehicle } from 'src/modules/hangar/types/hangar';
+import type { IVehicle } from 'src/modules/hangar/types/hangar';
 import { Home } from 'src/modules/home/views/Home';
 
-const HomePage: React.FC<{ vehicles: IVehicle[] }> = (props) => {
+type HomePageVegiclesType = Partial<IVehicle>;
+export interface HomePageProps {
+  vehicles?: HomePageVegiclesType[];
+}
+
+const HomePage: React.FC<HomePageProps> = ({ vehicles }) => {
   const { t } = useTranslation();
   return (
     <>
@@ -15,7 +20,7 @@ const HomePage: React.FC<{ vehicles: IVehicle[] }> = (props) => {
         <meta name='description' content={t('common:metaDescription')} />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Home vehicles={props.vehicles} />
+      <Home vehicles={vehicles} />
     </>
   );
 };
@@ -28,14 +33,12 @@ export const getStaticProps: GetStaticProps = async () => {
   if (!dbName || !dbhost || !dbUser || !dbPass) return { props: {} };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  let vehiclesArray: Partial<IVehicle>[] = [];
-
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
     const vehiclesCollection = db.collection('vehicles');
-    vehiclesArray = await vehiclesCollection
-      .aggregate([
+    const vehicles = await vehiclesCollection
+      .aggregate<HomePageVegiclesType>([
         {
           $project: {
             projectName: 1,
@@ -48,19 +51,25 @@ export const getStaticProps: GetStaticProps = async () => {
       .limit(3)
       .toArray();
     await client.close();
-  } catch (err) {
-    console.log(err);
-  }
 
-  return {
-    props: {
-      vehicles: vehiclesArray.map((vehicle) => ({
-        ...vehicle,
-        _id: (vehicle?._id ?? '').toString(),
-      })),
-    },
-    revalidate: 20,
-  };
+    return {
+      props: {
+        vehicles: vehicles?.map((vehicle) => ({
+          ...vehicle,
+          _id: (vehicle?._id ?? '').toString(),
+        })),
+      },
+      revalidate: 20,
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      props: {
+        vehicles: undefined,
+      },
+      revalidate: 20,
+    };
+  }
 };
 
 export default HomePage;

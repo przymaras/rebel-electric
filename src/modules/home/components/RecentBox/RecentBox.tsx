@@ -5,14 +5,14 @@ import { Recent } from 'src/modules/home/components/Recent';
 
 import styles from './RecentBox.module.scss';
 
-export const RecentBox: React.FC<{ vehicles: IVehicle[] }> = (props) => {
+export const RecentBox: React.FC<{ vehicles?: IVehicle[] }> = ({ vehicles }) => {
   const { t } = useTranslation();
 
   return (
     <div className={styles.recentlyAdded} data-testid='RecentBox'>
       <h2 className={`${styles.recentTitle} rebel-font`}>{t('home:recently-added')}</h2>
       <div className={styles.container}>
-        {props.vehicles.map((vehicle) => {
+        {vehicles?.map((vehicle) => {
           return <Recent key={vehicle._id} vehicle={vehicle} />;
         })}
       </div>
