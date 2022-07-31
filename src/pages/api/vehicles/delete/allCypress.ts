@@ -15,7 +15,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
-    const vehiclesCollection = db.collection<Omit<IVehicle, '_id'>>('vehicles');
+    const vehiclesCollection = db.collection<Omit<Partial<IVehicle>, '_id'>>('vehicles');
 
     const vehicles = await vehiclesCollection
       .find({
@@ -24,7 +24,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       .toArray();
     const imageNames: string[] = [];
     vehicles.forEach((vehicle) =>
-      vehicle.vehicleImages.forEach((imageName) => imageNames.push(imageName))
+      vehicle.vehicleImages?.forEach((imageName) => imageNames.push(imageName))
     );
 
     await Promise.all(

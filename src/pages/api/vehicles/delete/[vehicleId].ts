@@ -16,7 +16,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { vehicleId } = req.query;
     const client = await MongoClient.connect(connectString);
     const db = client.db();
-    const vehiclesCollection = db.collection<Omit<IVehicle, '_id'>>('vehicles');
+    const vehiclesCollection = db.collection<Omit<Partial<IVehicle>, '_id'>>('vehicles');
     if (typeof vehicleId !== 'string') return;
 
     const vehicle = await vehiclesCollection.findOne({ _id: new ObjectId(vehicleId) });

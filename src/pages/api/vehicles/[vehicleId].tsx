@@ -1,6 +1,9 @@
 import { MongoClient, ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import type { IVehicle } from 'src/modules/hangar/types/hangar';
+import type { IUser } from 'src/modules/user/types/user';
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const dbName = process.env.MONGODB_DB;
   const dbhost = process.env.MONGODB_HOST;
@@ -16,7 +19,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const vehiclesCollection = db.collection('vehicles');
     if (typeof vehicleId !== 'string') return;
     const vehicles = await vehiclesCollection
-      .aggregate([
+      .aggregate<Partial<IVehicle & IUser>>([
         {
           $match: {
             _id: new ObjectId(`${vehicleId}`),
