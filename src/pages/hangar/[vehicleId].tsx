@@ -3,19 +3,19 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 
 import { IVehicle, ItemManufacturer } from 'src/modules/hangar/types/hangar';
 import { VehicleDetails } from 'src/modules/hangar/views/VehicleDetails';
+import { IUser } from 'src/modules/user/types/user';
 
-const HangarVehiclePage: React.FC<{
-  vehicleData: IVehicle;
-  controllersData: ItemManufacturer[];
-  motorsData: ItemManufacturer[];
-}> = (props) => {
-  return (
-    <VehicleDetails
-      vehicleData={props.vehicleData}
-      controllersData={props.controllersData}
-      motorsData={props.motorsData}
-    />
-  );
+type HangarVehiclePageItem = Partial<ItemManufacturer>;
+type HangarVehiclePageVehicle = Partial<IVehicle>;
+type HangarVehiclePageUser = Partial<IUser>;
+export interface HangarVehiclePageProps {
+  controllers: HangarVehiclePageItem[];
+  motors: HangarVehiclePageItem[];
+  vehicle: IVehicle;
+}
+
+const HangarVehiclePage: React.FC<HangarVehiclePageProps> = ({ controllers, motors, vehicle }) => {
+  return <VehicleDetails vehicle={vehicle} controllers={controllers} motors={motors} />;
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -26,31 +26,31 @@ export const getStaticPaths: GetStaticPaths = async () => {
   if (!dbName || !dbhost || !dbUser || !dbPass) return { paths: [], fallback: false };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  let vehiclesArray: IVehicle[] = [];
-
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
     const vehiclesCollection = db.collection('vehicles');
-    vehiclesArray = (await vehiclesCollection
-      .aggregate([{ $project: { _id: 1, createdAt: 1 } }])
+    const vehicles = await vehiclesCollection
+      .aggregate<HangarVehiclePageVehicle>([{ $project: { _id: 1, createdAt: 1 } }])
       .sort({ createdAt: -1 })
       .limit(5)
-      .toArray()) as IVehicle[];
+      .toArray();
 
     await client.close();
-    console.log(vehiclesArray);
-  } catch (err) {
-    console.log(err);
-  }
 
-  return {
-    fallback: 'blocking',
-    // paths: [{ params: { meetupId: "m1" } }, { params: { meetupId: "m2" } }],
-    paths: vehiclesArray.map((vehicle) => ({
-      params: { vehicleId: vehicle._id.toString() },
-    })),
-  };
+    return {
+      fallback: 'blocking',
+      paths: vehicles?.map((vehicle) => ({
+        params: { vehicleId: (vehicle?._id ?? '').toString() },
+      })),
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      fallback: 'blocking',
+      paths: [''],
+    };
+  }
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -63,17 +63,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const vehicleId = context.params?.vehicleId;
 
-  let vehiclesArray: Partial<IVehicle>[] = [];
-  let controllersArray: Partial<ItemManufacturer>[] = [];
-  let motorsArray: Partial<ItemManufacturer>[] = [];
-
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
     if (typeof vehicleId !== 'string') return { props: {} };
     const vehiclesCollection = db.collection('vehicles');
-    vehiclesArray = (await vehiclesCollection
-      .aggregate([
+    const vehicles = await vehiclesCollection
+      .aggregate<HangarVehiclePageVehicle & HangarVehiclePageUser>([
         {
           $match: {
             _id: new ObjectId(`${vehicleId}`),
@@ -150,45 +146,52 @@ export const getStaticProps: GetStaticProps = async (context) => {
           },
         },
       ])
-      .toArray()) as Partial<IVehicle>[];
+      .toArray();
 
     const controllersCollection = db.collection('controllers');
-    controllersArray = (await controllersCollection.aggregate([]).toArray()) as ItemManufacturer[];
+    const controllers = await controllersCollection.aggregate<HangarVehiclePageItem>([]).toArray();
 
     const motorsCollection = db.collection('motors');
-    motorsArray = (await motorsCollection.aggregate([]).toArray()) as ItemManufacturer[];
+    const motors = await motorsCollection.aggregate<HangarVehiclePageItem>([]).toArray();
 
     await client.close();
-  } catch (err) {
-    console.log(err);
-  }
 
-  return {
-    props: {
-      vehicleData: {
-        ...vehiclesArray[0],
-        _id: (vehiclesArray[0]?._id ?? '').toString(),
-        ownerId: (vehiclesArray[0]?.ownerId ?? '').toString(),
+    return {
+      props: {
+        vehicle: {
+          ...vehicles[0],
+          _id: (vehicles[0]?._id ?? '').toString(),
+          ownerId: (vehicles[0]?.ownerId ?? '').toString(),
+        },
+        controllers: controllers.map((controller) => ({
+          ...controller,
+          _id: (controller?._id ?? '').toString(),
+          models: (controller?.models ?? []).map((model) => ({
+            ...model,
+            _id: model._id.toString(),
+          })),
+        })),
+        motors: motors.map((motor) => ({
+          ...motor,
+          _id: (motor?._id ?? '').toString(),
+          models: (motor?.models ?? []).map((model) => ({
+            ...model,
+            _id: model._id.toString(),
+          })),
+        })),
       },
-      controllersData: controllersArray.map((controller) => ({
-        ...controller,
-        _id: (controller?._id ?? '').toString(),
-        models: (controller?.models ?? []).map((model) => ({
-          ...model,
-          _id: model._id.toString(),
-        })),
-      })),
-      motorsData: motorsArray.map((motor) => ({
-        ...motor,
-        _id: (motor?._id ?? '').toString(),
-        models: (motor?.models ?? []).map((model) => ({
-          ...model,
-          _id: model._id.toString(),
-        })),
-      })),
-    },
-    revalidate: 60,
-  };
+      revalidate: 60,
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      props: {
+        vehicle: undefined,
+        controllers: undefined,
+        motors: undefined,
+        revalidate: 60,
+      },
+    };
+  }
 };
-
 export default HangarVehiclePage;

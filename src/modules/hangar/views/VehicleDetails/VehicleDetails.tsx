@@ -8,31 +8,24 @@ import { Description } from 'src/modules/hangar/components/Description';
 import { VehicleSwiper } from 'src/modules/hangar/components/VehicleSwiper';
 import { VehicleVeiwsCatLikes } from 'src/modules/hangar/components/VehicleVeiwsCatLikes';
 import { vehicleCategories } from 'src/modules/hangar/store/vehicleCategories';
-import { IVehicle } from 'src/modules/hangar/types/hangar';
-import { ItemManufacturer } from 'src/modules/hangar/types/hangar';
 import { BtnLink } from 'src/modules/layout/components/BtnLink';
 import { TitleBox } from 'src/modules/layout/components/TitleBox';
+import { HangarVehiclePageProps } from 'src/pages/hangar/[vehicleId]';
 import { getSelectedCategoryTreeInfo } from 'src/utils/common-functions';
 
 import styles from './VehicleDetails.module.scss';
 
-interface VehicleDetailsProps {
-  vehicleData?: IVehicle;
-  controllersData?: ItemManufacturer[];
-  motorsData?: ItemManufacturer[];
-}
-
-export const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
+export const VehicleDetails: React.FC<HangarVehiclePageProps> = ({
+  controllers,
+  motors,
+  vehicle,
+}) => {
   const { t } = useTranslation();
   const unknownText = t('hangar:unknown');
 
-  const vData = props.vehicleData;
-  const cData = props.controllersData;
-  const mData = props.motorsData;
-
   const selectedCategoryTreeInfo = getSelectedCategoryTreeInfo(
     vehicleCategories,
-    vData?.category ?? ''
+    vehicle?.category ?? ''
   );
 
   const categoryName =
@@ -49,34 +42,34 @@ export const VehicleDetails: React.FC<VehicleDetailsProps> = (props) => {
       <TitleBox>
         <div className={styles.title}>
           <h1 className='rebel-font' style={{ fontSize: '3rem' }}>
-            {vData?.projectName ?? unknownText}
+            {vehicle?.projectName ?? unknownText}
           </h1>
           <div className={styles.userWrapper}>
             <UserIcon height={20} />
-            <p className={styles.user}>{vData?.userName ?? unknownText}</p>
+            <p className={styles.user}>{vehicle?.userName ?? unknownText}</p>
             <MapLocationIcon height={20} />
-            <p>{vData?.city ?? unknownText}</p>
+            <p>{vehicle?.city ?? unknownText}</p>
           </div>
         </div>
       </TitleBox>
       <div className={styles.container}>
         <VehicleSwiper
-          images={vData?.vehicleImages ?? []}
-          projectName={vData?.projectName ?? unknownText}
+          images={vehicle?.vehicleImages ?? []}
+          projectName={vehicle?.projectName ?? unknownText}
         />
         <VehicleVeiwsCatLikes
-          views={vData?.viewsCount ?? '0'}
+          views={vehicle?.viewsCount ?? '0'}
           category={categoryName}
           CategoryImg={categoryImage ?? Other}
-          likes={vData?.likesCount ?? '0'}
+          likes={vehicle?.likesCount ?? '0'}
         />
         <DataTablesEbike
-          vehicleData={vData}
-          motorsData={mData}
-          controllersData={cData}
+          vehicle={vehicle}
+          motors={motors}
+          controllers={controllers}
           motorType={motorType}
         />
-        <Description description={vData?.description ?? ''} />
+        <Description description={vehicle?.description ?? ''} />
         <div data-testid='VehicleButtons' className={styles.buttonsWrapper}>
           <BtnLink
             href='/users/add'
