@@ -18,7 +18,7 @@ import 'filepond/dist/filepond.min.css';
 import { useDataFetcher } from 'src/hooks/useDataFetcher/useDataFetcher';
 import { AddVehicleDataGroup } from 'src/modules/hangar/components/AddVehicleDataGroup';
 import { vehicleCategories } from 'src/modules/hangar/store/vehicleCategories';
-import { IAddEbikeValues, ItemManufacturer } from 'src/modules/hangar/types/hangar';
+import { IAddEbikeValues } from 'src/modules/hangar/types/hangar';
 import {
   TextInput,
   TextArea,
@@ -27,6 +27,7 @@ import {
   Fieldset,
   SubmitButton,
 } from 'src/modules/layout/components/formInputs';
+import type { HangarAddPageProps } from 'src/pages/hangar/add';
 import { useStore } from 'src/store/useStore';
 import { StoreState } from 'src/store/useStore';
 import { getSelectedCategoryId } from 'src/utils/common-functions';
@@ -46,11 +47,9 @@ registerPlugin(
 
 let isRefreshRender = false;
 
-interface AddEbikeFormProps {
+interface AddEbikeFormProps extends HangarAddPageProps {
   formik: FormikProps<IAddEbikeValues>;
   setRemoveImages: (f: Function) => void;
-  controllersData: ItemManufacturer[];
-  motorsData: ItemManufacturer[];
 }
 
 const newCategoryChosenSelector = (state: StoreState) => state.newCategoryChosen;
@@ -331,11 +330,11 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
               <AddVehicleDataGroup groupStyle='electrical' name={t('hangar:electrical')}>
                 <Select label={t('hangar:ctrlManufacturer')} name='ctrlManuf'>
                   <option value=''>{t('hangar:addSelect')}</option>
-                  {props.controllersData &&
-                    props.controllersData.map((controller: ItemManufacturer) => {
+                  {props.controllers &&
+                    props.controllers.map((controller) => {
                       const option = (
-                        <option key={controller._id} value={controller._id}>
-                          {controller.manufacturer}
+                        <option key={controller?._id} value={controller?._id}>
+                          {controller?.manufacturer}
                         </option>
                       );
                       return controller.validated ? option : null;
@@ -360,10 +359,10 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                   disabled={!props.formik.values.ctrlManuf}
                 >
                   <option value=''>{t('hangar:addSelect')}</option>
-                  {props.controllersData &&
-                    props.controllersData
-                      .find((controller) => controller._id === props.formik.values.ctrlManuf)
-                      ?.models.map((ctrlModel) => {
+                  {props.controllers &&
+                    props?.controllers
+                      ?.find((controller) => controller?._id === props.formik.values.ctrlManuf)
+                      ?.models?.map((ctrlModel) => {
                         const option = (
                           <option key={ctrlModel._id} value={ctrlModel._id}>
                             {ctrlModel.model}
@@ -395,11 +394,11 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
 
                 <Select label={t('hangar:addMotorManufacturer')} name='motorManuf'>
                   <option value=''>{t('hangar:addSelect')}</option>
-                  {props.motorsData &&
-                    props.motorsData.map((motor: ItemManufacturer) => {
+                  {props.motors &&
+                    props.motors.map((motor) => {
                       return (
-                        <option key={motor._id} value={motor._id}>
-                          {motor.manufacturer}
+                        <option key={motor?._id} value={motor?._id}>
+                          {motor?.manufacturer}
                         </option>
                       );
                     })}
@@ -423,10 +422,10 @@ export const AddEbikeForm: React.FC<AddEbikeFormProps> = (props) => {
                   disabled={!props.formik.values.motorManuf}
                 >
                   <option value=''>{t('hangar:addSelect')}</option>
-                  {props.motorsData &&
-                    props.motorsData
+                  {props.motors &&
+                    props.motors
                       .find((motor) => motor._id === props.formik.values.motorManuf)
-                      ?.models.map((motorModel) => {
+                      ?.models?.map((motorModel) => {
                         return (
                           <option key={motorModel._id} value={motorModel._id}>
                             {motorModel.model}

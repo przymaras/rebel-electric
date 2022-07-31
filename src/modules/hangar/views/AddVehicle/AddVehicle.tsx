@@ -6,19 +6,17 @@ import { HangarIcon } from 'src/assets/icons';
 import { AddEbikeFormikContext } from 'src/modules/hangar/components/AddEbikeFormikContext';
 import { CategorySelector } from 'src/modules/hangar/components/CategorySelector';
 import { vehicleCategories } from 'src/modules/hangar/store/vehicleCategories';
-import { ItemManufacturer, IAddEbikeValues } from 'src/modules/hangar/types/hangar';
+import type { IAddEbikeValues } from 'src/modules/hangar/types/hangar';
 import { InfoBox } from 'src/modules/layout/components/InfoBox';
 import { TitleBox } from 'src/modules/layout/components/TitleBox';
+import type { HangarAddPageProps } from 'src/pages/hangar/add';
 import { useStore, StoreState } from 'src/store/useStore';
 
 import styles from './AddVehicle.module.scss';
 
 const newCategoryChosenSelector = (state: StoreState) => state.newCategoryChosen;
 
-export const AddVehicle: React.FC<{
-  controllersData: ItemManufacturer[];
-  motorsData: ItemManufacturer[];
-}> = (props) => {
+export const AddVehicle: React.FC<HangarAddPageProps> = ({ controllers, motors }) => {
   const { t } = useTranslation();
   const router = useRouter();
 
@@ -92,8 +90,8 @@ export const AddVehicle: React.FC<{
       selectedCategory[VEHICLE_TYPE] === MONSTEREBIKE_TYPE ? (
         <AddEbikeFormikContext
           onAddVehicle={onAddVehicle}
-          controllersData={props.controllersData}
-          motorsData={props.motorsData}
+          controllers={controllers}
+          motors={motors}
         />
       ) : selectedCategory[VEHICLE_TYPE] === NOT_SELECTED ? (
         <p data-testid='ChooseCategoryToGetForm' className={styles.formInfo}>

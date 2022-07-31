@@ -4,15 +4,18 @@ import { useRef } from 'react';
 import * as Yup from 'yup';
 
 import { AddEbikeForm } from 'src/modules/hangar/components/AddEbikeForm';
-import { ItemManufacturer, IAddEbikeValues } from 'src/modules/hangar/types/hangar';
+import { IAddEbikeValues } from 'src/modules/hangar/types/hangar';
+import type { HangarAddPageProps } from 'src/pages/hangar/add';
 
-interface AddEbikeFormikContextProps {
+interface AddEbikeFormikContextProps extends HangarAddPageProps {
   onAddVehicle: (enteredData: IAddEbikeValues) => void;
-  controllersData: ItemManufacturer[];
-  motorsData: ItemManufacturer[];
 }
 
-export const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (props) => {
+export const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = ({
+  motors,
+  controllers,
+  onAddVehicle,
+}) => {
   const removeImagesRef = useRef<Function>(() => {});
   const { t } = useTranslation();
 
@@ -196,7 +199,7 @@ export const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (prop
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {
-            props.onAddVehicle(values);
+            onAddVehicle(values);
             resetForm();
             setSubmitting(true);
             removeImagesRef.current();
@@ -217,8 +220,8 @@ export const AddEbikeFormikContext: React.FC<AddEbikeFormikContextProps> = (prop
               <AddEbikeForm
                 setRemoveImages={setRemoveImages}
                 formik={formik}
-                controllersData={props.controllersData}
-                motorsData={props.motorsData}
+                controllers={controllers}
+                motors={motors}
               />
             </div>
           );
