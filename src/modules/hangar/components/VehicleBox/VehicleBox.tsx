@@ -9,28 +9,26 @@ import { getBigThumbSrc, roundDec2 } from 'src/utils/common-functions';
 import styles from './VehicleBox.module.scss';
 
 interface VehicleBoxProps {
-  vehicleData: IVehicle;
+  vehicle: Partial<IVehicle>;
 }
 
-export const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
-  const vData = props.vehicleData;
-
-  const imageName = vData.vehicleImages[0] ? vData.vehicleImages[0] : 'none.jpg';
-  const projectName = vData.projectName;
-  const vehicleId = vData._id;
+export const VehicleBox: React.FC<VehicleBoxProps> = ({ vehicle }) => {
+  const imageName = vehicle?.vehicleImages?.[0] ? vehicle.vehicleImages[0] : 'none.jpg';
+  const projectName = vehicle.projectName;
+  const vehicleId = vehicle._id;
 
   const { t } = useTranslation();
 
   //TODO: Refactor definitions below to functions here and in DataTablesEbike
 
   let power: number | undefined =
-    parseInt(vData?.batVoltage ?? '') * parseInt(vData?.ctrlCurrent ?? '');
+    parseInt(vehicle?.batVoltage ?? '') * parseInt(vehicle?.ctrlCurrent ?? '');
 
   power = power ? roundDec2(power) : undefined;
 
-  const capacityUnit = vData?.capacityUnit;
-  const capacity = roundDec2(vData?.capacity);
-  const voltage = roundDec2(vData?.batVoltage);
+  const capacityUnit = vehicle?.capacityUnit;
+  const capacity = roundDec2(vehicle?.capacity);
+  const voltage = roundDec2(vehicle?.batVoltage);
   let capacityWh: number | undefined;
   let capacityAh: number | undefined;
 
@@ -46,7 +44,7 @@ export const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
     }
   }
 
-  const range = parseInt(vData?.range ?? '---');
+  const range = parseInt(vehicle?.range ?? '---');
   let energyConsumption: number | undefined;
 
   if (capacityWh && range) {
@@ -54,16 +52,16 @@ export const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
   }
 
   return (
-    <Link href={`/hangar/${vehicleId}`} passHref>
+    <Link href={`/hangar/${vehicleId ?? ''}`} passHref>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a>
         <div className={styles.container}>
           <div className={styles.titleContainer}>
-            <h2 className={`${styles.title} rebel-font`}>{vData.projectName}</h2>
+            <h2 className={`${styles.title} rebel-font`}>{vehicle.projectName}</h2>
           </div>
           <div className={styles.categoryImg}>
             <img
-              src={getBigThumbSrc({ imageName, seoName: projectName })}
+              src={getBigThumbSrc({ imageName, seoName: projectName ?? '' })}
               alt={projectName}
               loading='lazy'
             />
@@ -71,18 +69,18 @@ export const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
 
           <DataBar
             barStyle='base'
-            col1={`${vData?.vmax ? vData.vmax : '---'} ${
-              vData?.vmaxUnit ? t(`hangar:${vData.vmaxUnit}`) : ''
+            col1={`${vehicle?.vmax ? vehicle.vmax : '---'} ${
+              vehicle?.vmaxUnit ? t(`hangar:${vehicle.vmaxUnit}`) : ''
             }`}
-            col2={`${vData?.mass ? vData.mass : '---'} ${vData.massUnit ?? ''}`}
-            col3={`${vData?.range ? vData.range : '---'} ${vData?.rangeUnit ?? ''}`}
+            col2={`${vehicle?.mass ? vehicle.mass : '---'} ${vehicle.massUnit ?? ''}`}
+            col3={`${vehicle?.range ? vehicle.range : '---'} ${vehicle?.rangeUnit ?? ''}`}
           />
           <DataBar
             barStyle='electrical'
             col1={power ? `${power} W` : '---'}
-            col2={vData?.ctrlCurrent ? `${vData.ctrlCurrent} A` : '---'}
+            col2={vehicle?.ctrlCurrent ? `${vehicle.ctrlCurrent} A` : '---'}
             col3={
-              energyConsumption ? `${energyConsumption} Wh/${vData?.rangeUnit ?? '---'}` : '---'
+              energyConsumption ? `${energyConsumption} Wh/${vehicle?.rangeUnit ?? '---'}` : '---'
             }
           />
           <DataBar
@@ -90,10 +88,10 @@ export const VehicleBox: React.FC<VehicleBoxProps> = (props) => {
             col1={capacityWh ? `${capacityWh} Wh` : '---'}
             col2={capacityAh ? `${capacityAh} Ah` : '---'}
             col3={
-              vData?.batVoltage && vData?.batVoltage !== 'other'
-                ? `${vData.batVoltage} V`
-                : vData?.batVoltageOther
-                ? `${vData.batVoltageOther} V`
+              vehicle?.batVoltage && vehicle?.batVoltage !== 'other'
+                ? `${vehicle.batVoltage} V`
+                : vehicle?.batVoltageOther
+                ? `${vehicle.batVoltageOther} V`
                 : '---'
             }
           />

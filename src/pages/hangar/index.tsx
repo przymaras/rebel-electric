@@ -1,31 +1,17 @@
 import { MongoClient } from 'mongodb';
-import { GetStaticProps } from 'next';
+import type { GetStaticProps } from 'next';
 
-import { IVehicle } from 'src/modules/hangar/types/hangar';
+import type { IVehicle } from 'src/modules/hangar/types/hangar';
 import { Hangar } from 'src/modules/hangar/views/Hangar';
 
-const HangarPage: React.FC<{ vehicles: IVehicle[] }> = (props) => {
-  return <Hangar vehicles={props.vehicles} />;
+type HangarPageVehiclesType = Partial<IVehicle>;
+export interface HangarPageProps {
+  vehicles?: HangarPageVehiclesType[];
+}
+
+const HangarPage: React.FC<HangarPageProps> = ({ vehicles }) => {
+  return <Hangar vehicles={vehicles} />;
 };
-
-// export async function getServerSideProps() {
-//   let hangarData = { vehicles: [] };
-//   const url = `${process.env.API_URL}/vehicles/`;
-//   try {
-//     const res = await fetch(url);
-//     const data = await res.json();
-//     console.log(res.ok);
-//     hangarData = { ...data };
-//   } catch (err) {
-//     console.log(err);
-//   }
-
-//   return {
-//     props: {
-//       hangarData,
-//     },
-//   };
-// }
 
 export const getStaticProps: GetStaticProps = async () => {
   const dbName = process.env.MONGODB_DB;
@@ -35,14 +21,12 @@ export const getStaticProps: GetStaticProps = async () => {
   if (!dbName || !dbhost || !dbUser || !dbPass) return { props: {} };
   const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbhost}/${dbName}?retryWrites=true&w=majority`;
 
-  let vehiclesArray: Partial<IVehicle>[] = [];
-
   try {
     const client = await MongoClient.connect(connectString);
     const db = client.db();
     const vehiclesCollection = db.collection('vehicles');
-    vehiclesArray = await vehiclesCollection
-      .aggregate([
+    const vehicles = await vehiclesCollection
+      .aggregate<HangarPageVehiclesType>([
         {
           $project: {
             ownerId: 0,
@@ -51,23 +35,27 @@ export const getStaticProps: GetStaticProps = async () => {
       ])
 
       .sort({ createdAt: -1 }) //sort from newest to oldest
-      // .limit(3)
       .toArray();
     await client.close();
-  } catch (err) {
-    console.log(err);
-  }
 
-  return {
-    props: {
-      vehicles: vehiclesArray.map((vehicle) => ({
-        ...vehicle,
-        _id: (vehicle?._id ?? '').toString(),
-        createdAt: (vehicle?.createdAt ?? '').toString(),
-      })),
-    },
-    revalidate: 20,
-  };
+    return {
+      props: {
+        vehicles: vehicles?.map((vehicle) => ({
+          ...vehicle,
+          _id: (vehicle?._id ?? '').toString(),
+          createdAt: (vehicle?.createdAt ?? '').toString(),
+        })),
+      },
+      revalidate: 20,
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      props: {
+        vehicles: undefined,
+      },
+    };
+  }
 };
 
 export default HangarPage;

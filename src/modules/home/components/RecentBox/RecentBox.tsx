@@ -5,7 +5,7 @@ import { Recent } from 'src/modules/home/components/Recent';
 
 import styles from './RecentBox.module.scss';
 
-export const RecentBox: React.FC<{ vehicles?: IVehicle[] }> = ({ vehicles }) => {
+export const RecentBox: React.FC<{ vehicles?: Partial<IVehicle>[] }> = ({ vehicles }) => {
   const { t } = useTranslation();
 
   return (

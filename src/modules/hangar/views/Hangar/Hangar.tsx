@@ -10,21 +10,16 @@ import { SearchBar } from 'src/modules/hangar/components/SearchBar';
 import { SearchResultSortBar } from 'src/modules/hangar/components/SearchResultSortBar';
 import { VehicleBox } from 'src/modules/hangar/components/VehicleBox';
 import { vehicleCategories } from 'src/modules/hangar/store/vehicleCategories';
-import { IVehicle } from 'src/modules/hangar/types/hangar';
 import { InfoBox } from 'src/modules/layout/components/InfoBox';
 import { TitleBox } from 'src/modules/layout/components/TitleBox';
+import type { HangarPageProps } from 'src/pages/hangar';
 import { useStore } from 'src/store/useStore';
 import { getSelectedCategoryId, getSelectedCategoryTreeInfo } from 'src/utils/common-functions';
 
 import styles from './Hangar.module.scss';
 
-interface HangarProps {
-  vehicles: IVehicle[];
-}
-
-export const Hangar: React.FC<HangarProps> = (props) => {
+export const Hangar: React.FC<HangarPageProps> = ({ vehicles }) => {
   const { t } = useTranslation();
-  const vehicles = props.vehicles;
   const newHangarCategoryChosen = useStore((state) => state.newHangarCategoryChosen);
   const [selectedCategoryInfo, setSelectedCategoryInfo] =
     useState<ReturnType<typeof getSelectedCategoryTreeInfo>>(undefined);
@@ -49,38 +44,38 @@ export const Hangar: React.FC<HangarProps> = (props) => {
     }
   }, [newHangarCategoryChosen]);
 
-  const vehiclesToDisplay = () => {
-    let vehiclesToDisplay2: IVehicle[] = [...vehicles];
+  const getVehiclesToDisplay = () => {
+    let vehiclesToDisplay = [...(vehicles ?? [])];
 
     if (selectedCategoryInfo) {
-      vehiclesToDisplay2 = vehiclesToDisplay2.filter((vehicle) =>
-        selectedCategoryInfo.restIDs.includes(vehicle.category)
+      vehiclesToDisplay = vehiclesToDisplay.filter((vehicle) =>
+        selectedCategoryInfo.restIDs.includes(vehicle?.category ?? '')
       );
     }
 
     if (searchValue) {
-      vehiclesToDisplay2 = vehiclesToDisplay2.filter((vehicle) =>
-        vehicle.projectName.toLowerCase().includes(searchValue.toLowerCase())
+      vehiclesToDisplay = vehiclesToDisplay.filter((vehicle) =>
+        (vehicle?.projectName ?? '').toLowerCase().includes(searchValue.toLowerCase())
       );
     }
 
     if (sortBy === 'createdAt') {
-      return vehiclesToDisplay2.sort(
-        (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+      return vehiclesToDisplay.sort(
+        (a, b) => new Date(b?.createdAt ?? '').valueOf() - new Date(a?.createdAt ?? '').valueOf()
       );
     }
     if (sortBy === 'viewsCount') {
-      return vehiclesToDisplay2.sort(
+      return vehiclesToDisplay.sort(
         (a, b) => Number(b.viewsCount ?? 0) - Number(a.viewsCount ?? 0)
       );
     }
     if (sortBy === 'likesCount') {
-      return vehiclesToDisplay2.sort(
+      return vehiclesToDisplay.sort(
         (a, b) => Number(b.likesCount ?? 0) - Number(a.likesCount ?? 0)
       );
     }
 
-    return vehiclesToDisplay2;
+    return vehiclesToDisplay;
   };
 
   return (
@@ -109,7 +104,7 @@ export const Hangar: React.FC<HangarProps> = (props) => {
 
       <SearchBar />
 
-      <SearchResultSortBar found={vehiclesToDisplay().length} />
+      <SearchResultSortBar found={getVehiclesToDisplay().length} />
 
       <DataBarLabels />
 
@@ -136,8 +131,8 @@ export const Hangar: React.FC<HangarProps> = (props) => {
         />
       </DataBarsHeadingContainer>
       <div data-testid='vehiclesWrapper' className={styles.vehiclesWrapper}>
-        {vehiclesToDisplay().map((vehicle) => (
-          <VehicleBox key={vehicle._id} vehicleData={vehicle} />
+        {getVehiclesToDisplay().map((vehicle) => (
+          <VehicleBox key={vehicle._id} vehicle={vehicle} />
         ))}
       </div>
     </>

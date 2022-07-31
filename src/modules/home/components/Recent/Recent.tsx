@@ -7,10 +7,12 @@ import { getBigThumbSrc } from 'src/utils/common-functions';
 import styles from './Recent.module.scss';
 
 interface RecentProps {
-  vehicle: IVehicle;
+  vehicle: Partial<IVehicle>;
 }
 
-export const Recent: React.FC<RecentProps> = ({ vehicle: { vehicleImages, projectName, _id } }) => {
+export const Recent: React.FC<RecentProps> = ({
+  vehicle: { vehicleImages = [], projectName = '', _id = '' },
+}) => {
   const imageName = vehicleImages[0];
   return (
     <div className={styles.container} data-testid={`Recent_${_id}`}>
